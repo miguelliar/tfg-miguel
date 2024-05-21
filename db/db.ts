@@ -48,3 +48,12 @@ export const fetchProjectData = async () => {
         console.error('Error executing query', error);
     }
 }
+
+export const fetchInvestigadoresByProyecto = async (id: string) => {
+    try {
+        const result = await pool.query<InvestigadorType>('SELECT * FROM investigador WHERE id in (SELECT * FROM participa WHERE id_proyecto = $1)', [id]);
+        return result.rows;
+    } catch (error) {
+        console.error('Error executing query', error);
+    }
+}
