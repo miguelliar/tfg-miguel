@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { fetchFilteredInvestigador, fetchInvestigadorData, fetchProjectData } from '../../../db/db';
+import { fetchFilteredInvestigador, fetchProjectData } from '../../../db/db';
 import { InvestigadorTable } from '../ui/tables/InvestigadorTable';
 import { ProjectTable } from '../ui/tables/ProjectTable';
 
