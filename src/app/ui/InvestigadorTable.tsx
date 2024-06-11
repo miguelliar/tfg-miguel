@@ -1,11 +1,13 @@
+import { InvestigadorType } from "../../../db/db"
+import './tableStyle.css'
 
 export const InvestigadorTable = (
-    {investigadorData,}: {investigadorData?: any[]}
+    {investigadorData,}: {investigadorData?: InvestigadorType[]}
 ) => {
 return (
-<table>
+<table className="ProyectoTable">
     <thead>
-        <tr>
+        <tr className="ProyectoTableHeadRow">
             <th>Nombre de autor</th>
             <th>Universidad</th>
             <th>Departamento</th>
@@ -14,7 +16,7 @@ return (
             <th>Miembro</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody className="ProyectoTableBody">
         {
             investigadorData && investigadorData.map((row) => (
                 <tr key={row.id}>

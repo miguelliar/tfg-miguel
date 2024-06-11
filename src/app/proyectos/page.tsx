@@ -10,8 +10,8 @@ export default async function Page() {
     return (
     <main>
         <h1>Proyectos</h1>
-        <section>
-            <h2>Selecciona un proyecto</h2>
+        <section className='m-4 p-1 flex flex-col'>
+            <h2 className='text-lg'>Selecciona un proyecto</h2>
             {/*<form onSubmit={(formEvent) => console.log(formEvent)}>
                 <fieldset>
                     <button type='submit'>Buscar investigadores</button>
@@ -19,8 +19,8 @@ export default async function Page() {
             </form>*/}
             <ProjectTable projectData={projectData}/>
         </section>
-        <section>
-            <h2>Investigadores involucrados en el proyecto</h2>
+        <section className='m-4 p-1 flex flex-col'>
+            <h2 className='text-lg'>Investigadores involucrados en el proyecto</h2>
             <InvestigadorTable investigadorData={investigadorData} />
         </section>
     </main>);
