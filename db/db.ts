@@ -31,6 +31,18 @@ export type ProyectoType = {
     fin: Date;
 }
 
+export const fetchFilteredInvestigador =  async (idProyecto: string) => {
+    try {
+        const result = await pool.query<InvestigadorType>(
+            `SELECT * FROM investigador WHERE investigador.id IN (SELECT id_investigador FROM participa WHERE id_proyecto='${idProyecto}')`
+        );
+        return result.rows;
+    } catch (error) {
+        console.error('Error executing query', error);
+    }
+}
+
+
 export const fetchInvestigadorData = async () => {
     try {
         const result = await pool.query<InvestigadorType>('SELECT * FROM investigador');

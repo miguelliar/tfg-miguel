@@ -1,11 +1,12 @@
-import { ProyectoType } from "../../../db/db"
+import Link from "next/link"
+import { ProyectoType } from "../../../../db/db"
 import './tableStyle.css'
 
 export const ProjectTable = (
 {
     projectData,
 } : {
-    projectData? : ProyectoType[],
+    projectData? : ProyectoType[]
 }) => {
     return (
     <table className="ProyectoTable">
@@ -24,8 +25,11 @@ export const ProjectTable = (
             { 
                 projectData && projectData.map((row) => (
                     <tr key={row.codigo} className="ProyectoTableRow">
-                        {/*<td><input type="radio" id={row.codigo} name="proyecto" value={row.codigo}></input></td>*/}
-                        <td>{row.codigo}</td>
+                        <td>
+                            <Link href={`/proyectos?projectId=${row.codigo}`}>
+                                {row.codigo}
+                            </Link>
+                        </td>
                         <td>{row.ip}</td>
                         <td>{row.titulo}</td>
                         <td>{row.financiado}</td>

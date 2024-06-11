@@ -1,11 +1,18 @@
-import { fetchInvestigadorData, fetchProjectData } from '../../../db/db';
-import { InvestigadorTable } from '../ui/InvestigadorTable';
-import { ProjectTable } from '../ui/ProjectTable';
+import { useState } from 'react';
+import { fetchFilteredInvestigador, fetchInvestigadorData, fetchProjectData } from '../../../db/db';
+import { InvestigadorTable } from '../ui/tables/InvestigadorTable';
+import { ProjectTable } from '../ui/tables/ProjectTable';
 
-export default async function Page() {
+export default async function Page({
+    searchParams
+  }: {
+    searchParams?: {
+        projectId?: string;
+    }
+  }) {
     const projectData = await fetchProjectData();
 
-    const investigadorData = await fetchInvestigadorData();
+    const investigadorData = await fetchFilteredInvestigador(searchParams?.projectId??'');
 
     return (
     <main>

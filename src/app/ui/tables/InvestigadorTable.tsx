@@ -1,4 +1,4 @@
-import { InvestigadorType } from "../../../db/db"
+import { InvestigadorType } from "../../../../db/db"
 import './tableStyle.css'
 
 export const InvestigadorTable = (
