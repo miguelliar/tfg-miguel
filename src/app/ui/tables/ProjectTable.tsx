@@ -12,7 +12,6 @@ export const ProjectTable = (
     <table className="ProyectoTable">
         <thead>
             <tr className="ProyectoTableHeadRow">
-                {/*<th>Selección</th>*/}
                 <th>Codigo</th>
                 <th>Investigador Principal</th>
                 <th>Titulo</th>
