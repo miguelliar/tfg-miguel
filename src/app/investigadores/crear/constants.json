@@ -1,0 +1,39 @@
+{
+    "fields": [
+        {
+            "id": "nombre_autor",
+            "label": "Nombre de autor",
+            "type": "text",
+            "required": true,
+            "placeholder": "Introduce el nombre de autor..."
+        },
+        {
+            "id": "universidad",
+            "label": "Universidad",
+            "type": "text",
+            "required": true,
+            "placeholder": "Universidad del investigador..."
+        },
+        {
+            "id": "area",
+            "label": "Area de estudio",
+            "type": "text",
+            "required": true,
+            "placeholder": "Area de estudio del departamento..."
+        },
+        {
+            "id": "figura",
+            "label": "Figura",
+            "type": "text",
+            "required": true,
+            "placeholder": "Figura del autor..."
+        },
+        {
+            "id": "miembro",
+            "label": "Miembro",
+            "type": "miembro",
+            "required": true,
+            "placeholder": "Miembro..."
+        }
+    ]
+}

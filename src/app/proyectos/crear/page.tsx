@@ -1,63 +1,56 @@
 'use server';
+import { CreateForm, CreateFormParams } from "@/app/ui/form/CreateForm";
 import { createProyecto } from "../../../../db/db";
-import './styles.css';
 
 export default async function Page() {
+    const formParams : CreateFormParams = {
+        createCallback: createProyecto,
+        fields: [
+        {
+            id: "codigo",
+            label: "Codigo",
+            type: "text",
+            required: true,
+            placeholder: "Introduce el codigo para el proyecto..."
+        },
+        {
+            id: "ip",
+            label: "Investigador Principal",
+            type: "text",
+            required: true,
+            placeholder: "Nombre del investigador principal..."
+        },
+        {
+            id: "titulo",
+            label: "Titulo",
+            type: "text",
+            required: true,
+            placeholder: "Titulo del proyecto..."
+        },
+        {
+            id: "financiado",
+            label: "Entidad financiadora",
+            type: "text",
+            required: true,
+            placeholder: "Entidad financiadora..."
+        },
+        {
+            id: "inicio",
+            label: "Fecha de inicio del proyecto",
+            type: "date",
+            required: true,
+            placeholder: "Introduce la fecha de inicio..."
+        },
+        {
+            id: "fin",
+            label: "Fecha de finalización del proyecto (opcional)",
+            type: "date",
+            required: true,
+            placeholder: "Introduce la fecha de fin..."
+        },],
+        submitText: "Crear proyecto"
+    };
+    
     return (
-    <form className="ProyectoForm" action={createProyecto}>
-        <div>
-            <label htmlFor="codigo">Codigo</label>
-            <input
-            id="codigo"
-            name="codigo"
-            type="text"
-            required={true}
-            placeholder="Introduce el codigo para el proyecto..."></input>
-        </div>
-        <div>
-            <label htmlFor="ip">Investigador Principal</label>
-            <input
-            id="ip"
-            name="ip"
-            type="text"
-            required={true}
-            placeholder="Nombre del investigador principal..."></input>
-        </div>
-        <div>
-            <label htmlFor="titulo">Titulo</label>
-            <input
-            id="titulo"
-            name="titulo"
-            type="text"
-            required={true}
-            placeholder="Titulo del proyecto..."></input>
-        </div>
-        <div>            
-            <label htmlFor="financiado">Entidad financiadora</label>
-            <input
-            id="financiado"
-            name="financiado"
-            type="text"
-            required={true}
-            placeholder="Entidad financiadora..."></input>
-        </div>
-        <div>
-            <label htmlFor="inicio">Fecha de inicio del proyecto</label>
-            <input
-            id="inicio"
-            name="inicio"
-            type="date"
-            required={true}
-            placeholder="Introduce la fecha de inicio..."></input>
-        </div>
-        <div>
-            <label htmlFor="fin">Fecha de finalización del proyecto (opcional)</label>
-            <input
-            id="fin"
-            name="fin"
-            type="date"
-            placeholder="Introduce la fecha de fin..."></input>
-        </div>
-        <button type="submit" className="bg-white">Crear proyecto</button>
-    </form>);
+    <CreateForm {...formParams}/>);
 }
