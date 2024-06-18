@@ -44,6 +44,15 @@ const ProyectoFormSchema = z.object({
     fin: z.string(),
 })
 
+const InvestigadorFormSchema = z.object({
+    nombre_autor: z.string(),
+    universidad: z.string(),
+    departamento: z.string(),
+    area: z.string(),
+    figura: z.string(),
+    miembro: z.string(),
+})
+
 export const fetchFilteredInvestigador =  async (idProyecto: string) => {
     try {
         const result = await pool.query<InvestigadorType>(
@@ -94,11 +103,39 @@ export async function createProyecto(formData: FormData) {
     revalidatePath('/proyectos');
 }
 
+export async function createInvestigador(formData: FormData) {
+    const {nombre_autor, universidad, departamento, area, figura, miembro} = InvestigadorFormSchema.parse({
+        nombre_autor: formData.get('nombre_autor'),
+        universidad: formData.get('universidad'),
+        departamento: formData.get('departamento'),
+        area: formData.get('area'),
+        figura: formData.get('figura'),
+        miembro: formData.get('miembro'),
+    })
+
+}
+
 const fetchLastProyectoId = async () => {
     try {
         const result = await pool.query<{lastid: number}>(`SELECT
         MAX(CAST(id AS INT)) as lastId
     FROM proyecto
+    WHERE id LIKE '%'`);
+    try {
+        return result.rows[0];
+    } catch (error) {
+        console.error('Error obtaining the maximum index', error);
+    }
+    } catch (error) {
+        console.error('Error executing query', error);
+    }
+}
+
+const fetchLastInvestigadorId = async () => {
+    try {
+        const result = await pool.query<{lastid: number}>(`SELECT
+        MAX(CAST(id AS INT)) as lastId
+    FROM investigador
     WHERE id LIKE '%'`);
     try {
         return result.rows[0];
