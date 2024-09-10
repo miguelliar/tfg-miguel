@@ -10,7 +10,7 @@ export default async function Page() {
     <main>
         <h1>Investigadores</h1>
         <section>
-            <Link href="/proyectos/crear">Crear proyecto</Link>
+            <Link href="/investigadores/crear">Crear investigador</Link>
         </section>
         <section className='m-4 p-1 flex flex-col'>
             <InvestigadorTable investigadorData={investigadorData} />

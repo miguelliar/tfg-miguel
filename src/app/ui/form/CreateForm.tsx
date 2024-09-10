@@ -1,5 +1,4 @@
 import { HTMLInputTypeAttribute } from "react";
-import './CreateForm.css';
 
 export type FormField = {
     id: string,
@@ -18,12 +17,13 @@ export type CreateFormParams = {
 export const CreateForm = ({createCallback, fields, submitText}: CreateFormParams) => {
     return (
         <form className="CreateForm" action={createCallback}>
-            <div>
+            <div className="flex flex-col justify-start">
                 {fields.map(field => {
                     return (
-                    <div id={field.id}>
-                        <label htmlFor={field.id}>{field.label}</label>
+                    <div id={field.id} className="flex flex-row justify-center mb-4">
+                        <label htmlFor={field.id} className="mr-4 w-full">{field.label}</label>
                         <input
+                        className="bg-black w-full"
                         id={field.id}
                         name={field.id}
                         type={field.type}
@@ -33,6 +33,6 @@ export const CreateForm = ({createCallback, fields, submitText}: CreateFormParam
                     </div>);
                 })}
             </div>
-            <button type="submit" className="bg-white">{submitText}</button>
+            <button type="submit" className="bg-blue-700">{submitText}</button>
         </form>);
 }

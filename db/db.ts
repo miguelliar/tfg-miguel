@@ -4,6 +4,7 @@ import { z } from 'zod';
 import {Pool} from 'pg';
 import {configDotenv} from 'dotenv';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 configDotenv();
 
@@ -92,7 +93,7 @@ export async function createProyecto(formData: FormData) {
         inicio: formData.get('inicio'),
         fin: formData.get('fin'),
     });
-    const id = (await fetchLastProyectoId())?.lastid;
+    const id = (await fetchLastAvailableProyectoId());
 
     try {
         await pool.query(`INSERT INTO proyecto (id, codigo, ip, titulo, financiado, inicio, fin)
@@ -101,6 +102,7 @@ export async function createProyecto(formData: FormData) {
         console.error('Error inserting proyecto', error);
     }
     revalidatePath('/proyectos');
+    redirect('/proyectos');
 }
 
 export async function createInvestigador(formData: FormData) {
@@ -113,16 +115,26 @@ export async function createInvestigador(formData: FormData) {
         miembro: formData.get('miembro'),
     })
 
+    const id = (await fetchLastAvailableInvestigadorId());
+
+    try {
+        await pool.query(`INSERT INTO investigador (id, nombre_autor, universidad, departamento, area, figura, miembro)
+            VALUES ('${id}','${nombre_autor}', '${universidad}', '${departamento}', '${area}', '${figura}', '${miembro}')`);
+    } catch (error) {
+        console.error('Error inserting proyecto', error);
+        revalidatePath('/investigadores', 'page');
+        redirect('/investigadores');
+    }
 }
 
-const fetchLastProyectoId = async () => {
+const fetchLastAvailableProyectoId = async () => {
     try {
         const result = await pool.query<{lastid: number}>(`SELECT
         MAX(CAST(id AS INT)) as lastId
     FROM proyecto
     WHERE id LIKE '%'`);
     try {
-        return result.rows[0];
+        return result.rows[0].lastid + 1;
     } catch (error) {
         console.error('Error obtaining the maximum index', error);
     }
@@ -131,14 +143,14 @@ const fetchLastProyectoId = async () => {
     }
 }
 
-const fetchLastInvestigadorId = async () => {
+const fetchLastAvailableInvestigadorId = async () => {
     try {
         const result = await pool.query<{lastid: number}>(`SELECT
         MAX(CAST(id AS INT)) as lastId
     FROM investigador
     WHERE id LIKE '%'`);
     try {
-        return result.rows[0];
+        return result.rows[0].lastid + 1;
     } catch (error) {
         console.error('Error obtaining the maximum index', error);
     }

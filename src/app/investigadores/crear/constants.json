@@ -15,6 +15,13 @@
             "placeholder": "Universidad del investigador..."
         },
         {
+            "id": "departamento",
+            "label": "Departamento",
+            "type": "text",
+            "required": true,
+            "placeholder": "Departamento de estudio..."
+        },
+        {
             "id": "area",
             "label": "Area de estudio",
             "type": "text",
