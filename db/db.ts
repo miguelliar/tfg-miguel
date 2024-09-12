@@ -122,9 +122,19 @@ export async function createInvestigador(formData: FormData) {
             VALUES ('${id}','${nombre_autor}', '${universidad}', '${departamento}', '${area}', '${figura}', '${miembro}')`);
     } catch (error) {
         console.error('Error inserting proyecto', error);
-        revalidatePath('/investigadores', 'page');
-        redirect('/investigadores');
     }
+    revalidatePath('/investigadores', 'page');
+    redirect('/investigadores');
+}
+
+export async function createParticipa(idProyecto: number, idInvestigador: number) {
+    try {
+        await pool.query(`INSERT INTO participa (id_investigador, id_proyecto)
+            VALUES ('${idInvestigador}', '${idProyecto}')`)
+    } catch (error) {
+        console.error('Error inserting participa', error);
+    }
+    revalidatePath('/proyectos', 'page');
 }
 
 const fetchLastAvailableProyectoId = async () => {
@@ -162,6 +172,15 @@ const fetchLastAvailableInvestigadorId = async () => {
 export const fetchInvestigadoresByProyecto = async (id: string) => {
     try {
         const result = await pool.query<InvestigadorType>('SELECT * FROM investigador WHERE id in (SELECT * FROM participa WHERE id_proyecto = $1)', [id]);
+        return result.rows;
+    } catch (error) {
+        console.error('Error executing query', error);
+    }
+}
+
+export const fetchInvestigadoresByNombre = async (nombre: string) => {
+    try {
+        const result = await pool.query<InvestigadorType>(`SELECT * FROM investigador WHERE nombre_autor ILIKE ${`'%${nombre}%'`}`);
         return result.rows;
     } catch (error) {
         console.error('Error executing query', error);
