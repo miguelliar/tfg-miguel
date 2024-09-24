@@ -1,15 +1,14 @@
 'use server';
-import { CreateForm, CreateFormParams } from "@/app/ui/form/CreateForm";
-import { createProyecto } from "../../../../db/db";
-import { fields } from './constants.json';
+import Link from 'next/link';
 
 export default async function Page() {
-    const formParams : CreateFormParams = {
-        createCallback: createProyecto,
-        fields,
-        submitText: "Crear proyecto"
-    };
-    
     return (
-    <CreateForm {...formParams}/>);
+        <main>
+            <h1>Añadir proyectos</h1>
+            <ul>
+                <li><Link href="/proyectos/crear/nuevo">Crear un proyecto manualmente</Link></li>
+                <li><Link href="/proyectos/crear/subida">Añadir varios proyectos por fichero</Link></li>
+            </ul>
+        </main>
+    );
 }

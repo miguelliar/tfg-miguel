@@ -19,7 +19,7 @@ export default async function Page({
     <main>
         <h1>Proyectos</h1>
         <section>
-            <Link href="/proyectos/crear">Crear proyecto</Link>
+            <Link href="/proyectos/crear">Añadir proyecto</Link>
         </section>
         <section className='m-4 p-1 flex flex-col'>
             <h2 className='text-lg'>Selecciona un proyecto</h2>
