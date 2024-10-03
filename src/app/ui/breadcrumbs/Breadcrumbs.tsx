@@ -5,20 +5,25 @@ import { Crumb } from './Crumb';
 
 export const Breadcrumbs = () => {
     const pathname = usePathname();
-    const crumbs = useBreadcrumbs(pathname);
+    const crumbs = useBreadcrumbs(pathname??'');
 
     return (
-        crumbs.length > 1 ? 
-        (<ol className='flex flex-row'>
-            { crumbs.map((crumb, index, array) => {
-                return (<Crumb 
-                    key={crumb.url} 
-                    crumb={crumb} 
-                    level={index} 
-                    lastLevel={array.length} 
-                />);
-            })}
-        </ol>)
-        : null
+        <ol className='flex flex-row'>
+            {
+                crumbs
+                    .slice(0, crumbs.length - 1)
+                    .map((crumb, index, array) => {
+                        return (<Crumb 
+                            key={crumb.url} 
+                            crumb={crumb} 
+                            level={index} 
+                            lastLevel={array.length} 
+                        />);
+                    })
+            }
+            {
+                <span>{crumbs[crumbs.length - 1]?.name}</span>
+            }
+        </ol>
     );
 };

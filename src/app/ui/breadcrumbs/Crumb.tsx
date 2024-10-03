@@ -18,7 +18,7 @@ export const Crumb = ({crumb, level, lastLevel}: CrumbProps) => {
                 </Link>
             </li>
             {
-                level < lastLevel - 1
+                level < lastLevel
                     ? <span className='px-3'>{">"}</span> 
                     : null
             }

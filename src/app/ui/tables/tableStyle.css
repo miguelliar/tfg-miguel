@@ -1,6 +1,7 @@
 .ProyectoTable {
     display: block;
     overflow-x: auto;
+    color: aliceblue;
 
     .ProyectoTableHeadRow {
         :nth-child(2n) {
