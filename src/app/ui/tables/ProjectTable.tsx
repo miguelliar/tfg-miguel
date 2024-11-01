@@ -32,8 +32,8 @@ export const ProjectTable = (
                         <td>{row.ip}</td>
                         <td>{row.titulo}</td>
                         <td>{row.financiado}</td>
-                        <td>{JSON.stringify(row.inicio)}</td>
-                        <td>{JSON.stringify(row.fin)}</td>
+                        <td>{row.inicio ? row.inicio.toLocaleDateString(undefined, {formatMatcher: 'basic'}) : 'Sin inicio'}</td>
+                        <td>{row.fin ? row.inicio.toLocaleDateString(undefined, {formatMatcher: 'basic'}) : 'Sin fin'}</td>
                     </tr>
                 ))
             }
