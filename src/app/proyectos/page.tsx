@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { fetchFilteredInvestigador, fetchProjectData } from '../../../db/db';
+import { fetchFilteredInvestigador, fetchProyectoData } from '../../../db/db';
 import { InvestigadorTable } from '../ui/tables/InvestigadorTable';
 import { ProjectTable } from '../ui/tables/ProjectTable';
 import { AddInvestigadorAProyecto } from '../ui/AddInvestigadorAProyecto';
@@ -11,7 +11,7 @@ export default async function Page({
         projectId?: string;
     }
   }) {
-    const projectData = await fetchProjectData();
+    const projectData = await fetchProyectoData();
 
     const investigadorData = await fetchFilteredInvestigador(searchParams?.projectId??'');
 

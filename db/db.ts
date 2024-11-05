@@ -57,7 +57,8 @@ const InvestigadorFormSchema = z.object({
 export const fetchFilteredInvestigador =  async (idProyecto: string) => {
     try {
         const result = await pool.query<InvestigadorType>(
-            `SELECT * FROM investigador WHERE investigador.id IN (SELECT id_investigador FROM participa WHERE id_proyecto='${idProyecto}')`
+            'SELECT * FROM investigador WHERE investigador.id IN (SELECT id_investigador FROM participa WHERE id_proyecto=$1)',
+            [idProyecto]
         );
         return result.rows;
     } catch (error) {
@@ -75,7 +76,7 @@ export const fetchInvestigadorData = async () => {
     }
 }
 
-export const fetchProjectData = async () => {
+export const fetchProyectoData = async () => {
     try {
         const result = await pool.query<ProyectoType>('SELECT * FROM proyecto');
         return result.rows;
@@ -96,8 +97,8 @@ export async function createProyecto(formData: FormData) {
     const id = (await fetchLastAvailableProyectoId());
 
     try {
-        await pool.query(`INSERT INTO proyecto (id, codigo, ip, titulo, financiado, inicio, fin)
-        VALUES ('${id}', '${codigo}', '${ip}', '${titulo}', '${financiado}', '${inicio}', ${ fin ? '\''+fin+'\'' : 'NULL'} )`)
+        await pool.query('INSERT INTO proyecto (id, codigo, ip, titulo, financiado, inicio, fin) VALUES ($1, $2, $3, $4, $5, $6, $7)', 
+        [id, codigo, ip, titulo, financiado, inicio, fin ?? 'NULL'])
     } catch (error) {
         console.error('Error inserting proyecto', error);
     }
@@ -118,8 +119,9 @@ export async function createInvestigador(formData: FormData) {
     const id = (await fetchLastAvailableInvestigadorId());
 
     try {
-        await pool.query(`INSERT INTO investigador (id, nombre_autor, universidad, departamento, area, figura, miembro)
-            VALUES ('${id}','${nombre_autor}', '${universidad}', '${departamento}', '${area}', '${figura}', '${miembro}')`);
+        await pool.query(
+            'INSERT INTO investigador (id, nombre_autor, universidad, departamento, area, figura, miembro) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+            [id, nombre_autor, universidad, departamento, area, figura, miembro]);
     } catch (error) {
         console.error('Error inserting proyecto', error);
     }
@@ -140,14 +142,14 @@ export async function createParticipa(idProyecto: number, idInvestigador: number
 const fetchLastAvailableProyectoId = async () => {
     try {
         const result = await pool.query<{lastid: number}>(`SELECT
-        MAX(CAST(id AS INT)) as lastId
-    FROM proyecto
-    WHERE id LIKE '%'`);
-    try {
-        return result.rows[0].lastid + 1;
-    } catch (error) {
-        console.error('Error obtaining the maximum index', error);
-    }
+            MAX(CAST(id AS INT)) as lastId
+        FROM proyecto
+        WHERE id LIKE '%'`);
+        try {
+            return result.rows[0].lastid + 1;
+        } catch (error) {
+            console.error('Error obtaining the maximum index', error);
+        }
     } catch (error) {
         console.error('Error executing query', error);
     }
@@ -180,7 +182,7 @@ export const fetchInvestigadoresByProyecto = async (id: string) => {
 
 export const fetchInvestigadoresByNombre = async (nombre: string) => {
     try {
-        const result = await pool.query<InvestigadorType>(`SELECT * FROM investigador WHERE nombre_autor ILIKE ${`'%${nombre}%'`}`);
+        const result = await pool.query<InvestigadorType>(`SELECT * FROM investigador WHERE nombre_autor ILIKE '%$1%'`, [nombre]);
         return result.rows;
     } catch (error) {
         console.error('Error executing query', error);
