@@ -1,9 +1,9 @@
 'use client'
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
-import { createParticipa, fetchInvestigadoresByNombre, InvestigadorType } from '../../../db/db';
 import { useState } from 'react';
 import { addParticipa } from '../utils/addParticipa';
+import { fetchInvestigadoresByNombre, InvestigadorType } from '../../../db/tables/investigador';
 
 export const AddInvestigadorAProyecto = ({codigo} :{codigo:string}) => {
 

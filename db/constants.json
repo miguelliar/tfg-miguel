@@ -1,0 +1,37 @@
+{
+    "investigador": {
+        "Create": "INSERT INTO investigador (id, nombre_autor, universidad, departamento, area, figura, miembro) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+        "error": {
+            "Executing": "Error executing query",
+            "Inserting": "Error inserting investigador",
+            "MaxIndex": "Error obtaining the maximum index"
+        },
+        "fetch": {
+            "All": "SELECT * FROM investigador",
+            "ByNombreAutor": "SELECT * FROM investigador WHERE nombre_autor = $1",
+            "ByLikeNombreAutor": "SELECT * FROM investigador WHERE nombre_autor ILIKE $1",
+            "ByProyectoCode": "SELECT * FROM investigador WHERE investigador.id IN (SELECT id_investigador FROM participa WHERE id_proyecto IN (SELECT id FROM proyecto WHERE codigo=$1))",
+            "ByProyectoId": "SELECT * FROM investigador WHERE id in (SELECT * FROM participa WHERE id_proyecto = $1)",
+            "LastId": "SELECT MAX(CAST(id AS INT)) as lastId FROM investigador WHERE id LIKE '%'"
+        }
+    },
+    "participa": {
+        "Create": "INSERT INTO participa (id_investigador, id_proyecto) VALUES ($1, $2)",
+        "error": {
+            "Inserting": "Error inserting participa"
+        }
+    },
+    "proyecto": {
+        "Create": "INSERT INTO proyecto (id, codigo, ip, titulo, financiado, inicio, fin) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+        "error": {
+            "Executing": "Error executing query",
+            "Inserting": "Error inserting proyecto",
+            "MaxIndex": "Error obtaining the maximum index"
+        },
+        "fetch": {
+            "All": "SELECT * FROM proyecto",
+            "ByCodigo": "SELECT * FROM proyecto WHERE codigo=$1",
+            "LastId": "SELECT MAX(CAST(id AS INT)) as lastId FROM proyecto WHERE id LIKE '%'"
+        }
+    }
+}
