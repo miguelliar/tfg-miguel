@@ -54,11 +54,11 @@ const InvestigadorFormSchema = z.object({
     miembro: z.string(),
 })
 
-export const fetchFilteredInvestigador =  async (idProyecto: string) => {
+export const fetchFilteredInvestigador =  async (code: string) => {
     try {
         const result = await pool.query<InvestigadorType>(
-            'SELECT * FROM investigador WHERE investigador.id IN (SELECT id_investigador FROM participa WHERE id_proyecto=$1)',
-            [idProyecto]
+            'SELECT * FROM investigador WHERE investigador.id IN (SELECT id_investigador FROM participa WHERE id_proyecto IN (SELECT id FROM proyecto WHERE codigo=$1))',
+            [code]
         );
         return result.rows;
     } catch (error) {
@@ -155,8 +155,7 @@ export async function createInvestigador(formData: FormData) {
 
 export async function createParticipa(idProyecto: number, idInvestigador: number) {
     try {
-        await pool.query(`INSERT INTO participa (id_investigador, id_proyecto)
-            VALUES ('${idInvestigador}', '${idProyecto}')`)
+        await pool.query('INSERT INTO participa (id_investigador, id_proyecto) VALUES ($1, $2)', [idInvestigador, idProyecto])
     } catch (error) {
         console.error('Error inserting participa', error);
     }
@@ -206,7 +205,7 @@ export const fetchInvestigadoresByProyecto = async (id: string) => {
 
 export const fetchInvestigadoresByNombre = async (nombre: string) => {
     try {
-        const result = await pool.query<InvestigadorType>(`SELECT * FROM investigador WHERE nombre_autor ILIKE '%$1%'`, [nombre]);
+        const result = await pool.query<InvestigadorType>(`SELECT * FROM investigador WHERE nombre_autor ILIKE $1`, [`%${nombre}%`]);
         return result.rows;
     } catch (error) {
         console.error('Error executing query', error);

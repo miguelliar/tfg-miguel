@@ -3,8 +3,9 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import { createParticipa, fetchInvestigadoresByNombre, InvestigadorType } from '../../../db/db';
 import { useState } from 'react';
+import { addParticipa } from '../utils/addParticipa';
 
-export const AddInvestigadorAProyecto = ({proyectoId} :{proyectoId:string}) => {
+export const AddInvestigadorAProyecto = ({codigo} :{codigo:string}) => {
 
     const [nombre_autor, setNombreAutor] = useState('');
     const [investigadores, setInvestigadores] = useState<InvestigadorType[]>([]);
@@ -54,11 +55,10 @@ export const AddInvestigadorAProyecto = ({proyectoId} :{proyectoId:string}) => {
                                     <td>{investigador.area}</td>
                                     <td>{investigador.figura}</td>
                                     <td>{investigador.miembro}</td>
-                                    <td><button onClick={() =>
-                                        createParticipa(
-                                            Number.parseInt(proyectoId), 
-                                            Number.parseInt(investigador.id)
-                                        )}>Añadir</button></td>
+                                    <td>
+                                        <button onClick={() => 
+                                            addParticipa(codigo, investigador.id)
+                                        }>Añadir</button></td>
                                 </tr>
                             ))
                         }

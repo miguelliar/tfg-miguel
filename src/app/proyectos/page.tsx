@@ -8,12 +8,12 @@ export default async function Page({
     searchParams
   }: {
     searchParams?: {
-        projectId?: string;
+        codigo?: string;
     }
   }) {
     const projectData = await fetchProyectoData();
 
-    const investigadorData = await fetchFilteredInvestigador(searchParams?.projectId??'');
+    const investigadorData = await fetchFilteredInvestigador(searchParams?.codigo??'');
 
     return (
     <main>
@@ -26,8 +26,8 @@ export default async function Page({
             <ProjectTable projectData={projectData}/>
         </section>
         {
-            searchParams?.projectId && (
-                <AddInvestigadorAProyecto proyectoId={searchParams?.projectId}/>
+            searchParams?.codigo && (
+                <AddInvestigadorAProyecto codigo={searchParams?.codigo}/>
             )
         }
         <section className='m-4 p-1 flex flex-col'>

@@ -25,7 +25,7 @@ export const ProjectTable = (
                 projectData && projectData.map((row) => (
                     <tr key={row.codigo} className="ProyectoTableRow">
                         <td>
-                            <Link href={`/proyectos?projectId=${row.codigo}`}>
+                            <Link href={`/proyectos?codigo=${row.codigo}`}>
                                 {row.codigo}
                             </Link>
                         </td>
