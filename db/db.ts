@@ -85,6 +85,30 @@ export const fetchProyectoData = async () => {
     }
 }
 
+export const fetchProyectoByCode = async (code: string) => {
+    try {
+        const result = await pool.query<ProyectoType>('SELECT * FROM proyecto WHERE codigo=$1', [code]);
+        return result.rows[0];
+    } catch (error) {
+        console.error('Error retrieving proyecto', error);
+    }
+}
+
+export async function createProyectoItem(proyecto: ProyectoType) {
+    const {codigo, ip, titulo, financiado, inicio, fin} = proyecto;
+
+    const id = (await fetchLastAvailableProyectoId());
+
+    try {
+        await pool.query('INSERT INTO proyecto (id, codigo, ip, titulo, financiado, inicio, fin) VALUES ($1, $2, $3, $4, $5, $6, $7)', 
+        [id, codigo, ip, titulo, financiado, inicio, fin ?? 'NULL']);
+
+        return id;
+    } catch (error) {
+        console.error('Error inserting proyecto', error);
+    }
+}
+
 export async function createProyecto(formData: FormData) {
     const { codigo, ip, titulo, financiado, inicio, fin } = ProyectoFormSchema.parse({
         codigo: formData.get('codigo'),
@@ -183,6 +207,15 @@ export const fetchInvestigadoresByProyecto = async (id: string) => {
 export const fetchInvestigadoresByNombre = async (nombre: string) => {
     try {
         const result = await pool.query<InvestigadorType>(`SELECT * FROM investigador WHERE nombre_autor ILIKE '%$1%'`, [nombre]);
+        return result.rows;
+    } catch (error) {
+        console.error('Error executing query', error);
+    }
+}
+
+export async function fetchInvestigadorByNombreAutor(nombreAutor: string) {
+    try {
+        const result = await pool.query<InvestigadorType>('SELECT * FROM investigador WHERE nombre_autor = $1', [nombreAutor]);
         return result.rows;
     } catch (error) {
         console.error('Error executing query', error);

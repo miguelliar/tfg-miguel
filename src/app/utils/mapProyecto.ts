@@ -7,7 +7,7 @@ export const parseDate = (date: string) => {
     return new Date(`${m}/${d}/${y}`);
 }
 
-export const mapProyectoToUploadToProyectType = (projectToUpload: ProyectoToUpload[]) => {
+export const mapProyectoToUploadToProyectType = (projectToUpload: ProyectoToUpload[]): ProyectoType[] => {
     return projectToUpload.map(proyecto => {
         const fechaInicio = parseDate(proyecto.inicio);
         const fechaFin = parseDate(proyecto.fin);

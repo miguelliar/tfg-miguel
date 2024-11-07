@@ -1,8 +1,10 @@
-const proyectHeaders = ['codigo', 'ip', 'titulo', 'financiado', 'inicio', 'fin'];
+import { ProyectoToUpload } from "@/app/utils/mapProyecto";
+
+const proyectHeaders = ['codigo', 'ip', 'titulo', 'financiado', 'inicio', 'fin'] as const;
 const MATCH_SEMICOLOMNS_OUTSIDE_DOUBLE_QUOTES_REGEXP = /;(?=(?:(?:[^"]*"[^"]*")*[^"]*$))/;
 
 const parseLine = (lines: string[]) => {
-  const relevantLines: string[][] = [];
+  const relevantLines: [typeof proyectHeaders, ...Array<string[]>] = [proyectHeaders];
   let foundHeader = false;
   
   for (const line of lines) {
@@ -10,7 +12,6 @@ const parseLine = (lines: string[]) => {
 
     if (!foundHeader && trimmedLine.startsWith('Código')) {
         foundHeader = true;
-        relevantLines.push(proyectHeaders);
     } else if (foundHeader && trimmedLine && !trimmedLine.includes(';;;')) {
         relevantLines.push(trimmedLine.split(MATCH_SEMICOLOMNS_OUTSIDE_DOUBLE_QUOTES_REGEXP));
     }
@@ -18,8 +19,8 @@ const parseLine = (lines: string[]) => {
   return relevantLines;
 }
 
-const mapLines = (headers: string[], rows: string[][]) => {
-  const result = [];
+const mapLines = (headers: typeof proyectHeaders, rows: string[][]): ProyectoToUpload[] => {
+  const result: ProyectoToUpload[] = [];
 
     for (const row of rows) {
       const proyecto: any = {};
