@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ProyectoType } from "../../../../db/db"
+import { ProyectoType } from "@/db"
 import './tableStyle.css'
 
 export const ProjectTable = (

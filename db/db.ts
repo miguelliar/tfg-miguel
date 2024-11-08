@@ -48,7 +48,7 @@ export async function createProyecto(formData: FormData) {
     redirect('/proyectos');
 }
 
-export async function createInvestigador(formData: FormData) {
+export async function createInvestigadorWithForm(formData: FormData) {
     const {nombre_autor, universidad, departamento, area, figura, miembro} = InvestigadorFormSchema.parse({
         nombre_autor: formData.get('nombre_autor'),
         universidad: formData.get('universidad'),
@@ -71,7 +71,7 @@ export async function createInvestigador(formData: FormData) {
     redirect('/investigadores');
 }
 
-export async function createParticipa(idProyecto: number, idInvestigador: number) {
+export async function createParticipaWithForm(idProyecto: number, idInvestigador: number) {
     try {
         await pool.query('INSERT INTO participa (id_investigador, id_proyecto) VALUES ($1, $2)', [idInvestigador, idProyecto])
     } catch (error) {

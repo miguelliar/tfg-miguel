@@ -1,4 +1,4 @@
-import { ProyectoFileUploaderForm } from "@/app/ui/form/ProyectoFileUploadForm";
+import { ProyectoFileUploaderForm } from "@/app/ui";
 
 export default async function Page() {
     return (

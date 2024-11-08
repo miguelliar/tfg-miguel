@@ -1,11 +1,11 @@
 'use server';
-import { CreateForm, CreateFormParams } from "@/app/ui/form/CreateForm";
-import { createInvestigador } from "../../../../db/db";
+import { createInvestigadorWithForm } from "@/db";
+import { CreateForm, CreateFormParams } from "@/app/ui";
 import { fields } from './constants.json';
 
 export default async function Page() {
     const formParams : CreateFormParams = {
-        createCallback: createInvestigador,
+        createCallback: createInvestigadorWithForm,
         fields,
         submitText: "Crear investigador"
     };

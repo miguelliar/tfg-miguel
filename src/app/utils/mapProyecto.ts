@@ -1,4 +1,5 @@
-import { ProyectoType } from "../../../db/db";
+import { ProyectoType } from "@/db";
+
 
 export type ProyectoToUpload = Omit<ProyectoType, 'inicio' | 'fin'> & {inicio: string; fin: string;};
 

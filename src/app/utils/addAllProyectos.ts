@@ -1,9 +1,6 @@
 'use server'
 
-import { fetchInvestigadorByNombreAutor } from "../../../db/tables/investigador";
-import { createParticipa } from "../../../db/tables/participa";
-import { createProyectoItem, fetchProyectoByCode, ProyectoType } from "../../../db/tables/proyecto";
-
+import { createParticipa, createProyectoItem, fetchInvestigadorByNombreAutor, fetchProyectoByCode, ProyectoType } from "db";
 
 
 const validateProyectoToAdd = async (proyecto: ProyectoType) => {

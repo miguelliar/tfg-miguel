@@ -1,6 +1,6 @@
 'use server';
-import { CreateForm, CreateFormParams } from "@/app/ui/form/CreateForm";
-import { createProyecto } from "../../../../../db/db";
+import { createProyecto } from "@/db";
+import { CreateForm, CreateFormParams } from "@/app/ui";
 import fields from './constants.json';
 
 export default async function Page() {

@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { InvestigadorTable } from '../ui/tables/InvestigadorTable';
-import { fetchInvestigadorData } from '../../../db/tables/investigador';
+import { fetchInvestigadorData } from '@/db';
+import { InvestigadorTable } from '@/app/ui';
 
 export default async function Page() {
 

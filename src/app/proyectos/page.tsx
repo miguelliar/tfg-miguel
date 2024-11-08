@@ -1,9 +1,6 @@
 import Link from 'next/link';
-import { InvestigadorTable } from '../ui/tables/InvestigadorTable';
-import { ProjectTable } from '../ui/tables/ProjectTable';
-import { AddInvestigadorAProyecto } from '../ui/AddInvestigadorAProyecto';
-import { fetchProyectoData } from '../../../db/tables/proyecto';
-import { fetchInvestigadorByProyectoCode } from '../../../db/tables/investigador';
+import { fetchProyectoData, fetchInvestigadorByProyectoCode } from '@/db';
+import { AddInvestigadorAProyecto, InvestigadorTable, ProjectTable } from '@/app/ui';
 
 export default async function Page({
     searchParams
