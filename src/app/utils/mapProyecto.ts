@@ -17,9 +17,8 @@ export const mapProyectoToUploadToProyectType = (
     const fechaInicio = parseDate(proyecto.inicio)
     const fechaFin = parseDate(proyecto.fin)
 
-    const { fin, inicio, ...proyectoProps } = proyecto
     return {
-      ...proyectoProps,
+      ...proyecto,
       inicio: fechaInicio,
       fin: fechaFin,
     }

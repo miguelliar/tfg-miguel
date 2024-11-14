@@ -1,12 +1,12 @@
 "use server"
 
-import type { ProyectoType } from "db"
+import type { ProyectoType } from "@/db"
 import {
   createParticipa,
   createProyectoItem,
   fetchInvestigadorByNombreAutor,
   fetchProyectoByCode,
-} from "db"
+} from "@/db"
 
 const validateProyectoToAdd = async (proyecto: ProyectoType) => {
   const { codigo, ip, inicio, fin } = proyecto
@@ -36,10 +36,13 @@ const validateProyectoToAdd = async (proyecto: ProyectoType) => {
 export const addAllProyectos = async (proyectos: ProyectoType[]) => {
   const repeatedProyectos: [ProyectoType, string][] = []
   for (const proyecto of proyectos) {
+    // eslint-disable-next-line no-await-in-loop
     const errorMessage = await validateProyectoToAdd(proyecto)
 
     if (!errorMessage) {
+      // eslint-disable-next-line no-await-in-loop
       const proyectoId = await createProyectoItem(proyecto)
+      // eslint-disable-next-line no-await-in-loop
       const investigadorId = (await fetchInvestigadorByNombreAutor(
         proyecto.ip
       ))![0].id

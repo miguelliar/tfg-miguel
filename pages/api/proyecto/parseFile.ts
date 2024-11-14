@@ -30,7 +30,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
       const fileContent = decoder.decode(buffer)
 
       const lines = fileContent.split("\n")
-    
+
       const result = processProyectoLines(lines)
       res.status(200).json(result)
       res.end()
@@ -40,7 +40,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
     }
   })
 
-  req.on("error", (err) => {
+  req.on("error", () => {
     res.status(500).json({ error: "Error processing the file" })
     res.end()
   })

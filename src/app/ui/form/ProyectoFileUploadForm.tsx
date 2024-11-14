@@ -49,13 +49,13 @@ export const ProyectoFileUploaderForm = () => {
       <form className="CreateForm" onSubmit={(e) => onSubmit(e)}>
         <label htmlFor="proyectoFile">
           Elige un archivo .csv con los proyectos a subir
+          <input
+            type="file"
+            id="proyectoFile"
+            name="proyectoFile"
+            onChange={(event) => onChange(event.target.files?.[0])}
+          />
         </label>
-        <input
-          type="file"
-          id="proyectoFile"
-          name="proyectoFile"
-          onChange={(event) => onChange(event.target.files?.[0])}
-        />
         <button type="submit" className="bg-blue-700" disabled={submitEnabled}>
           Submit
         </button>
@@ -65,9 +65,9 @@ export const ProyectoFileUploaderForm = () => {
         <section>
           <h2>There has been the following problems:</h2>
           <ul>
-            {errorMessages.map((errorMessage, index) => (
-              <li>
-                <p key={`ErrorMessage-${index}`}>{errorMessage}</p>
+            {errorMessages.map((errorMessage) => (
+              <li key={`ErrorMessage-${errorMessage}`}>
+                <p>{errorMessage}</p>
               </li>
             ))}
           </ul>

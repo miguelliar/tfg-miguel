@@ -34,7 +34,7 @@ export const AddInvestigadorAProyecto = ({ codigo }: { codigo: string }) => {
           className="text-black"
           onSubmit={searchForInvestigadores}
         />
-        <button onClick={searchForInvestigadores}>
+        <button type="button" onClick={searchForInvestigadores}>
           <MagnifyingGlassIcon className="h-[18px] w-[18px] text-gray-500 peer-focus:text-gray-900" />
         </button>
         {investigadores.length > 0 ? (
@@ -47,7 +47,7 @@ export const AddInvestigadorAProyecto = ({ codigo }: { codigo: string }) => {
                 <th>Area</th>
                 <th>Figura</th>
                 <th>Miembro</th>
-                <th />
+                <th>Añadir</th>
               </tr>
             </thead>
             <tbody className="ProyectoTableBody">
@@ -61,6 +61,7 @@ export const AddInvestigadorAProyecto = ({ codigo }: { codigo: string }) => {
                   <td>{investigador.miembro}</td>
                   <td>
                     <button
+                      type="button"
                       onClick={() => addParticipa(codigo, investigador.id)}
                     >
                       Añadir
