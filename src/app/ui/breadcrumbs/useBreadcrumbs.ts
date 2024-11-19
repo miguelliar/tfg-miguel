@@ -2,7 +2,7 @@ import { useMemo } from "react"
 
 export const useBreadcrumbs = (pathname: string) => {
   const breadcrumbs = useMemo(() => {
-    if (pathname === "/") return [{ name: "Inicio", url: pathname }]
+    if (pathname === "/home") return [{ name: "Inicio", url: pathname }]
     const breadcrumbs = pathname.split("/").map((crumb, index, crumbs) => {
       const previousPath =
         crumbs

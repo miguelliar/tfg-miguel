@@ -10,7 +10,7 @@ export const Breadcrumbs = () => {
   const crumbs = useBreadcrumbs(pathname ?? "")
 
   return (
-    <ol className="flex flex-row">
+    <ol className="flex flex-row pl-5 pb-2">
       {crumbs.slice(0, crumbs.length - 1).map((crumb, index, array) => {
         return (
           <Crumb
@@ -21,7 +21,9 @@ export const Breadcrumbs = () => {
           />
         )
       })}
-      <span>{crumbs[crumbs.length - 1]?.name}</span>
+      <span className="text-highlight-background-color font-bold">
+        {crumbs[crumbs.length - 1]?.name}
+      </span>
     </ol>
   )
 }
