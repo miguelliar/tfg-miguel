@@ -1,62 +1,77 @@
-'use server'
+/* eslint-disable no-console */
 
-import { getPool } from "../pool";
-import { proyecto as query} from "../constants.json";
+"use server"
 
-const pool = getPool();
+import config from "../constants.json"
+import { getPool } from "../pool"
+
+const proyectoConfig = config.proyecto
+const pool = getPool()
 
 export type ProyectoType = {
-    id: string;
-    codigo: string;
-    ip: string;
-    titulo: string;
-    financiado: string;
-    inicio: Date;
-    fin: Date;
+  id: string
+  codigo: string
+  ip: string
+  titulo: string
+  financiado: string
+  inicio: Date
+  fin: Date
 }
 
 export const fetchProyectoData = async () => {
-    try {
-        const result = await pool.query<ProyectoType>(query.fetch.All);
-        return result.rows;
-    } catch (error) {
-        console.error(query.error.Executing, error);
-    }
+  try {
+    const result = await pool.query<ProyectoType>(proyectoConfig.fetch.All)
+    return result.rows
+  } catch (error) {
+    console.error(proyectoConfig.error.Executing, error)
+  }
 }
 
 export const fetchProyectoByCode = async (code: string) => {
-    try {
-        const result = await pool.query<ProyectoType>(query.fetch.ByCodigo, [code]);
-        return result.rows[0];
-    } catch (error) {
-        console.error(query.error.Executing, error);
-    }
+  try {
+    const result = await pool.query<ProyectoType>(
+      proyectoConfig.fetch.ByCodigo,
+      [code]
+    )
+    return result.rows[0]
+  } catch (error) {
+    console.error(proyectoConfig.error.Executing, error)
+  }
 }
 
 export async function createProyectoItem(proyecto: ProyectoType) {
-    const {codigo, ip, titulo, financiado, inicio, fin} = proyecto;
+  const { codigo, ip, titulo, financiado, inicio, fin } = proyecto
 
-    const id = (await fetchLastAvailableProyectoId());
+  const id = await fetchLastAvailableProyectoId()
 
-    try {
-        await pool.query(query.Create, 
-        [id, codigo, ip, titulo, financiado, inicio, fin ?? 'NULL']);
+  try {
+    await pool.query(proyectoConfig.Create, [
+      id,
+      codigo,
+      ip,
+      titulo,
+      financiado,
+      inicio,
+      fin ?? "NULL",
+    ])
 
-        return id;
-    } catch (error) {
-        console.error(query.error.Inserting, error);
-    }
+    return id
+  } catch (error) {
+    console.error(proyectoConfig.error.Inserting, error)
+  }
 }
 
 export const fetchLastAvailableProyectoId = async () => {
+  try {
+    const result = await pool.query<{ lastid: number }>(
+      proyectoConfig.fetch.LastId
+    )
     try {
-        const result = await pool.query<{lastid: number}>(query.fetch.LastId);
-        try {
-            return result.rows[0].lastid + 1;
-        } catch (error) {
-            console.error(query.error.MaxIndex, error);
-        }
+      return result.rows[0].lastid + 1
     } catch (error) {
-        console.error(query.error.Executing, error);
+      console.error(proyectoConfig.error.MaxIndex, error)
     }
+  } catch (error) {
+    console.error(proyectoConfig.error.Executing, error)
+  }
 }

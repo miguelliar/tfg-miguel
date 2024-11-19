@@ -1,14 +1,19 @@
-'use server'
+"use server"
 
-import { getPool } from "../pool";
-import { participa } from "../constants.json";
+import config from "../constants.json"
+import { getPool } from "../pool"
 
-const pool = getPool();
+const { participa } = config
+const pool = getPool()
 
-export async function createParticipa(idProyecto: number, idInvestigador: number) {
-    try {
-        await pool.query(participa.Create, [idInvestigador, idProyecto])
-    } catch (error) {
-        console.error(participa.error.Inserting, error);
-    }
+export async function createParticipa(
+  idProyecto: number,
+  idInvestigador: number
+) {
+  try {
+    await pool.query(participa.Create, [idInvestigador, idProyecto])
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(participa.error.Inserting, error)
+  }
 }
