@@ -1,16 +1,14 @@
 ///Investigador table
 CREATE TABLE IF NOT EXISTS public.investigador
 (
-    id text COLLATE pg_catalog."default" NOT NULL,
-    universidad text COLLATE pg_catalog."default" NOT NULL,
-    departamento text COLLATE pg_catalog."default" NOT NULL,
-    area text COLLATE pg_catalog."default",
+    email text COLLATE pg_catalog."default" NOT NULL,
+    nombre text COLLATE pg_catalog."default",
+    apellidos text COLLATE pg_catalog."default",
     figura text COLLATE pg_catalog."default",
-    miembro text COLLATE pg_catalog."default",
-    nombre_autor text COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT "PRIMARY_KEY" PRIMARY KEY (id),
-    CONSTRAINT investigador_id_id1_key UNIQUE (id)
-        INCLUDE(id)
+    area text COLLATE pg_catalog."default",
+    departamento text COLLATE pg_catalog."default",
+    universidad text COLLATE pg_catalog."default",
+    CONSTRAINT "EMAIL_PK" PRIMARY KEY (email)
 )
 
 TABLESPACE pg_default;
@@ -21,17 +19,14 @@ ALTER TABLE IF EXISTS public.investigador
 /// proyecto
 CREATE TABLE IF NOT EXISTS public.proyecto
 (
-    id text COLLATE pg_catalog."default" NOT NULL,
     codigo text COLLATE pg_catalog."default" NOT NULL,
     ip text COLLATE pg_catalog."default" NOT NULL,
+    coip text COLLATE pg_catalog."default",
     titulo text COLLATE pg_catalog."default" NOT NULL,
     financiado text COLLATE pg_catalog."default" NOT NULL,
     inicio date NOT NULL,
     fin date,
-    CONSTRAINT proyecto_pkey PRIMARY KEY (id, ip),
-    CONSTRAINT "UNIQUE_CODE" UNIQUE (codigo),
-    CONSTRAINT proyecto_id_id1_key UNIQUE (id)
-        INCLUDE(id)
+    CONSTRAINT "CODIGO_PK" PRIMARY KEY (codigo)
 )
 
 TABLESPACE pg_default;
@@ -42,21 +37,36 @@ ALTER TABLE IF EXISTS public.proyecto
 /// participa
 CREATE TABLE IF NOT EXISTS public.participa
 (
-    id_investigador text COLLATE pg_catalog."default" NOT NULL,
-    id_proyecto text COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT participa_pkey PRIMARY KEY (id_investigador, id_proyecto),
-    CONSTRAINT participa_id_investigador_fkey FOREIGN KEY (id_investigador)
-        REFERENCES public.investigador (id) MATCH SIMPLE
+    codigo_proyecto text COLLATE pg_catalog."default" NOT NULL,
+    email_investigador text COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT "PARTICIPA_PK" PRIMARY KEY (codigo_proyecto, email_investigador),
+    CONSTRAINT "INVESTIGADOR_PK" FOREIGN KEY (email_investigador)
+        REFERENCES public.investigador (email) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
-    CONSTRAINT participa_id_proyecto_fkey FOREIGN KEY (id_proyecto)
-        REFERENCES public.proyecto (id) MATCH SIMPLE
+    CONSTRAINT "PROYECTO_PK" FOREIGN KEY (codigo_proyecto)
+        REFERENCES public.proyecto (codigo) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-        NOT VALID
 )
 
 TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.participa
+    OWNER to miguell;
+
+/// nombre_autor
+CREATE TABLE public.nombre_autor
+(
+    email_investigador text NOT NULL,
+    nombre_autor text NOT NULL,
+    CONSTRAINT "PK" PRIMARY KEY (email_investigador, nombre_autor),
+    CONSTRAINT "INVESTIGADOR_FK" FOREIGN KEY (email_investigador)
+        REFERENCES public.investigador (email) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+ALTER TABLE IF EXISTS public.nombre_autor
     OWNER to miguell;
