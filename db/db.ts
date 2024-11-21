@@ -1,81 +1,93 @@
-'use server';
+"use server"
 
-import { z } from 'zod';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
-import { fetchLastAvailableInvestigadorId } from './tables/investigador';
-import { fetchLastAvailableProyectoId } from './tables/proyecto';
-import { getPool } from './pool';
+import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
+import { z } from "zod"
 
-const pool = getPool() ;
+import { getPool } from "./pool"
+
+const pool = getPool()
 
 const ProyectoFormSchema = z.object({
-    codigo: z.string(),
-    ip: z.string(),
-    titulo: z.string(),
-    financiado: z.string(),
-    inicio: z.string(),
-    fin: z.string(),
+  codigo: z.string(),
+  ip: z.string(),
+  coip: z.optional(z.string()),
+  titulo: z.string(),
+  financiado: z.string(),
+  inicio: z.string(),
+  fin: z.optional(z.string()),
 })
 
 const InvestigadorFormSchema = z.object({
-    nombre_autor: z.string(),
-    universidad: z.string(),
-    departamento: z.string(),
-    area: z.string(),
-    figura: z.string(),
-    miembro: z.string(),
+  email: z.string(),
+  nombre: z.string(),
+  apellidos: z.string(),
+  universidad: z.string(),
+  departamento: z.string(),
+  area: z.string(),
+  figura: z.string(),
 })
 
 export async function createProyecto(formData: FormData) {
-    const { codigo, ip, titulo, financiado, inicio, fin } = ProyectoFormSchema.parse({
-        codigo: formData.get('codigo'),
-        ip: formData.get('ip'),
-        titulo: formData.get('titulo'),
-        financiado: formData.get('financiado'),
-        inicio: formData.get('inicio'),
-        fin: formData.get('fin'),
-    });
-    const id = (await fetchLastAvailableProyectoId());
+  const { codigo, ip, coip, titulo, financiado, inicio, fin } =
+    ProyectoFormSchema.parse({
+      codigo: formData.get("codigo"),
+      ip: formData.get("ip"),
+      coip: formData.get("coip"),
+      titulo: formData.get("titulo"),
+      financiado: formData.get("financiado"),
+      inicio: formData.get("inicio"),
+      fin: formData.get("fin"),
+    })
 
-    try {
-        await pool.query('INSERT INTO proyecto (id, codigo, ip, titulo, financiado, inicio, fin) VALUES ($1, $2, $3, $4, $5, $6, $7)', 
-        [id, codigo, ip, titulo, financiado, inicio, fin ?? 'NULL'])
-    } catch (error) {
-        console.error('Error inserting proyecto', error);
-    }
-    revalidatePath('/proyectos');
-    redirect('/proyectos');
+  console.log("Fecha final" + Boolean(fin))
+  try {
+    await pool.query(
+      "INSERT INTO proyecto (codigo, ip, coip, titulo, financiado, inicio, fin) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      [codigo, ip, coip ? coip : null, titulo, financiado, inicio, fin ? fin : null]
+    )
+  } catch (error) {
+    console.error("Error inserting proyecto", error)
+  }
+  revalidatePath("/proyectos")
+  redirect("/proyectos")
 }
 
 export async function createInvestigadorWithForm(formData: FormData) {
-    const {nombre_autor, universidad, departamento, area, figura, miembro} = InvestigadorFormSchema.parse({
-        nombre_autor: formData.get('nombre_autor'),
-        universidad: formData.get('universidad'),
-        departamento: formData.get('departamento'),
-        area: formData.get('area'),
-        figura: formData.get('figura'),
-        miembro: formData.get('miembro'),
+  const { email, nombre, apellidos, universidad, departamento, area, figura } =
+    InvestigadorFormSchema.parse({
+      email: formData.get("email"),
+      nombre: formData.get("nombre"),
+      apellidos: formData.get("apellidos"),
+      universidad: formData.get("universidad"),
+      departamento: formData.get("departamento"),
+      area: formData.get("area"),
+      figura: formData.get("figura"),
     })
 
-    const id = (await fetchLastAvailableInvestigadorId());
-
-    try {
-        await pool.query(
-            'INSERT INTO investigador (id, nombre_autor, universidad, departamento, area, figura, miembro) VALUES ($1, $2, $3, $4, $5, $6, $7)',
-            [id, nombre_autor, universidad, departamento, area, figura, miembro]);
-    } catch (error) {
-        console.error('Error inserting proyecto', error);
-    }
-    revalidatePath('/investigadores', 'page');
-    redirect('/investigadores');
+  try {
+    await pool.query(
+      "INSERT INTO investigador (email, nombre, apellidos, universidad, departamento, area, figura) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      [email, nombre, apellidos, universidad, departamento, area, figura]
+    )
+  } catch (error) {
+    console.error("Error inserting proyecto", error)
+  }
+  revalidatePath("/investigadores", "page")
+  redirect("/investigadores")
 }
 
-export async function createParticipaWithForm(idProyecto: number, idInvestigador: number) {
-    try {
-        await pool.query('INSERT INTO participa (id_investigador, id_proyecto) VALUES ($1, $2)', [idInvestigador, idProyecto])
-    } catch (error) {
-        console.error('Error inserting participa', error);
-    }
-    revalidatePath('/proyectos', 'page');
+export async function createParticipaWithForm(
+  idProyecto: number,
+  idInvestigador: number
+) {
+  try {
+    await pool.query(
+      "INSERT INTO participa (id_investigador, id_proyecto) VALUES ($1, $2)",
+      [idInvestigador, idProyecto]
+    )
+  } catch (error) {
+    console.error("Error inserting participa", error)
+  }
+  revalidatePath("/proyectos", "page")
 }

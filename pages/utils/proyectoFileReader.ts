@@ -3,6 +3,7 @@ import type { ProyectoToUpload } from "@/app/utils/mapProyecto"
 const proyectHeaders = [
   "codigo",
   "ip",
+  "coip",
   "titulo",
   "financiado",
   "inicio",
@@ -23,9 +24,12 @@ const parseLine = (lines: string[]) => {
     if (!foundHeader && trimmedLine.startsWith("Código")) {
       foundHeader = true
     } else if (foundHeader && trimmedLine && !trimmedLine.includes(";;;")) {
-      relevantLines.push(
-        trimmedLine.split(MATCH_SEMICOLOMNS_OUTSIDE_DOUBLE_QUOTES_REGEXP)
+      const fields = trimmedLine.split(
+        MATCH_SEMICOLOMNS_OUTSIDE_DOUBLE_QUOTES_REGEXP
       )
+      const [ip, coip] = fields[1].split(";")
+      fields.splice(1, 1, ip, coip ?? null)
+      relevantLines.push(fields)
     }
   }
   return relevantLines
@@ -40,11 +44,12 @@ const mapLines = (
   for (const row of rows) {
     const proyecto: any = {}
     headers.forEach((header, index) => {
-      proyecto[header] = row[index].startsWith('"')
-        ? row[index].slice(1, -1)
-        : row[index]
+      if (row[index] && row[index].startsWith('"')) {
+        proyecto[header] = row[index].slice(1, -1)
+      } else {
+        proyecto[header] = row[index]
+      }
     })
-
     result.push(proyecto)
   }
   return result

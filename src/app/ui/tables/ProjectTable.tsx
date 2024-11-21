@@ -15,6 +15,7 @@ export const ProjectTable = ({
         <tr className="ProyectoTableHeadRow">
           <th>Codigo</th>
           <th>Investigador Principal</th>
+          <th>Co-Investigador Principal</th>
           <th>Titulo</th>
           <th>Financiado</th>
           <th>Inicio</th>
@@ -31,6 +32,7 @@ export const ProjectTable = ({
                 </Link>
               </td>
               <td>{row.ip}</td>
+              <td>{row.coip}</td>
               <td>{row.titulo}</td>
               <td>{row.financiado}</td>
               <td>

@@ -40,13 +40,12 @@ export const addAllProyectos = async (proyectos: ProyectoType[]) => {
     const errorMessage = await validateProyectoToAdd(proyecto)
 
     if (!errorMessage) {
+      createProyectoItem(proyecto)
       // eslint-disable-next-line no-await-in-loop
-      const proyectoId = await createProyectoItem(proyecto)
-      // eslint-disable-next-line no-await-in-loop
-      const investigadorId = (await fetchInvestigadorByNombreAutor(
+      const investigadorEmail = (await fetchInvestigadorByNombreAutor(
         proyecto.ip
-      ))![0].id
-      createParticipa(proyectoId!, Number(investigadorId))
+      ))![0].email
+      createParticipa(investigadorEmail, proyecto.codigo!)
     } else {
       repeatedProyectos.push([proyecto, errorMessage])
     }

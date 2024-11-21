@@ -14,6 +14,13 @@
         "placeholder": "Nombre del investigador principal..."
     },
     {
+        "id": "coip",
+        "label": "Co-Investigador Principal",
+        "type": "text",
+        "required": false,
+        "placeholder": "Nombre de autor del co-investigador principal..."
+    },
+    {
         "id": "titulo",
         "label": "Titulo",
         "type": "text",
@@ -38,7 +45,7 @@
         "id": "fin",
         "label": "Fecha de finalización del proyecto (opcional)",
         "type": "date",
-        "required": true,
+        "required": false,
         "placeholder": "Introduce la fecha de fin..."
     }
 ]

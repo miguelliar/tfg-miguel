@@ -5,7 +5,7 @@ import {
   InvestigadorTable,
   ProjectTable,
 } from "@/app/ui"
-import { fetchInvestigadorByProyectoCode, fetchProyectoData } from "@/db"
+import { fetchInvestigadoresByProyecto, fetchProyectoData } from "@/db"
 
 export default async function Page({
   searchParams,
@@ -16,7 +16,7 @@ export default async function Page({
 }) {
   const projectData = await fetchProyectoData()
 
-  const investigadorData = await fetchInvestigadorByProyectoCode(
+  const investigadorData = await fetchInvestigadoresByProyecto(
     searchParams?.codigo ?? ""
   )
 

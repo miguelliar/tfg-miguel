@@ -1,11 +1,25 @@
 {
     "fields": [
         {
-            "id": "nombre_autor",
-            "label": "Nombre de autor",
+            "id": "email",
+            "label": "Email",
             "type": "text",
             "required": true,
-            "placeholder": "Introduce el nombre de autor..."
+            "placeholder": "Introduce el email del investigador..."
+        },
+        {
+            "id": "nombre",
+            "label": "Nombre",
+            "type": "text",
+            "required": true,
+            "placeholder": "Introduce el nombre del investigador..."
+        },
+        {
+            "id": "apellidos",
+            "label": "Apellidos",
+            "type": "text",
+            "required": true,
+            "placeholder": "Introduce los apellidos del investigador..."
         },
         {
             "id": "universidad",
@@ -34,13 +48,6 @@
             "type": "text",
             "required": true,
             "placeholder": "Figura del autor..."
-        },
-        {
-            "id": "miembro",
-            "label": "Miembro",
-            "type": "miembro",
-            "required": true,
-            "placeholder": "Miembro..."
         }
     ]
 }

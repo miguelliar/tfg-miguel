@@ -7,11 +7,11 @@ const { participa } = config
 const pool = getPool()
 
 export async function createParticipa(
-  idProyecto: number,
-  idInvestigador: number
+  emailInvestigador: string,
+  codigoProyecto: string
 ) {
   try {
-    await pool.query(participa.Create, [idInvestigador, idProyecto])
+    await pool.query(participa.Create, [emailInvestigador, codigoProyecto])
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(participa.error.Inserting, error)

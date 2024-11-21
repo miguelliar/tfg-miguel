@@ -18,7 +18,6 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   req.on("data", (data) => {
-    console.log(data)
     content.push(data)
   })
 

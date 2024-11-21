@@ -41,28 +41,30 @@ export const AddInvestigadorAProyecto = ({ codigo }: { codigo: string }) => {
           <table className="ProyectoTable">
             <thead>
               <tr className="ProyectoTableHeadRow">
-                <th>Nombre de autor</th>
+                <th>Email</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
                 <th>Universidad</th>
                 <th>Departamento</th>
                 <th>Area</th>
                 <th>Figura</th>
-                <th>Miembro</th>
                 <th>Añadir</th>
               </tr>
             </thead>
             <tbody className="ProyectoTableBody">
               {investigadores.map((investigador) => (
-                <tr key={`investigadorSearched${investigador.id}`}>
-                  <td>{investigador.nombre_autor}</td>
+                <tr key={`investigadorSearched${investigador.email}`}>
+                  <td>{investigador.email}</td>
+                  <td>{investigador.nombre}</td>
+                  <td>{investigador.apellidos}</td>
                   <td>{investigador.universidad}</td>
                   <td>{investigador.departamento}</td>
                   <td>{investigador.area}</td>
                   <td>{investigador.figura}</td>
-                  <td>{investigador.miembro}</td>
                   <td>
                     <button
                       type="button"
-                      onClick={() => addParticipa(codigo, investigador.id)}
+                      onClick={() => addParticipa(codigo, investigador.email)}
                     >
                       Añadir
                     </button>

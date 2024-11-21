@@ -20,6 +20,7 @@ export const ProyectoFileUploaderForm = () => {
       onFileChange(selectedFile, setUploadedProyecto, setIsLoading),
     []
   )
+
   const onSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault()

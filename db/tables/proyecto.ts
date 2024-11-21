@@ -9,9 +9,9 @@ const proyectoConfig = config.proyecto
 const pool = getPool()
 
 export type ProyectoType = {
-  id: string
   codigo: string
   ip: string
+  coip: string
   titulo: string
   financiado: string
   inicio: Date
@@ -40,38 +40,19 @@ export const fetchProyectoByCode = async (code: string) => {
 }
 
 export async function createProyectoItem(proyecto: ProyectoType) {
-  const { codigo, ip, titulo, financiado, inicio, fin } = proyecto
-
-  const id = await fetchLastAvailableProyectoId()
+  const { codigo, ip, coip, titulo, financiado, inicio, fin } = proyecto
 
   try {
     await pool.query(proyectoConfig.Create, [
-      id,
       codigo,
       ip,
+      coip,
       titulo,
       financiado,
       inicio,
       fin ?? "NULL",
     ])
-
-    return id
   } catch (error) {
     console.error(proyectoConfig.error.Inserting, error)
-  }
-}
-
-export const fetchLastAvailableProyectoId = async () => {
-  try {
-    const result = await pool.query<{ lastid: number }>(
-      proyectoConfig.fetch.LastId
-    )
-    try {
-      return result.rows[0].lastid + 1
-    } catch (error) {
-      console.error(proyectoConfig.error.MaxIndex, error)
-    }
-  } catch (error) {
-    console.error(proyectoConfig.error.Executing, error)
   }
 }
