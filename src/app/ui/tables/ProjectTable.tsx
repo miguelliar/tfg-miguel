@@ -2,6 +2,7 @@ import "./tableStyle.css"
 
 import Link from "next/link"
 
+import { getStringDate } from "@/app/utils/formatDate"
 import type { ProyectoType } from "@/db"
 
 export const ProjectTable = ({
@@ -35,20 +36,8 @@ export const ProjectTable = ({
               <td>{row.coip}</td>
               <td>{row.titulo}</td>
               <td>{row.financiado}</td>
-              <td>
-                {row.inicio
-                  ? row.inicio.toLocaleDateString(undefined, {
-                      formatMatcher: "basic",
-                    })
-                  : "Sin inicio"}
-              </td>
-              <td>
-                {row.fin
-                  ? row.inicio.toLocaleDateString(undefined, {
-                      formatMatcher: "basic",
-                    })
-                  : "Sin fin"}
-              </td>
+              <td>{getStringDate(row.inicio, "Sin inicio")}</td>
+              <td>{getStringDate(row.fin, "Sin fin")}</td>
             </tr>
           ))}
       </tbody>
