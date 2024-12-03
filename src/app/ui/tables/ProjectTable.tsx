@@ -2,7 +2,7 @@ import "./tableStyle.css"
 
 import Link from "next/link"
 
-import { getStringDate } from "@/app/utils/formatDate"
+import { getStringDate } from "@/app/utils"
 import type { ProyectoType } from "@/db"
 
 export const ProjectTable = ({

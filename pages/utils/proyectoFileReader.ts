@@ -1,4 +1,4 @@
-import type { ProyectoToUpload } from "@/app/utils/mapProyecto"
+import type { ProyectoToUpload } from "@/app/utils"
 
 const proyectHeaders = [
   "codigo",

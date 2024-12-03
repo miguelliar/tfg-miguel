@@ -3,10 +3,12 @@
 import type { FormEvent } from "react"
 import { useCallback, useMemo, useState } from "react"
 
-import { addAllProyectos } from "@/app/utils/addAllProyectos"
-import { onFileChange } from "@/app/utils/fetchProject"
-import type { ProyectoToUpload } from "@/app/utils/mapProyecto"
-import { mapProyectoToUploadToProyectType } from "@/app/utils/mapProyecto"
+import type { ProyectoToUpload } from "@/app/utils"
+import {
+  addAllProyectos,
+  mapProyectoToUploadToProyectType,
+  onFileChange,
+} from "@/app/utils"
 
 import { ProjectTable } from "../tables/ProjectTable"
 
