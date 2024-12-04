@@ -1,2 +1,2 @@
-export * from "./InvestigadorTable"
-export * from "./ProjectTable"
+export * from "./tables/InvestigadorTable"
+export * from "./tables/ProjectTable"
