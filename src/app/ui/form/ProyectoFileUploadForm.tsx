@@ -10,7 +10,7 @@ import {
   onFileChange,
 } from "@/app/utils"
 
-import { ProjectTable } from "../tables/tables/ProjectTable"
+import { ProjectTable } from "../containers/tables/ProjectTable"
 
 export const ProyectoFileUploaderForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)

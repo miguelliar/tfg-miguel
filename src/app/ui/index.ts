@@ -1,5 +1,5 @@
 export * from "./AddInvestigadorAProyecto"
 export * from "./breadcrumbs/index"
+export * from "./containers/index"
 export * from "./form/index"
 export * from "./HeaderNavigation"
-export * from "./tables/index"
