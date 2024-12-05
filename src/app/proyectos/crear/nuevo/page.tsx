@@ -2,14 +2,13 @@
 
 import type { CreateFormParams } from "@/app/ui"
 import { CreateForm } from "@/app/ui"
+import { proyectoFields } from "@/app/utils"
 import { createProyecto } from "@/db"
-
-import fields from "./constants.json"
 
 export default async function Page() {
   const formParams: CreateFormParams = {
-    createCallback: createProyecto,
-    fields,
+    submitCallback: createProyecto,
+    fields: proyectoFields,
     submitText: "Crear proyecto",
   }
 

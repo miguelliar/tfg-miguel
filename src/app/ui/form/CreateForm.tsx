@@ -1,26 +1,14 @@
-import type { HTMLInputTypeAttribute } from "react"
+import type { FormParams } from "@/app/utils"
 
-export type FormField = {
-  id: string
-  label: string
-  type: HTMLInputTypeAttribute
-  required: boolean
-  placeholder: string
-}
-
-export type CreateFormParams = {
-  createCallback: (formData: FormData) => Promise<void>
-  fields: FormField[]
-  submitText: string
-}
+export type CreateFormParams = FormParams
 
 export const CreateForm = ({
-  createCallback,
+  submitCallback,
   fields,
   submitText,
 }: CreateFormParams) => {
   return (
-    <form className="CreateForm" action={createCallback}>
+    <form className="CreateForm" action={submitCallback}>
       <div className="flex flex-col justify-start">
         {fields.map((field) => {
           return (

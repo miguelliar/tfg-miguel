@@ -1,0 +1,51 @@
+export const investigadorFields = [
+  {
+    id: "email",
+    label: "Email",
+    type: "text",
+    required: true,
+    placeholder: "Introduce el email del investigador...",
+  },
+  {
+    id: "nombre",
+    label: "Nombre",
+    type: "text",
+    required: true,
+    placeholder: "Introduce el nombre del investigador...",
+  },
+  {
+    id: "apellidos",
+    label: "Apellidos",
+    type: "text",
+    required: true,
+    placeholder: "Introduce los apellidos del investigador...",
+  },
+  {
+    id: "universidad",
+    label: "Universidad",
+    type: "text",
+    required: true,
+    placeholder: "Universidad del investigador...",
+  },
+  {
+    id: "departamento",
+    label: "Departamento",
+    type: "text",
+    required: true,
+    placeholder: "Departamento de estudio...",
+  },
+  {
+    id: "area",
+    label: "Area de estudio",
+    type: "text",
+    required: true,
+    placeholder: "Area de estudio del departamento...",
+  },
+  {
+    id: "figura",
+    label: "Figura",
+    type: "text",
+    required: true,
+    placeholder: "Figura del autor...",
+  },
+]

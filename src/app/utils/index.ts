@@ -1,5 +1,7 @@
 export * from "./addAllProyectos"
 export * from "./addParticipa"
+export * from "./constants"
 export * from "./fetchProyecto"
 export * from "./formatDate"
 export * from "./mapProyecto"
+export * from "./types"
