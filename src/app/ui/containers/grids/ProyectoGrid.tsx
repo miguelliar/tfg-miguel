@@ -1,6 +1,8 @@
+"use client"
+
 import type { ProyectoType } from "@/db"
 
-import { ProyectoMiniCard } from "../cards/proyecto/ProyectoMiniCard"
+import { ProyectoMiniCard } from "../../cards/proyecto/ProyectoMiniCard"
 
 export const ProyectoGrid = ({ proyectos }: { proyectos?: ProyectoType[] }) => {
   return (

@@ -3,7 +3,7 @@ import Link from "next/link"
 import {
   AddInvestigadorAProyecto,
   InvestigadorTable,
-  ProjectTable,
+  ProyectoGrid,
 } from "@/app/ui"
 import { fetchInvestigadoresByProyecto, fetchProyectoData } from "@/db"
 
@@ -28,7 +28,7 @@ export default async function Page({
       </section>
       <section className="m-4 p-1 flex flex-col">
         <h2 className="text-lg">Selecciona un proyecto</h2>
-        <ProjectTable projectData={projectData} />
+        <ProyectoGrid proyectos={projectData} />
       </section>
       {searchParams?.codigo && (
         <AddInvestigadorAProyecto codigo={searchParams?.codigo} />
