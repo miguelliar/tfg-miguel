@@ -29,6 +29,7 @@
         },
         "fetch": {
             "All": "SELECT * FROM proyecto",
+            "AllByInvestigadores": "SELECT * FROM proyecto WHERE codigo IN (SELECT codigo_proyecto FROM participa WHERE email_investigador = ANY($1::text[]))",
             "ByCodigo": "SELECT * FROM proyecto WHERE codigo=$1"
         }
     }

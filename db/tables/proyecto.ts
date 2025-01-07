@@ -39,6 +39,20 @@ export const fetchProyectoByCode = async (code: string) => {
   }
 }
 
+export const fetchAllProyectosByInvestigadores = async (
+  investigadoresEmail: string[]
+) => {
+  try {
+    const result = await pool.query<ProyectoType>(
+      proyectoConfig.fetch.AllByInvestigadores,
+      [investigadoresEmail]
+    )
+    return result.rows
+  } catch (error) {
+    console.error(proyectoConfig.error.Executing, error)
+  }
+}
+
 export async function createProyectoItem(proyecto: ProyectoType) {
   const { codigo, ip, coip, titulo, financiado, inicio, fin } = proyecto
 
