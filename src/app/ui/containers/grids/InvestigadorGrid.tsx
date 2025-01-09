@@ -46,7 +46,7 @@ export const InvestigadorGrid = ({
           Mostrar proyectos en comun
         </button>
       </div>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-adaptable gap-4">
         {investigadores &&
           investigadores.map((investigador) => (
             <InvestigadorMiniCard
