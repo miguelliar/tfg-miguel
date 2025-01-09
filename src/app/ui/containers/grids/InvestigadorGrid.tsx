@@ -4,6 +4,8 @@ import { useState } from "react"
 
 import {
   fetchAllProyectosByInvestigadores,
+  fetchDistinctProyectosByInvestigadores,
+  fetchJoinProyectosByInvestigadores,
   type InvestigadorType,
   type ProyectoType,
 } from "@/db"
@@ -13,12 +15,13 @@ import { ProjectTable } from "../tables/ProjectTable"
 import { useInvestigadorGrid } from "./useInvestigadorGrid"
 
 const click = async (
+  fetchByInvestigadorFunction: (
+    investigadoresEmail: string[]
+  ) => Promise<ProyectoType[] | undefined>,
   selectedInvestigadores: string[],
   setSearchedProyectos: any
 ) => {
-  const proyectos = await fetchAllProyectosByInvestigadores(
-    selectedInvestigadores
-  )
+  const proyectos = await fetchByInvestigadorFunction(selectedInvestigadores)
   setSearchedProyectos(proyectos)
 }
 
@@ -33,17 +36,42 @@ export const InvestigadorGrid = ({
 
   return (
     <>
-      <div>
+      <div className="flex flex-col">
         <button
           type="button"
           onClick={() =>
             click(
+              fetchAllProyectosByInvestigadores,
               selectedInvestigadores.map((investigador) => investigador.email),
               setSearchedProyectos
             )
           }
         >
-          Mostrar proyectos en comun
+          Mostrar proyectos en los que participe al menos un investigador
+        </button>
+        <button
+          type="button"
+          onClick={() =>
+            click(
+              fetchJoinProyectosByInvestigadores,
+              selectedInvestigadores.map((investigador) => investigador.email),
+              setSearchedProyectos
+            )
+          }
+        >
+          Mostrar proyectos en los que participen todos los investigadores
+        </button>
+        <button
+          type="button"
+          onClick={() =>
+            click(
+              fetchDistinctProyectosByInvestigadores,
+              selectedInvestigadores.map((investigador) => investigador.email),
+              setSearchedProyectos
+            )
+          }
+        >
+          Mostrar proyectos en los que no participen en conjunto
         </button>
       </div>
       <div className="grid grid-cols-adaptable gap-4">

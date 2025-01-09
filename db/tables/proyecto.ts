@@ -53,6 +53,34 @@ export const fetchAllProyectosByInvestigadores = async (
   }
 }
 
+export const fetchJoinProyectosByInvestigadores = async (
+  investigadoresEmail: string[]
+) => {
+  try {
+    const result = await pool.query<ProyectoType>(
+      proyectoConfig.fetch.JoinByInvestigadores,
+      [investigadoresEmail]
+    )
+    return result.rows
+  } catch (error) {
+    console.error(proyectoConfig.error.Executing, error)
+  }
+}
+
+export const fetchDistinctProyectosByInvestigadores = async (
+  investigadoresEmail: string[]
+) => {
+  try {
+    const result = await pool.query<ProyectoType>(
+      proyectoConfig.fetch.DistinctProyectosByInvestigadores,
+      [investigadoresEmail]
+    )
+    return result.rows
+  } catch (error) {
+    console.error(proyectoConfig.error.Executing, error)
+  }
+}
+
 export async function createProyectoItem(proyecto: ProyectoType) {
   const { codigo, ip, coip, titulo, financiado, inicio, fin } = proyecto
 
