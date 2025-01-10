@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 
+import { downloadProyectosCSV } from "@/app/utils"
 import {
   fetchAllProyectosByInvestigadores,
   fetchDistinctProyectosByInvestigadores,
@@ -87,6 +88,12 @@ export const InvestigadorGrid = ({
       {searchedProyectos && searchedProyectos.length > 0 && (
         <div className="mt-4">
           <ProjectTable projectData={searchedProyectos} />
+          <button
+            type="button"
+            onClick={() => downloadProyectosCSV(searchedProyectos)}
+          >
+            Descargar proyectos en CSV
+          </button>
         </div>
       )}
     </>

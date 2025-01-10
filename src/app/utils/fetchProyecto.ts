@@ -1,3 +1,5 @@
+import type { ProyectoType } from "@/db"
+
 export const onFileChange = async (
   selectedFile: any,
   setProyecto: any,
@@ -15,5 +17,30 @@ export const onFileChange = async (
   } catch (error) {
     console.error(error)
     setLoading(false)
+  }
+}
+
+export const downloadProyectosCSV = async (proyectos: ProyectoType[]) => {
+  try {
+    const response = await fetch("/api/proyecto/download", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(proyectos),
+    })
+    if (response.ok) {
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement("a")
+      link.href = url
+      link.download = "data.csv"
+      link.click()
+      window.URL.revokeObjectURL(url) // Clean up
+    } else {
+      console.error("Failed to download CSV")
+    }
+  } catch (error) {
+    console.error(error)
   }
 }
