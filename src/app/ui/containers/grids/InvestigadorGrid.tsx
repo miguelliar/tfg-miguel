@@ -3,28 +3,12 @@
 import { useState } from "react"
 
 import { downloadProyectosCSV } from "@/app/utils"
-import {
-  fetchAllProyectosByInvestigadores,
-  fetchDistinctProyectosByInvestigadores,
-  fetchJoinProyectosByInvestigadores,
-  type InvestigadorType,
-  type ProyectoType,
-} from "@/db"
+import { type InvestigadorType, type ProyectoType } from "@/db"
 
 import { InvestigadorMiniCard } from "../../cards/investigador/InvestigadorMiniCard"
+import { MostrarProyectos } from "../../MostrarProyectos"
 import { ProjectTable } from "../tables/ProjectTable"
 import { useInvestigadorGrid } from "./useInvestigadorGrid"
-
-const click = async (
-  fetchByInvestigadorFunction: (
-    investigadoresEmail: string[]
-  ) => Promise<ProyectoType[] | undefined>,
-  selectedInvestigadores: string[],
-  setSearchedProyectos: any
-) => {
-  const proyectos = await fetchByInvestigadorFunction(selectedInvestigadores)
-  setSearchedProyectos(proyectos)
-}
 
 export const InvestigadorGrid = ({
   investigadores,
@@ -35,46 +19,22 @@ export const InvestigadorGrid = ({
 
   const [searchedProyectos, setSearchedProyectos] = useState<ProyectoType[]>([])
 
+  const fetchSearchedProyectos = async (
+    fetchByInvestigadorFunction: (
+      investigadoresEmail: string[]
+    ) => Promise<ProyectoType[] | undefined>
+  ) => {
+    const proyectos = await fetchByInvestigadorFunction(
+      selectedInvestigadores.map((investigador) => investigador.email)
+    )
+    if (proyectos) {
+      setSearchedProyectos(proyectos)
+    }
+  }
+
   return (
     <>
-      <div className="flex flex-col">
-        <button
-          type="button"
-          onClick={() =>
-            click(
-              fetchAllProyectosByInvestigadores,
-              selectedInvestigadores.map((investigador) => investigador.email),
-              setSearchedProyectos
-            )
-          }
-        >
-          Mostrar proyectos en los que participe al menos un investigador
-        </button>
-        <button
-          type="button"
-          onClick={() =>
-            click(
-              fetchJoinProyectosByInvestigadores,
-              selectedInvestigadores.map((investigador) => investigador.email),
-              setSearchedProyectos
-            )
-          }
-        >
-          Mostrar proyectos en los que participen todos los investigadores
-        </button>
-        <button
-          type="button"
-          onClick={() =>
-            click(
-              fetchDistinctProyectosByInvestigadores,
-              selectedInvestigadores.map((investigador) => investigador.email),
-              setSearchedProyectos
-            )
-          }
-        >
-          Mostrar proyectos en los que no participen en conjunto
-        </button>
-      </div>
+      <MostrarProyectos fetchSearchedProyectos={fetchSearchedProyectos} />
       <div className="grid grid-cols-adaptable gap-4">
         {investigadores &&
           investigadores.map((investigador) => (

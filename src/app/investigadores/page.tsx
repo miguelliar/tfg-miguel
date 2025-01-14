@@ -9,7 +9,7 @@ export default async function Page() {
 
   return (
     <main>
-      <h1>Investigadores</h1>
+      <h1 className="text-4xl ml-5">Investigadores</h1>
       <section>
         <Link href="/investigadores/crear">Crear investigador</Link>
       </section>
