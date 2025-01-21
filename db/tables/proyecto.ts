@@ -11,11 +11,11 @@ const pool = getPool()
 export type ProyectoType = {
   codigo: string
   ip: string
-  coip: string
+  coip?: string
   titulo: string
   financiado: string
   inicio: Date
-  fin: Date
+  fin?: Date
 }
 
 export const fetchProyectoData = async () => {
@@ -96,5 +96,23 @@ export async function createProyectoItem(proyecto: ProyectoType) {
     ])
   } catch (error) {
     console.error(proyectoConfig.error.Inserting, error)
+  }
+}
+
+export async function updateProyectoItem(proyecto: ProyectoType) {
+  const { codigo, ip, coip, titulo, financiado, inicio, fin } = proyecto
+
+  try {
+    await pool.query(proyectoConfig.Update, [
+      ip,
+      coip,
+      titulo,
+      financiado,
+      inicio,
+      fin,
+      codigo,
+    ])
+  } catch (error) {
+    console.error(proyectoConfig.error.Updating, error)
   }
 }

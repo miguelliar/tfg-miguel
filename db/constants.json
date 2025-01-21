@@ -22,10 +22,12 @@
     },
     "proyecto": {
         "Create": "INSERT INTO proyecto (codigo, ip, coip, titulo, financiado, inicio, fin) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+        "Update": "UPDATE proyecto SET ip=$1, coip=$2, titulo=$3, financiado=$4, inicio=$5, fin=$6 WHERE codigo=$7",
         "error": {
             "Executing": "Error executing query",
             "Inserting": "Error inserting proyecto",
-            "MaxIndex": "Error obtaining the maximum index"
+            "MaxIndex": "Error obtaining the maximum index",
+            "Updating": "Error updating the proyecto"
         },
         "fetch": {
             "All": "SELECT * FROM proyecto",

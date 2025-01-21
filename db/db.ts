@@ -40,11 +40,10 @@ export async function createProyecto(formData: FormData) {
       fin: formData.get("fin"),
     })
 
-  console.log("Fecha final" + Boolean(fin))
   try {
     await pool.query(
       "INSERT INTO proyecto (codigo, ip, coip, titulo, financiado, inicio, fin) VALUES ($1, $2, $3, $4, $5, $6, $7)",
-      [codigo, ip, coip ? coip : null, titulo, financiado, inicio, fin ? fin : null]
+      [codigo, ip, coip || null, titulo, financiado, inicio, fin || null]
     )
   } catch (error) {
     console.error("Error inserting proyecto", error)
