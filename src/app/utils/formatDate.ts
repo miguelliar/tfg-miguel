@@ -1,5 +1,5 @@
 export const getStringDate = (
-  date: Date | null,
+  date?: Date,
   message: string = "No date"
 ): string => {
   return date

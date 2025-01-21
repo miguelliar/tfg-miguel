@@ -1,12 +1,13 @@
 "use server"
 
-import type { ProyectoType } from "@/db"
 import {
   createParticipa,
   createProyectoItem,
   fetchInvestigadorByNombreAutor,
   fetchProyectoByCode,
 } from "@/db"
+
+import type { ProyectoType } from "./types"
 
 const validateProyectoToAdd = async (proyecto: ProyectoType) => {
   const { codigo, ip, inicio, fin } = proyecto

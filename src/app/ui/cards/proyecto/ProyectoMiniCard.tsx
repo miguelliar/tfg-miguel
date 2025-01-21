@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-import type { ProyectoType } from "@/db"
+import type { ProyectoType } from "@/app/utils"
 
 import { ProyectoCard } from "./ProyectoCard"
 

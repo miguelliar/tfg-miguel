@@ -2,21 +2,13 @@
 
 "use server"
 
+import type { ProyectoType } from "@/app/utils"
+
 import config from "../constants.json"
 import { getPool } from "../pool"
 
 const proyectoConfig = config.proyecto
 const pool = getPool()
-
-export type ProyectoType = {
-  codigo: string
-  ip: string
-  coip?: string
-  titulo: string
-  financiado: string
-  inicio: Date
-  fin?: Date
-}
 
 export const fetchProyectoData = async () => {
   try {

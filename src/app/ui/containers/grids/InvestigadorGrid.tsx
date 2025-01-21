@@ -2,8 +2,9 @@
 
 import { useState } from "react"
 
+import type { ProyectoType } from "@/app/utils"
 import { downloadProyectosCSV } from "@/app/utils"
-import { type InvestigadorType, type ProyectoType } from "@/db"
+import { type InvestigadorType } from "@/db"
 
 import { InvestigadorMiniCard } from "../../cards/investigador/InvestigadorMiniCard"
 import { MostrarProyectos } from "../../MostrarProyectos"

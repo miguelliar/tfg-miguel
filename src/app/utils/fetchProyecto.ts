@@ -1,4 +1,4 @@
-import type { ProyectoType } from "@/db"
+import type { ProyectoType } from "./types"
 
 export const onFileChange = async (
   selectedFile: any,

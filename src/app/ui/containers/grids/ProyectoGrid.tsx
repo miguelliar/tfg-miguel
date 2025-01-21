@@ -1,6 +1,6 @@
 "use client"
 
-import type { ProyectoType } from "@/db"
+import type { ProyectoType } from "@/app/utils"
 
 import { ProyectoMiniCard } from "../../cards/proyecto/ProyectoMiniCard"
 

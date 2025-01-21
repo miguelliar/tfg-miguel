@@ -1,5 +1,6 @@
-import type { ProyectoType } from "@/db"
 import { fetchProyectoByCode, updateProyectoItem } from "@/db"
+
+import type { ProyectoType } from "./types"
 
 const validateProyectoToUpdate = async (proyecto: ProyectoType) => {
   const isCodigoUsed = await fetchProyectoByCode(proyecto.codigo)
