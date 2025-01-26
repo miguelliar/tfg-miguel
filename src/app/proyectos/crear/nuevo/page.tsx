@@ -1,12 +1,12 @@
 "use server"
 
-import type { CreateFormParams } from "@/app/ui"
+import type { FormParams } from "@/app/ui"
 import { CreateForm } from "@/app/ui"
 import { proyectoFields } from "@/app/utils"
 import { createProyecto } from "@/db"
 
 export default async function Page() {
-  const formParams: CreateFormParams = {
+  const formParams: FormParams = {
     submitCallback: createProyecto,
     fields: proyectoFields,
     submitText: "Crear proyecto",
