@@ -9,5 +9,7 @@ export const getStringDate = (
     : message
 }
 
-export const parseDateToString = (date: Date): string =>
-  date.toISOString().substring(0, 10)
+export const parseDateToString = (date: Date | string | null): string => {
+  if (typeof date === "string") return date
+  return date ? date.toLocaleDateString("en-CA") : ""
+}
