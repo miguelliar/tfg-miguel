@@ -18,9 +18,29 @@ export type InvestigadorType = {
   figura: string
 }
 
+const validateInputParameter = (investigador: InvestigadorType) => {
+  const { email, nombre, apellidos, universidad, departamento, area, figura } =
+    investigador
+
+  if (!email || !email.trim()) return "Email cannot be empty"
+  if (!nombre || !nombre.trim()) return "Nombre cannot be empty"
+  if (!apellidos || !apellidos.trim()) return "Apellidos cannot be empty"
+  if (!universidad || !universidad.trim()) return "Universidad cannot be empty"
+  if (!departamento || !departamento.trim())
+    return "Departamento cannot be empty"
+  if (!area || !area.trim()) return "Area cannot be empty"
+  if (!figura || !figura.trim()) return "Figura cannot be empty"
+}
+
 export const createInvestigador = async (investigador: InvestigadorType) => {
   const { email, nombre, apellidos, universidad, departamento, area, figura } =
     investigador
+
+  const errorMessage = validateInputParameter(investigador)
+  if (errorMessage) {
+    throw new Error(errorMessage)
+  }
+
   try {
     await pool.query(investigadorConfig.Create, [
       email,
@@ -30,6 +50,30 @@ export const createInvestigador = async (investigador: InvestigadorType) => {
       departamento,
       area,
       figura,
+    ])
+  } catch (error) {
+    console.error(investigadorConfig.error.Inserting, error)
+  }
+}
+
+export const updateInvestigador = async (investigador: InvestigadorType) => {
+  const { email, nombre, apellidos, universidad, departamento, area, figura } =
+    investigador
+
+  const errorMessage = validateInputParameter(investigador)
+  if (errorMessage) {
+    throw new Error(errorMessage)
+  }
+
+  try {
+    await pool.query(investigadorConfig.Update, [
+      nombre,
+      apellidos,
+      universidad,
+      departamento,
+      area,
+      figura,
+      email,
     ])
   } catch (error) {
     console.error(investigadorConfig.error.Inserting, error)

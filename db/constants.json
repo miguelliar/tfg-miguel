@@ -1,6 +1,7 @@
 {
     "investigador": {
         "Create": "INSERT INTO investigador (email, nombre, apellidos, universidad, departamento, area, figura) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+        "Update": "UPDATE investigador SET nombre=$1, apellidos=$2, universidad=$3, departamento=$4, area=$5, figura=$6 WHERE email=$7",
         "error": {
             "Executing": "Error executing query",
             "Inserting": "Error inserting investigador",
