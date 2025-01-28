@@ -76,10 +76,10 @@ export const fetchDistinctProyectosByInvestigadores = async (
 const validateInputParameter = (proyecto: ProyectoType) => {
   const { codigo, ip, titulo, financiado, inicio, fin } = proyecto
 
-  if (!codigo.trim()) return "Codigo cannot be empty"
-  if (!ip.trim()) return "Investigador principal cannot be empty"
-  if (!titulo.trim()) return "Titulo cannot be empty"
-  if (!financiado.trim()) return "Financiado cannot be empty"
+  if (!codigo || !codigo.trim()) return "Codigo cannot be empty"
+  if (!ip || !ip.trim()) return "Investigador principal cannot be empty"
+  if (!titulo || !titulo.trim()) return "Titulo cannot be empty"
+  if (!financiado || !financiado.trim()) return "Financiado cannot be empty"
   if (!inicio) return "Inicio cannot be empty"
   if (fin && fin?.valueOf() < inicio.valueOf())
     return "Fin date must be after inicio date"
