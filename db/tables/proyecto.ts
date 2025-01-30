@@ -10,6 +10,37 @@ import { getPool } from "../pool"
 const proyectoConfig = config.proyecto
 const pool = getPool()
 
+export const searchProyectoByTitulo = async (
+  query: string,
+  page: number = 1,
+  offset: number = 20
+) => {
+  if (!query || query.trim() === "") {
+    throw new Error("The query must exist and cannot be empty")
+  }
+  if (page <= 0 || page > 300) {
+    throw new Error("The page cannot be lower than 1 or greater than 300")
+  }
+
+  if (offset <= 0 || offset > 100) {
+    throw new Error("The offset cannot be greater lower than 1 or greater than 100")
+  }
+
+  try {
+
+    const limit = offset;
+    const offsetValue = (page - 1) * offset;
+
+    const result = await pool.query<ProyectoType>(
+      proyectoConfig.search.SearchByName,
+      [`%${query}%`, limit, offsetValue]
+    )
+    return result.rows
+  } catch (error) {
+    console.error(proyectoConfig.error.Executing, error)
+  }
+}
+
 export const fetchProyectoData = async () => {
   try {
     const result = await pool.query<ProyectoType>(proyectoConfig.fetch.All)

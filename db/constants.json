@@ -36,6 +36,9 @@
             "ByCodigo": "SELECT * FROM proyecto WHERE codigo=$1",
             "DistinctProyectosByInvestigadores": "SELECT proyecto.* FROM proyecto WHERE proyecto.codigo IN (SELECT participa.codigo_proyecto FROM participa WHERE participa.email_investigador = ANY($1::text[]) GROUP BY participa.codigo_proyecto HAVING COUNT(DISTINCT participa.email_investigador) = 1)",
             "JoinByInvestigadores": "SELECT proyecto.* FROM proyecto JOIN participa ON proyecto.codigo = participa.codigo_proyecto WHERE participa.email_investigador = ANY($1::text[]) GROUP BY proyecto.codigo HAVING COUNT(DISTINCT participa.email_investigador) = ARRAY_LENGTH($1::text[], 1) "
+        },
+        "search": {
+            "SearchByName": "SELECT * FROM proyecto WHERE titulo LIKE $1::text LIMIT $2 OFFSET $3"
         }
     }
 }
