@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import ShowMoreText from "react-show-more-text"
 
 import type { ProyectoType } from "@/app/utils"
 
@@ -11,22 +12,15 @@ export const ProyectoMiniCard = ({ proyecto }: { proyecto: ProyectoType }) => {
 
   return (
     <div className="flex flex-col justify-between border-2 border-font-color rounded-md min-h-28">
-      <div className="flex flex-row justify-center mt-1 text-special-color">
-        <h2>{proyecto.codigo}</h2>
-      </div>
-      <div className="my-1 mx-3">
-        <p className="flex flex-nowrap">
-          <b>I.P: </b>
-          <span className="text-ellipsis overflow-hidden text-nowrap">
-            {proyecto.ip}
-          </span>
-        </p>
-        {proyecto.coip && (
-          <p>
-            <b>Co I.P: </b>
-            {proyecto.coip}
-          </p>
-        )}
+      <div className="flex flex-col mt-1 text-center">
+        <h2 className="text-special-color">{proyecto.codigo}</h2>
+        <ShowMoreText
+          lines={2}
+          more={<button type="button">Show more</button>}
+          less={<button type="button">Show less</button>}
+        >
+          <p>{proyecto.titulo}</p>
+        </ShowMoreText>
       </div>
       <button
         type="button"

@@ -1,10 +1,18 @@
-"use client"
-
-import type { ProyectoType } from "@/app/utils"
+import { fetchProyectoByQuery, fetchProyectoData } from "@/db"
 
 import { ProyectoMiniCard } from "../../cards/proyecto/ProyectoMiniCard"
 
-export const ProyectoGrid = ({ proyectos }: { proyectos?: ProyectoType[] }) => {
+export const ProyectoGrid = async ({
+  query,
+  currentPage,
+}: {
+  query: string
+  currentPage: number
+}) => {
+  const proyectos = query
+    ? await fetchProyectoByQuery(query, currentPage)
+    : await fetchProyectoData(currentPage)
+
   return (
     <div className="grid grid-cols-adaptable gap-4">
       {proyectos &&

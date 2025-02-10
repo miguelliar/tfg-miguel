@@ -1,24 +1,18 @@
 import Link from "next/link"
 
-import {
-  AddInvestigadorAProyecto,
-  InvestigadorTable,
-  ProyectoGrid,
-} from "@/app/ui"
-import { fetchInvestigadoresByProyecto, fetchProyectoData } from "@/db"
+import { Pagination, ProyectoGrid, Search } from "@/app/ui"
+import { fetchProyectoTotalPages } from "@/db"
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: {
-    codigo?: string
-  }
+export default async function Page(props: {
+  searchParams?: Promise<{
+    query?: string
+    page?: string
+  }>
 }) {
-  const projectData = await fetchProyectoData()
-
-  const investigadorData = await fetchInvestigadoresByProyecto(
-    searchParams?.codigo ?? ""
-  )
+  const searchParams = await props.searchParams
+  const query = searchParams?.query || ""
+  const currentPage = Number(searchParams?.page) || 1
+  const totalPages = await fetchProyectoTotalPages(query)
 
   return (
     <main>
@@ -26,16 +20,10 @@ export default async function Page({
       <section>
         <Link href="/proyectos/crear">Añadir proyecto</Link>
       </section>
-      <section className="m-4 p-1 flex flex-col">
-        <h2 className="text-lg">Selecciona un proyecto</h2>
-        <ProyectoGrid proyectos={projectData} />
-      </section>
-      {searchParams?.codigo && (
-        <AddInvestigadorAProyecto codigo={searchParams?.codigo} />
-      )}
-      <section className="m-4 p-1 flex flex-col">
-        <h2 className="text-lg">Investigadores involucrados en el proyecto</h2>
-        <InvestigadorTable investigadorData={investigadorData} />
+      <section className="m-4 p-1 flex flex-col justify-items-center">
+        <Search />
+        <ProyectoGrid query={query} currentPage={currentPage} />
+        <Pagination totalPages={totalPages} />
       </section>
     </main>
   )

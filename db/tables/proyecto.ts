@@ -2,6 +2,8 @@
 
 "use server"
 
+import { unstable_noStore as noStore } from "next/cache"
+
 import type { ProyectoType } from "@/app/utils"
 
 import config from "../constants.json"
@@ -10,11 +12,12 @@ import { getPool } from "../pool"
 const proyectoConfig = config.proyecto
 const pool = getPool()
 
-export const searchProyectoByTitulo = async (
+export const fetchProyectoByQuery = async (
   query: string,
-  page: number = 1,
-  offset: number = 20
+  page: number = proyectoConfig.pagination.INITIAL_PAGE,
+  offset: number = proyectoConfig.pagination.ITEMS_PER_PAGE
 ) => {
+  noStore()
   if (!query || query.trim() === "") {
     throw new Error("The query must exist and cannot be empty")
   }
@@ -23,13 +26,14 @@ export const searchProyectoByTitulo = async (
   }
 
   if (offset <= 0 || offset > 100) {
-    throw new Error("The offset cannot be greater lower than 1 or greater than 100")
+    throw new Error(
+      "The offset cannot be greater lower than 1 or greater than 100"
+    )
   }
 
   try {
-
-    const limit = offset;
-    const offsetValue = (page - 1) * offset;
+    const limit = offset
+    const offsetValue = (page - 1) * offset
 
     const result = await pool.query<ProyectoType>(
       proyectoConfig.search.SearchByName,
@@ -41,9 +45,41 @@ export const searchProyectoByTitulo = async (
   }
 }
 
-export const fetchProyectoData = async () => {
+export const fetchProyectoTotalPages = async (query: string) => {
+  noStore()
   try {
-    const result = await pool.query<ProyectoType>(proyectoConfig.fetch.All)
+    const count = await pool.query<{ count: number }>(
+      proyectoConfig.search.MaxNumberOfPages,
+      [`%${query}%`]
+    )
+
+    const totalPages = Math.ceil(
+      Number(count.rows[0].count) / proyectoConfig.pagination.ITEMS_PER_PAGE
+    )
+    return totalPages
+  } catch (error) {
+    console.error("Database Error:", error)
+    throw new Error("Failed to fetch total number of invoices.")
+  }
+}
+
+export const fetchProyectoData = async (
+  page: number = proyectoConfig.pagination.INITIAL_PAGE,
+  offset: number = proyectoConfig.pagination.ITEMS_PER_PAGE
+) => {
+  if (page <= 0 || page > 300) {
+    throw new Error("The page cannot be lower than 1 or greater than 300")
+  }
+
+  try {
+    const limit = offset
+    const offsetValue = (page - 1) * offset
+
+    const result = await pool.query<ProyectoType>(proyectoConfig.fetch.All, [
+      limit,
+      offsetValue,
+    ])
+
     return result.rows
   } catch (error) {
     console.error(proyectoConfig.error.Executing, error)
