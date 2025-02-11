@@ -9,36 +9,19 @@ import { InvestigadorCard } from "./InvestigadorCard"
 
 export const InvestigadorMiniCard = ({
   investigador,
-  select,
 }: {
   investigador: InvestigadorType
-  select: (props: {
-    investigadorSelected: InvestigadorType
-    selected: boolean
-  }) => void
 }) => {
   const [open, setOpen] = useState(false)
-  const [selected, setSelected] = useState(false)
-  const selectInvestigadorOnClick = () => {
-    setSelected(!selected)
-    select({ investigadorSelected: investigador, selected: !selected })
-  }
-  const selectInvestigadorLabelText = `${selected ? "Des-seleccionar" : "Seleccionar"} investigador ${investigador.email}`
 
   return (
     <div className={cx("max-h-28")}>
       <div
         className={cx(
-          "flex flex-col justify-between border-2 rounded-md min-h-27",
-          { "border-font-color": !selected, "border-special-color": selected }
+          "flex flex-col justify-between border-2 rounded-md min-h-27"
         )}
       >
-        <button
-          className="flex-grow"
-          type="button"
-          onClick={selectInvestigadorOnClick}
-          aria-label={selectInvestigadorLabelText}
-        >
+        <button className="flex-grow" type="button">
           <div className="flex flex-row justify-center mt-1 text-special-color">
             <h2 className="text-ellipsis overflow-hidden text-nowrap">
               {investigador.email}
@@ -52,10 +35,7 @@ export const InvestigadorMiniCard = ({
         </button>
         <button
           type="button"
-          className={cx("text-background-color", {
-            "bg-font-color": !selected,
-            "bg-special-color": selected,
-          })}
+          className={cx("text-background-color")}
           onClick={() => setOpen(!open)}
           aria-label={`Ver detalles de ${investigador.email}`}
         >
