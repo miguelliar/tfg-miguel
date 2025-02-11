@@ -2,6 +2,8 @@
 
 "use server"
 
+import { unstable_noStore as noStore } from "next/cache"
+
 import config from "../constants.json"
 import { getPool } from "../pool"
 
@@ -80,14 +82,80 @@ export const updateInvestigador = async (investigador: InvestigadorType) => {
   }
 }
 
-export const fetchInvestigadorData = async () => {
+export const fetchInvestigadorData = async (
+  page: number = investigadorConfig.pagination.INITIAL_PAGE,
+  offset: number = investigadorConfig.pagination.ITEMS_PER_PAGE
+) => {
+  if (page <= 0 || page > 300) {
+    throw new Error("The page cannot be lower than 1 or greater than 300")
+  }
+
+  if (offset <= 0 || offset > 100) {
+    throw new Error("The offset cannot be lower than 1 or greater than 100")
+  }
+
   try {
+    const limit = offset
+    const offsetValue = (page - 1) * offset
+
     const result = await pool.query<InvestigadorType>(
-      investigadorConfig.fetch.All
+      investigadorConfig.fetch.All,
+      [limit, offsetValue]
     )
     return result.rows
   } catch (error) {
     console.error(investigadorConfig.error.Executing, error)
+  }
+}
+
+export const fetchInvestigadoresByQuery = async (
+  query: string,
+  page: number = investigadorConfig.pagination.INITIAL_PAGE,
+  offset: number = investigadorConfig.pagination.ITEMS_PER_PAGE
+) => {
+  noStore()
+  if (!query || query.trim() === "") {
+    throw new Error("The query must exist and cannot be empty")
+  }
+  if (page <= 0 || page > 300) {
+    throw new Error("The page cannot be lower than 1 or greater than 300")
+  }
+
+  if (offset <= 0 || offset > 100) {
+    throw new Error(
+      "The offset cannot be greater lower than 1 or greater than 100"
+    )
+  }
+
+  try {
+    const limit = offset
+    const offsetValue = (page - 1) * offset
+
+    const result = await pool.query<InvestigadorType>(
+      investigadorConfig.search.SearchByName,
+      [`%${query}%`, limit, offsetValue]
+    )
+    return result.rows
+  } catch (error) {
+    console.error(investigadorConfig.error.Executing, error)
+  }
+}
+
+export const fetchInvestigadorTotalPages = async (query: string) => {
+  noStore()
+  try {
+    const count = await pool.query<{ count: number }>(
+      investigadorConfig.search.MaxNumberOfPages,
+      [`%${query}%`]
+    )
+
+    const totalPages = Math.ceil(
+      Number(count.rows[0].count) / investigadorConfig.pagination.ITEMS_PER_PAGE
+    )
+    return totalPages
+  } catch (error) {
+    console.error("Database Error:", error)
+    throw new Error("Failed to fetch total number of invoices.")
   }
 }
 
