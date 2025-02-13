@@ -1,7 +1,11 @@
 import Link from "next/link"
 
 import { Pagination, ProyectoGrid, Search } from "@/app/ui"
-import { fetchProyectoTotalPages } from "@/db"
+import {
+  fetchProyectoByQuery,
+  fetchProyectoData,
+  fetchProyectoTotalPages,
+} from "@/db"
 
 export default async function Page(props: {
   searchParams?: Promise<{
@@ -13,16 +17,19 @@ export default async function Page(props: {
   const query = searchParams?.query || ""
   const currentPage = Number(searchParams?.page) || 1
   const totalPages = await fetchProyectoTotalPages(query)
+  const proyectos = query
+    ? await fetchProyectoByQuery(query, currentPage)
+    : await fetchProyectoData(currentPage)
 
   return (
     <main>
-      <h1>Proyectos</h1>
-      <section>
+      <h1 className="text-4xl m-5">Proyectos</h1>
+      <section className="ml-7">
         <Link href="/proyectos/crear">Añadir proyecto</Link>
       </section>
       <section className="m-4 p-1 flex flex-col justify-items-center">
         <Search />
-        <ProyectoGrid query={query} currentPage={currentPage} />
+        <ProyectoGrid proyectos={proyectos} />
         <Pagination totalPages={totalPages} />
       </section>
     </main>

@@ -49,9 +49,9 @@ export const ProyectoFileUploaderForm = () => {
 
   return (
     <>
-      <form className="CreateForm" onSubmit={(e) => onSubmit(e)}>
-        <label htmlFor="proyectoFile">
-          Elige un archivo .csv con los proyectos a subir
+      <form className="ml-7" onSubmit={(e) => onSubmit(e)}>
+        <label className="flex flex-col" htmlFor="proyectoFile">
+          <span>Elige un archivo .csv con los proyectos a subir</span>
           <input
             type="file"
             id="proyectoFile"
@@ -59,7 +59,11 @@ export const ProyectoFileUploaderForm = () => {
             onChange={(event) => onChange(event.target.files?.[0])}
           />
         </label>
-        <button type="submit" className="bg-blue-700" disabled={submitEnabled}>
+        <button
+          type="submit"
+          className="m-4 bg-font-color text-background-color p-2 rounded-md"
+          disabled={submitEnabled}
+        >
           Submit
         </button>
       </form>
