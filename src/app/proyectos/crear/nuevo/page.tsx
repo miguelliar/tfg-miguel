@@ -14,7 +14,7 @@ export default async function Page() {
 
   return (
     <main>
-      <h1>Crear un proyecto manualmente</h1>
+      <h1 className="text-4xl m-5">Crear un proyecto manualmente</h1>
       <CreateForm {...formParams} />
     </main>
   )

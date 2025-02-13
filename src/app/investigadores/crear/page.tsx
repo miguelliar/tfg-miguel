@@ -12,5 +12,10 @@ export default async function Page() {
     submitText: "Crear investigador",
   }
 
-  return <CreateForm {...formParams} />
+  return (
+    <main>
+      <h1 className="text-4xl m-5">Crear un investigador manualmente</h1>
+      <CreateForm {...formParams} />
+    </main>
+  )
 }

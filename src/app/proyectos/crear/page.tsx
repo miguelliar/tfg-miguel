@@ -5,8 +5,8 @@ import Link from "next/link"
 export default async function Page() {
   return (
     <main>
-      <h1>Añadir proyectos</h1>
-      <ul>
+      <h1 className="text-4xl m-5">Añadir proyectos</h1>
+      <ul className="ml-7">
         <li>
           <Link href="/proyectos/crear/nuevo">
             Crear un proyecto manualmente

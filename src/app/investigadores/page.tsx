@@ -26,8 +26,8 @@ export default async function Page(props: {
 
   return (
     <main>
-      <h1 className="text-4xl ml-5">Investigadores</h1>
-      <section>
+      <h1 className="text-4xl m-5">Investigadores</h1>
+      <section className="ml-7">
         <Link href="/investigadores/crear">Crear investigador</Link>
       </section>
       <section className="m-4 p-1 flex flex-col">
