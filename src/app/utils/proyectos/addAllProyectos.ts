@@ -7,7 +7,7 @@ import {
   fetchProyectoByCode,
 } from "@/db"
 
-import type { ProyectoType } from "./types"
+import type { ProyectoType } from "../types"
 
 export const validateProyectoToAdd = async (proyecto: ProyectoType) => {
   const { codigo, ip, inicio, fin } = proyecto

@@ -1,4 +1,4 @@
-import type { ProyectoType } from "./types"
+import type { ProyectoType } from "../types"
 
 export type ProyectoToUpload = Omit<ProyectoType, "inicio" | "fin"> & {
   inicio: string
