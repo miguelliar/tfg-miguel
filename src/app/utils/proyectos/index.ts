@@ -1,3 +1,4 @@
-export * from "./addAllProyectos"
-export * from "./fetchProyecto"
-export * from "./mapProyecto"
+export * from "./addAll"
+export * from "./fetch"
+export * from "./map"
+export * from "./validate"

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import type { ProyectoType } from "../types"
-import type { ProyectoToUpload } from "./mapProyecto"
+import type { ProyectoToUpload } from "./map"
 
 export const fetchParsedProyectos = async (
   selectedFile: any
