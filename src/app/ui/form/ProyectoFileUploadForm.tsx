@@ -3,33 +3,41 @@
 import type { FormEvent } from "react"
 import { useCallback, useMemo, useState } from "react"
 
-import type { ProyectoToUpload } from "@/app/utils"
+import type { ProyectoType } from "@/app/utils"
 import {
   addAllProyectos,
+  fetchParsedProyectos,
   mapProyectoToUploadToProyectType,
-  onFileChange,
 } from "@/app/utils"
 
 import { ProjectTable } from "../containers/tables/ProjectTable"
 
 export const ProyectoFileUploaderForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [uploadedProyecto, setUploadedProyecto] = useState<ProyectoToUpload[]>()
+  const [uploadedProyecto, setUploadedProyecto] = useState<ProyectoType[]>()
   const [errorMessages, setErrorMessages] = useState<string[]>()
 
-  const onChange = useCallback(
-    (selectedFile: any) =>
-      onFileChange(selectedFile, setUploadedProyecto, setIsLoading),
-    []
-  )
+  const onChange = useCallback((selectedFile: any) => {
+    setIsLoading(true)
+    ;(async () => {
+      const proyectoRaw = await fetchParsedProyectos(selectedFile)
+      if (proyectoRaw && proyectoRaw.length > 0) {
+        setUploadedProyecto(mapProyectoToUploadToProyectType(proyectoRaw))
+      } else {
+        setUploadedProyecto([])
+        setErrorMessages([
+          "There was a problem with the file. Please try it again",
+        ])
+      }
+      setIsLoading(false)
+    })()
+  }, [])
 
   const onSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       if (uploadedProyecto) {
-        const proyectErrorMessageMap = await addAllProyectos(
-          mapProyectoToUploadToProyectType(uploadedProyecto)
-        )
+        const proyectErrorMessageMap = await addAllProyectos(uploadedProyecto)
         if (proyectErrorMessageMap) {
           setErrorMessages(
             proyectErrorMessageMap.map(
@@ -59,13 +67,15 @@ export const ProyectoFileUploaderForm = () => {
             onChange={(event) => onChange(event.target.files?.[0])}
           />
         </label>
-        <button
-          type="submit"
-          className="m-4 bg-font-color text-background-color p-2 rounded-md"
-          disabled={submitEnabled}
-        >
-          Submit
-        </button>
+        <div>
+          <button
+            type="submit"
+            className="m-4 bg-font-color text-background-color p-2 rounded-md"
+            disabled={submitEnabled}
+          >
+            Submit
+          </button>
+        </div>
       </form>
       <p>{isLoading ? "Loading" : null}</p>
       {errorMessages && errorMessages.length > 0 ? (
@@ -80,10 +90,8 @@ export const ProyectoFileUploaderForm = () => {
           </ul>
         </section>
       ) : null}
-      {!isLoading && uploadedProyecto ? (
-        <ProjectTable
-          projectData={mapProyectoToUploadToProyectType(uploadedProyecto)}
-        />
+      {!isLoading && uploadedProyecto && uploadedProyecto.length > 0 ? (
+        <ProjectTable projectData={uploadedProyecto} />
       ) : null}
     </>
   )

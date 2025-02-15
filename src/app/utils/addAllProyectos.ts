@@ -9,7 +9,7 @@ import {
 
 import type { ProyectoType } from "./types"
 
-const validateProyectoToAdd = async (proyecto: ProyectoType) => {
+export const validateProyectoToAdd = async (proyecto: ProyectoType) => {
   const { codigo, ip, inicio, fin } = proyecto
 
   const isCodigoUsed = !(await fetchProyectoByCode(codigo))

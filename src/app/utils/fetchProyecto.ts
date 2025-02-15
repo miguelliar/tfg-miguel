@@ -1,22 +1,18 @@
+/* eslint-disable no-console */
+import type { ProyectoToUpload } from "./mapProyecto"
 import type { ProyectoType } from "./types"
 
-export const onFileChange = async (
-  selectedFile: any,
-  setProyecto: any,
-  setLoading: any
-) => {
+export const fetchParsedProyectos = async (
+  selectedFile: any
+): Promise<ProyectoToUpload[] | undefined> => {
   try {
-    setLoading(true)
     const response = await fetch("/api/proyecto/parseFile", {
       method: "POST",
       body: selectedFile,
     })
-    const content = await response.json()
-    setProyecto(content)
-    setLoading(false)
+    return await response.json()
   } catch (error) {
     console.error(error)
-    setLoading(false)
   }
 }
 
