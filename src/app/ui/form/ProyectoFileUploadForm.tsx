@@ -3,19 +3,25 @@
 import type { FormEvent } from "react"
 import { useCallback, useMemo, useState } from "react"
 
-import type { ProyectoType } from "@/app/utils"
+import type { InfoMessage, ProyectoType } from "@/app/utils"
 import {
   addAllProyectos,
   fetchParsedProyectos,
+  InfoMessageType,
   mapProyectoToUploadToProyectType,
+  MESSAGES,
+  validateProyectosToAdd,
 } from "@/app/utils"
 
 import { ProjectTable } from "../containers/tables/ProjectTable"
+import { InformationMessage } from "../InformationMessage"
 
 export const ProyectoFileUploaderForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [uploadedProyecto, setUploadedProyecto] = useState<ProyectoType[]>()
-  const [errorMessages, setErrorMessages] = useState<string[]>()
+  const [informationMessages, setInformationMessages] =
+    useState<InfoMessage[]>()
+  const [submitEnabled, setSubmitEnabled] = useState(false)
 
   const onChange = useCallback((selectedFile: any) => {
     setIsLoading(true)
@@ -25,33 +31,41 @@ export const ProyectoFileUploaderForm = () => {
         setUploadedProyecto(mapProyectoToUploadToProyectType(proyectoRaw))
       } else {
         setUploadedProyecto([])
-        setErrorMessages([
-          "There was a problem with the file. Please try it again",
+        setInformationMessages([
+          { type: InfoMessageType.FILE_ERROR, message: MESSAGES.FILE },
         ])
       }
       setIsLoading(false)
     })()
   }, [])
 
+  const onValidate = useCallback(() => {
+    if (uploadedProyecto) {
+      validateProyectosToAdd(uploadedProyecto).then((messages) => {
+        setInformationMessages(messages)
+      })
+
+      if (
+        informationMessages?.some?.(
+          (message) => message.type !== InfoMessageType.FILE_ERROR
+        )
+      ) {
+        setSubmitEnabled(true)
+      }
+    }
+  }, [uploadedProyecto, informationMessages])
+
   const onSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault()
-      if (uploadedProyecto) {
-        const proyectErrorMessageMap = await addAllProyectos(uploadedProyecto)
-        if (proyectErrorMessageMap) {
-          setErrorMessages(
-            proyectErrorMessageMap.map(
-              (proyectoErrorPair) =>
-                `${proyectoErrorPair[0].codigo}: ${proyectoErrorPair[1]}`
-            )
-          )
-        }
+      if (uploadedProyecto && submitEnabled) {
+        addAllProyectos(uploadedProyecto)
       }
     },
-    [uploadedProyecto]
+    [uploadedProyecto, submitEnabled]
   )
 
-  const submitEnabled = useMemo(() => {
+  const validateEnabled = useMemo(() => {
     return !(uploadedProyecto && uploadedProyecto?.length > 0)
   }, [uploadedProyecto])
 
@@ -69,6 +83,14 @@ export const ProyectoFileUploaderForm = () => {
         </label>
         <div>
           <button
+            type="button"
+            className="m-4 bg-font-color text-background-color p-2 rounded-md"
+            onClick={onValidate}
+            disabled={validateEnabled}
+          >
+            Validate
+          </button>
+          <button
             type="submit"
             className="m-4 bg-font-color text-background-color p-2 rounded-md"
             disabled={submitEnabled}
@@ -78,17 +100,8 @@ export const ProyectoFileUploaderForm = () => {
         </div>
       </form>
       <p>{isLoading ? "Loading" : null}</p>
-      {errorMessages && errorMessages.length > 0 ? (
-        <section>
-          <h2>There has been the following problems:</h2>
-          <ul>
-            {errorMessages.map((errorMessage) => (
-              <li key={`ErrorMessage-${errorMessage}`}>
-                <p>{errorMessage}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
+      {informationMessages && informationMessages.length > 0 ? (
+        <InformationMessage informationMessage={informationMessages} />
       ) : null}
       {!isLoading && uploadedProyecto && uploadedProyecto.length > 0 ? (
         <ProjectTable projectData={uploadedProyecto} />
