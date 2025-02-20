@@ -1,8 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useContext, useState } from "react"
 
 import type { ProyectoType } from "@/app/utils"
+import { ProyectoDispatchContext, ProyectoIsDBSyncContext } from "@/app/utils"
 import { updateProyectoItem } from "@/db"
 
 const validateParameters = (
@@ -67,6 +68,8 @@ export const useEditProyectoForm = (
 ] => {
   const [editedProyecto, setEditedProyecto] = useState(proyecto)
   const [errors, setErrors] = useState(inputErrors)
+  const dispatchProyecto = useContext(ProyectoDispatchContext)
+  const isDBSync = useContext(ProyectoIsDBSyncContext)
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -82,7 +85,8 @@ export const useEditProyectoForm = (
     e.preventDefault()
     if (JSON.stringify(proyecto) !== JSON.stringify(editedProyecto)) {
       if (validateParameters(editedProyecto, setErrors)) {
-        updateProyectoItem(editedProyecto)
+        if (isDBSync) updateProyectoItem(editedProyecto)
+        dispatchProyecto?.({ payload: editedProyecto, type: "proyecto/edit" })
         finishEditMode()
       }
     }

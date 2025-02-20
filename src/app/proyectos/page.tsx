@@ -29,7 +29,7 @@ export default async function Page(props: {
       </section>
       <section className="m-4 p-1 flex flex-col justify-items-center">
         <Search />
-        <ProyectoGrid proyectos={proyectos} />
+        <ProyectoGrid proyectos={proyectos ?? []} isDBSync />
         <Pagination totalPages={totalPages} />
       </section>
     </main>

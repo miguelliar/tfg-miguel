@@ -1,6 +1,6 @@
 export * from "./addParticipa"
 export * from "./constants"
-export * from "./context/SelectInvestigador"
+export * from "./context"
 export * from "./formatDate"
 export * from "./hooks"
 export * from "./proyectos"
