@@ -16,8 +16,16 @@ export const ProyectoMiniCard = ({ proyecto }: { proyecto: ProyectoType }) => {
         <h2 className="text-special-color">{proyecto.codigo}</h2>
         <ShowMoreText
           lines={2}
-          more={<button type="button">Show more</button>}
-          less={<button type="button">Show less</button>}
+          more={
+            <button className="text-gray-500 text-sm" type="button">
+              Más...
+            </button>
+          }
+          less={
+            <button className="text-gray-500 text-sm" type="button">
+              ...Menos
+            </button>
+          }
         >
           <p>{proyecto.titulo}</p>
         </ShowMoreText>
