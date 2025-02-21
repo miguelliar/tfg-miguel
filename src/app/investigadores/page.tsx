@@ -6,7 +6,12 @@ import {
   fetchInvestigadorTotalPages,
 } from "@/db"
 
-import { InvestigadorGrid, Pagination, Search } from "../ui"
+import {
+  CreateInvestigadorButton,
+  InvestigadorGrid,
+  Pagination,
+  Search,
+} from "../ui"
 import { ProyectoViewerByInvestigador } from "../ui/viewer/ProyectoViewerByInvestigador"
 
 export default async function Page(props: {
@@ -32,7 +37,10 @@ export default async function Page(props: {
       </section>
       <section className="m-4 p-1 flex flex-col">
         <ProyectoViewerByInvestigador>
-          <Search />
+          <div className="flex flex-row justify-between">
+            <Search />
+            <CreateInvestigadorButton />
+          </div>
           <InvestigadorGrid investigadores={investigadores} />
           <Pagination totalPages={totalPages} />
         </ProyectoViewerByInvestigador>

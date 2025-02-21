@@ -14,4 +14,15 @@ export const ERROR_MESSAGES = {
         "La fecha de finalización no puede ser anterior a la de inicio",
     },
   },
+  INVESTIGADOR: {
+    EMPTY: {
+      EMAIL: "El email del investigador no puede estar vacío",
+      NOMBRE: "El nombre del investigador no puede estar vacío",
+      APELLIDOS: "Los apellidos del investigador no pueden estar vacíos",
+      UNIVERSIDAD: "La universidad no puede estar vacía",
+      DEPARTAMENTO: "El departamento no puede estar vacío",
+      AREA: "El area no puede estar vacía",
+      FIGURA: "La figura no puede estar vacía",
+    },
+  },
 }
