@@ -1,5 +1,6 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 import type {
@@ -41,6 +42,7 @@ export const useInvestigadorCreate = (
     figura: "",
   })
   const [errors, setErrors] = useState()
+  const router = useRouter()
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -52,12 +54,11 @@ export const useInvestigadorCreate = (
     }))
   }
 
-  const onSubmit = (e: any) => {
-    e.preventDefault()
-
+  const onSubmit = () => {
     if (validateParameters(investigador, setErrors)) {
       addInvestigador(investigador)
       onClose()
+      router.refresh()
     }
   }
 

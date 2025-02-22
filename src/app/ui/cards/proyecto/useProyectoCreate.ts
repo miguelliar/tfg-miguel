@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 import type { ProyectoType, ProyectoValidationErrors } from "@/app/utils"
@@ -38,6 +39,7 @@ export const useProyectoCreate = (
     inicio: new Date(),
   })
   const [errors, setErrors] = useState<ProyectoValidationErrors | null>()
+  const router = useRouter()
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -49,11 +51,11 @@ export const useProyectoCreate = (
     }))
   }
 
-  const onSubmit = (e: any) => {
-    e.preventDefault()
+  const onSubmit = () => {
     if (validateParameters(proyecto, setErrors)) {
       addProyecto(proyecto)
       onClose()
+      router.refresh()
     }
   }
 
