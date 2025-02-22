@@ -1,10 +1,9 @@
-import Link from "next/link"
-
 import {
   CreateProyectoButton,
   Pagination,
   ProyectoGrid,
   Search,
+  SubmitProyectoFileButton,
 } from "@/app/ui"
 import {
   fetchProyectoByQuery,
@@ -29,13 +28,13 @@ export default async function Page(props: {
   return (
     <main>
       <h1 className="text-4xl m-5">Proyectos</h1>
-      <section className="ml-7">
-        <Link href="/proyectos/crear">Añadir proyecto</Link>
-      </section>
       <section className="m-4 p-1 flex flex-col justify-items-center">
         <div className="flex flex-row justify-between">
           <Search />
-          <CreateProyectoButton />
+          <div className="flex flex-row">
+            <CreateProyectoButton />
+            <SubmitProyectoFileButton />
+          </div>
         </div>
         <ProyectoGrid proyectos={proyectos ?? []} isDBSync />
         <Pagination totalPages={totalPages} />
