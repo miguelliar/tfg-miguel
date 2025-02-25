@@ -1,2 +1,2 @@
+export * from "./InvestigadorContext"
 export * from "./ProyectoContext"
-export * from "./SelectInvestigador"

@@ -5,7 +5,7 @@ import { useState } from "react"
 import type { ProyectoType } from "@/app/utils"
 import {
   downloadProyectosCSV,
-  SelectInvestigadorContext,
+  InvestigadorContext,
   useInvestigadoresSelected,
 } from "@/app/utils"
 
@@ -37,11 +37,19 @@ export const ProyectoViewerByInvestigador = ({
   return (
     <>
       <MostrarProyectos fetchSearchedProyectos={fetchSearchedProyectos} />
-      <SelectInvestigadorContext.Provider value={selectInvestigador}>
+      <InvestigadorContext.Provider
+        value={{ selectedInvestigadores, select: selectInvestigador }}
+      >
         {children}
-      </SelectInvestigadorContext.Provider>
+      </InvestigadorContext.Provider>
       {searchedProyectos && searchedProyectos.length > 0 && (
         <div className="mt-4">
+          <div>
+            <h2>Investigadores seleccionados</h2>
+            {selectedInvestigadores.map((investigador) => (
+              <p key={investigador.email}>{investigador.email}</p>
+            ))}
+          </div>
           <ProjectTable projectData={searchedProyectos} />
           <button
             type="button"

@@ -16,7 +16,7 @@
         },
         "pagination": {
             "INITIAL_PAGE": 1,
-            "ITEMS_PER_PAGE": 9
+            "ITEMS_PER_PAGE": 12
         },
         "search": {
             "SearchByName": "SELECT * FROM investigador WHERE email ILIKE $1::text OR nombre ILIKE $1::text OR apellidos ILIKE $1::text OR universidad ILIKE $1::text ORDER BY email DESC LIMIT $2 OFFSET $3",
@@ -47,7 +47,7 @@
         },
         "pagination": {
             "INITIAL_PAGE": 1,
-            "ITEMS_PER_PAGE": 9
+            "ITEMS_PER_PAGE": 12
         },
         "search": {
             "SearchByName": "SELECT * FROM proyecto WHERE titulo ILIKE $1::text OR codigo ILIKE $1::text OR ip ILIKE $1::text OR financiado ILIKE $1::text ORDER BY inicio DESC LIMIT $2 OFFSET $3",

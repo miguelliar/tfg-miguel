@@ -1,9 +1,9 @@
 "use client"
 
 import cx from "classnames"
-import { useContext, useState } from "react"
+import { useContext, useMemo, useState } from "react"
 
-import { SelectInvestigadorContext } from "@/app/utils"
+import { InvestigadorContext } from "@/app/utils"
 import type { InvestigadorType } from "@/db"
 
 import { InvestigadorCard } from "./InvestigadorCard"
@@ -14,13 +14,20 @@ export const InvestigadorMiniCard = ({
   investigador: InvestigadorType
 }) => {
   const [open, setOpen] = useState(false)
-  const [selected, setSelected] = useState(false)
-  const select = useContext(SelectInvestigadorContext)
+  const { selectedInvestigadores, select } = useContext(InvestigadorContext)
+  const selected = useMemo(
+    () =>
+      selectedInvestigadores.some(
+        (investigadorSelected) =>
+          investigadorSelected.email === investigador.email
+      ),
+    [selectedInvestigadores, investigador]
+  )
 
   const selectInvestigadorOnClick = () => {
-    setSelected(!selected)
-    select?.({ investigadorSelected: investigador, selected: !selected })
+    select?.({ investigadorSelected: investigador })
   }
+
   const selectInvestigadorLabelText = `${selected ? "Des-seleccionar" : "Seleccionar"} investigador ${investigador.email}`
 
   return (

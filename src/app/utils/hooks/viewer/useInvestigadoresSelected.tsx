@@ -2,7 +2,8 @@
 
 import { useCallback, useState } from "react"
 
-import type { InvestigadorType, SelectInvestigador } from "../../types"
+import type { SelectInvestigador } from "../../context"
+import type { InvestigadorType } from "../../types"
 
 export const useInvestigadoresSelected = (): [
   InvestigadorType[],
@@ -12,15 +13,13 @@ export const useInvestigadoresSelected = (): [
     InvestigadorType[]
   >([])
 
-  const selectCallback = useCallback(
-    ({
-      investigadorSelected,
-      selected,
-    }: {
-      investigadorSelected: InvestigadorType
-      selected: boolean
-    }) => {
-      if (selected) {
+  const selectCallback = useCallback<SelectInvestigador>(
+    ({ investigadorSelected }: { investigadorSelected: InvestigadorType }) => {
+      if (
+        !selectedInvestigadores.some(
+          (investigador) => investigador.email === investigadorSelected.email
+        )
+      ) {
         setSelectedInvestigadores([
           ...selectedInvestigadores,
           investigadorSelected,
