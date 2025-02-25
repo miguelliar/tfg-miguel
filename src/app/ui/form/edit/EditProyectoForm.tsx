@@ -20,7 +20,7 @@ export const EditProyectoForm = ({
   return (
     <form className="flex flex-col gap-2 my-3" onSubmit={(e) => onSubmit(e)}>
       {errors.ip && <span style={{ color: "red" }}>{errors.ip}</span>}
-      <label htmlFor="ip">
+      <label className="flex flex-col w-full" htmlFor="ip">
         <b>Investigador Principal: </b>
         <input
           id="ip"
@@ -35,7 +35,7 @@ export const EditProyectoForm = ({
         />
       </label>
       {errors.coip && <span style={{ color: "red" }}>{errors.coip}</span>}
-      <label htmlFor="coip">
+      <label className="flex flex-col w-full" htmlFor="coip">
         <b>Co Investigador Principal: </b>
         <input
           id="coip"
@@ -47,7 +47,7 @@ export const EditProyectoForm = ({
         />
       </label>
       {errors.titulo && <span style={{ color: "red" }}>{errors.titulo}</span>}
-      <label className="w-full" htmlFor="titulo">
+      <label className="flex flex-col w-full" htmlFor="titulo">
         <h3 className="align-middle">
           <b>Descripcion: </b>
         </h3>
