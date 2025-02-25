@@ -3,7 +3,6 @@ import {
   Pagination,
   ProyectoGrid,
   Search,
-  SubmitProyectoFileButton,
 } from "@/app/ui"
 import {
   fetchProyectoByQuery,
@@ -31,10 +30,7 @@ export default async function Page(props: {
       <section className="m-4 p-1 flex flex-col justify-items-center">
         <div className="flex flex-row justify-between">
           <Search />
-          <div className="flex flex-row">
-            <CreateProyectoButton />
-            <SubmitProyectoFileButton />
-          </div>
+          <CreateProyectoButton />
         </div>
         <ProyectoGrid proyectos={proyectos ?? []} isDBSync />
         <Pagination totalPages={totalPages} />
