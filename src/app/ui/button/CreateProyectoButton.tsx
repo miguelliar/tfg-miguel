@@ -6,6 +6,7 @@ import { useState } from "react"
 
 import { ProyectoCreateCard } from "../cards"
 import { ProyectoSubmitCard } from "../cards/proyecto/SubmitCard"
+import { Button } from "./Button"
 
 export const CreateProyectoButton = () => {
   const [isIndividualAddOpen, setIsIndividualAddOpen] = useState(false)
@@ -15,13 +16,10 @@ export const CreateProyectoButton = () => {
     <>
       <Popover color="primary" placement="top-start">
         <PopoverTrigger>
-          <button
-            className="flex flex-row rounded-md border p-2 m-5 mt-1 border-gray-300 outline-2"
-            type="button"
-          >
+          <Button className="mb-2">
             Añadir Proyecto
             <PlusIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
-          </button>
+          </Button>
         </PopoverTrigger>
         <PopoverContent className="px-0 py-0">
           <div className="flex flex-col rounded-md items-start">

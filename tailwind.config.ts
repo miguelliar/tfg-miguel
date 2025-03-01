@@ -15,6 +15,7 @@ const config: Config = {
         "background-color": "var(--background-color)",
         "highlight-background-color": "var(--highlight-background-color)",
         "low-color": "var(--low-color)",
+        "disabled-color": "var(--disabled-color)",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
