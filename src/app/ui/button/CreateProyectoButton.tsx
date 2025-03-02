@@ -1,7 +1,6 @@
 "use client"
 
 import { ArrowUpTrayIcon, PlusIcon } from "@heroicons/react/24/solid"
-import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover"
 import { useState } from "react"
 
 import { ProyectoCreateCard } from "../cards"
@@ -11,18 +10,34 @@ import { Button } from "./Button"
 export const CreateProyectoButton = () => {
   const [isIndividualAddOpen, setIsIndividualAddOpen] = useState(false)
   const [isFileAddOpen, setIsFileAddOpen] = useState(false)
+  const [areOptionsOpened, setAreOptionsOpened] = useState(false)
 
   return (
     <>
-      <Popover color="primary" placement="top-start">
-        <PopoverTrigger>
-          <Button className="mb-2">
-            Añadir Proyecto
-            <PlusIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="px-0 py-0">
-          <div className="flex flex-col rounded-md items-start">
+      {areOptionsOpened ? (
+        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+        <div
+          className="h-full w-full fixed top-0 left-0 "
+          onClick={() => setAreOptionsOpened(false)}
+          onKeyDown={(e) => {
+            if (e.key === "Escape") setAreOptionsOpened(false)
+          }}
+        />
+      ) : null}
+      <Button
+        className="mb-2 relative"
+        onClick={() => setAreOptionsOpened(!areOptionsOpened)}
+      >
+        Añadir Proyecto
+        <PlusIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
+        {areOptionsOpened ? (
+          // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+          <div
+            className="flex flex-col rounded-md items-start absolute bg-white top-[-65px] left-[0px] w-full"
+            onKeyDown={(e) => {
+              if (e.key === "Escape") setAreOptionsOpened(false)
+            }}
+          >
             <button
               className="pl-2 p-1"
               type="button"
@@ -34,13 +49,17 @@ export const CreateProyectoButton = () => {
               className="flex flex-row pl-2 p-1"
               type="button"
               onClick={() => setIsFileAddOpen(true)}
+              onKeyDown={(e) => {
+                if (e.key === "Tab" && !e.shiftKey) setAreOptionsOpened(false)
+              }}
             >
               Por archivo
               <ArrowUpTrayIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
             </button>
           </div>
-        </PopoverContent>
-      </Popover>
+        ) : null}
+      </Button>
+
       {isIndividualAddOpen ? (
         <ProyectoCreateCard onClose={() => setIsIndividualAddOpen(false)} />
       ) : null}

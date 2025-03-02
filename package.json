@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.4",
-    "@heroui/popover": "^2.3.13",
     "@json2csv/cli": "^7.0.6",
     "@json2csv/formatters": "^7.0.6",
     "@json2csv/node": "^7.0.6",
