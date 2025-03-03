@@ -1,4 +1,9 @@
-import type { InvestigadorType } from "@/app/utils"
+"use client"
+
+import type { KeyboardEvent } from "react"
+import { useContext, useRef } from "react"
+
+import { CloseRefContext, type InvestigadorType } from "@/app/utils"
 
 import { useEditInvestigadorForm } from "./useEditInvestigadorForm"
 
@@ -14,6 +19,28 @@ export const EditInvestigadorForm = ({
   const [editedInvestigador, errors, handleChange, onSubmit] =
     useEditInvestigadorForm(investigador, finishEditMode)
 
+  const closeBtnRef = useContext(CloseRefContext)
+  const startingInput = useRef<HTMLInputElement>(null)
+  const cancelButton = useRef<HTMLButtonElement>(null)
+
+  const cancelarButtonOnKeyPress = (e: KeyboardEvent<HTMLButtonElement>) => {
+    if (e.key === "Tab" && !e.shiftKey) {
+      e.preventDefault()
+      startingInput.current?.focus()
+    }
+    if (e.key === "Enter") {
+      e.preventDefault()
+      closeBtnRef?.current?.focus()
+    }
+  }
+
+  const startingInputOnKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Tab" && e.shiftKey) {
+      e.preventDefault()
+      cancelButton.current?.focus()
+    }
+  }
+
   return (
     <form className="flex flex-col gap-2 my-3" onSubmit={(e) => onSubmit(e)}>
       {errors.nombre && <span style={{ color: "red" }}>{errors.nombre}</span>}
@@ -26,9 +53,11 @@ export const EditInvestigadorForm = ({
           required
           // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus
+          ref={startingInput}
           placeholder="Nombre de investigador"
           defaultValue={editedInvestigador.nombre}
           onChange={handleChange}
+          onKeyDown={startingInputOnKeyPress}
         />
       </label>
       {errors.apellidos && (
@@ -108,7 +137,12 @@ export const EditInvestigadorForm = ({
       </label>
       <div className="flex justify-around">
         <button type="submit">Editar</button>
-        <button type="button" onClick={finishEditMode}>
+        <button
+          type="button"
+          onClick={finishEditMode}
+          onKeyDown={cancelarButtonOnKeyPress}
+          ref={cancelButton}
+        >
           Cancelar
         </button>
       </div>

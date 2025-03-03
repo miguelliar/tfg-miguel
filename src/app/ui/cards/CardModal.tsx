@@ -1,4 +1,10 @@
+"use client"
+
 import { XMarkIcon } from "@heroicons/react/24/solid"
+import type { KeyboardEvent } from "react"
+import { useRef } from "react"
+
+import { CloseRefContext } from "@/app/utils"
 
 export const CardModal = ({
   children,
@@ -9,13 +15,15 @@ export const CardModal = ({
   onClose: () => void
   option?: React.ReactNode
 }) => {
-  const wrapperOnKeyDown = (event: any) => {
+  const closeBtnRef = useRef<HTMLButtonElement>(null)
+
+  const wrapperOnKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Escape") {
       onClose()
     }
   }
-  const closeBtnOnKeyDown = (event: any) => {
-    if (event.key === "Tab") {
+  const closeBtnOnKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === "Tab" && !event.shiftKey) {
       onClose()
     }
   }
@@ -41,12 +49,15 @@ export const CardModal = ({
             type="button"
             onClick={onClose}
             onKeyDown={closeBtnOnKeyDown}
+            ref={closeBtnRef}
           >
             <XMarkIcon title="Cerrar tarjeta de proyecto" />
           </button>
         </div>
         <div className="flex flex-col justify-around mx-8 items-center">
-          {children}
+          <CloseRefContext.Provider value={closeBtnRef}>
+            {children}
+          </CloseRefContext.Provider>
         </div>
       </section>
     </div>

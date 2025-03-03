@@ -2,6 +2,7 @@
 
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
+import type { KeyboardEvent } from "react"
 import { useState } from "react"
 
 import type { InvestigadorType } from "@/db"
@@ -19,9 +20,21 @@ export const InvestigadorCard = ({
 }) => {
   const [isEditMode, setEditMode] = useState(false)
 
+  const editButtonOnKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === "Tab" && event.shiftKey) {
+      onClose()
+    }
+  }
+
   return (
     <CardModal
-      option={<EditButton isEditMode={isEditMode} setEditMode={setEditMode} />}
+      option={
+        <EditButton
+          isEditMode={isEditMode}
+          setEditMode={setEditMode}
+          onKeyDown={editButtonOnKeyDown}
+        />
+      }
       onClose={onClose}
     >
       <h2 className="text-special-color">Email: {investigador.email}</h2>
