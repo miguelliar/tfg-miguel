@@ -10,9 +10,10 @@ import {
   CreateInvestigadorButton,
   InvestigadorGrid,
   Pagination,
+  ProyectoViewerByInvestigador,
   Search,
+  SearchProyectosByInvestigadorButton,
 } from "../ui"
-import { ProyectoViewerByInvestigador } from "../ui/viewer/ProyectoViewerByInvestigador"
 
 export default async function Page(props: {
   searchParams?: Promise<{
@@ -39,7 +40,10 @@ export default async function Page(props: {
         <ProyectoViewerByInvestigador>
           <div className="flex flex-row justify-between">
             <Search />
-            <CreateInvestigadorButton />
+            <div className="flex flex-row m-5 mt-1 gap-x-2">
+              <CreateInvestigadorButton />
+              <SearchProyectosByInvestigadorButton />
+            </div>
           </div>
           <InvestigadorGrid investigadores={investigadores} />
           <Pagination totalPages={totalPages} />

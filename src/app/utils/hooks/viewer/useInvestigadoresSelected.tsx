@@ -8,6 +8,7 @@ import type { InvestigadorType } from "../../types"
 export const useInvestigadoresSelected = (): [
   InvestigadorType[],
   SelectInvestigador,
+  () => void,
 ] => {
   const [selectedInvestigadores, setSelectedInvestigadores] = useState<
     InvestigadorType[]
@@ -37,5 +38,9 @@ export const useInvestigadoresSelected = (): [
     [selectedInvestigadores, setSelectedInvestigadores]
   )
 
-  return [selectedInvestigadores, selectCallback]
+  const clearAllSelected = () => {
+    setSelectedInvestigadores([])
+  }
+
+  return [selectedInvestigadores, selectCallback, clearAllSelected]
 }
