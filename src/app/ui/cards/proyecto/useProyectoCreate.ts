@@ -25,7 +25,6 @@ const validateParameters = (
 export const useProyectoCreate = (
   onClose: () => void
 ): [
-  ProyectoType,
   ProyectoValidationErrors | null | undefined,
   handleChange: (e: any) => void,
   (e: any) => void,
@@ -59,5 +58,5 @@ export const useProyectoCreate = (
     }
   }
 
-  return [proyecto, errors, handleChange, onSubmit]
+  return [errors, handleChange, onSubmit]
 }

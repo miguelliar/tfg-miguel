@@ -27,7 +27,6 @@ const validateParameters = (
 export const useInvestigadorCreate = (
   onClose: () => void
 ): [
-  InvestigadorType,
   InvestigadorValidationErrors | null | undefined,
   (e: any) => void,
   (e: any) => void,
@@ -62,5 +61,5 @@ export const useInvestigadorCreate = (
     }
   }
 
-  return [investigador, errors, onSubmit, handleChange]
+  return [errors, onSubmit, handleChange]
 }

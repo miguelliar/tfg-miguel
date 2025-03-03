@@ -16,6 +16,12 @@ const ButtonVariant = {
   minimal: "text-font-color border-none",
 }
 
+const ButtonVariantDisabled = {
+  fill: "text-background-color bg-font-color-disabled",
+  border: "text-font-color-disabled bg-background-color",
+  minimal: "text-font-color-disabled border-none",
+}
+
 export const Button = ({
   children,
   ariaLabel,
@@ -30,10 +36,7 @@ export const Button = ({
       onClick={onClick}
       className={cx(
         "flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-gray-300 outline-2",
-        ButtonVariant[variant],
-        {
-          "text-disabled-color": disabled,
-        },
+        disabled ? ButtonVariantDisabled[variant] : ButtonVariant[variant],
         className
       )}
       // eslint-disable-next-line react/button-has-type

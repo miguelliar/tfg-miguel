@@ -1,5 +1,3 @@
-import Link from "next/link"
-
 import {
   fetchInvestigadorData,
   fetchInvestigadoresByQuery,
@@ -33,14 +31,11 @@ export default async function Page(props: {
   return (
     <main>
       <h1 className="text-4xl m-5">Investigadores</h1>
-      <section className="ml-7">
-        <Link href="/investigadores/crear">Crear investigador</Link>
-      </section>
       <section className="m-4 p-1 flex flex-col">
         <ProyectoViewerByInvestigador>
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-col md:flex-row justify-between">
             <Search />
-            <div className="flex flex-row m-5 mt-1 gap-x-2">
+            <div className="flex flex-row m-5 mt-1 gap-x-2 justify-center">
               <CreateInvestigadorButton />
               <SearchProyectosByInvestigadorButton />
             </div>

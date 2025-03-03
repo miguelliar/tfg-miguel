@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         "font-color": "var(--font-color)",
+        "font-color-disabled": "var(--font-color-disabled)",
         "special-color": "var(--special-color)",
         "highlight-color": "var(--highlight-color)",
         "background-color": "var(--background-color)",

@@ -8,12 +8,11 @@ export const InvestigadorCreateCard = ({
 }: {
   onClose: () => void
 }) => {
-  const [investigador, errors, onSubmit, handleChange] =
-    useInvestigadorCreate(onClose)
+  const [errors, onSubmit, handleChange] = useInvestigadorCreate(onClose)
 
   return (
     <CardModal onClose={onClose}>
-      <h2 className="text-special-color">Email: {investigador.email}</h2>
+      <h2 className="text-2xl text-special-color">Crear investigador</h2>
       <form
         className="flex flex-col gap-2 my-3 w-64"
         onSubmit={(e) => onSubmit(e)}

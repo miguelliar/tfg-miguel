@@ -8,11 +8,11 @@ import { CardModal } from "../CardModal"
 import { useProyectoCreate } from "./useProyectoCreate"
 
 export const ProyectoCreateCard = ({ onClose }: { onClose: () => void }) => {
-  const [proyecto, errors, handleChange, onSubmit] = useProyectoCreate(onClose)
+  const [errors, handleChange, onSubmit] = useProyectoCreate(onClose)
 
   return (
     <CardModal onClose={onClose}>
-      <h2 className="text-special-color">Codigo: {proyecto.codigo}</h2>
+      <h2 className="text-2xl text-special-color">Crear Proyecto</h2>
       <form className="flex flex-col gap-2 my-3" onSubmit={(e) => onSubmit(e)}>
         {errors?.codigo && (
           <span style={{ color: "red" }}>{errors.codigo}</span>
@@ -94,7 +94,7 @@ export const ProyectoCreateCard = ({ onClose }: { onClose: () => void }) => {
               type="date"
               placeholder="Inicio"
               required
-              defaultValue={parseDateToString(proyecto.inicio)}
+              defaultValue={parseDateToString(new Date())}
               onChange={handleChange}
             />
           </label>

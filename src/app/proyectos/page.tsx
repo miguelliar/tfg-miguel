@@ -28,9 +28,11 @@ export default async function Page(props: {
     <main>
       <h1 className="text-4xl m-5">Proyectos</h1>
       <section className="m-4 p-1 flex flex-col justify-items-center">
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-col md:flex-row justify-between">
           <Search />
-          <CreateProyectoButton />
+          <div className="flex m-5 mt-1 justify-center">
+            <CreateProyectoButton />
+          </div>
         </div>
         <ProyectoGrid proyectos={proyectos ?? []} isDBSync />
         <Pagination totalPages={totalPages} />
