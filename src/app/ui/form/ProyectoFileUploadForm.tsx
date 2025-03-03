@@ -13,6 +13,7 @@ import {
   validateProyectosToAdd,
 } from "@/app/utils"
 
+import { Button } from "../button/Button"
 import { ProjectTable } from "../containers/tables/ProjectTable"
 import { InformationMessage } from "../InformationMessage"
 
@@ -21,7 +22,7 @@ export const ProyectoFileUploaderForm = () => {
   const [uploadedProyecto, setUploadedProyecto] = useState<ProyectoType[]>()
   const [informationMessages, setInformationMessages] =
     useState<InfoMessage[]>()
-  const [submitEnabled, setSubmitEnabled] = useState(false)
+  const [submitDisabled, setSubmitDisabled] = useState(true)
 
   const onChange = useCallback((selectedFile: any) => {
     setIsLoading(true)
@@ -50,7 +51,7 @@ export const ProyectoFileUploaderForm = () => {
           (message) => message.type !== InfoMessageType.FILE_ERROR
         )
       ) {
-        setSubmitEnabled(true)
+        setSubmitDisabled(false)
       }
     }
   }, [uploadedProyecto, informationMessages])
@@ -58,20 +59,20 @@ export const ProyectoFileUploaderForm = () => {
   const onSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault()
-      if (uploadedProyecto && submitEnabled) {
+      if (uploadedProyecto && !submitDisabled) {
         addAllProyectos(uploadedProyecto)
       }
     },
-    [uploadedProyecto, submitEnabled]
+    [uploadedProyecto, submitDisabled]
   )
 
-  const validateEnabled = useMemo(() => {
+  const validateDisabled = useMemo(() => {
     return !(uploadedProyecto && uploadedProyecto?.length > 0)
   }, [uploadedProyecto])
 
   return (
     <>
-      <form className="ml-7" onSubmit={(e) => onSubmit(e)}>
+      <form className="m-7" onSubmit={(e) => onSubmit(e)}>
         <label className="flex flex-col" htmlFor="proyectoFile">
           <span>Elige un archivo .csv con los proyectos a subir</span>
           <input
@@ -81,22 +82,24 @@ export const ProyectoFileUploaderForm = () => {
             onChange={(event) => onChange(event.target.files?.[0])}
           />
         </label>
-        <div>
-          <button
+        <div className="flex flex-row">
+          <Button
             type="button"
-            className="m-4 bg-font-color text-background-color p-2 rounded-md"
+            variant="fill"
+            className="m-4"
             onClick={onValidate}
-            disabled={validateEnabled}
+            disabled={validateDisabled}
           >
-            Validate
-          </button>
-          <button
+            Validar
+          </Button>
+          <Button
             type="submit"
-            className="m-4 bg-font-color text-background-color p-2 rounded-md"
-            disabled={submitEnabled}
+            variant="fill"
+            className="m-4"
+            disabled={submitDisabled}
           >
-            Submit
-          </button>
+            Enviar
+          </Button>
         </div>
       </form>
       <p>{isLoading ? "Loading" : null}</p>
