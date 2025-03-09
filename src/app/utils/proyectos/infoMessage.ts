@@ -52,7 +52,8 @@ export const proyectoToInfoMessage = (
   message.warnings?.forEach((warning) =>
     res.push({
       type: InfoMessageType.WARNING,
-      message: `${warning.message} ${warning.nombreAutor}`,
+      message: `${warning.message}:
+      ${warning.nombreAutor}`,
       codigo: message.codigo,
     })
   )
