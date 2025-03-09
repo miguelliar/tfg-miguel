@@ -16,15 +16,6 @@ values
 ('noeliarico@londuni.uk', 'Noelia', 'Rodriguez Perez', 'London University', 'Biology', 'Biology', 'AYD'),
 ('andreal@uninav.es', 'Andrea', 'Llera Misiego', 'Universidad de Navarra', 'Historia', 'Historia', 'TU');
 
-INSERT INTO participa (codigo_proyecto, email_investigador)
-values
-('2021/00008/023', 'carmenr@uniovi.es'),
-('2019/00023/004', 'miguell@unileon.es'),
-('2020/00145/029', 'eliasl@unisev.es'),
-('2015/00059/012', 'pablola@unival.es'),
-('2021/00103/033', 'noeliarico@londuni.uk'),
-('2022/00214/014', 'andreal@uninav.es');
-
 INSERT INTO nombre_autor (email_investigador, nombre_autor)
 values
 ('carmenr@uniovi.es', 'Carmen R. M.'),
@@ -33,3 +24,13 @@ values
 ('pablola@unival.es', 'Pablo L. A.'),
 ('noeliarico@londuni.uk', 'RICO PACHON, NOELIA'),
 ('andreal@uninav.es', 'Andrea L.');
+
+
+INSERT INTO participa (codigo_proyecto, email_investigador, nombre_autor)
+values
+('2021/00008/023', 'carmenr@uniovi.es', 'Carmen R. M.'),
+('2019/00023/004', 'miguell@unileon.es', 'Miguel L. A.'),
+('2020/00145/029', 'eliasl@unisev.es', 'Elias L.'),
+('2015/00059/012', 'pablola@unival.es', 'Pablo L. A.'),
+('2021/00103/033', 'noeliarico@londuni.uk', 'RICO PACHON, NOELIA'),
+('2022/00214/014', 'andreal@uninav.es', 'Andrea L.');

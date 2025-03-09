@@ -24,7 +24,11 @@
         }
     },
     "participa": {
-        "Create": "INSERT INTO participa (email_investigador, codigo_proyecto) VALUES ($1, $2)",
+        "fetch": {
+            "ByEmailInvestigador": "SELECT * FROM participa WHERE email_investigador=$1",
+            "ByCodigo": "SELECT * FROM participa WHERE codigo_proyecto=$1"
+        },
+        "Create": "INSERT INTO participa (email_investigador, codigo_proyecto, nombre_autor) VALUES ($1, $2, $3)",
         "error": {
             "Inserting": "Error inserting participa"
         }

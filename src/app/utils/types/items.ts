@@ -17,3 +17,9 @@ export type ProyectoType = {
   inicio: Date
   fin?: Date
 }
+
+export type ParticipaType = {
+  codigo: string
+  email: string
+  nombreAutor: string
+}
