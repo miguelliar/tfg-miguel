@@ -2,8 +2,8 @@
 
 import { useCallback, useState } from "react"
 
-import type { SelectInvestigador } from "../../context"
-import type { InvestigadorType } from "../../types"
+import type { SelectInvestigador } from "@/app/utils"
+import type { InvestigadorType } from "@/db"
 
 export const useInvestigadoresSelected = (): [
   InvestigadorType[],

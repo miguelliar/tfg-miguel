@@ -5,10 +5,10 @@ import { useState } from "react"
 import {
   InvestigadorContext,
   SearchProyectoByInvestigadorContext,
-  useInvestigadoresSelected,
 } from "@/app/utils"
 
 import { MostrarProyectos } from "../MostrarProyectos"
+import { useInvestigadoresSelected } from "./useInvestigadoresSelected"
 
 export const ProyectoViewerByInvestigador = ({
   children,
