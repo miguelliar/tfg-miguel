@@ -4,11 +4,9 @@ import {
   ProyectoGrid,
   Search,
 } from "@/app/ui"
-import {
-  fetchProyectoByQuery,
-  fetchProyectoData,
-  fetchProyectoTotalPages,
-} from "@/db"
+import { fetchProyectoTotalPages } from "@/db"
+
+import { fetchProyectos } from "../utils"
 
 export default async function Page(props: {
   searchParams?: Promise<{
@@ -20,9 +18,7 @@ export default async function Page(props: {
   const query = searchParams?.query || ""
   const currentPage = Number(searchParams?.page) || 1
   const totalPages = await fetchProyectoTotalPages(query)
-  const proyectos = query
-    ? await fetchProyectoByQuery(query, currentPage)
-    : await fetchProyectoData(currentPage)
+  const proyectos = await fetchProyectos(query, currentPage)
 
   return (
     <main>

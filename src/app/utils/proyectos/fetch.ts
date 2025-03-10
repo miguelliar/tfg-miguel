@@ -1,7 +1,23 @@
 /* eslint-disable no-console */
+import { fetchProyectoByQuery, fetchProyectoData } from "@/db"
+
 import type { ProyectoType } from "../types"
 import type { ProyectoToUpload } from "./map"
 
+export const fetchProyectos = async (
+  query?: string,
+  currentPage: number = 1
+) => {
+  return query
+    ? fetchProyectoByQuery(query, currentPage)
+    : fetchProyectoData(currentPage)
+}
+
+/**
+ * Calls endpoint with a csv file in the body that will return its content parsed in a JSON
+ * @param selectedFile
+ * @returns
+ */
 export const fetchParsedProyectos = async (
   selectedFile: any
 ): Promise<ProyectoToUpload[] | undefined> => {
@@ -16,6 +32,10 @@ export const fetchParsedProyectos = async (
   }
 }
 
+/**
+ * Calls endpoint to download a CSV file with the proyectos sent as parameter
+ * @param proyectos
+ */
 export const downloadProyectosCSV = async (proyectos: ProyectoType[]) => {
   try {
     const response = await fetch("/api/proyecto/download", {

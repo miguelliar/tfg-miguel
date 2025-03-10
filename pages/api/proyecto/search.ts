@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 
-import { searchProyectoByTitulo } from "@/db"
+import { fetchProyectoByQuery } from "@/db"
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     try {
-      const { query, page = '1', offset = '20' } = req.query
+      const { query, page = "1", offset = "20" } = req.query
 
       if (!query) {
         return res.status(400).json({ error: "Query parameter is required" })
@@ -19,19 +19,21 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(400).json({ error: "Page must be a string" })
       }
 
-      if (typeof offset !== "string" ) {
+      if (typeof offset !== "string") {
         return res.status(400).json({ error: "Offset must be a string" })
       }
 
-      const results = await searchProyectoByTitulo(
+      const results = await fetchProyectoByQuery(
         query,
-        parseInt(page),
-        parseInt(offset)
+        parseInt(page, 10),
+        parseInt(offset, 10)
       )
 
       return res.status(200).json({ results })
     } catch (error: any) {
-      res.status(500).json({ error: `There was an unexpected error: ${error.message}` })
+      res
+        .status(500)
+        .json({ error: `There was an unexpected error: ${error.message}` })
     }
   } else {
     return res
