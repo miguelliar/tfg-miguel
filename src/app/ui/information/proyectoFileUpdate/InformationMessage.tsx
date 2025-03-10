@@ -69,22 +69,25 @@ export const InformationMessage = ({
           block: !isCollapsed,
         })}
       >
-        {informationMessage.map((message) => (
-          <li key={`${message.codigo}-${message.message}`}>
-            {message.type === InfoMessageType.ERROR && message.codigo && (
-              <ErrorMessageCard
-                codigo={message.codigo}
-                errorMessage={message.message}
-              />
-            )}
-            {message.type === InfoMessageType.WARNING && message.codigo && (
-              <WarningMessageCard
-                codigo={message.codigo}
-                warningMessage={message.message}
-              />
-            )}
-          </li>
-        ))}
+        {
+          // TODO: add handling for File exception error
+          informationMessage.map((message) => (
+            <li key={`${message.codigo}-${message.message}`}>
+              {message.type === InfoMessageType.ERROR && message.codigo && (
+                <ErrorMessageCard
+                  codigo={message.codigo}
+                  errorMessage={message.message}
+                />
+              )}
+              {message.type === InfoMessageType.WARNING && message.codigo && (
+                <WarningMessageCard
+                  codigo={message.codigo}
+                  warningMessage={message.message}
+                />
+              )}
+            </li>
+          ))
+        }
       </ul>
     </div>
   )

@@ -21,6 +21,7 @@ export const EditProyectoForm = ({
     proyecto,
     finishEditMode
   )
+  // TODO: tech debt, get all logic inside hook
   const closeBtnRef = useContext(CloseRefContext)
   const startingInput = useRef<HTMLInputElement>(null)
   const cancelButton = useRef<HTMLButtonElement>(null)
