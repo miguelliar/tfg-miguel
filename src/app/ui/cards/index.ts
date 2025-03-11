@@ -1,2 +1,2 @@
 export * from "./investigador/InvestigadorCreateCard"
-export * from "./proyecto/ProyectoCreateCard"
+export * from "./proyecto"

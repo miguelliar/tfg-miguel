@@ -18,6 +18,8 @@ export type ProyectoType = {
   fin?: Date
 }
 
+export type ProyectoMinimumDataType = Pick<ProyectoType, "codigo" | "titulo">
+
 export type ParticipaType = {
   codigo: string
   email: string

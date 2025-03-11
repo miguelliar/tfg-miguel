@@ -4,13 +4,68 @@
 
 import { unstable_noStore as noStore } from "next/cache"
 
-import type { ProyectoType } from "@/app/utils"
+import type { ProyectoMinimumDataType, ProyectoType } from "@/app/utils"
 
 import config from "../constants.json"
 import { getPool } from "../pool"
 
 const proyectoConfig = config.proyecto
 const pool = getPool()
+
+export const fetchCodeAndTitleProyectoData = async (
+  page: number = proyectoConfig.pagination.INITIAL_PAGE,
+  offset: number = proyectoConfig.pagination.ITEMS_PER_PAGE
+) => {
+  if (page <= 0 || page > 300) {
+    throw new Error("The page cannot be lower than 1 or greater than 300")
+  }
+
+  try {
+    const limit = offset
+    const offsetValue = (page - 1) * offset
+
+    const result = await pool.query<ProyectoMinimumDataType>(
+      proyectoConfig.fetch.AllMinimumData,
+      [limit, offsetValue]
+    )
+
+    return result.rows
+  } catch (error) {
+    console.error(proyectoConfig.error.Executing, error)
+  }
+}
+
+export const fetchCodeAndTitleProyectoByQuery = async (
+  query: string,
+  page: number = proyectoConfig.pagination.INITIAL_PAGE,
+  offset: number = proyectoConfig.pagination.ITEMS_PER_PAGE
+) => {
+  if (!query || query.trim() === "") {
+    throw new Error("The query must exist and cannot be empty")
+  }
+  if (page <= 0 || page > 300) {
+    throw new Error("The page cannot be lower than 1 or greater than 300")
+  }
+
+  if (offset <= 0 || offset > 100) {
+    throw new Error(
+      "The offset cannot be greater lower than 1 or greater than 100"
+    )
+  }
+
+  try {
+    const limit = offset
+    const offsetValue = (page - 1) * offset
+
+    const result = await pool.query<ProyectoMinimumDataType>(
+      proyectoConfig.search.SearchMinimumData,
+      [`%${query}%`, limit, offsetValue]
+    )
+    return result.rows
+  } catch (error) {
+    console.error(proyectoConfig.error.Executing, error)
+  }
+}
 
 export const fetchProyectoByQuery = async (
   query: string,

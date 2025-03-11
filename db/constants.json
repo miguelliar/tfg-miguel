@@ -43,6 +43,7 @@
             "Updating": "Error updating the proyecto"
         },
         "fetch": {
+            "AllMinimumData": "SELECT codigo, titulo FROM proyecto LIMIT $1 OFFSET $2",
             "All": "SELECT * FROM proyecto LIMIT $1 OFFSET $2",
             "AllByInvestigadores": "SELECT * FROM proyecto WHERE codigo IN (SELECT codigo_proyecto FROM participa WHERE email_investigador = ANY($1::text[]))",
             "ByCodigo": "SELECT * FROM proyecto WHERE codigo=$1",
@@ -54,6 +55,7 @@
             "ITEMS_PER_PAGE": 12
         },
         "search": {
+            "SearchMinimumData": "SELECT codigo, titulo FROM proyecto WHERE titulo ILIKE $1::text OR codigo ILIKE $1::text OR ip ILIKE $1::text OR financiado ILIKE $1::text ORDER BY inicio DESC LIMIT $2 OFFSET $3",
             "SearchByName": "SELECT * FROM proyecto WHERE titulo ILIKE $1::text OR codigo ILIKE $1::text OR ip ILIKE $1::text OR financiado ILIKE $1::text ORDER BY inicio DESC LIMIT $2 OFFSET $3",
             "MaxNumberOfPages": "SELECT COUNT(*) as count FROM proyecto WHERE titulo ILIKE $1::text OR codigo ILIKE $1::text OR ip ILIKE $1::text OR financiado ILIKE $1::text "
         }

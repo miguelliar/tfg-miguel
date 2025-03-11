@@ -1,14 +1,24 @@
 "use client"
 
-import { useState } from "react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import ShowMoreText from "react-show-more-text"
 
-import type { ProyectoType } from "@/app/utils"
+import type { ProyectoMinimumDataType } from "@/app/utils"
 
-import { ProyectoCard } from "./ProyectoCard"
+interface MiniCardProps {
+  proyecto: ProyectoMinimumDataType
+}
 
-export const ProyectoMiniCard = ({ proyecto }: { proyecto: ProyectoType }) => {
-  const [open, setOpen] = useState(false)
+export const ProyectoMiniCard = ({ proyecto }: MiniCardProps) => {
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const { replace } = useRouter()
+
+  const createPageURL = (codigo: string) => {
+    const params = new URLSearchParams(searchParams ?? "")
+    params.set("codigo", codigo)
+    return `${pathname}?${params.toString()}`
+  }
 
   return (
     <div className="flex flex-col justify-between border-2 border-font-color rounded-md min-h-28">
@@ -33,13 +43,12 @@ export const ProyectoMiniCard = ({ proyecto }: { proyecto: ProyectoType }) => {
       <button
         type="button"
         className="bg-font-color text-background-color"
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          replace(createPageURL(proyecto.codigo))
+        }}
       >
         Ver detalles
       </button>
-      {open ? (
-        <ProyectoCard proyecto={proyecto} onClose={() => setOpen(false)} />
-      ) : null}
     </div>
   )
 }

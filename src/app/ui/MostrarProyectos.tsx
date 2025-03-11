@@ -5,7 +5,7 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/solid"
 import cx from "classnames"
-import { useContext, useState } from "react"
+import { useContext, useMemo, useState } from "react"
 
 import type { InvestigadorType } from "@/db"
 import {
@@ -20,7 +20,7 @@ import {
   type ProyectoType,
 } from "../utils"
 import { Button } from "./button/Button"
-import { ProyectoGrid } from "./containers"
+import { ProyectoMiniCard } from "./cards"
 
 const FETCH_PROYECTO_OPTION: {
   [name: string]: {
@@ -140,7 +140,14 @@ export const MostrarProyectos = ({
   selectedInvestigadores: InvestigadorType[]
 }) => {
   const [searchedProyectos, setSearchedProyectos] = useState<ProyectoType[]>([])
-
+  const proyectosMinimumData = useMemo(
+    () =>
+      searchedProyectos.map((proyecto) => ({
+        codigo: proyecto.codigo,
+        titulo: proyecto.titulo,
+      })),
+    [searchedProyectos]
+  )
   const fetchSearchedProyectos = async (
     fetchByInvestigadorFunction: (
       investigadoresEmail: string[]
@@ -178,7 +185,19 @@ export const MostrarProyectos = ({
               <ArrowDownTrayIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
             </Button>
           </div>
-          <ProyectoGrid isDBSync proyectos={searchedProyectos} />
+          {
+            // TODO: Add Modal for Product detail view
+            proyectosMinimumData && (
+              <div className="grid grid-cols-adaptable gap-4">
+                {proyectosMinimumData.map((proyecto) => (
+                  <ProyectoMiniCard
+                    key={`ProyectoCard-${proyecto.codigo}`}
+                    proyecto={proyecto}
+                  />
+                ))}
+              </div>
+            )
+          }
         </section>
       )}
     </section>

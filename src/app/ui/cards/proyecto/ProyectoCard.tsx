@@ -1,5 +1,6 @@
 "use client"
 
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import type { KeyboardEvent } from "react"
 import { useState } from "react"
 
@@ -10,18 +11,21 @@ import { EditButton } from "../../button/EditButton"
 import { EditProyectoForm } from "../../form/edit"
 import { CardModal } from "../CardModal"
 
-export const ProyectoCard = ({
-  proyecto,
-  onClose,
-}: {
-  proyecto: ProyectoType
-  onClose: () => void
-}) => {
+export const ProyectoCard = ({ proyecto }: { proyecto: ProyectoType }) => {
   const [isEditMode, setEditMode] = useState(false)
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const { replace } = useRouter()
+
+  const closeModal = () => {
+    const params = new URLSearchParams(searchParams ?? "")
+    params.delete("codigo")
+    replace(`${pathname}?${params.toString()}`)
+  }
 
   const editButtonOnKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     if (event.key === "Tab" && event.shiftKey) {
-      onClose()
+      closeModal()
     }
   }
 
@@ -34,7 +38,7 @@ export const ProyectoCard = ({
           onKeyDown={editButtonOnKeyDown}
         />
       }
-      onClose={onClose}
+      onClose={closeModal}
     >
       <h2 className="text-special-color">Codigo: {proyecto.codigo}</h2>
       {isEditMode ? (
@@ -69,11 +73,15 @@ export const ProyectoCard = ({
           <div className="flex flex-row justify-around">
             <div>
               <b>Inicio:</b>
-              <p>{getStringDate(proyecto.inicio, "Sin inicio")}</p>
+              <p suppressHydrationWarning>
+                {getStringDate(proyecto.inicio, "Sin inicio")}
+              </p>
             </div>
             <div>
               <b>Fin:</b>
-              <p>{getStringDate(proyecto.fin, "Sin fin")}</p>
+              <p suppressHydrationWarning>
+                {getStringDate(proyecto.fin, "Sin fin")}
+              </p>
             </div>
           </div>
         </div>

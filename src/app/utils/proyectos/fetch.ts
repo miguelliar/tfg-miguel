@@ -1,16 +1,19 @@
 /* eslint-disable no-console */
-import { fetchProyectoByQuery, fetchProyectoData } from "@/db"
+import {
+  fetchCodeAndTitleProyectoByQuery,
+  fetchCodeAndTitleProyectoData,
+} from "@/db"
 
 import type { ProyectoType } from "../types"
 import type { ProyectoToUpload } from "./map"
 
-export const fetchProyectos = async (
+export const fetchProyectosMinimumData = async (
   query?: string,
   currentPage: number = 1
 ) => {
   return query
-    ? fetchProyectoByQuery(query, currentPage)
-    : fetchProyectoData(currentPage)
+    ? fetchCodeAndTitleProyectoByQuery(query, currentPage)
+    : fetchCodeAndTitleProyectoData(currentPage)
 }
 
 /**
