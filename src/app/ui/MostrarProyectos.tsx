@@ -5,20 +5,16 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/solid"
 import cx from "classnames"
-import { useContext, useMemo, useState } from "react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useMemo, useState } from "react"
 
-import type { InvestigadorType } from "@/db"
 import {
   fetchAllProyectosByInvestigadores,
   fetchDistinctProyectosByInvestigadores,
   fetchJoinProyectosByInvestigadores,
 } from "@/db"
 
-import {
-  downloadProyectosCSV,
-  InvestigadorContext,
-  type ProyectoType,
-} from "../utils"
+import { downloadProyectosCSV, type ProyectoType } from "../utils"
 import { Button } from "./button/Button"
 import { ProyectoMiniCard } from "./cards"
 
@@ -47,9 +43,23 @@ const FETCH_PROYECTO_OPTION: {
 const InvestigadoresList = ({
   selectedInvestigadores,
 }: {
-  selectedInvestigadores: InvestigadorType[]
+  selectedInvestigadores: string[]
 }) => {
-  const { select, clearAllSelected } = useContext(InvestigadorContext)
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const { replace } = useRouter()
+
+  const removeInvestigador = (email: string) => {
+    const params = new URLSearchParams(searchParams ?? "")
+    params.delete("selectedEmail", email)
+    replace(`${pathname}?${params.toString()}`)
+  }
+
+  const removeAll = () => {
+    const params = new URLSearchParams(searchParams ?? "")
+    params.delete("selectedEmail")
+    replace(`${pathname}?${params.toString()}`)
+  }
 
   return (
     <div className="flex flex-col mt-4 basis-1/2 flex-grow">
@@ -62,22 +72,22 @@ const InvestigadoresList = ({
           )}
         >
           {selectedInvestigadores.map((investigador) => (
-            <li key={investigador.email} className="flex flex-row gap-4">
+            <li key={investigador} className="flex flex-row gap-4">
               <Button
                 variant="fill"
                 className="py-0"
-                onClick={() => select?.({ investigadorSelected: investigador })}
+                onClick={() => removeInvestigador(investigador)}
               >
                 Quitar
               </Button>
               <b className="text-special-color overflow-hidden text-ellipsis">
-                {investigador.email}
+                {investigador}
               </b>
             </li>
           ))}
         </ul>
         {selectedInvestigadores.length ? (
-          <Button variant="fill" onClick={clearAllSelected}>
+          <Button variant="fill" onClick={removeAll}>
             Quitar todos
           </Button>
         ) : null}
@@ -134,12 +144,9 @@ const ProyectoByInvestigadorSearcher = ({
   )
 }
 
-export const MostrarProyectos = ({
-  selectedInvestigadores,
-}: {
-  selectedInvestigadores: InvestigadorType[]
-}) => {
+export const MostrarProyectos = () => {
   const [searchedProyectos, setSearchedProyectos] = useState<ProyectoType[]>([])
+  const searchParams = useSearchParams()
   const proyectosMinimumData = useMemo(
     () =>
       searchedProyectos.map((proyecto) => ({
@@ -148,14 +155,18 @@ export const MostrarProyectos = ({
       })),
     [searchedProyectos]
   )
+
+  const selectedInvestigadores = useMemo(() => {
+    const params = new URLSearchParams(searchParams ?? "")
+    return params.getAll("selectedEmail")
+  }, [searchParams])
+
   const fetchSearchedProyectos = async (
     fetchByInvestigadorFunction: (
       investigadoresEmail: string[]
     ) => Promise<ProyectoType[] | undefined>
   ) => {
-    const proyectos = await fetchByInvestigadorFunction(
-      selectedInvestigadores.map((investigador) => investigador.email)
-    )
+    const proyectos = await fetchByInvestigadorFunction(selectedInvestigadores)
     if (proyectos) {
       setSearchedProyectos(proyectos)
     }

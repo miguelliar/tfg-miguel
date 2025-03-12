@@ -2,6 +2,7 @@
 
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import type { KeyboardEvent } from "react"
 import { useState } from "react"
 
@@ -13,16 +14,23 @@ import { CardModal } from "../CardModal"
 
 export const InvestigadorCard = ({
   investigador,
-  onClose,
 }: {
   investigador: InvestigadorType
-  onClose: () => void
 }) => {
   const [isEditMode, setEditMode] = useState(false)
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const { replace } = useRouter()
+
+  const closeModal = () => {
+    const params = new URLSearchParams(searchParams ?? "")
+    params.delete("email")
+    replace(`${pathname}?${params.toString()}`)
+  }
 
   const editButtonOnKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     if (event.key === "Tab" && event.shiftKey) {
-      onClose()
+      closeModal()
     }
   }
 
@@ -35,7 +43,7 @@ export const InvestigadorCard = ({
           onKeyDown={editButtonOnKeyDown}
         />
       }
-      onClose={onClose}
+      onClose={closeModal}
     >
       <h2 className="text-special-color">Email: {investigador.email}</h2>
       {isEditMode ? (

@@ -8,6 +8,11 @@ export type InvestigadorType = {
   figura: string
 }
 
+export type InvestigadorMinimumDataType = Pick<
+  InvestigadorType,
+  "email" | "nombre" | "apellidos"
+>
+
 export type ProyectoType = {
   codigo: string
   ip: string

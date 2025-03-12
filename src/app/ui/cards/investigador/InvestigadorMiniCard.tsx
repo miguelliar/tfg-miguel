@@ -1,39 +1,43 @@
 "use client"
 
 import cx from "classnames"
-import { useContext, useMemo, useState } from "react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useContext, useMemo } from "react"
 
-import {
-  InvestigadorContext,
-  SearchProyectoByInvestigadorContext,
-} from "@/app/utils"
-import type { InvestigadorType } from "@/db"
+import type { InvestigadorMinimumDataType } from "@/app/utils"
+import { SearchProyectoByInvestigadorContext } from "@/app/utils"
 
 import { Button } from "../../button/Button"
-import { InvestigadorCard } from "./InvestigadorCard"
 
 export const InvestigadorMiniCard = ({
   investigador,
 }: {
-  investigador: InvestigadorType
+  investigador: InvestigadorMinimumDataType
 }) => {
-  const [open, setOpen] = useState(false)
-  const { selectedInvestigadores, select } = useContext(InvestigadorContext)
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const { replace } = useRouter()
+
   const { isSearchProyectosByInvestigadorActive: isSelectable } = useContext(
     SearchProyectoByInvestigadorContext
   )
   const selected = useMemo(
     () =>
-      isSelectable &&
-      selectedInvestigadores.some(
-        (investigadorSelected) =>
-          investigadorSelected.email === investigador.email
-      ),
-    [selectedInvestigadores, investigador, isSelectable]
+      isSelectable && searchParams?.has("selectedEmail", investigador.email),
+    [investigador, isSelectable, searchParams]
   )
 
+  const createPageURL = (email: string) => {
+    const params = new URLSearchParams(searchParams ?? "")
+    params.set("email", email)
+    return `${pathname}?${params.toString()}`
+  }
+
   const selectInvestigadorOnClick = () => {
-    select?.({ investigadorSelected: investigador })
+    const params = new URLSearchParams(searchParams ?? "")
+    if (selected) params.delete("selectedEmail", investigador.email)
+    else params.append("selectedEmail", investigador.email)
+    replace(`${pathname}?${params.toString()}`)
   }
 
   const selectInvestigadorLabelText = `${selected ? "Deseleccionar" : "Seleccionar"} investigador ${investigador.email}`
@@ -62,7 +66,7 @@ export const InvestigadorMiniCard = ({
               "bg-font-color": !selected,
               "bg-special-color": selected,
             })}
-            onClick={() => setOpen(!open)}
+            onClick={() => replace(createPageURL(investigador.email))}
             aria-label={`Ver detalles de ${investigador.email}`}
             variant="fill"
           >
@@ -81,12 +85,6 @@ export const InvestigadorMiniCard = ({
             </Button>
           ) : null}
         </div>
-        {open ? (
-          <InvestigadorCard
-            investigador={investigador}
-            onClose={() => setOpen(false)}
-          />
-        ) : null}
       </div>
     </div>
   )

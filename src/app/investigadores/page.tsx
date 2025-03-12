@@ -1,4 +1,5 @@
 import {
+  fetchInvestigadorByEmail,
   fetchInvestigadorData,
   fetchInvestigadoresByQuery,
   fetchInvestigadorTotalPages,
@@ -6,7 +7,8 @@ import {
 
 import {
   CreateInvestigadorButton,
-  InvestigadorGrid,
+  InvestigadorCard,
+  InvestigadorMiniCard,
   Pagination,
   ProyectoViewerByInvestigador,
   Search,
@@ -17,11 +19,17 @@ export default async function Page(props: {
   searchParams?: Promise<{
     query?: string
     page?: string
+    email?: string
   }>
 }) {
   const searchParams = await props.searchParams
   const query = searchParams?.query || ""
   const currentPage = Number(searchParams?.page) || 1
+  const email = searchParams?.email || ""
+
+  const currentInvestigador = email
+    ? await fetchInvestigadorByEmail(email)
+    : null
   const totalPages = await fetchInvestigadorTotalPages(query)
 
   const investigadores = query
@@ -32,6 +40,9 @@ export default async function Page(props: {
     <main>
       <h1 className="text-4xl m-5">Investigadores</h1>
       <section className="m-4 p-1 flex flex-col">
+        {currentInvestigador && (
+          <InvestigadorCard investigador={currentInvestigador} />
+        )}
         <ProyectoViewerByInvestigador>
           <div className="flex flex-col md:flex-row justify-between">
             <Search />
@@ -40,7 +51,17 @@ export default async function Page(props: {
               <SearchProyectosByInvestigadorButton />
             </div>
           </div>
-          <InvestigadorGrid investigadores={investigadores} />
+          {investigadores ? (
+            <div className="grid grid-cols-adaptable gap-4">
+              {investigadores &&
+                investigadores.map((investigador) => (
+                  <InvestigadorMiniCard
+                    key={`ProyectoCard-${investigador.email}`}
+                    investigador={investigador}
+                  />
+                ))}
+            </div>
+          ) : null}
           <Pagination totalPages={totalPages} />
         </ProyectoViewerByInvestigador>
       </section>

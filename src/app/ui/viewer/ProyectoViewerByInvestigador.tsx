@@ -2,13 +2,9 @@
 
 import { useState } from "react"
 
-import {
-  InvestigadorContext,
-  SearchProyectoByInvestigadorContext,
-} from "@/app/utils"
+import { SearchProyectoByInvestigadorContext } from "@/app/utils"
 
 import { MostrarProyectos } from "../MostrarProyectos"
-import { useInvestigadoresSelected } from "./useInvestigadoresSelected"
 
 export const ProyectoViewerByInvestigador = ({
   children,
@@ -19,17 +15,9 @@ export const ProyectoViewerByInvestigador = ({
     isSearchProyectoByInvestigadorEnabled,
     setIsSearchProyectoByInvestigadorEnabled,
   ] = useState(false)
-  const [selectedInvestigadores, selectInvestigador, clearAllSelected] =
-    useInvestigadoresSelected()
 
   return (
-    <InvestigadorContext.Provider
-      value={{
-        selectedInvestigadores,
-        select: selectInvestigador,
-        clearAllSelected,
-      }}
-    >
+    <>
       <SearchProyectoByInvestigadorContext.Provider
         value={{
           isSearchProyectosByInvestigadorActive:
@@ -42,9 +30,7 @@ export const ProyectoViewerByInvestigador = ({
       >
         {children}
       </SearchProyectoByInvestigadorContext.Provider>
-      {isSearchProyectoByInvestigadorEnabled ? (
-        <MostrarProyectos selectedInvestigadores={selectedInvestigadores} />
-      ) : null}
-    </InvestigadorContext.Provider>
+      {isSearchProyectoByInvestigadorEnabled ? <MostrarProyectos /> : null}
+    </>
   )
 }

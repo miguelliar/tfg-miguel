@@ -4,6 +4,8 @@
 
 import { unstable_noStore as noStore } from "next/cache"
 
+import type { InvestigadorMinimumDataType } from "@/app/utils"
+
 import config from "../constants.json"
 import { getPool } from "../pool"
 
@@ -98,8 +100,8 @@ export const fetchInvestigadorData = async (
     const limit = offset
     const offsetValue = (page - 1) * offset
 
-    const result = await pool.query<InvestigadorType>(
-      investigadorConfig.fetch.All,
+    const result = await pool.query<InvestigadorMinimumDataType>(
+      investigadorConfig.fetch.AllMinimumData,
       [limit, offsetValue]
     )
     return result.rows
@@ -131,8 +133,8 @@ export const fetchInvestigadoresByQuery = async (
     const limit = offset
     const offsetValue = (page - 1) * offset
 
-    const result = await pool.query<InvestigadorType>(
-      investigadorConfig.search.SearchByName,
+    const result = await pool.query<InvestigadorMinimumDataType>(
+      investigadorConfig.search.SearchByMinimumData,
       [`%${query}%`, limit, offsetValue]
     )
     return result.rows
@@ -165,7 +167,7 @@ export const fetchInvestigadorByEmail = async (email: string) => {
       investigadorConfig.fetch.ByEmail,
       [email]
     )
-    return result.rows
+    return result.rows[0]
   } catch (error) {
     console.error(investigadorConfig.error.Executing, error)
   }

@@ -8,6 +8,7 @@
             "MaxIndex": "Error obtaining the maximum index"
         },
         "fetch": {
+            "AllMinimumData": "SELECT email, nombre, apellidos FROM investigador LIMIT $1 OFFSET $2",
             "All": "SELECT * FROM investigador LIMIT $1 OFFSET $2",
             "ByEmail": "SELECT * FROM investigador WHERE email=$1",
             "ByNombreAutor": "SELECT * FROM investigador WHERE email IN (SELECT email_investigador FROM nombre_autor WHERE nombre_autor = $1)",
@@ -19,6 +20,7 @@
             "ITEMS_PER_PAGE": 12
         },
         "search": {
+            "SearchByMinimumData": "SELECT email, nombre, apellidos FROM investigador WHERE email ILIKE $1::text OR nombre ILIKE $1::text OR apellidos ILIKE $1::text OR universidad ILIKE $1::text ORDER BY email DESC LIMIT $2 OFFSET $3",
             "SearchByName": "SELECT * FROM investigador WHERE email ILIKE $1::text OR nombre ILIKE $1::text OR apellidos ILIKE $1::text OR universidad ILIKE $1::text ORDER BY email DESC LIMIT $2 OFFSET $3",
             "MaxNumberOfPages": "SELECT COUNT(*) as count FROM investigador WHERE email ILIKE $1::text OR nombre ILIKE $1::text OR apellidos ILIKE $1::text OR universidad ILIKE $1::text"
         }
