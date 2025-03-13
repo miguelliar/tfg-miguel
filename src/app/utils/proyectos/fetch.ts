@@ -2,9 +2,9 @@
 import {
   fetchCodeAndTitleProyectoByQuery,
   fetchCodeAndTitleProyectoData,
+  fetchProyectosByEmails,
 } from "@/db"
 
-import type { ProyectoType } from "../types"
 import type { ProyectoToUpload } from "./map"
 
 export const fetchProyectosMinimumData = async (
@@ -39,8 +39,10 @@ export const fetchParsedProyectos = async (
  * Calls endpoint to download a CSV file with the proyectos sent as parameter
  * @param proyectos
  */
-export const downloadProyectosCSV = async (proyectos: ProyectoType[]) => {
+export const downloadProyectosCSV = async (emails: string[]) => {
   try {
+    // fetch from DB
+    const proyectos = await fetchProyectosByEmails(emails)
     const response = await fetch("/api/proyecto/download", {
       method: "POST",
       headers: {

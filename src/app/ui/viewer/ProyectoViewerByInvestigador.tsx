@@ -1,5 +1,6 @@
 "use client"
 
+import { useSearchParams } from "next/navigation"
 import { useState } from "react"
 
 import { SearchProyectoByInvestigadorContext } from "@/app/utils"
@@ -11,10 +12,14 @@ export const ProyectoViewerByInvestigador = ({
 }: {
   children: React.ReactNode
 }) => {
+  const searchParams = useSearchParams()
+  const isSearchActive = new URLSearchParams(searchParams ?? "").has(
+    "selectedEmail"
+  )
   const [
     isSearchProyectoByInvestigadorEnabled,
     setIsSearchProyectoByInvestigadorEnabled,
-  ] = useState(false)
+  ] = useState(isSearchActive)
 
   return (
     <>

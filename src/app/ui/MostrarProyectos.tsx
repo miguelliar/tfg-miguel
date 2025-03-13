@@ -5,25 +5,28 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/solid"
 import cx from "classnames"
+import isEqual from "lodash/isEqual"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 
 import {
   fetchAllProyectosByInvestigadores,
   fetchDistinctProyectosByInvestigadores,
   fetchJoinProyectosByInvestigadores,
+  fetchProyectoByCode,
 } from "@/db"
 
-import { downloadProyectosCSV, type ProyectoType } from "../utils"
+import type { ProyectoMinimumDataType, ProyectoType } from "../utils"
+import { downloadProyectosCSV } from "../utils"
 import { Button } from "./button/Button"
-import { ProyectoMiniCard } from "./cards"
+import { ProyectoCard, ProyectoMiniCard } from "./cards"
 
 const FETCH_PROYECTO_OPTION: {
   [name: string]: {
     text: string
     fetcher: (
       investigadoresEmail: string[]
-    ) => Promise<ProyectoType[] | undefined>
+    ) => Promise<ProyectoMinimumDataType[] | undefined>
   }
 } = {
   ALL: {
@@ -96,28 +99,30 @@ const InvestigadoresList = ({
   )
 }
 
-const ProyectoByInvestigadorSearcher = ({
-  fetchSearchedProyectos,
-}: {
-  fetchSearchedProyectos: (
-    fetchByInvestigadorFunction: (
-      investigadoresEmail: string[]
-    ) => Promise<ProyectoType[] | undefined>
-  ) => Promise<void>
-}) => {
+const ProyectoByInvestigadorSearcher = () => {
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const { replace } = useRouter()
+
+  const onSubmit = (proyectoSearchType: string) => {
+    const params = new URLSearchParams(searchParams ?? "")
+    if (params.has("proyectoSearchType"))
+      params.set("proyectoSearchType", proyectoSearchType)
+    else params.append("proyectoSearchType", proyectoSearchType)
+    replace(`${pathname}?${params.toString()}`)
+  }
+
   return (
     <form
       className="flex flex-col my-4 basis-1/2 flex-grow"
       onSubmit={(e) => {
         e.preventDefault()
-        fetchSearchedProyectos(
-          FETCH_PROYECTO_OPTION[
-            (
-              e.currentTarget.elements.namedItem(
-                "proyectSelection"
-              ) as HTMLInputElement
-            ).value
-          ].fetcher
+        onSubmit(
+          (
+            e.currentTarget.elements.namedItem(
+              "proyectSelection"
+            ) as HTMLInputElement
+          ).value
         )
       }}
     >
@@ -145,43 +150,66 @@ const ProyectoByInvestigadorSearcher = ({
 }
 
 export const MostrarProyectos = () => {
-  const [searchedProyectos, setSearchedProyectos] = useState<ProyectoType[]>([])
-  const searchParams = useSearchParams()
-  const proyectosMinimumData = useMemo(
-    () =>
-      searchedProyectos.map((proyecto) => ({
-        codigo: proyecto.codigo,
-        titulo: proyecto.titulo,
-      })),
-    [searchedProyectos]
+  const [proyectoSearched, setProyectoSearched] = useState<ProyectoType | null>(
+    null
   )
+  const [searchedProyectos, setSearchedProyectos] = useState<
+    ProyectoMinimumDataType[]
+  >([])
+  const searchParams = useSearchParams()
+  const searchType = useMemo(
+    () =>
+      new URLSearchParams(searchParams ?? "").get("proyectoSearchType") ?? "",
+    [searchParams]
+  )
+
+  const selectedProyecto = useMemo(() => {
+    const params = new URLSearchParams(searchParams ?? "")
+    return params.get("codigo")
+  }, [searchParams])
 
   const selectedInvestigadores = useMemo(() => {
     const params = new URLSearchParams(searchParams ?? "")
     return params.getAll("selectedEmail")
   }, [searchParams])
 
-  const fetchSearchedProyectos = async (
-    fetchByInvestigadorFunction: (
-      investigadoresEmail: string[]
-    ) => Promise<ProyectoType[] | undefined>
-  ) => {
-    const proyectos = await fetchByInvestigadorFunction(selectedInvestigadores)
-    if (proyectos) {
-      setSearchedProyectos(proyectos)
+  const previousSelectedInvesigadores = useRef<string[]>([])
+
+  useEffect(() => {
+    if (
+      searchType &&
+      !isEqual(previousSelectedInvesigadores.current, selectedInvestigadores)
+    ) {
+      previousSelectedInvesigadores.current = selectedInvestigadores
+      FETCH_PROYECTO_OPTION[searchType]
+        .fetcher(selectedInvestigadores)
+        .then((proyectos) => {
+          if (proyectos) {
+            setSearchedProyectos(proyectos)
+          }
+        })
     }
-  }
+  }, [setSearchedProyectos, searchType, selectedInvestigadores])
+
+  useEffect(() => {
+    if (selectedProyecto) {
+      fetchProyectoByCode(selectedProyecto).then((proyecto) =>
+        setProyectoSearched(proyecto ?? null)
+      )
+    } else {
+      setProyectoSearched(null)
+    }
+  }, [selectedProyecto])
 
   return (
     <section className="my-8">
       <h2 className="text-2xl">
         <b>Busqueda de proyectos</b>
       </h2>
+      {proyectoSearched && <ProyectoCard proyecto={proyectoSearched} />}
       <div className="flex flex-col md:flex-row gap-16 justify-start">
         <InvestigadoresList selectedInvestigadores={selectedInvestigadores} />
-        <ProyectoByInvestigadorSearcher
-          fetchSearchedProyectos={fetchSearchedProyectos}
-        />
+        <ProyectoByInvestigadorSearcher />
       </div>
       {searchedProyectos && searchedProyectos.length > 0 && (
         <section className="mt-8">
@@ -190,7 +218,11 @@ export const MostrarProyectos = () => {
             <Button
               className="w-fit"
               variant="border"
-              onClick={() => downloadProyectosCSV(searchedProyectos)}
+              onClick={() =>
+                downloadProyectosCSV(
+                  searchedProyectos.map((proyecto) => proyecto.codigo)
+                )
+              }
             >
               Descargar proyectos en CSV
               <ArrowDownTrayIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
@@ -198,9 +230,9 @@ export const MostrarProyectos = () => {
           </div>
           {
             // TODO: Add Modal for Product detail view
-            proyectosMinimumData && (
+            searchedProyectos && (
               <div className="grid grid-cols-adaptable gap-4">
-                {proyectosMinimumData.map((proyecto) => (
+                {searchedProyectos.map((proyecto) => (
                   <ProyectoMiniCard
                     key={`ProyectoCard-${proyecto.codigo}`}
                     proyecto={proyecto}

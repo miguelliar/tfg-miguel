@@ -141,6 +141,18 @@ export const fetchProyectoData = async (
   }
 }
 
+export const fetchProyectosByEmails = async (emails: string[]) => {
+  try {
+    const result = await pool.query<ProyectoType>(
+      proyectoConfig.fetch.ByCodigos,
+      [emails]
+    )
+    return result.rows
+  } catch (error) {
+    console.error(proyectoConfig.error.Executing, error)
+  }
+}
+
 export const fetchProyectoByCode = async (code: string) => {
   try {
     const result = await pool.query<ProyectoType>(
@@ -157,7 +169,7 @@ export const fetchAllProyectosByInvestigadores = async (
   investigadoresEmail: string[]
 ) => {
   try {
-    const result = await pool.query<ProyectoType>(
+    const result = await pool.query<ProyectoMinimumDataType>(
       proyectoConfig.fetch.AllByInvestigadores,
       [investigadoresEmail]
     )
@@ -171,7 +183,7 @@ export const fetchJoinProyectosByInvestigadores = async (
   investigadoresEmail: string[]
 ) => {
   try {
-    const result = await pool.query<ProyectoType>(
+    const result = await pool.query<ProyectoMinimumDataType>(
       proyectoConfig.fetch.JoinByInvestigadores,
       [investigadoresEmail]
     )
@@ -185,7 +197,7 @@ export const fetchDistinctProyectosByInvestigadores = async (
   investigadoresEmail: string[]
 ) => {
   try {
-    const result = await pool.query<ProyectoType>(
+    const result = await pool.query<ProyectoMinimumDataType>(
       proyectoConfig.fetch.DistinctProyectosByInvestigadores,
       [investigadoresEmail]
     )
