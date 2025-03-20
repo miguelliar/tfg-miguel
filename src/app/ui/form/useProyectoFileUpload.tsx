@@ -1,7 +1,8 @@
 "use client"
 
+import { useSearchParams } from "next/navigation"
 import type { FormEvent } from "react"
-import { useCallback, useMemo, useReducer } from "react"
+import { useCallback, useEffect, useMemo, useReducer, useState } from "react"
 
 import type { InfoMessage, ProyectoFileState, ProyectoType } from "@/app/utils"
 import {
@@ -19,6 +20,7 @@ type ProyectoFileUploadFields = {
   isLoading: boolean
   isValidateEnabled: boolean
   isSubmitEnabled: boolean
+  proyectoDetails: ProyectoType | null
   onChange: (selectedFile: any) => void
   onCloseSubmitMessage: () => void
   onSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>
@@ -36,6 +38,10 @@ export const useProyectoFileUpload = (): ProyectoFileUploadFields => {
     proyectoFileUpdateReducer,
     defaultProyectoFileState
   )
+  const [proyectoDetails, setProyectoDetails] = useState<ProyectoType | null>(
+    null
+  )
+  const searchParams = useSearchParams()
   const isValidateEnabled = useMemo(() => {
     return state.uploadedProyecto.length > 0
   }, [state])
@@ -83,11 +89,23 @@ export const useProyectoFileUpload = (): ProyectoFileUploadFields => {
     }
   }, [state, dispatch])
 
+  useEffect(() => {
+    const codigo = new URLSearchParams(searchParams ?? "").get("codigo")
+    if (codigo) {
+      const proyectoDetails = state.uploadedProyecto.find(
+        (proyecto) => proyecto.codigo === codigo
+      )
+      if (proyectoDetails) setProyectoDetails(proyectoDetails)
+    } else {
+      setProyectoDetails(null)
+    }
+  }, [searchParams, state.uploadedProyecto])
   return {
     isValidateEnabled,
     isSubmitEnabled: state.isSubmitEnabled,
     isLoading: state.isLoadingFiles,
     informationMessages: state.informationMessages,
+    proyectoDetails,
     uploadedProyecto: state.uploadedProyecto,
     submittedStatus: state.submittedStatus,
     onSubmit,

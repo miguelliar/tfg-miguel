@@ -13,7 +13,13 @@ import { EditProyectoForm } from "../../form/edit"
 import { CardModal } from "../CardModal"
 import { HorizontalCard } from "../HorizontalCard"
 
-export const ProyectoCard = ({ proyecto }: { proyecto: ProyectoType }) => {
+export const ProyectoCard = ({
+  proyecto,
+  unSync,
+}: {
+  proyecto: ProyectoType
+  unSync?: boolean
+}) => {
   const [isEditMode, setEditMode] = useState(false)
   const [participaciones, setParticipaciones] = useState<ParticipaType[]>([])
   const pathname = usePathname()
@@ -41,16 +47,18 @@ export const ProyectoCard = ({ proyecto }: { proyecto: ProyectoType }) => {
   return (
     <CardModal
       option={
-        <EditButton
-          isEditMode={isEditMode}
-          setEditMode={setEditMode}
-          onKeyDown={editButtonOnKeyDown}
-        />
+        !unSync && (
+          <EditButton
+            isEditMode={isEditMode}
+            setEditMode={setEditMode}
+            onKeyDown={editButtonOnKeyDown}
+          />
+        )
       }
       onClose={closeModal}
     >
       <h2 className="text-special-color">Codigo: {proyecto.codigo}</h2>
-      {isEditMode ? (
+      {isEditMode && !unSync ? (
         <EditProyectoForm
           proyecto={proyecto}
           finishEditMode={() => {

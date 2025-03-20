@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "../button/Button"
-import { ProyectoGrid } from "../containers"
+import { ProyectoCard, ProyectoMiniCard } from "../cards"
 import { InformationMessage, SubmitStatusInfo } from "../information"
 import { useProyectoFileUpload } from "./useProyectoFileUpload"
 
@@ -13,6 +13,7 @@ export const ProyectoFileUploaderForm = () => {
     informationMessages,
     uploadedProyecto,
     submittedStatus,
+    proyectoDetails,
     onSubmit,
     onChange,
     onValidate,
@@ -64,9 +65,14 @@ export const ProyectoFileUploaderForm = () => {
           <InformationMessage informationMessage={informationMessages} />
         ) : null}
         {!isLoading && uploadedProyecto && uploadedProyecto.length > 0 ? (
-          <ProyectoGrid proyectos={uploadedProyecto} />
+          <div className="grid grid-cols-adaptable gap-4">
+            {uploadedProyecto.map((proyecto) => (
+              <ProyectoMiniCard key={proyecto.codigo} proyecto={proyecto} />
+            ))}
+          </div>
         ) : null}
       </div>
+      {proyectoDetails && <ProyectoCard unSync proyecto={proyectoDetails} />}
     </>
   )
 }

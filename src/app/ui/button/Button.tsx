@@ -35,7 +35,7 @@ export const Button = ({
     <button
       onClick={onClick}
       className={cx(
-        "flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-gray-300 outline-2",
+        "flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-font-color outline-2",
         disabled ? ButtonVariantDisabled[variant] : ButtonVariant[variant],
         className
       )}

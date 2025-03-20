@@ -17,7 +17,7 @@ export const SearchInput = ({
   placeholder,
   defaultValue,
   onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    event.preventDefault()
+    if (event.key === "Enter") event.preventDefault()
   },
 }: {
   required?: boolean

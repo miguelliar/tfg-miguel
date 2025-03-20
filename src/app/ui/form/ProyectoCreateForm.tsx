@@ -4,14 +4,13 @@
 
 import { parseDateToString } from "@/app/utils"
 
-import { CardModal } from "../CardModal"
 import { useProyectoCreate } from "./useProyectoCreate"
 
-export const ProyectoCreateCard = ({ onClose }: { onClose: () => void }) => {
-  const [errors, handleChange, onSubmit] = useProyectoCreate(onClose)
+export const ProyectoCreate = () => {
+  const [errors, handleChange, onSubmit] = useProyectoCreate()
 
   return (
-    <CardModal onClose={onClose}>
+    <div className="flex flex-col max-w-fit m-6">
       <h2 className="text-2xl text-special-color">Crear Proyecto</h2>
       <form className="flex flex-col gap-2 my-3" onSubmit={(e) => onSubmit(e)}>
         {errors?.codigo && (
@@ -111,11 +110,8 @@ export const ProyectoCreateCard = ({ onClose }: { onClose: () => void }) => {
         </div>
         <div className="flex justify-around">
           <button type="submit">Añadir</button>
-          <button type="button" onClick={onClose}>
-            Cancelar
-          </button>
         </div>
       </form>
-    </CardModal>
+    </div>
   )
 }

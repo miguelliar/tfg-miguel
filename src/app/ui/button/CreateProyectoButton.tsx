@@ -3,13 +3,7 @@
 import { ArrowUpTrayIcon, PlusIcon } from "@heroicons/react/24/solid"
 import { useState } from "react"
 
-import { ProyectoCreateCard } from "../cards"
-import { ProyectoSubmitCard } from "../cards/proyecto/SubmitCard"
-import { Button } from "./Button"
-
 export const CreateProyectoButton = () => {
-  const [isIndividualAddOpen, setIsIndividualAddOpen] = useState(false)
-  const [isFileAddOpen, setIsFileAddOpen] = useState(false)
   const [areOptionsOpened, setAreOptionsOpened] = useState(false)
 
   return (
@@ -24,8 +18,15 @@ export const CreateProyectoButton = () => {
           }}
         />
       ) : null}
-      <Button
-        className="mb-2 relative"
+      <div
+        className="flex flex-row text-nowrap mb-2 relative max-h-fit rounded-md border p-2 border-font-color outline-2 text-font-color bg-background-color"
+        tabIndex={0}
+        role="button"
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            setAreOptionsOpened(!areOptionsOpened)
+          }
+        }}
         onClick={() => setAreOptionsOpened(!areOptionsOpened)}
       >
         Añadir Proyecto
@@ -38,34 +39,16 @@ export const CreateProyectoButton = () => {
               if (e.key === "Escape") setAreOptionsOpened(false)
             }}
           >
-            <button
-              className="pl-2 p-1"
-              type="button"
-              onClick={() => setIsIndividualAddOpen(true)}
-            >
+            <a className="pl-2 p-1" href="proyectos/crear/nuevo">
               Individualmente
-            </button>
-            <button
-              className="flex flex-row pl-2 p-1"
-              type="button"
-              onClick={() => setIsFileAddOpen(true)}
-              onKeyDown={(e) => {
-                if (e.key === "Tab" && !e.shiftKey) setAreOptionsOpened(false)
-              }}
-            >
+            </a>
+            <a className="flex flex-row pl-2 p-1" href="proyectos/crear/subida">
               Por archivo
               <ArrowUpTrayIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
-            </button>
+            </a>
           </div>
         ) : null}
-      </Button>
-
-      {isIndividualAddOpen ? (
-        <ProyectoCreateCard onClose={() => setIsIndividualAddOpen(false)} />
-      ) : null}
-      {isFileAddOpen ? (
-        <ProyectoSubmitCard onClose={() => setIsFileAddOpen(false)} />
-      ) : null}
+      </div>
     </>
   )
 }

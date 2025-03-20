@@ -22,9 +22,7 @@ const validateParameters = (
   )
 }
 
-export const useProyectoCreate = (
-  onClose: () => void
-): [
+export const useProyectoCreate = (): [
   ProyectoValidationErrors | null | undefined,
   handleChange: (e: any) => void,
   (e: any) => void,
@@ -53,7 +51,6 @@ export const useProyectoCreate = (
   const onSubmit = () => {
     if (validateParameters(proyecto, setErrors)) {
       addProyecto(proyecto)
-      onClose()
       router.refresh()
     }
   }
