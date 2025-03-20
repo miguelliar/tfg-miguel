@@ -1,4 +1,3 @@
-export * from "./AddInvestigadorAProyecto"
 export * from "./breadcrumbs/index"
 export * from "./button"
 export * from "./cards"

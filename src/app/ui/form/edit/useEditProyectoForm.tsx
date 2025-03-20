@@ -1,9 +1,10 @@
 "use client"
 
-import { useContext, useState } from "react"
+import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 
-import type { ProyectoType } from "@/app/utils"
-import { ProyectoDispatchContext, ProyectoIsDBSyncContext } from "@/app/utils"
+import type { ParticipaCommand, ParticipaType, ProyectoType } from "@/app/utils"
+import { AddParticipaCommand, DeleteParticipaCommand } from "@/app/utils"
 import { updateProyectoItem } from "@/db"
 
 const validateParameters = (
@@ -57,19 +58,35 @@ const inputErrors = {
   fechaFin: "",
 }
 
+export type EditProyectoFormHookReturn = {
+  editedProyecto: ProyectoType
+  errors: typeof inputErrors
+  editedParticipaciones: ParticipaType[]
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void
+  onSubmit: (e: any) => void
+  addParticipa: (participa: ParticipaType) => void
+  removeParticipa: (participa: ParticipaType) => void
+}
+
 export const useEditProyectoForm = (
   proyecto: ProyectoType,
-  finishEditMode: () => void
-): [
-  ProyectoType,
-  typeof inputErrors,
-  (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
-  (e: any) => void,
-] => {
+  finishEditMode: () => void,
+  participaciones: ParticipaType[]
+): EditProyectoFormHookReturn => {
+  const [editedParticipaciones, setEditedParticipaciones] =
+    useState(participaciones)
   const [editedProyecto, setEditedProyecto] = useState(proyecto)
+  const [participaChanges, setParticipaChanges] = useState<ParticipaCommand[]>(
+    []
+  )
   const [errors, setErrors] = useState(inputErrors)
-  const dispatchProyecto = useContext(ProyectoDispatchContext)
-  const isDBSync = useContext(ProyectoIsDBSyncContext)
+  const { refresh } = useRouter()
+
+  useEffect(() => {
+    if (participaciones.length > 0) setEditedParticipaciones(participaciones)
+  }, [participaciones, setEditedParticipaciones])
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -83,14 +100,51 @@ export const useEditProyectoForm = (
 
   const onSubmit = (e: any) => {
     e.preventDefault()
-    if (JSON.stringify(proyecto) !== JSON.stringify(editedProyecto)) {
+    const hasProyectoChanged =
+      JSON.stringify(proyecto) !== JSON.stringify(editedProyecto)
+    const hasParticipacionesChanged =
+      JSON.stringify(participaciones) !== JSON.stringify(participaChanges)
+    if (hasProyectoChanged || hasParticipacionesChanged) {
       if (validateParameters(editedProyecto, setErrors)) {
-        if (isDBSync) updateProyectoItem(editedProyecto)
-        dispatchProyecto?.({ payload: editedProyecto, type: "proyecto/edit" })
-        finishEditMode()
+        updateProyectoItem(editedProyecto)
       }
+      if (hasParticipacionesChanged) {
+        participaChanges.forEach(async (participaChange) =>
+          participaChange.execute()
+        )
+      }
+      finishEditMode()
+      refresh()
     }
   }
 
-  return [editedProyecto, errors, handleChange, onSubmit]
+  const addParticipa = (participa: ParticipaType) => {
+    setEditedParticipaciones([...editedParticipaciones, participa])
+    setParticipaChanges([
+      ...participaChanges,
+      new AddParticipaCommand(participa),
+    ])
+  }
+
+  const removeParticipa = (participa: ParticipaType) => {
+    setEditedParticipaciones(
+      editedParticipaciones.filter(
+        (participacion) => participacion.email !== participa.email
+      )
+    )
+    setParticipaChanges([
+      ...participaChanges,
+      new DeleteParticipaCommand(participa),
+    ])
+  }
+
+  return {
+    editedProyecto,
+    errors,
+    editedParticipaciones,
+    handleChange,
+    onSubmit,
+    addParticipa,
+    removeParticipa,
+  }
 }

@@ -22,17 +22,23 @@
         "search": {
             "SearchByMinimumData": "SELECT email, nombre, apellidos FROM investigador WHERE email ILIKE $1::text OR nombre ILIKE $1::text OR apellidos ILIKE $1::text OR universidad ILIKE $1::text ORDER BY email DESC LIMIT $2 OFFSET $3",
             "SearchByName": "SELECT * FROM investigador WHERE email ILIKE $1::text OR nombre ILIKE $1::text OR apellidos ILIKE $1::text OR universidad ILIKE $1::text ORDER BY email DESC LIMIT $2 OFFSET $3",
-            "MaxNumberOfPages": "SELECT COUNT(*) as count FROM investigador WHERE email ILIKE $1::text OR nombre ILIKE $1::text OR apellidos ILIKE $1::text OR universidad ILIKE $1::text"
+            "MaxNumberOfPages": "SELECT COUNT(*) as count FROM investigador WHERE email ILIKE $1::text OR nombre ILIKE $1::text OR apellidos ILIKE $1::text OR universidad ILIKE $1::text",
+            "SearchInvestigadoresNotParticipating": "SELECT * FROM investigador WHERE (email ILIKE $1::text OR nombre ILIKE $1::text OR apellidos ILIKE $1::text OR universidad ILIKE $1::text) AND email NOT IN (SELECT email_investigador FROM participa WHERE codigo_proyecto = $2::text) LIMIT 50"
         }
     },
     "participa": {
         "fetch": {
             "ByEmailInvestigador": "SELECT * FROM participa WHERE email_investigador=$1",
-            "ByCodigo": "SELECT * FROM participa WHERE codigo_proyecto=$1"
+            "ByCodigo": "SELECT * FROM participa WHERE codigo_proyecto=$1::text",
+            "ByCodigoAndEmail": "SELECT * FROM participa WHERE codigo_proyecto=$1::text AND email_investigador=$2::text",
+            "NombreDeAutor": "SELECT DISTINCT nombre_autor FROM participa WHERE email_investigador=$1::text"
         },
         "Create": "INSERT INTO participa (email_investigador, codigo_proyecto, nombre_autor) VALUES ($1, $2, $3)",
+        "Delete": "DELETE FROM participa WHERE codigo_proyecto=$1::text AND email_investigador=$2::text",
         "error": {
-            "Inserting": "Error inserting participa"
+            "Inserting": "Error inserting participa",
+            "Delete": "Error deleting entry from DB",
+            "Fetch": "Error fetching the information"
         }
     },
     "proyecto": {

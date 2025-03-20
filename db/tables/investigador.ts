@@ -143,6 +143,29 @@ export const fetchInvestigadoresByQuery = async (
   }
 }
 
+export const fetchInvestigadoresNotParticipatingInProject = async (
+  query: string,
+  code: string
+) => {
+  noStore()
+  if (!query || query.trim() === "") {
+    throw new Error("The query must exist and cannot be empty")
+  }
+  if (!code || code.trim() === "") {
+    throw new Error("The code must exist and cannot be empty")
+  }
+
+  try {
+    const result = await pool.query<InvestigadorMinimumDataType>(
+      investigadorConfig.search.SearchInvestigadoresNotParticipating,
+      [`%${query}%`, code]
+    )
+    return result.rows
+  } catch (error) {
+    console.error(investigadorConfig.error.Executing, error)
+  }
+}
+
 export const fetchInvestigadorTotalPages = async (query: string) => {
   noStore()
   try {
@@ -161,7 +184,9 @@ export const fetchInvestigadorTotalPages = async (query: string) => {
   }
 }
 
-export const fetchInvestigadorByEmail = async (email: string) => {
+export const fetchInvestigadorByEmail = async (
+  email: string
+): Promise<InvestigadorType | undefined> => {
   try {
     const result = await pool.query<InvestigadorType>(
       investigadorConfig.fetch.ByEmail,

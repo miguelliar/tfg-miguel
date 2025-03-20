@@ -2,17 +2,20 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import type { KeyboardEvent } from "react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-import { type ProyectoType } from "@/app/utils"
-import { getStringDate } from "@/app/utils/formatDate"
+import type { ParticipaType, ProyectoType } from "@/app/utils"
+import { getStringDate } from "@/app/utils"
+import { fetchParticipaByCodigoProyecto } from "@/db"
 
 import { EditButton } from "../../button/EditButton"
 import { EditProyectoForm } from "../../form/edit"
 import { CardModal } from "../CardModal"
+import { HorizontalCard } from "../HorizontalCard"
 
 export const ProyectoCard = ({ proyecto }: { proyecto: ProyectoType }) => {
   const [isEditMode, setEditMode] = useState(false)
+  const [participaciones, setParticipaciones] = useState<ParticipaType[]>([])
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const { replace } = useRouter()
@@ -28,6 +31,12 @@ export const ProyectoCard = ({ proyecto }: { proyecto: ProyectoType }) => {
       closeModal()
     }
   }
+
+  useEffect(() => {
+    fetchParticipaByCodigoProyecto(proyecto.codigo).then((participa) =>
+      setParticipaciones(participa ?? [])
+    )
+  }, [proyecto])
 
   return (
     <CardModal
@@ -47,6 +56,7 @@ export const ProyectoCard = ({ proyecto }: { proyecto: ProyectoType }) => {
           finishEditMode={() => {
             setEditMode(false)
           }}
+          participaciones={participaciones}
         />
       ) : (
         <div className="flex flex-col gap-2 my-3">
@@ -84,6 +94,21 @@ export const ProyectoCard = ({ proyecto }: { proyecto: ProyectoType }) => {
               </p>
             </div>
           </div>
+          {participaciones.length > 0 && (
+            <>
+              <b className="mt-5">Participantes</b>
+              <div className="flex flex-col overflow-auto gap-2">
+                {participaciones.map((participa) => (
+                  <HorizontalCard
+                    key={participa.email}
+                    id={participa.email}
+                    content={participa.nombreAutor}
+                    onClick={() => {}}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
       )}
     </CardModal>

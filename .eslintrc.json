@@ -13,7 +13,13 @@
         "endOfLine": "auto", // Maintain consistent end of line behavior across environments
         "semi": false // Omit semicolons at the end of statements
       }
-    ] // Prevent conflicts between Prettier and Airbnb ESLint rules
+    ], // Prevent conflicts between Prettier and Airbnb ESLint rules
+    "jsx-a11y/label-has-associated-control": [ "error", {
+      "labelComponents": ["SearchInput"],
+      "labelAttributes": ["label"],
+      "controlComponents": ["SearchInput"],
+      "depth": 3
+    }]
   },
   "settings": {
     "tailwindcss": {
