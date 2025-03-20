@@ -1,4 +1,5 @@
 import { useRouter } from "next/navigation"
+import type { FormEvent } from "react"
 import { useState } from "react"
 
 import type { ProyectoType, ProyectoValidationErrors } from "@/app/utils"
@@ -48,10 +49,11 @@ export const useProyectoCreate = (): [
     }))
   }
 
-  const onSubmit = () => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     if (validateParameters(proyecto, setErrors)) {
       addProyecto(proyecto)
-      router.refresh()
+      router.replace("proyectos")
     }
   }
 
