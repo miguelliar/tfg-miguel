@@ -141,7 +141,7 @@ export const fetchProyectoData = async (
   }
 }
 
-export const fetchProyectosByEmails = async (emails: string[]) => {
+export const fetchProyectosByCodigos = async (emails: string[]) => {
   try {
     const result = await pool.query<ProyectoType>(
       proyectoConfig.fetch.ByCodigos,

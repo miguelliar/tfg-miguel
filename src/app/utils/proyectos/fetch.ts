@@ -2,7 +2,7 @@
 import {
   fetchCodeAndTitleProyectoByQuery,
   fetchCodeAndTitleProyectoData,
-  fetchProyectosByEmails,
+  fetchProyectosByCodigos,
 } from "@/db"
 
 import type { ProyectoToUpload } from "./map"
@@ -39,10 +39,10 @@ export const fetchParsedProyectos = async (
  * Calls endpoint to download a CSV file with the proyectos sent as parameter
  * @param proyectos
  */
-export const downloadProyectosCSV = async (emails: string[]) => {
+export const downloadProyectosCSV = async (codigos: string[]) => {
   try {
     // fetch from DB
-    const proyectos = await fetchProyectosByEmails(emails)
+    const proyectos = await fetchProyectosByCodigos(codigos)
     const response = await fetch("/api/proyecto/download", {
       method: "POST",
       headers: {

@@ -4,13 +4,19 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import type { KeyboardEvent } from "react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-import type { InvestigadorType } from "@/db"
+import type { ProyectoMinimumDataType } from "@/app/utils"
+import {
+  fetchAllProyectosByInvestigadores,
+  fetchNombresDeAutor,
+  type InvestigadorType,
+} from "@/db"
 
 import { EditButton } from "../../button/EditButton"
 import { EditInvestigadorForm } from "../../form/edit/EditInvestigadorForm"
 import { CardModal } from "../CardModal"
+import { HorizontalCard } from "../HorizontalCard"
 
 export const InvestigadorCard = ({
   investigador,
@@ -18,6 +24,10 @@ export const InvestigadorCard = ({
   investigador: InvestigadorType
 }) => {
   const [isEditMode, setEditMode] = useState(false)
+  const [proyectosParticipa, setProyectosParticipa] = useState<
+    ProyectoMinimumDataType[]
+  >([])
+  const [nombresAutor, setNombresAutor] = useState<string[]>([])
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const { replace } = useRouter()
@@ -27,6 +37,15 @@ export const InvestigadorCard = ({
     params.delete("email")
     replace(`${pathname}?${params.toString()}`)
   }
+
+  useEffect(() => {
+    fetchNombresDeAutor(investigador.email).then((nombresAutor) =>
+      setNombresAutor(nombresAutor || [])
+    )
+    fetchAllProyectosByInvestigadores([investigador.email]).then((proyecto) =>
+      setProyectosParticipa(proyecto ?? [])
+    )
+  }, [investigador])
 
   const editButtonOnKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     if (event.key === "Tab" && event.shiftKey) {
@@ -81,6 +100,27 @@ export const InvestigadorCard = ({
             <b>Figura:</b>
             <p>{investigador.figura}</p>
           </div>
+          {proyectosParticipa.length > 0 && (
+            <>
+              <b className="mt-5">Nombres de autor</b>
+              <ul>
+                {nombresAutor.map((nombre) => (
+                  <li key={nombre}>{nombre}</li>
+                ))}
+              </ul>
+              <b className="mt-5">Participante en</b>
+              <div className="flex flex-col overflow-auto gap-2">
+                {proyectosParticipa.map((proyecto) => (
+                  <HorizontalCard
+                    key={proyecto.codigo}
+                    id={proyecto.codigo}
+                    content={proyecto.titulo}
+                    onClick={() => {}}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
       )}
     </CardModal>
