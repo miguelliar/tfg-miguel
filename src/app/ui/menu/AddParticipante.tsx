@@ -1,4 +1,8 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid"
+import {
+  CheckIcon,
+  MagnifyingGlassIcon,
+  PlusIcon,
+} from "@heroicons/react/24/solid"
 
 import type { ParticipaType } from "@/app/utils"
 
@@ -63,11 +67,16 @@ export const AddParticipanteCard = ({
                   <HorizontalCard
                     id={investigador.email}
                     content={`${investigador.nombre} ${investigador.apellidos}`}
-                    buttonText="+"
-                    onClick={() => {
-                      setInvestigadorSelected(investigador)
-                    }}
-                  />
+                  >
+                    <Button
+                      ariaLabel="Añadir participante"
+                      variant="fill"
+                      className="rounded-3xl p-0"
+                      onClick={() => setInvestigadorSelected(investigador)}
+                    >
+                      <PlusIcon className="h-[20px] w-[20px]" />
+                    </Button>
+                  </HorizontalCard>
                 </div>
               ))}
             {investigadoresSearched.length === 0 &&
@@ -83,11 +92,19 @@ export const AddParticipanteCard = ({
             <HorizontalCard
               id={investigadorSelected.email}
               content={`${investigadorSelected.nombre} ${investigadorSelected.apellidos}`}
-              buttonText="✓"
-              onClick={() => {
-                setInvestigadorSelected(null)
-              }}
-            />
+            >
+              <Button
+                ariaLabel="Añadir participante"
+                variant="fill"
+                className="rounded-3xl p-0"
+                onClick={() => {
+                  setInvestigadorSelected(null)
+                  setNombreDeAutor("")
+                }}
+              >
+                <CheckIcon className="h-[20px] w-[20px]" />
+              </Button>
+            </HorizontalCard>
             <div className="flex flex-col mt-3">
               <fieldset className="flex flex-col">
                 <legend>Seleccionar nombre de autor</legend>

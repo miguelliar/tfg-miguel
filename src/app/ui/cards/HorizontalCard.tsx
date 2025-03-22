@@ -1,21 +1,18 @@
 "use client"
 
+import type { ReactNode } from "react"
 import ShowMoreText from "react-show-more-text"
-
-import { Button } from "../button/Button"
 
 interface HorizontalCardProps {
   id: string
   content: string
-  onClick: () => void
-  buttonText?: string
+  children: ReactNode
 }
 
 export const HorizontalCard = ({
   id,
   content,
-  buttonText = "Ver",
-  onClick,
+  children,
 }: HorizontalCardProps) => {
   return (
     <div className="flex flex-row items-center justify-between max-w-[400px] w-full border rounded-md border-font-color gap-3 px-2">
@@ -35,9 +32,7 @@ export const HorizontalCard = ({
       >
         <p className="text-sm">{content}</p>
       </ShowMoreText>
-      <Button className="p-0 px-2 text-sm" variant="fill" onClick={onClick}>
-        {buttonText}
-      </Button>
+      {children}
     </div>
   )
 }

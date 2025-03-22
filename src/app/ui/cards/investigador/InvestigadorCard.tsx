@@ -2,6 +2,7 @@
 
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import type { KeyboardEvent } from "react"
 import { useEffect, useState } from "react"
@@ -110,14 +111,27 @@ export const InvestigadorCard = ({
               </ul>
               <b className="mt-5">Participante en</b>
               <div className="flex flex-col overflow-auto gap-2">
-                {proyectosParticipa.map((proyecto) => (
-                  <HorizontalCard
-                    key={proyecto.codigo}
-                    id={proyecto.codigo}
-                    content={proyecto.titulo}
-                    onClick={() => {}}
-                  />
-                ))}
+                {proyectosParticipa.map((proyecto) => {
+                  const proyectoCode = new URLSearchParams([
+                    ["codigo", proyecto.codigo],
+                  ])
+                  return (
+                    <HorizontalCard
+                      key={proyecto.codigo}
+                      id={proyecto.codigo}
+                      content={proyecto.titulo}
+                    >
+                      <a
+                        className="text-background-color bg-font-color flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-font-color outline-2"
+                        href={`proyectos?${proyectoCode.toString()}`}
+                        target="_blank"
+                      >
+                        Ver
+                        <ArrowTopRightOnSquareIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
+                      </a>
+                    </HorizontalCard>
+                  )
+                })}
               </div>
             </>
           )}

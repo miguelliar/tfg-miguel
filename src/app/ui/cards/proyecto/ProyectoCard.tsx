@@ -1,5 +1,6 @@
 "use client"
 
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import type { KeyboardEvent } from "react"
 import { useEffect, useState } from "react"
@@ -106,14 +107,28 @@ export const ProyectoCard = ({
             <>
               <b className="mt-5">Participantes</b>
               <div className="flex flex-col overflow-auto gap-2">
-                {participaciones.map((participa) => (
-                  <HorizontalCard
-                    key={participa.email}
-                    id={participa.email}
-                    content={participa.nombreAutor}
-                    onClick={() => {}}
-                  />
-                ))}
+                {participaciones.map((participa) => {
+                  const emailDirection = new URLSearchParams([
+                    ["email", participa.email],
+                  ])
+
+                  return (
+                    <HorizontalCard
+                      key={participa.email}
+                      id={participa.email}
+                      content={participa.nombreAutor}
+                    >
+                      <a
+                        className="text-background-color bg-font-color flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-font-color outline-2"
+                        href={`investigadores?${emailDirection.toString()}`}
+                        target="_blank"
+                      >
+                        Ver
+                        <ArrowTopRightOnSquareIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
+                      </a>
+                    </HorizontalCard>
+                  )
+                })}
               </div>
             </>
           )}

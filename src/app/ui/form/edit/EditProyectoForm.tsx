@@ -168,15 +168,15 @@ export const EditProyectoForm = ({
                 <HorizontalCard
                   id={participa.email}
                   content={participa.nombreAutor}
-                  onClick={() => {}}
-                />
-                <Button
-                  variant="minimal"
-                  className="rounded-3xl p-0"
-                  onClick={() => removeParticipa(participa)}
                 >
-                  <MinusCircleIcon className="h-[34px] w-[34px] text-red-700 bg-background-color rounded-full" />
-                </Button>
+                  <Button
+                    variant="minimal"
+                    className="rounded-3xl p-0"
+                    onClick={() => removeParticipa(participa)}
+                  >
+                    <MinusCircleIcon className="h-[34px] w-[34px] text-red-700 bg-background-color rounded-full" />
+                  </Button>
+                </HorizontalCard>
               </div>
             ))}
           </div>
