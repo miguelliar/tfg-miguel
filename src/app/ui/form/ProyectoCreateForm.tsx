@@ -2,15 +2,36 @@
 
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
+import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/solid"
+import { useState } from "react"
+
 import { parseDateToString } from "@/app/utils"
 
+import { Button } from "../button/Button"
+import { HorizontalCard } from "../cards/HorizontalCard"
+import { AddParticipanteCard } from "../menu/AddParticipante"
 import { useProyectoCreate } from "./useProyectoCreate"
 
 export const ProyectoCreate = () => {
-  const [errors, handleChange, onSubmit] = useProyectoCreate()
+  const {
+    codigo,
+    addedParticipantes,
+    errors,
+    handleChange,
+    onSubmit,
+    addParticipa,
+    removeParticipa,
+  } = useProyectoCreate()
+
+  const [isAddingParticipante, setIsAddingParticipante] = useState(false)
+
+  const closeMenuOnClick = () => {
+    if (isAddingParticipante) setIsAddingParticipante(false)
+  }
 
   return (
-    <div className="flex flex-col max-w-fit m-6">
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+    <div className="flex flex-col max-w-fit m-6" onClick={closeMenuOnClick}>
       <h2 className="text-2xl text-special-color">Crear Proyecto</h2>
       <form className="flex flex-col gap-2 my-3" onSubmit={(e) => onSubmit(e)}>
         {errors?.codigo && (
@@ -23,8 +44,6 @@ export const ProyectoCreate = () => {
             name="codigo"
             type="text"
             required
-            // eslint-disable-next-line jsx-a11y/no-autofocus
-            autoFocus
             placeholder="Codigo"
             onChange={handleChange}
           />
@@ -107,6 +126,49 @@ export const ProyectoCreate = () => {
               onChange={handleChange}
             />
           </label>
+        </div>
+        <div className="flex flex-col justify-start items-center">
+          <b className="mt-5">Participantes</b>
+          <div className="flex flex-col gap-2 overflow-auto mt-2">
+            {addedParticipantes.map((participa) => (
+              <div
+                key={`row-${participa.email}`}
+                className="flex flex-row gap-2 w-full"
+              >
+                <HorizontalCard
+                  id={participa.email}
+                  content={participa.nombreAutor}
+                >
+                  <Button
+                    variant="minimal"
+                    className="rounded-3xl p-0"
+                    onClick={() => removeParticipa(participa)}
+                  >
+                    <MinusCircleIcon className="h-[34px] w-[34px] text-red-700 bg-background-color rounded-full" />
+                  </Button>
+                </HorizontalCard>
+              </div>
+            ))}
+          </div>
+          <div className="relative">
+            {isAddingParticipante && (
+              <AddParticipanteCard
+                codigo={codigo}
+                onAdd={addParticipa}
+                onClose={() => setIsAddingParticipante(false)}
+                participaAdded={addedParticipantes}
+              />
+            )}
+            <Button
+              onClick={() => {
+                setIsAddingParticipante(true)
+              }}
+              variant="minimal"
+              className="rounded-3xl p-0"
+            >
+              <PlusCircleIcon className="h-[40px] w-[40px] text-font-color bg-background-color rounded-full" />
+            </Button>
+          </div>
         </div>
         <div className="flex justify-around">
           <button type="submit">Añadir</button>

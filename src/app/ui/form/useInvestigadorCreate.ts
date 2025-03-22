@@ -1,6 +1,6 @@
 "use client"
 
-import { redirect } from "next/navigation"
+import { useRouter } from "next/router"
 import { useState } from "react"
 
 import type {
@@ -40,6 +40,8 @@ export const useInvestigadorCreate = (): {
   })
   const [errors, setErrors] = useState()
 
+  const router = useRouter()
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -53,7 +55,7 @@ export const useInvestigadorCreate = (): {
   const onSubmit = () => {
     if (validateParameters(investigador, setErrors)) {
       addInvestigador(investigador)
-      redirect("investigador")
+      router.push("/investigador")
     }
   }
 

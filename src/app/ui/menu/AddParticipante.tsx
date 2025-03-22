@@ -13,15 +13,17 @@ import { Menu } from "./Menu"
 import { useAddParticipante } from "./useAddParticipante"
 
 interface AddParticipanteCardProps {
+  codigo: string
   onAdd: (participa: ParticipaType) => void
   onClose: () => void
-  codigo: string
+  participaAdded?: ParticipaType[]
 }
 
 export const AddParticipanteCard = ({
-  onAdd,
   codigo,
+  onAdd,
   onClose,
+  participaAdded,
 }: AddParticipanteCardProps) => {
   const {
     handleSearch,
@@ -34,7 +36,7 @@ export const AddParticipanteCard = ({
     setInvestigadorSelected,
     setNombreDeAutor,
     setIsOtherSelected,
-  } = useAddParticipante({ codigo })
+  } = useAddParticipante({ codigo, participaAdded })
 
   return (
     <Menu onClose={onClose}>

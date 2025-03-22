@@ -1,9 +1,20 @@
+"use client"
+
 import { useRouter } from "next/navigation"
 import type { FormEvent } from "react"
 import { useState } from "react"
+import { useDebouncedCallback } from "use-debounce"
 
-import type { ProyectoType, ProyectoValidationErrors } from "@/app/utils"
-import { addProyecto, getProyectoErrors } from "@/app/utils"
+import type {
+  ParticipaType,
+  ProyectoType,
+  ProyectoValidationErrors,
+} from "@/app/utils"
+import {
+  AddParticipaCommand,
+  addProyecto,
+  getProyectoErrors,
+} from "@/app/utils"
 
 const validateParameters = (
   proyecto: ProyectoType,
@@ -23,12 +34,19 @@ const validateParameters = (
   )
 }
 
-export const useProyectoCreate = (): [
-  ProyectoValidationErrors | null | undefined,
-  handleChange: (e: any) => void,
-  (e: any) => void,
-] => {
-  const [proyecto, setEditedProyecto] = useState({
+export const useProyectoCreate = (): {
+  codigo: string
+  addedParticipantes: ParticipaType[]
+  errors: ProyectoValidationErrors | null | undefined
+  handleChange: (e: any) => void
+  onSubmit: (e: any) => void
+  addParticipa: (participa: ParticipaType) => void
+  removeParticipa: (participa: ParticipaType) => void
+} => {
+  const [addedParticipantes, setAddedParticipantes] = useState<ParticipaType[]>(
+    []
+  )
+  const [proyecto, setEditedProyecto] = useState<ProyectoType>({
     codigo: "",
     ip: "",
     coip: "",
@@ -39,23 +57,56 @@ export const useProyectoCreate = (): [
   const [errors, setErrors] = useState<ProyectoValidationErrors | null>()
   const router = useRouter()
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target
-    setEditedProyecto((prevData) => ({
-      ...prevData,
-      [name]: typeof value === "string" ? value.trim() : value,
-    }))
-  }
+  const handleChange = useDebouncedCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.target
+      if (name === "codigo") {
+        setAddedParticipantes(
+          addedParticipantes.map((participante) => ({
+            ...participante,
+            codigo: value,
+          }))
+        )
+      }
+
+      setEditedProyecto((prevData) => ({
+        ...prevData,
+        [name]: typeof value === "string" ? value.trim() : value,
+      }))
+    },
+    400
+  )
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (validateParameters(proyecto, setErrors)) {
       addProyecto(proyecto)
-      router.replace("proyectos")
+      addedParticipantes
+        .map((participa) => new AddParticipaCommand(participa))
+        .forEach((command) => command.execute())
+      router.push("/proyectos")
     }
   }
 
-  return [errors, handleChange, onSubmit]
+  const addParticipa = (addedParticipa: ParticipaType) => {
+    setAddedParticipantes([...addedParticipantes, addedParticipa])
+  }
+
+  const removeParticipa = (removedParticipa: ParticipaType) => {
+    setAddedParticipantes(
+      addedParticipantes.filter(
+        (participa) => participa.codigo !== removedParticipa.codigo
+      )
+    )
+  }
+
+  return {
+    codigo: proyecto.codigo,
+    addedParticipantes,
+    errors,
+    handleChange,
+    onSubmit,
+    addParticipa,
+    removeParticipa,
+  }
 }

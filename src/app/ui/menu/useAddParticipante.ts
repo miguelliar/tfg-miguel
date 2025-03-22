@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react"
 import { useDebouncedCallback } from "use-debounce"
 
-import type { InvestigadorMinimumDataType } from "@/app/utils"
+import type { InvestigadorMinimumDataType, ParticipaType } from "@/app/utils"
 import {
   fetchInvestigadoresByQuery,
   fetchInvestigadoresNotParticipatingInProject,
   fetchNombresDeAutor,
 } from "@/db"
 
-export const useAddParticipante = ({ codigo }: { codigo: string }) => {
+export const useAddParticipante = ({
+  codigo,
+  participaAdded,
+}: {
+  codigo: string
+  participaAdded?: ParticipaType[]
+}) => {
   // query searched for investigador
   const [query, setQuery] = useState("")
   const [nombreDeAutor, setNombreDeAutor] = useState("")
@@ -26,11 +32,24 @@ export const useAddParticipante = ({ codigo }: { codigo: string }) => {
   useEffect(() => {
     if (query && codigo)
       fetchInvestigadoresNotParticipatingInProject(query, codigo).then(
-        (investigadores) => setInvesigadoresSearched(investigadores ?? [])
+        (investigadores) => {
+          if (participaAdded && participaAdded.length > 0) {
+            setInvesigadoresSearched(
+              investigadores?.filter(
+                (investigador) =>
+                  !participaAdded.some(
+                    (participa) => participa.email === investigador.email
+                  )
+              ) ?? []
+            )
+          } else {
+            setInvesigadoresSearched(investigadores ?? [])
+          }
+        }
       )
     else if (query) fetchInvestigadoresByQuery(query)
     else setInvesigadoresSearched([])
-  }, [codigo, query, setInvesigadoresSearched])
+  }, [codigo, participaAdded, query, setInvesigadoresSearched])
 
   const handleSearch = useDebouncedCallback(
     (term: string) => setQuery(term),
