@@ -174,12 +174,15 @@ export const MostrarProyectos = () => {
   }, [searchParams])
 
   const previousSelectedInvesigadores = useRef<string[]>([])
+  const previousSearchType = useRef<string>("")
 
   useEffect(() => {
     if (
       searchType &&
-      !isEqual(previousSelectedInvesigadores.current, selectedInvestigadores)
+      (!isEqual(previousSearchType.current, searchType) ||
+        !isEqual(previousSelectedInvesigadores.current, selectedInvestigadores))
     ) {
+      previousSearchType.current = searchType
       previousSelectedInvesigadores.current = selectedInvestigadores
       FETCH_PROYECTO_OPTION[searchType]
         .fetcher(selectedInvestigadores)
