@@ -184,6 +184,7 @@ export const EditProyectoForm = ({
         <div className="relative">
           {isAddingParticipante && (
             <AddParticipanteCard
+              participaAdded={participaciones}
               codigo={proyecto.codigo}
               onAdd={addParticipa}
               onClose={() => setIsAddingParticipante(false)}
