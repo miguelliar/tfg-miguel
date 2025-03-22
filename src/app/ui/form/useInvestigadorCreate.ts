@@ -1,6 +1,6 @@
 "use client"
 
-import { useRouter } from "next/navigation"
+import { redirect } from "next/navigation"
 import { useState } from "react"
 
 import type {
@@ -24,13 +24,11 @@ const validateParameters = (
   return validateInvestigadorErrors(newErrors)
 }
 
-export const useInvestigadorCreate = (
-  onClose: () => void
-): [
-  InvestigadorValidationErrors | null | undefined,
-  (e: any) => void,
-  (e: any) => void,
-] => {
+export const useInvestigadorCreate = (): {
+  errors: InvestigadorValidationErrors | null | undefined
+  onSubmit: (e: any) => void
+  handleChange: (e: any) => void
+} => {
   const [investigador, setInvestigador] = useState({
     email: "",
     nombre: "",
@@ -41,7 +39,6 @@ export const useInvestigadorCreate = (
     figura: "",
   })
   const [errors, setErrors] = useState()
-  const router = useRouter()
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -56,10 +53,9 @@ export const useInvestigadorCreate = (
   const onSubmit = () => {
     if (validateParameters(investigador, setErrors)) {
       addInvestigador(investigador)
-      onClose()
-      router.refresh()
+      redirect("investigador")
     }
   }
 
-  return [errors, onSubmit, handleChange]
+  return { errors, onSubmit, handleChange }
 }

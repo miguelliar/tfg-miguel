@@ -1,17 +1,12 @@
 "use client"
 
-import { CardModal } from "../CardModal"
 import { useInvestigadorCreate } from "./useInvestigadorCreate"
 
-export const InvestigadorCreateCard = ({
-  onClose,
-}: {
-  onClose: () => void
-}) => {
-  const [errors, onSubmit, handleChange] = useInvestigadorCreate(onClose)
+export const InvestigadorCreateForm = () => {
+  const { errors, onSubmit, handleChange } = useInvestigadorCreate()
 
   return (
-    <CardModal onClose={onClose}>
+    <section className="flex flex-col m-6">
       <h2 className="text-2xl text-special-color">Crear investigador</h2>
       <form
         className="flex flex-col gap-2 my-3 w-64"
@@ -123,11 +118,8 @@ export const InvestigadorCreateCard = ({
         </label>
         <div className="flex justify-around">
           <button type="submit">Añadir</button>
-          <button type="button" onClick={onClose}>
-            Cancelar
-          </button>
         </div>
       </form>
-    </CardModal>
+    </section>
   )
 }

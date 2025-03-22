@@ -1,4 +1,5 @@
 export * from "./CreateForm"
 export * from "./edit/index"
+export * from "./InvestigadorCreateForm"
 export * from "./ProyectoCreateForm"
 export * from "./ProyectoFileUploadForm"
