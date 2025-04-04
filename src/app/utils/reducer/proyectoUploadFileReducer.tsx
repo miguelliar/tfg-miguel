@@ -1,21 +1,18 @@
-import type { InfoMessage } from "../proyectos"
-import { InfoMessageType, MESSAGES } from "../proyectos"
-import type { ProyectoType } from "../types"
+import type { ProyectoToUpload } from "../proyectos"
 
 // ------ State ------
 export type ProyectoFileState = {
-  uploadedProyecto: ProyectoType[]
+  uploadedProyectos: ProyectoToUpload[]
   isSubmitEnabled: boolean
   isLoadingFiles: boolean
-  informationMessages: InfoMessage[]
+  apiError?: string
   submittedStatus?: "success" | "error"
 }
 
 export const defaultProyectoFileState: ProyectoFileState = {
-  uploadedProyecto: [],
+  uploadedProyectos: [],
   isSubmitEnabled: false,
   isLoadingFiles: false,
-  informationMessages: [],
 }
 
 // ------ Actions ------
@@ -23,7 +20,9 @@ export const ProyectoFileActions = {
   UPLOAD: "proyecto/file/upload" as const,
   UPLOAD_SUCCESS: "proyecto/file/upload/success" as const,
   UPLOAD_FAIL: "proyecto/file/upload/fail" as const,
-  VALIDATE: "proyecto/file/validate" as const,
+  UPDATE_PROYECTO: "proyecto/file/update" as const,
+  SOLVE_CONFLICT: "proyecto/file/solve_conflict" as const,
+  CONFLICTS_SOLVED: "proyecto/file/conflicts_solved" as const,
   SUBMIT: "proyecto/file/submit" as const,
   SUBMIT_WARNING: "proyecto/file/submit/warning" as const,
   SUBMIT_ERROR: "proyecto/file/submit/error" as const,
@@ -37,16 +36,25 @@ type ProyectoFileUpdloadAction = {
 
 type ProyectoFileUploadSuccessAction = {
   type: typeof ProyectoFileActions.UPLOAD_SUCCESS
-  payload: ProyectoType[]
+  payload: ProyectoToUpload[]
 }
 
 type ProyectoFileUploadFailAction = {
   type: typeof ProyectoFileActions.UPLOAD_FAIL
 }
 
-type ProyectoFileValidateAction = {
-  type: typeof ProyectoFileActions.VALIDATE
-  payload: InfoMessage[]
+type ProyectoFileUpdateProyecto = {
+  type: typeof ProyectoFileActions.UPDATE_PROYECTO
+  payload: ProyectoToUpload[]
+}
+
+type ProyectoFileSolveConflict = {
+  type: typeof ProyectoFileActions.SOLVE_CONFLICT
+  payload: ProyectoToUpload[]
+}
+
+type ProyectoFileConflictsSolved = {
+  type: typeof ProyectoFileActions.CONFLICTS_SOLVED
 }
 
 type ProyectoFileSubmitWarningAction = {
@@ -75,7 +83,9 @@ export type ProyectoFileAction =
   | ProyectoFileUpdloadAction
   | ProyectoFileUploadSuccessAction
   | ProyectoFileUploadFailAction
-  | ProyectoFileValidateAction
+  | ProyectoFileUpdateProyecto
+  | ProyectoFileSolveConflict
+  | ProyectoFileConflictsSolved
   | ProyectosFileSubmitAction
   | ProyectoFileSubmitWarningAction
   | ProyectoFileSubmitErrorAction
@@ -93,33 +103,37 @@ export const proyectoFileUpdateReducer = (
     case ProyectoFileActions.UPLOAD:
       return {
         ...persistedState,
-        uploadedProyecto: [],
+        uploadedProyectos: [],
         isLoadingFiles: true,
         isSubmitEnabled: false,
-        informationMessages: [],
       }
     case ProyectoFileActions.UPLOAD_SUCCESS:
       return {
         ...state,
+        apiError: undefined,
         isLoadingFiles: false,
-        uploadedProyecto: action.payload,
+        uploadedProyectos: action.payload,
       }
     case ProyectoFileActions.UPLOAD_FAIL:
       return {
         ...state,
         isLoadingFiles: false,
-        informationMessages: [
-          {
-            type: InfoMessageType.FILE_ERROR,
-            message: MESSAGES.FILE,
-          },
-        ],
+        apiError: "Se ha producido un error subiendo el archivo",
       }
-    case ProyectoFileActions.VALIDATE:
+    case ProyectoFileActions.UPDATE_PROYECTO:
+      return {
+        ...state,
+        uploadedProyectos: action.payload,
+      }
+    case ProyectoFileActions.SOLVE_CONFLICT:
+      return {
+        ...state,
+        uploadedProyectos: action.payload,
+      }
+    case ProyectoFileActions.CONFLICTS_SOLVED:
       return {
         ...state,
         isSubmitEnabled: true,
-        informationMessages: action.payload,
       }
     // TODO: Add validation before submit
     /* case "proyecto/file/submit":

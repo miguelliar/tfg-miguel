@@ -96,7 +96,7 @@ export const AddParticipanteCard = ({
               content={`${investigadorSelected.nombre} ${investigadorSelected.apellidos}`}
             >
               <Button
-                ariaLabel="Añadir participante"
+                ariaLabel="Deseleccionar participante"
                 variant="fill"
                 className="rounded-3xl p-0"
                 onClick={() => {

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react"
 
 import type { ParticipaType, ProyectoType } from "@/app/utils"
 import { getStringDate } from "@/app/utils"
-import { fetchParticipaByCodigoProyecto } from "@/db"
+import { fetchParticipaByCodigoProyecto, updateProyectoItem } from "@/db"
 
 import { EditButton } from "../../button/EditButton"
 import { EditProyectoForm } from "../../form/edit"
@@ -66,6 +66,11 @@ export const ProyectoCard = ({
             setEditMode(false)
           }}
           participaciones={participaciones}
+          onUpdate={(proyecto?: ProyectoType) => {
+            if (proyecto) {
+              updateProyectoItem(proyecto)
+            }
+          }}
         />
       ) : (
         <div className="flex flex-col gap-2 my-3">

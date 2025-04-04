@@ -16,12 +16,16 @@ export type EditProyectoFormProps = {
   proyecto: ProyectoType
   finishEditMode: () => void
   participaciones: ParticipaType[]
+  onUpdate: (proyecto?: ProyectoType, participa?: ParticipaType[]) => void
+  unSync?: boolean
 }
 
 export const EditProyectoForm = ({
   proyecto,
   finishEditMode,
   participaciones,
+  onUpdate,
+  unSync,
 }: EditProyectoFormProps) => {
   const [isAddingParticipante, setIsAddingParticipante] = useState(false)
   const {
@@ -32,7 +36,13 @@ export const EditProyectoForm = ({
     onSubmit,
     addParticipa,
     removeParticipa,
-  } = useEditProyectoForm(proyecto, finishEditMode, participaciones)
+  } = useEditProyectoForm(
+    proyecto,
+    finishEditMode,
+    onUpdate,
+    participaciones,
+    unSync
+  )
   // TODO: tech debt, get all logic inside hook
   const closeBtnRef = useContext(CloseRefContext)
   const startingInput = useRef<HTMLInputElement>(null)
@@ -63,10 +73,33 @@ export const EditProyectoForm = ({
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <form
-      className="flex flex-col gap-2 my- w-full"
+      className="flex flex-col gap-2 my- w-full pt-3 px-7 pb-2"
       onClick={closeMenuOnClick}
       onSubmit={onSubmit}
     >
+      {unSync && (
+        <>
+          {errors.codigo && (
+            <span style={{ color: "red" }}>{errors.codigo}</span>
+          )}
+          <label className="flex flex-col w-full" htmlFor="codigo">
+            <b>Codigo Proyecto: </b>
+            <input
+              id="codigo"
+              name="codigo"
+              type="text"
+              required
+              // eslint-disable-next-line jsx-a11y/no-autofocus
+              autoFocus
+              ref={startingInput}
+              placeholder="Codigo del proyecto"
+              defaultValue={editedProyecto.codigo}
+              onChange={handleChange}
+              onKeyDown={startingInputOnKeyPress}
+            />
+          </label>
+        </>
+      )}
       {errors.ip && <span style={{ color: "red" }}>{errors.ip}</span>}
       <label className="flex flex-col w-full" htmlFor="ip">
         <b>Investigador Principal: </b>
@@ -76,7 +109,7 @@ export const EditProyectoForm = ({
           type="text"
           required
           // eslint-disable-next-line jsx-a11y/no-autofocus
-          autoFocus
+          autoFocus={!unSync}
           ref={startingInput}
           placeholder="Investigador Principal"
           defaultValue={editedProyecto.ip}

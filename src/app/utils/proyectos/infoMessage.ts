@@ -17,46 +17,12 @@ export type WarningMessage = {
   nombreAutor: string
 }
 
-export type ErrorMessage = (typeof MESSAGES.ERROR)[keyof typeof MESSAGES.ERROR]
+export type ErrorMessage = {
+  message: (typeof MESSAGES.ERROR)[keyof typeof MESSAGES.ERROR]
+  read: boolean
+}
 
 export type ProyectoMessage = {
-  errors?: [ErrorMessage]
-  warnings?: [WarningMessage]
-  codigo: string
-}
-
-export enum InfoMessageType {
-  WARNING,
-  ERROR,
-  FILE_ERROR,
-}
-
-export type InfoMessage = {
-  type: InfoMessageType
-  message: string
-  codigo?: string
-}
-
-export const proyectoToInfoMessage = (
-  message: ProyectoMessage
-): InfoMessage[] => {
-  const res: InfoMessage[] = []
-  message.errors?.forEach((error) =>
-    res.push({
-      type: InfoMessageType.ERROR,
-      message: error,
-      codigo: message.codigo,
-    })
-  )
-
-  message.warnings?.forEach((warning) =>
-    res.push({
-      type: InfoMessageType.WARNING,
-      message: `${warning.message}:
-      ${warning.nombreAutor}`,
-      codigo: message.codigo,
-    })
-  )
-
-  return res
+  errors?: ErrorMessage[]
+  warnings?: WarningMessage[]
 }

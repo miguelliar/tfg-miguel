@@ -1,5 +1,7 @@
 import type { ProyectoToUpload } from "@/app/utils"
 
+import { validateProyectosToAdd } from "./proyectoValidator"
+
 const proyectHeaders = [
   "codigo",
   "ip",
@@ -55,9 +57,12 @@ const mapLines = (
   return result
 }
 
-export const processProyectoLines = (lines: string[]) => {
+export const processProyectoLines = async (
+  lines: string[]
+): Promise<ProyectoToUpload[]> => {
   const [headers, ...rows] = parseLine(lines)
   const result = mapLines(headers, rows)
+  const validatedProyectos = await validateProyectosToAdd(result)
 
-  return result
+  return validatedProyectos
 }

@@ -21,7 +21,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
     content.push(data)
   })
 
-  req.on("end", () => {
+  req.on("end", async () => {
     try {
       const buffer = Buffer.concat(content)
 
@@ -30,7 +30,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 
       const lines = fileContent.split("\n")
 
-      const result = processProyectoLines(lines)
+      const result = await processProyectoLines(lines)
       res.status(200).json(result)
       res.end()
     } catch (error) {

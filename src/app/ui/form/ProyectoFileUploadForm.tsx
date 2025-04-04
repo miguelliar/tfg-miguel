@@ -1,22 +1,22 @@
 "use client"
 
 import { Button } from "../button/Button"
-import { ProyectoCard, ProyectoMiniCard } from "../cards"
-import { InformationMessage, SubmitStatusInfo } from "../information"
+// eslint-disable-next-line import/no-cycle
+import { ProyectoCardToUpload } from "../cards/proyecto/ProyectoUploadCard"
+import { SubmitStatusInfo } from "../information"
 import { useProyectoFileUpload } from "./useProyectoFileUpload"
 
 export const ProyectoFileUploaderForm = () => {
   const {
-    isValidateEnabled,
     isSubmitEnabled,
     isLoading,
-    informationMessages,
-    uploadedProyecto,
+    uploadedProyectos,
     submittedStatus,
-    proyectoDetails,
+    errorMessage,
     onSubmit,
     onChange,
-    onValidate,
+    onChangeProyecto,
+    onSolveConflict,
     onCloseSubmitMessage,
   } = useProyectoFileUpload()
 
@@ -40,15 +40,6 @@ export const ProyectoFileUploaderForm = () => {
         </label>
         <div className="flex flex-row">
           <Button
-            type="button"
-            variant="fill"
-            className="m-4"
-            onClick={onValidate}
-            disabled={!isValidateEnabled}
-          >
-            Validar
-          </Button>
-          <Button
             type="submit"
             variant="fill"
             className="m-4"
@@ -61,18 +52,29 @@ export const ProyectoFileUploaderForm = () => {
       {/* TODO add validation button before submit here */}
       <p>{isLoading ? "Loading" : null}</p>
       <div className="mx-4 mb-4">
-        {informationMessages && informationMessages.length > 0 ? (
-          <InformationMessage informationMessage={informationMessages} />
-        ) : null}
-        {!isLoading && uploadedProyecto && uploadedProyecto.length > 0 ? (
-          <div className="grid grid-cols-adaptable gap-4">
-            {uploadedProyecto.map((proyecto) => (
-              <ProyectoMiniCard key={proyecto.codigo} proyecto={proyecto} />
+        {!isSubmitEnabled &&
+          uploadedProyectos &&
+          uploadedProyectos.length > 0 && (
+            <p>
+              Algunos proyectos tienen errores. Antes de subir los proyectos
+              revisa los proyectos y corrige los problemas o ignora los errores.
+              Aquellos que sean ignorados no se subirán
+            </p>
+          )}
+        {errorMessage && <p className="text-red-900">{errorMessage}</p>}
+        {!isLoading && uploadedProyectos && uploadedProyectos.length > 0 ? (
+          <div className="grid grid-cols-adaptable_big gap-4">
+            {uploadedProyectos.map((proyecto) => (
+              <ProyectoCardToUpload
+                key={proyecto.codigo}
+                proyecto={proyecto}
+                onChangeProyecto={onChangeProyecto}
+                onSolveConflict={onSolveConflict}
+              />
             ))}
           </div>
         ) : null}
       </div>
-      {proyectoDetails && <ProyectoCard unSync proyecto={proyectoDetails} />}
     </>
   )
 }

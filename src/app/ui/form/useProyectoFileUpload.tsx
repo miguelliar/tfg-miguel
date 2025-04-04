@@ -1,32 +1,41 @@
 "use client"
 
-import { useSearchParams } from "next/navigation"
 import type { FormEvent } from "react"
-import { useCallback, useEffect, useMemo, useReducer, useState } from "react"
+import { useCallback, useEffect, useReducer } from "react"
 
-import type { InfoMessage, ProyectoFileState, ProyectoType } from "@/app/utils"
+import type {
+  ErrorMessage,
+  ProyectoFileState,
+  ProyectoToUpload,
+} from "@/app/utils"
 import {
   addAllProyectos,
   defaultProyectoFileState,
   fetchParsedProyectos,
-  mapProyectoToUploadToProyectType,
+  mapProyectosToUploadToProyectsType,
   ProyectoFileActions,
   proyectoFileUpdateReducer,
-  validateProyectosToAdd,
 } from "@/app/utils"
 
+import { validateProyectoToAdd } from "../../../../pages/utils/proyectoValidator"
+
 type ProyectoFileUploadFields = {
-  informationMessages: InfoMessage[] | undefined
   isLoading: boolean
-  isValidateEnabled: boolean
   isSubmitEnabled: boolean
-  proyectoDetails: ProyectoType | null
   onChange: (selectedFile: any) => void
+  onChangeProyecto: (
+    updatedProyecto: ProyectoToUpload,
+    previousCodigo: string
+  ) => Promise<void>
   onCloseSubmitMessage: () => void
+  onSolveConflict: (
+    updatedProyecto: ProyectoToUpload,
+    errorMessage: ErrorMessage["message"]
+  ) => void
   onSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>
-  onValidate: () => void
   submittedStatus: ProyectoFileState["submittedStatus"]
-  uploadedProyecto?: ProyectoType[]
+  errorMessage?: string
+  uploadedProyectos?: ProyectoToUpload[]
 }
 
 /**
@@ -38,13 +47,20 @@ export const useProyectoFileUpload = (): ProyectoFileUploadFields => {
     proyectoFileUpdateReducer,
     defaultProyectoFileState
   )
-  const [proyectoDetails, setProyectoDetails] = useState<ProyectoType | null>(
-    null
-  )
-  const searchParams = useSearchParams()
-  const isValidateEnabled = useMemo(() => {
-    return state.uploadedProyecto.length > 0
-  }, [state])
+
+  // when uplodaded proyectos change its state and there are no error messages unread, set submit enabled
+  useEffect(() => {
+    if (
+      !state.uploadedProyectos.some((proyecto) =>
+        proyecto.messages.errors?.some((message) => !message.read)
+      ) &&
+      state.uploadedProyectos.length > 0
+    ) {
+      dispatch({
+        type: ProyectoFileActions.CONFLICTS_SOLVED,
+      })
+    }
+  }, [state.uploadedProyectos])
 
   const onCloseSubmitMessage = useCallback(
     () => dispatch({ type: ProyectoFileActions.CLOSE_SUBMIT_MESSAGE }),
@@ -54,8 +70,15 @@ export const useProyectoFileUpload = (): ProyectoFileUploadFields => {
   const onSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault()
-      addAllProyectos(state.uploadedProyecto)
-      dispatch({ type: ProyectoFileActions.SUBMIT_SUCCESS })
+
+      try {
+        await addAllProyectos(
+          mapProyectosToUploadToProyectsType(state.uploadedProyectos)
+        )
+        dispatch({ type: ProyectoFileActions.SUBMIT_SUCCESS })
+      } catch (e) {
+        dispatch({ type: ProyectoFileActions.SUBMIT_ERROR })
+      }
     },
     [state, dispatch]
   )
@@ -66,12 +89,9 @@ export const useProyectoFileUpload = (): ProyectoFileUploadFields => {
       ;(async () => {
         const proyectoRaw = await fetchParsedProyectos(selectedFile)
         if (proyectoRaw && proyectoRaw.length > 0) {
-          const formattedProyectos =
-            mapProyectoToUploadToProyectType(proyectoRaw)
-
           dispatch({
             type: ProyectoFileActions.UPLOAD_SUCCESS,
-            payload: formattedProyectos,
+            payload: proyectoRaw,
           })
         } else {
           dispatch({ type: ProyectoFileActions.UPLOAD_FAIL })
@@ -81,36 +101,66 @@ export const useProyectoFileUpload = (): ProyectoFileUploadFields => {
     [dispatch]
   )
 
-  const onValidate = useCallback(() => {
-    if (state.uploadedProyecto.length > 1) {
-      validateProyectosToAdd(state.uploadedProyecto).then((messages) => {
-        dispatch({ type: ProyectoFileActions.VALIDATE, payload: messages })
-      })
-    }
-  }, [state, dispatch])
+  const onSolveConflict = (
+    updatedProyecto: ProyectoToUpload,
+    errorMessage: ErrorMessage["message"]
+  ) => {
+    // updates state with read error message
+    const updatedProyectos = state.uploadedProyectos.map<ProyectoToUpload>(
+      (proyecto: ProyectoToUpload) => {
+        if (proyecto.codigo !== updatedProyecto.codigo) {
+          return proyecto
+        }
+        return {
+          ...proyecto,
+          messages: {
+            ...proyecto.messages,
+            errors: [
+              ...(proyecto.messages.errors?.filter(
+                (error) => error.message !== errorMessage
+              ) ?? []),
+              { message: errorMessage, read: true },
+            ],
+          },
+        }
+      }
+    )
 
-  useEffect(() => {
-    const codigo = new URLSearchParams(searchParams ?? "").get("codigo")
-    if (codigo) {
-      const proyectoDetails = state.uploadedProyecto.find(
-        (proyecto) => proyecto.codigo === codigo
-      )
-      if (proyectoDetails) setProyectoDetails(proyectoDetails)
-    } else {
-      setProyectoDetails(null)
-    }
-  }, [searchParams, state.uploadedProyecto])
+    // dispatches new state with solved error message
+    dispatch({
+      type: ProyectoFileActions.SOLVE_CONFLICT,
+      payload: updatedProyectos,
+    })
+  }
+
+  // Validates proyecto, changes messages and updates after editing it
+  const onChangeProyecto = async (
+    updatedProyecto: ProyectoToUpload,
+    previousCodigo: string
+  ) => {
+    // validate changes and update warning/error messages
+    const validatedProyecto = await validateProyectoToAdd(updatedProyecto)
+    dispatch({
+      type: ProyectoFileActions.UPDATE_PROYECTO,
+      payload: state.uploadedProyectos.map((proyecto) => {
+        if (proyecto.codigo === previousCodigo) {
+          return validatedProyecto
+        }
+        return proyecto
+      }),
+    })
+  }
+
   return {
-    isValidateEnabled,
     isSubmitEnabled: state.isSubmitEnabled,
     isLoading: state.isLoadingFiles,
-    informationMessages: state.informationMessages,
-    proyectoDetails,
-    uploadedProyecto: state.uploadedProyecto,
+    uploadedProyectos: state.uploadedProyectos,
+    errorMessage: state.apiError,
     submittedStatus: state.submittedStatus,
     onSubmit,
     onChange,
-    onValidate,
+    onChangeProyecto,
+    onSolveConflict,
     onCloseSubmitMessage,
   }
 }

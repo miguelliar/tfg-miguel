@@ -25,6 +25,7 @@ const config: Config = {
       },
       gridTemplateColumns: {
         adaptable: "repeat( auto-fit, minmax(15rem, 1fr))",
+        adaptable_big: "repeat( auto-fit, minmax(24rem, 1fr))",
       },
     },
   },

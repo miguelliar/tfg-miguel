@@ -1,35 +1,31 @@
 import { PencilIcon as InactivePencilIcon } from "@heroicons/react/24/outline"
 import { PencilIcon as ActivePencilIcon } from "@heroicons/react/24/solid"
+import cx from "classnames"
 import type { Dispatch, KeyboardEventHandler, SetStateAction } from "react"
 
 export const EditButton = ({
+  className,
   isEditMode,
   setEditMode,
   onKeyDown,
 }: {
   isEditMode: boolean
   setEditMode: Dispatch<SetStateAction<boolean>>
+  className?: string
   onKeyDown?: KeyboardEventHandler<HTMLButtonElement>
 }) => {
-  return isEditMode ? (
+  return (
     <button
-      className="w-6"
+      className={cx("w-6", className)}
       type="button"
-      onClick={() => setEditMode(false)}
+      onClick={() => setEditMode(!isEditMode)}
       onKeyDown={onKeyDown}
     >
-      <ActivePencilIcon title="Finalizar de editar proyecto" />
-    </button>
-  ) : (
-    <button
-      className="w-6"
-      type="button"
-      onClick={() => setEditMode(true)}
-      // eslint-disable-next-line jsx-a11y/no-autofocus
-      autoFocus
-      onKeyDown={onKeyDown}
-    >
-      <InactivePencilIcon title="Editar proyecto" />
+      {isEditMode ? (
+        <ActivePencilIcon title="Finalizar de editar proyecto" />
+      ) : (
+        <InactivePencilIcon title="Editar proyecto" />
+      )}
     </button>
   )
 }
