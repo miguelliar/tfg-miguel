@@ -1,5 +1,4 @@
-export * from "./CreateForm"
-export * from "./edit/index"
-export * from "./InvestigadorCreateForm"
-export * from "./ProyectoCreateForm"
+export * from "./create"
+export * from "./edit"
+// eslint-disable-next-line import/no-cycle
 export * from "./ProyectoFileUploadForm"
