@@ -29,7 +29,10 @@ export const ProyectoFileUploaderForm = () => {
         />
       ) : null}
       <form className="m-7" onSubmit={(e) => onSubmit(e)}>
-        <label className="flex flex-col" htmlFor="proyectoFile">
+        <label
+          className="flex flex-col md:flex-row gap-3 md:gap-6 w-full"
+          htmlFor="proyectoFile"
+        >
           <span>Elige un archivo .csv con los proyectos a subir</span>
           <input
             type="file"
@@ -49,21 +52,33 @@ export const ProyectoFileUploaderForm = () => {
           </Button>
         </div>
       </form>
-      {/* TODO add validation button before submit here */}
       <p>{isLoading ? "Loading" : null}</p>
-      <div className="mx-4 mb-4">
+      <div className="mx-4 mb-4 flex flex-col items-center gap-7">
         {!isSubmitEnabled &&
           uploadedProyectos &&
           uploadedProyectos.length > 0 && (
-            <p>
-              Algunos proyectos tienen errores. Antes de subir los proyectos
-              revisa los proyectos y corrige los problemas o ignora los errores.
-              Aquellos que sean ignorados no se subirán
-            </p>
+            <>
+              <h2 className="text-3xl">Proyectos procesados</h2>
+              <section className="border border-solid border-font-color bg-highlight-background-color p-4 rounded-lg">
+                <h3 className="text-xl text-error-color-accent mb-4">
+                  Algunos proyectos tienen errores.
+                </h3>
+                <p>
+                  <span>
+                    Antes de subir los proyectos revisa los proyectos y corrige
+                    los problemas o ignora los errores.
+                  </span>
+                  <br />
+                  <b>Aquellos que sean ignorados no se añadirán.</b>
+                </p>
+              </section>
+            </>
           )}
-        {errorMessage && <p className="text-red-900">{errorMessage}</p>}
+        {errorMessage && (
+          <p className="text-error-color-accent">{errorMessage}</p>
+        )}
         {!isLoading && uploadedProyectos && uploadedProyectos.length > 0 ? (
-          <div className="grid grid-cols-adaptable_big gap-4">
+          <section className="grid grid-cols-adaptable_big gap-4">
             {uploadedProyectos.map((proyecto) => (
               <ProyectoCardToUpload
                 key={proyecto.codigo}
@@ -72,7 +87,7 @@ export const ProyectoFileUploaderForm = () => {
                 onSolveConflict={onSolveConflict}
               />
             ))}
-          </div>
+          </section>
         ) : null}
       </div>
     </>

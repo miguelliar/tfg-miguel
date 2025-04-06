@@ -42,16 +42,18 @@ export const CardModal = ({
           e.stopPropagation()
         }}
       >
-        <div className="fixed top-2 right-2">
+        <div className="fixed top-2 right-2 flex flex-row">
           {option || null}
           <button
-            className="w-6"
+            className="w-6 text-font-color hover:text-font-color-accent focus:text-font-color-accent"
             type="button"
             onClick={onClose}
             onKeyDown={closeBtnOnKeyDown}
             ref={closeBtnRef}
+            aria-label="Cerrar Modal"
+            title="Cerrar Modal"
           >
-            <XMarkIcon title="Cerrar tarjeta de proyecto" />
+            <XMarkIcon />
           </button>
         </div>
         <div className="flex flex-col justify-around mx-8 items-center">

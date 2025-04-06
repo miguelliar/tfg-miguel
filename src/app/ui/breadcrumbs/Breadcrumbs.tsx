@@ -21,9 +21,9 @@ export const Breadcrumbs = () => {
           />
         )
       })}
-      <span className="text-highlight-background-color font-bold">
+      <li className="text-background-color font-bold">
         {crumbs[crumbs.length - 1]?.name}
-      </span>
+      </li>
     </ol>
   )
 }

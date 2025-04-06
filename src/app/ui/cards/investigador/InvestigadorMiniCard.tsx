@@ -55,7 +55,7 @@ export const InvestigadorMiniCard = ({
             {investigador.email}
           </h2>
         </div>
-        <div className="my-1 mx-3">
+        <div className="my-1 mx-3 flex justify-center">
           <p className="text-ellipsis overflow-hidden text-nowrap">
             {`${investigador.nombre} ${investigador.apellidos}`}
           </p>

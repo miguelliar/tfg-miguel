@@ -4,13 +4,16 @@
 
 :root {
   --font-color: #587e5b;
+  --font-colot-accent: #334b35;
   --font-color-disabled: rgba(106, 156, 137, 0.922);
   --special-color: #AA5486;
   --highlight-color: #CD5C08;
-  --background-color: #FFF5E4;
-  --highlight-background-color: #fbfbfb;
-  --low-color: #C1D8C3;
-  --disabled-color: #434743;
+  --background-color: #fff9ee;
+  --highlight-background-color: #FFF5E4;
+  --error-color: #b91c1c;
+  --error-color-accent: #7f1d1d;
+  --warning-color: #ea580c;
+  --success-color: #166534;
 }
 
 body {
@@ -21,6 +24,16 @@ body {
       rgb(var(--background-color))
     )
     rgb(var(--highlight-background-color));
+}
+
+a {
+  color: rgb(var(--font-color));
+  background-color: rgb(var(--background-color));
+}
+
+a:hover {
+  font-weight: bold;
+  transition: 150ms;
 }
 
 @layer utilities {

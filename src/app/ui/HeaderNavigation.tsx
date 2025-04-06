@@ -20,7 +20,7 @@ export function HeaderNavigation(): JSX.Element {
   )
 
   return (
-    <header className="flex flex-col bg-font-color text-highlight-background-color">
+    <header className="flex flex-col bg-font-color text-background-color">
       <section className="flex justify-center">
         {headerLinks.map((link) => (
           <Link

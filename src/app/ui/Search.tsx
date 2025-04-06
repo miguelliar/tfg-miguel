@@ -48,7 +48,7 @@ export const Search = ({ queryParam = "query" }: { queryParam?: string }) => {
   const { replace } = useRouter()
 
   const handleSearch = useDebouncedCallback((term: string) => {
-    const params = new URLSearchParams(searchParams ?? "")
+    const params = new URLSearchParams("")
     if (term) {
       params.set(queryParam, term)
     } else {

@@ -42,7 +42,7 @@ export const ProyectoMiniCard = ({ proyecto }: MiniCardProps) => {
       </div>
       <button
         type="button"
-        className="bg-font-color text-background-color"
+        className="bg-font-color text-background-color hover:bg-font-color-accent focus:bg-font-color-accent transition-all"
         onClick={() => {
           replace(createPageURL(proyecto.codigo))
         }}

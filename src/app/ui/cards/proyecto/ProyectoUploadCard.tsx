@@ -165,7 +165,7 @@ export const ProyectoCardToUpload = ({
               aria-label={`There are ${errorNumber} errors`}
             >
               {errorNumber}
-              <ExclamationCircleIcon className="mt-[2px] h-[20px] w-[20px] text-red-700 bg-background-color rounded-full" />
+              <ExclamationCircleIcon className="mt-[2px] h-[20px] w-[20px] text-error-color bg-background-color rounded-full" />
             </p>
           )}
           {warningNumber > 0 && (
@@ -174,7 +174,7 @@ export const ProyectoCardToUpload = ({
               aria-label={`There are ${warningNumber} warnings`}
             >
               {warningNumber}
-              <ExclamationCircleIcon className="mt-[2px] h-[20px] w-[20px] text-orange-600 bg-background-color rounded-full" />
+              <ExclamationCircleIcon className="mt-[2px] h-[20px] w-[20px] text-warning-color bg-background-color rounded-full" />
             </p>
           )}
           <h3>

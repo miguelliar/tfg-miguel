@@ -19,7 +19,7 @@ export const CreateProyectoButton = () => {
         />
       ) : null}
       <div
-        className="flex flex-row text-nowrap mb-2 relative max-h-fit rounded-md border p-2 border-font-color outline-2 text-font-color bg-background-color"
+        className="flex flex-row text-nowrap mb-2 relative max-h-fit rounded-md border p-2 border-font-color hover:border-font-color-accent focus:border-font-color-accent outline-2 text-font-color hover:text-font-color-accent focus:text-font-color-accent bg-background-color"
         tabIndex={0}
         role="button"
         onKeyDown={(event) => {
@@ -39,10 +39,26 @@ export const CreateProyectoButton = () => {
               if (e.key === "Escape") setAreOptionsOpened(false)
             }}
           >
-            <a className="pl-2 p-1" href="proyectos/crear/nuevo">
+            <a
+              className="pl-2 p-1 text-font-color hover:text-font-color-accent focus:text-font-color-accent"
+              href="proyectos/crear/nuevo"
+              onKeyDown={(e) => {
+                if (e.key === "Tab" && e.shiftKey) {
+                  setAreOptionsOpened(!areOptionsOpened)
+                }
+              }}
+            >
               Individualmente
             </a>
-            <a className="flex flex-row pl-2 p-1" href="proyectos/crear/subida">
+            <a
+              onKeyDown={(e) => {
+                if (e.key === "Tab" && !e.shiftKey) {
+                  setAreOptionsOpened(!areOptionsOpened)
+                }
+              }}
+              className="flex flex-row pl-2 p-1 text-font-color hover:text-font-color-accent focus:text-font-color-accent"
+              href="proyectos/crear/subida"
+            >
               Por archivo
               <ArrowUpTrayIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
             </a>

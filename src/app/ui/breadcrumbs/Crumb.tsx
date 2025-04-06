@@ -11,11 +11,9 @@ type CrumbProps = {
 
 export const Crumb = ({ crumb, level, lastLevel }: CrumbProps) => {
   return (
-    <>
-      <li>
-        <Link href={crumb.url}>{crumb.name}</Link>
-      </li>
+    <li>
+      <Link href={crumb.url}>{crumb.name}</Link>
       {level < lastLevel ? <span className="px-3">{">"}</span> : null}
-    </>
+    </li>
   )
 }

@@ -26,6 +26,7 @@ export function Pagination({ totalPages }: { totalPages: number }) {
         direction="left"
         href={createPageURL(currentPage - 1)}
         isDisabled={currentPage <= 1}
+        ariaLabel="Página anterior"
       />
 
       <div className="flex -space-x-px">
@@ -53,6 +54,7 @@ export function Pagination({ totalPages }: { totalPages: number }) {
         direction="right"
         href={createPageURL(currentPage + 1)}
         isDisabled={currentPage >= totalPages}
+        ariaLabel="Siguiente página"
       />
     </div>
   )
@@ -70,13 +72,14 @@ function PaginationNumber({
   isActive: boolean
 }) {
   const className = cx(
-    "flex h-10 w-10 items-center justify-center text-sm border",
+    "flex h-10 w-10 items-center justify-center text-sm border box-border transition-all",
     {
       "rounded-l-md": position === "first" || position === "single",
       "rounded-r-md": position === "last" || position === "single",
-      "z-1 bg-blue-600 border-blue-600 text-white": isActive,
-      "hover:bg-gray-100": !isActive && position !== "middle",
-      "text-gray-300": position === "middle",
+      "bg-font-color-accent border-font-color-accent text-background-color":
+        isActive,
+      "hover:text-font-color-accent hover:border-font-color-accent hover:z-10":
+        !isActive && position !== "middle",
     }
   )
 
@@ -93,16 +96,19 @@ function PaginationArrow({
   href,
   direction,
   isDisabled,
+  ariaLabel,
 }: {
   href: string
   direction: "left" | "right"
+  ariaLabel: string
   isDisabled?: boolean
 }) {
   const className = cx(
-    "flex h-10 w-10 items-center justify-center rounded-md border",
+    "flex h-10 w-10 items-center justify-center rounded-md border transition-all",
     {
-      "pointer-events-none text-gray-300": isDisabled,
-      "hover:bg-gray-100": !isDisabled,
+      "pointer-events-none text-font-color-disabled": isDisabled,
+      "hover:text-font-color-accent hover:border-font-color-accent":
+        !isDisabled,
       "mr-2 md:mr-4": direction === "left",
       "ml-2 md:ml-4": direction === "right",
     }
@@ -110,15 +116,15 @@ function PaginationArrow({
 
   const icon =
     direction === "left" ? (
-      <ArrowLeftIcon className="w-4" />
+      <ArrowLeftIcon className="w-4" title={ariaLabel} />
     ) : (
-      <ArrowRightIcon className="w-4" />
+      <ArrowRightIcon className="w-4" title={ariaLabel} />
     )
 
   return isDisabled ? (
     <div className={className}>{icon}</div>
   ) : (
-    <Link className={className} href={href}>
+    <Link className={className} href={href} aria-label={ariaLabel}>
       {icon}
     </Link>
   )

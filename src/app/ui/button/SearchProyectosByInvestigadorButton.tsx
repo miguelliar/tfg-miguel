@@ -20,6 +20,7 @@ export const SearchProyectosByInvestigadorButton = () => {
         "text-special-color": isActive,
         "border-special-color": isActive,
       })}
+      ariaLabel="Iniciar búsqueda de proyectos por investigador"
     >
       Iniciar Búsqueda
       <DocumentMagnifyingGlassIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
