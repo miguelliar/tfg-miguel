@@ -9,11 +9,13 @@ import { useEffect, useState } from "react"
 
 import type { ProyectoMinimumDataType } from "@/app/utils"
 import {
+  deleteInvestigador,
   fetchAllProyectosByInvestigadores,
   fetchNombresDeAutor,
   type InvestigadorType,
 } from "@/db"
 
+import { DeleteButton } from "../../button"
 import { EditButton } from "../../button/EditButton"
 import { EditInvestigadorForm } from "../../form/edit/EditInvestigadorForm"
 import { CardModal } from "../CardModal"
@@ -57,11 +59,22 @@ export const InvestigadorCard = ({
   return (
     <CardModal
       option={
-        <EditButton
-          isEditMode={isEditMode}
-          setEditMode={setEditMode}
-          onKeyDown={editButtonOnKeyDown}
-        />
+        <>
+          <EditButton
+            isEditMode={isEditMode}
+            setEditMode={setEditMode}
+            onKeyDown={editButtonOnKeyDown}
+          />
+          <DeleteButton
+            deleteEvent={() => deleteInvestigador(investigador.email)}
+            title="Borrar investigador"
+            warningMessage={`El investigador ${investigador.email} así como las participaciones del mismo serán eliminados`}
+            submitMessages={{
+              onSuccess: "Se ha borrado el investigador",
+              onFailure: "Ha habido un problema al borrar los datos",
+            }}
+          />
+        </>
       }
       onClose={closeModal}
     >

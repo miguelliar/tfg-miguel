@@ -64,6 +64,11 @@ export const ProyectoCard = ({
               deleteEvent={() => deleteProyecto(proyecto.codigo)}
               title="Borrar proyecto"
               warningMessage={`El proyecto ${proyecto.codigo} así como las participaciones del mismo serán eliminados`}
+              submitMessages={{
+                onSuccess: "Se ha borrado el proyecto y sus participantes",
+                onFailure:
+                  "Ha habido un problema al borrar el proyecto y sus participantes",
+              }}
             />
           </>
         )

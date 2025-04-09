@@ -233,3 +233,31 @@ export async function fetchInvestigadorByNombreAutor(nombreAutor: string) {
     console.error(investigadorConfig.error.Executing, error)
   }
 }
+
+export async function deleteInvestigador(email: string) {
+  try {
+    const proyecto = await fetchInvestigadorByEmail(email)
+    if (!proyecto) {
+      throw new Error(investigadorConfig.error.delete.email)
+    }
+    await pool.query(config.transaction.Start)
+    const deleteParticipaStatus = await pool.query(
+      config.participa.delete.ByEmail,
+      [email]
+    )
+    const deleteInvestigadorStatus = await pool.query(
+      investigadorConfig.Delete,
+      [email]
+    )
+    await pool.query(config.transaction.Commit)
+    await pool.query(config.transaction.End)
+
+    const columnsAffected =
+      (deleteParticipaStatus.rowCount ?? 0) +
+      (deleteInvestigadorStatus.rowCount ?? 0)
+
+    return Boolean(columnsAffected)
+  } catch (error) {
+    console.error(error)
+  }
+}

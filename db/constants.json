@@ -2,10 +2,14 @@
     "investigador": {
         "Create": "INSERT INTO investigador (email, nombre, apellidos, universidad, departamento, area, figura) VALUES ($1, $2, $3, $4, $5, $6, $7)",
         "Update": "UPDATE investigador SET nombre=$1, apellidos=$2, universidad=$3, departamento=$4, area=$5, figura=$6 WHERE email=$7",
+        "Delete": "DELETE FROM investigador WHERE email = $1::text",
         "error": {
             "Executing": "Error executing query",
             "Inserting": "Error inserting investigador",
-            "MaxIndex": "Error obtaining the maximum index"
+            "MaxIndex": "Error obtaining the maximum index",
+            "delete": {
+                "email": "There is no investigador to delete with that code"
+            }
         },
         "fetch": {
             "AllMinimumData": "SELECT email, nombre, apellidos FROM investigador LIMIT $1 OFFSET $2",
@@ -36,7 +40,8 @@
         "Create": "INSERT INTO participa (email_investigador, codigo_proyecto, nombre_autor) VALUES ($1, $2, $3)",
         "delete": {
             "ByPK": "DELETE FROM participa WHERE codigo_proyecto=$1::text AND email_investigador=$2::text",
-            "ByCodigo": "DELETE FROM participa WHERE codigo_proyecto = $1::text"
+            "ByCodigo": "DELETE FROM participa WHERE codigo_proyecto = $1::text",
+            "ByEmail": "DELETE FROM participa WHERE email_investigador = $1::text"
         },
         "error": {
             "Inserting": "Error inserting participa",

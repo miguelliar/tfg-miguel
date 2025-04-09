@@ -13,11 +13,16 @@ export const DeleteButton = ({
   title,
   deleteEvent,
   warningMessage,
+  submitMessages,
   className,
 }: {
   deleteEvent: () => Promise<boolean | undefined>
   title: string
   warningMessage: string
+  submitMessages: {
+    onSuccess: string
+    onFailure: string
+  }
   className?: string
 }) => {
   const [isWarningOpen, setIsWarningOpen] = useState(false)
@@ -26,7 +31,7 @@ export const DeleteButton = ({
     null
   )
   const pathname = usePathname()
-  const { replace } = useRouter()
+  const { replace, refresh } = useRouter()
 
   const onDelete = () => {
     setIsLoading(true)
@@ -85,11 +90,11 @@ export const DeleteButton = ({
       {!isLoading && isSuccessfulDelete !== null && (
         <SubmitStatusInfo
           submittedStatus={isSuccessfulDelete ? "success" : "error"}
-          onCloseSubmitMessage={() => replace(pathname ?? "/proyectos")}
-          messages={{
-            onSuccess: "Se han borrado los datos",
-            onFailure: "Ha habido un problema al borrar los datos",
+          onCloseSubmitMessage={() => {
+            replace(pathname ?? "/")
+            refresh()
           }}
+          messages={submitMessages}
         />
       )}
     </>
