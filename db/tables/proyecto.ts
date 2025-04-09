@@ -271,3 +271,30 @@ export async function updateProyectoItem(proyecto: ProyectoType) {
     console.error(proyectoConfig.error.Updating, error)
   }
 }
+
+export async function deleteProyecto(codigo: string) {
+  try {
+    const proyecto = await fetchProyectoByCode(codigo)
+    if (!proyecto) {
+      throw new Error(proyectoConfig.error.delete.code)
+    }
+    await pool.query(config.transaction.Start)
+    const deleteParticipaStatus = await pool.query(
+      config.participa.delete.ByCodigo,
+      [codigo]
+    )
+    const deleteProyectoStatus = await pool.query(proyectoConfig.Delete, [
+      codigo,
+    ])
+    await pool.query(config.transaction.Commit)
+    await pool.query(config.transaction.End)
+
+    const columnsAffected =
+      (deleteParticipaStatus.rowCount ?? 0) +
+      (deleteProyectoStatus.rowCount ?? 0)
+
+    return Boolean(columnsAffected)
+  } catch (error) {
+    console.error(error)
+  }
+}

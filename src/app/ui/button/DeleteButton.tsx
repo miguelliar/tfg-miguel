@@ -1,0 +1,97 @@
+"use client"
+
+import { TrashIcon } from "@heroicons/react/24/solid"
+import cx from "classnames"
+import { usePathname, useRouter } from "next/navigation"
+import { useState } from "react"
+
+import { CardModal } from "../cards/CardModal"
+import { SubmitStatusInfo } from "../information"
+import { Button } from "./Button"
+
+export const DeleteButton = ({
+  title,
+  deleteEvent,
+  warningMessage,
+  className,
+}: {
+  deleteEvent: () => Promise<boolean | undefined>
+  title: string
+  warningMessage: string
+  className?: string
+}) => {
+  const [isWarningOpen, setIsWarningOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isSuccessfulDelete, setIsSuccessfulDelete] = useState<boolean | null>(
+    null
+  )
+  const pathname = usePathname()
+  const { replace } = useRouter()
+
+  const onDelete = () => {
+    setIsLoading(true)
+    deleteEvent().then((isComplete) => {
+      setIsSuccessfulDelete(Boolean(isComplete))
+      setIsLoading(false)
+    })
+  }
+
+  return (
+    <>
+      <Button
+        className={cx("w-6", className)}
+        variant="minimal"
+        onClick={() => setIsWarningOpen(!isWarningOpen)}
+        ariaLabel={title}
+      >
+        <TrashIcon className="w-6 h-6" />
+      </Button>
+      {isWarningOpen && (
+        <CardModal onClose={() => setIsWarningOpen(!isWarningOpen)}>
+          <>
+            {!isLoading && isSuccessfulDelete === null && (
+              <div>
+                <h2 className="text-xl text-error-color-accent">
+                  {warningMessage}
+                </h2>
+                <p className="mt-2">
+                  ¿Deseas continuar? Esta acción <b>no es reversible.</b>
+                </p>
+                <div className="mt-4 flex flex-row gap-4">
+                  <Button
+                    variant="fill"
+                    onClick={() => setIsWarningOpen(!isWarningOpen)}
+                  >
+                    Cancelar
+                  </Button>
+                  <Button
+                    variant="custom"
+                    className="p-2 bg-error-color text-background-color hover:bg-error-color-accent focus:bg-error-color-accent"
+                    onClick={onDelete}
+                  >
+                    Borrar
+                  </Button>
+                </div>
+              </div>
+            )}
+            {isLoading && !isSuccessfulDelete && (
+              <div>
+                <p>Cargando...</p>
+              </div>
+            )}
+          </>
+        </CardModal>
+      )}
+      {!isLoading && isSuccessfulDelete !== null && (
+        <SubmitStatusInfo
+          submittedStatus={isSuccessfulDelete ? "success" : "error"}
+          onCloseSubmitMessage={() => replace(pathname ?? "/proyectos")}
+          messages={{
+            onSuccess: "Se han borrado los datos",
+            onFailure: "Ha habido un problema al borrar los datos",
+          }}
+        />
+      )}
+    </>
+  )
+}

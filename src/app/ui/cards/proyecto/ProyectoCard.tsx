@@ -7,9 +7,13 @@ import { useEffect, useState } from "react"
 
 import type { ParticipaType, ProyectoType } from "@/app/utils"
 import { getStringDate } from "@/app/utils"
-import { fetchParticipaByCodigoProyecto, updateProyectoItem } from "@/db"
+import {
+  deleteProyecto,
+  fetchParticipaByCodigoProyecto,
+  updateProyectoItem,
+} from "@/db"
 
-import { EditButton } from "../../button/EditButton"
+import { DeleteButton, EditButton } from "../../button"
 import { EditProyectoForm } from "../../form/edit"
 import { CardModal } from "../CardModal"
 import { HorizontalCard } from "../HorizontalCard"
@@ -49,11 +53,19 @@ export const ProyectoCard = ({
     <CardModal
       option={
         !unSync && (
-          <EditButton
-            isEditMode={isEditMode}
-            setEditMode={setEditMode}
-            onKeyDown={editButtonOnKeyDown}
-          />
+          <>
+            <EditButton
+              isEditMode={isEditMode}
+              setEditMode={setEditMode}
+              onKeyDown={editButtonOnKeyDown}
+            />
+            <DeleteButton
+              className=""
+              deleteEvent={() => deleteProyecto(proyecto.codigo)}
+              title="Borrar proyecto"
+              warningMessage={`El proyecto ${proyecto.codigo} así como las participaciones del mismo serán eliminados`}
+            />
+          </>
         )
       }
       onClose={closeModal}

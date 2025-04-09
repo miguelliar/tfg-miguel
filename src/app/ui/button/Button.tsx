@@ -1,5 +1,4 @@
 import cx from "classnames"
-import type { KeyboardEventHandler } from "react"
 
 export interface ButtonProps {
   children: React.ReactNode
@@ -7,23 +6,25 @@ export interface ButtonProps {
   className?: string
   disabled?: boolean
   onClick?: () => void
-  onKeyDown?: KeyboardEventHandler<HTMLButtonElement>
   type?: "button" | "submit" | "reset"
   variant?: keyof typeof ButtonVariant
 }
 
 const ButtonVariant = {
-  fill: "p-2 text-background-color bg-font-color hover:bg-font-color-accent focus:bg-font-color-accent",
+  fill: "p-2 text-background-color bg-font-color hover:bg-font-color-accent focus:bg-font-color-accent border border-font-color outline-2",
   border:
-    "p-2 text-font-color bg-background-color hover:text-font-color-accent focus:text-font-color-accent",
+    "p-2 text-font-color bg-background-color hover:text-font-color-accent focus:text-font-color-accent border border-font-color outline-2",
   minimal:
     "text-font-color border-none hover:text-font-color-accent focus:text-font-color-accent",
+  custom: "",
 }
 
 const ButtonVariantDisabled = {
-  fill: "p-2 text-background-color bg-font-color-disabled",
-  border: "p-2 text-font-color-disabled bg-background-color",
+  fill: "p-2 text-background-color bg-font-color-disabled border border-font-color outline-2 ",
+  border:
+    "p-2 text-font-color-disabled bg-background-color border border-font-color outline-2 ",
   minimal: "text-font-color-disabled border-none",
+  custom: "",
 }
 
 export const Button = ({
@@ -32,16 +33,14 @@ export const Button = ({
   className,
   disabled = false,
   onClick,
-  onKeyDown,
   type = "button",
   variant = "border",
 }: ButtonProps) => {
   return (
     <button
       onClick={onClick}
-      onKeyDown={onKeyDown}
       className={cx(
-        "flex flex-row text-nowrap max-h-fit rounded-md border border-font-color outline-2 transition-all",
+        "flex flex-row text-nowrap max-h-fit rounded-md transition-all",
         disabled ? ButtonVariantDisabled[variant] : ButtonVariant[variant],
         className
       )}

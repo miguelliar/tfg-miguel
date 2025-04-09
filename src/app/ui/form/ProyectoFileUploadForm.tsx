@@ -26,6 +26,10 @@ export const ProyectoFileUploaderForm = () => {
         <SubmitStatusInfo
           submittedStatus={submittedStatus}
           onCloseSubmitMessage={onCloseSubmitMessage}
+          messages={{
+            onSuccess: "Se han subido los archivos",
+            onFailure: "No se han subido los archivos",
+          }}
         />
       ) : null}
       <form className="m-7" onSubmit={(e) => onSubmit(e)}>

@@ -96,7 +96,7 @@ export async function fetchParticipa(codigo: string, email: string) {
 export async function deleteParticipa(codigo: string, email: string) {
   noStore()
   try {
-    await pool.query(participa.Delete, [codigo, email])
+    await pool.query(participa.delete.ByPK, [codigo, email])
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(participa.error.Delete, error)
