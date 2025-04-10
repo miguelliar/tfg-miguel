@@ -6,7 +6,7 @@ import type { KeyboardEvent } from "react"
 type MenuPosition = keyof typeof MENU_POSITION
 
 const MENU_POSITION = {
-  top: "bottom-[80%] right-[-200%]",
+  top: "bottom-[80%] right-[-375%]",
   bottom: "",
 }
 

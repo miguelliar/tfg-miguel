@@ -16,7 +16,7 @@ export const SearchProyectosByInvestigadorButton = () => {
   return (
     <Button
       onClick={switchActive}
-      className={cx({
+      className={cx("max-w-fit", {
         "text-special-color": isActive,
         "border-special-color": isActive,
       })}

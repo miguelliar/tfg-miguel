@@ -32,7 +32,7 @@ a {
 }
 
 a:hover {
-  font-weight: bold;
+  color: var(--font-colot-accent);
   transition: 150ms;
 }
 

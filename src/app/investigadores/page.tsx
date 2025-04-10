@@ -48,10 +48,10 @@ export default async function Page(props: {
         <ProyectoViewerByInvestigador>
           <div className="flex flex-col md:flex-row justify-between">
             <Search />
-            <div className="flex flex-row m-5 mt-1 gap-x-2 justify-center">
+            <div className="flex flex-col sm:flex-row mb-5 mt-1 gap-2 sm:gap-x-2 justify-center items-center">
               <Link
                 href="investigadores/crear"
-                className="flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-font-color outline-2 text-font-color bg-background-color"
+                className="flex flex-row text-nowrap max-h-fit max-w-fit rounded-md border p-2 border-font-color outline-2 text-font-color bg-background-color"
               >
                 Añadir Investigador
                 <PlusIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />

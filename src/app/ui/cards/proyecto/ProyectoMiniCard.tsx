@@ -23,7 +23,9 @@ export const ProyectoMiniCard = ({ proyecto }: MiniCardProps) => {
   return (
     <div className="flex flex-col justify-between border-2 border-font-color rounded-md min-h-28">
       <div className="flex flex-col mt-1 text-center">
-        <h2 className="text-special-color">{proyecto.codigo}</h2>
+        <h2 className="text-special-color overflow-hidden text-ellipsis">
+          {proyecto.codigo}
+        </h2>
         <ShowMoreText
           lines={2}
           more={
