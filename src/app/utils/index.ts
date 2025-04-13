@@ -1,4 +1,3 @@
-export * from "./constants"
 export * from "./context"
 export * from "./formatDate"
 export * from "./investigador"
