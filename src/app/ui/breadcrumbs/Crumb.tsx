@@ -12,10 +12,7 @@ type CrumbProps = {
 export const Crumb = ({ crumb, level }: CrumbProps) => {
   return (
     <li>
-      <Link
-        className={cx("hover:font-bold hover:text-background-color")}
-        href={crumb.url}
-      >
+      <Link className="hover:font-bold" href={crumb.url}>
         <span
           className={cx("sm:hidden", {
             hidden: level < 1,
