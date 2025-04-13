@@ -4,6 +4,7 @@ import cx from "classnames"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 
+import { Footer } from "./ui/Footer"
 import { HeaderNavigation } from "./ui/HeaderNavigation"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -34,6 +35,7 @@ export default function RootLayout({
       >
         <HeaderNavigation />
         <main className="flex-grow">{children}</main>
+        <Footer />
       </body>
     </html>
   )
