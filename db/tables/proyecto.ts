@@ -223,11 +223,19 @@ export async function createProyectoItem(proyecto: ProyectoType) {
   const { codigo, ip, coip, titulo, financiado, inicio, fin } = proyecto
 
   const errorMessage = validateInputParameter(proyecto)
+
   if (errorMessage) {
     throw new Error(errorMessage)
   }
 
+  const existingProyecto = await fetchProyectoByCode(codigo)
+
+  if (!existingProyecto) {
+    throw new Error(proyectoConfig.error.add.Duplicated)
+  }
+
   try {
+    await pool.query(config.transaction.Start)
     await pool.query(proyectoConfig.Create, [
       codigo,
       ip,
@@ -237,8 +245,10 @@ export async function createProyectoItem(proyecto: ProyectoType) {
       inicio,
       fin || null,
     ])
+    await pool.query(config.transaction.Commit)
+    await pool.query(config.transaction.End)
   } catch (error) {
-    console.error(proyectoConfig.error.Inserting, error)
+    console.error(proyectoConfig.error.add.Standard, error)
   }
 }
 
@@ -252,12 +262,11 @@ export async function updateProyectoItem(proyecto: ProyectoType) {
 
   const proyectoOriginal = await fetchProyectoByCode(codigo)
   if (!proyectoOriginal) {
-    throw new Error(
-      "There doesn't exist any error with that codigo that can be updated"
-    )
+    throw new Error(proyectoConfig.error.update.Inexisting)
   }
 
   try {
+    await pool.query(config.transaction.Start)
     await pool.query(proyectoConfig.Update, [
       ip,
       coip,
@@ -267,8 +276,10 @@ export async function updateProyectoItem(proyecto: ProyectoType) {
       fin || null,
       codigo,
     ])
+    await pool.query(config.transaction.Commit)
+    await pool.query(config.transaction.End)
   } catch (error) {
-    console.error(proyectoConfig.error.Updating, error)
+    console.error(proyectoConfig.error.update.Standard, error)
   }
 }
 

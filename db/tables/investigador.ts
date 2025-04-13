@@ -36,6 +36,7 @@ const validateInputParameter = (investigador: InvestigadorType) => {
   if (!figura || !figura.trim()) return "Figura cannot be empty"
 }
 
+// TODO: validate there is no repeated email
 export const createInvestigador = async (investigador: InvestigadorType) => {
   const { email, nombre, apellidos, universidad, departamento, area, figura } =
     investigador
@@ -45,7 +46,13 @@ export const createInvestigador = async (investigador: InvestigadorType) => {
     throw new Error(errorMessage)
   }
 
+  const existingInvestigador = await fetchInvestigadorByEmail(email)
+  if (existingInvestigador) {
+    throw new Error(investigadorConfig.error.add.Duplicated)
+  }
+
   try {
+    await pool.query(config.transaction.Start)
     await pool.query(investigadorConfig.Create, [
       email,
       nombre,
@@ -55,8 +62,10 @@ export const createInvestigador = async (investigador: InvestigadorType) => {
       area,
       figura,
     ])
+    await pool.query(config.transaction.Commit)
+    await pool.query(config.transaction.End)
   } catch (error) {
-    console.error(investigadorConfig.error.Inserting, error)
+    console.error(investigadorConfig.error.add.Standard, error)
   }
 }
 
@@ -70,6 +79,7 @@ export const updateInvestigador = async (investigador: InvestigadorType) => {
   }
 
   try {
+    await pool.query(config.transaction.Start)
     await pool.query(investigadorConfig.Update, [
       nombre,
       apellidos,
@@ -79,8 +89,10 @@ export const updateInvestigador = async (investigador: InvestigadorType) => {
       figura,
       email,
     ])
+    await pool.query(config.transaction.Commit)
+    await pool.query(config.transaction.End)
   } catch (error) {
-    console.error(investigadorConfig.error.Inserting, error)
+    console.error(investigadorConfig.error.Update, error)
   }
 }
 

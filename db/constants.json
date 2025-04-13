@@ -5,8 +5,12 @@
         "Delete": "DELETE FROM investigador WHERE email = $1::text",
         "error": {
             "Executing": "Error executing query",
-            "Inserting": "Error inserting investigador",
             "MaxIndex": "Error obtaining the maximum index",
+            "Update": "Error updating the investigador",
+            "add": {
+                "Duplicated": "There is already another investigador with that email",
+                "Standard": "Error inserting investigador"
+            },
             "delete": {
                 "email": "There is no investigador to delete with that code"
             }
@@ -44,7 +48,12 @@
             "ByEmail": "DELETE FROM participa WHERE email_investigador = $1::text"
         },
         "error": {
-            "Inserting": "Error inserting participa",
+            "add": {
+                "Duplicated": "There is already a participation for that proyecto with that investigador",
+                "Investigador": "There doesn't exist any investigador with that email",
+                "Proyecto": "There doesn't exist any proyecto with that code",
+                "Standard": "Error inserting participa"
+            },
             "Delete": "Error deleting entry from DB",
             "Fetch": "Error fetching the information"
         }
@@ -55,11 +64,17 @@
         "Update": "UPDATE proyecto SET ip=$1, coip=$2, titulo=$3, financiado=$4, inicio=$5, fin=$6 WHERE codigo=$7",
         "error": {
             "Executing": "Error executing query",
-            "Inserting": "Error inserting proyecto",
             "MaxIndex": "Error obtaining the maximum index",
-            "Updating": "Error updating the proyecto",
+            "add": {
+                "Duplicated": "Error: There is a proyecto with that codigo already existing",
+                "Standard": "Error inserting proyecto"
+            },
             "delete": {
                 "code": "There is no proyecto to delete with that code"
+            },
+            "update": {
+                "Inexisting": "There doesn't exist any error with that codigo that can be updated",
+                "Standard": "Error updating the proyecto"
             }
         },
         "fetch": {

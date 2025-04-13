@@ -6,6 +6,8 @@ import type { ParticipaType } from "@/app/utils"
 
 import config from "../constants.json"
 import { getPool } from "../pool"
+import { fetchInvestigadorByEmail } from "./investigador"
+import { fetchProyectoByCode } from "./proyecto"
 
 const { participa } = config
 const pool = getPool()
@@ -92,31 +94,56 @@ export async function fetchParticipa(codigo: string, email: string) {
   }
 }
 
-// TODO: handle delete as a transaction
 export async function deleteParticipa(codigo: string, email: string) {
   noStore()
   try {
+    await pool.query(config.transaction.Start)
     await pool.query(participa.delete.ByPK, [codigo, email])
+    await pool.query(config.transaction.Commit)
+    await pool.query(config.transaction.End)
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(participa.error.Delete, error)
   }
 }
 
-// TODO: handle add as a transaction
 export async function createParticipa(
   emailInvestigador: string,
   codigoProyecto: string,
   nombreAutor: string
 ) {
+  const investigadorExists = await fetchInvestigadorByEmail(emailInvestigador)
+
+  if (!investigadorExists) {
+    throw new Error(participa.error.add.Investigador)
+  }
+
+  const proyectoExists = await fetchProyectoByCode(codigoProyecto)
+
+  if (!proyectoExists) {
+    throw new Error(participa.error.add.Proyecto)
+  }
+
+  const duplicatedParticipa = await fetchParticipa(
+    codigoProyecto,
+    emailInvestigador
+  )
+
+  if (!duplicatedParticipa) {
+    throw new Error(participa.error.add.Duplicated)
+  }
+
   try {
+    await pool.query(config.transaction.Start)
     await pool.query(participa.Create, [
       emailInvestigador,
       codigoProyecto,
       nombreAutor,
     ])
+    await pool.query(config.transaction.Commit)
+    await pool.query(config.transaction.End)
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(participa.error.Inserting, error)
+    console.error(participa.error.add.Standard, error)
   }
 }
