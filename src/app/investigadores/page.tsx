@@ -39,7 +39,7 @@ export default async function Page(props: {
     : await fetchInvestigadorData(currentPage)
 
   return (
-    <main>
+    <>
       <h1 className="text-4xl m-5">Investigadores</h1>
       <section className="m-4 p-1 flex flex-col">
         {currentInvestigador && (
@@ -73,6 +73,6 @@ export default async function Page(props: {
           <Pagination totalPages={totalPages} />
         </ProyectoViewerByInvestigador>
       </section>
-    </main>
+    </>
   )
 }

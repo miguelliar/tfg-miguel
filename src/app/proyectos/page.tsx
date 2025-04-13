@@ -29,7 +29,7 @@ export default async function Page(props: {
   )
 
   return (
-    <main>
+    <>
       <h1 className="text-4xl m-5">Proyectos</h1>
       <section className="m-4 p-1 flex flex-col justify-items-center">
         {currentProyecto && <ProyectoCard proyecto={currentProyecto} />}
@@ -50,6 +50,6 @@ export default async function Page(props: {
         </div>
         <Pagination totalPages={totalPages} />
       </section>
-    </main>
+    </>
   )
 }

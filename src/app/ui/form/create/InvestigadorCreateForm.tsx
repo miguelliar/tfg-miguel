@@ -1,13 +1,13 @@
 "use client"
 
+import { Button } from "../../button/Button"
 import { useInvestigadorCreate } from "./useInvestigadorCreate"
 
 export const InvestigadorCreateForm = () => {
   const { errors, onSubmit, handleChange } = useInvestigadorCreate()
 
   return (
-    <section className="flex flex-col m-6">
-      <h2 className="text-2xl text-special-color">Crear investigador</h2>
+    <div className="flex flex-col mb-8">
       <form
         className="flex flex-col gap-2 my-3 w-64"
         onSubmit={(e) => onSubmit(e)}
@@ -116,10 +116,10 @@ export const InvestigadorCreateForm = () => {
             onChange={handleChange}
           />
         </label>
-        <div className="flex justify-around">
-          <button type="submit">Añadir</button>
+        <div className="flex justify-around mt-5">
+          <Button type="submit">Crear investigador</Button>
         </div>
       </form>
-    </section>
+    </div>
   )
 }

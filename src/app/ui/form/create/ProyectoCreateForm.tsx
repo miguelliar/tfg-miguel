@@ -31,9 +31,11 @@ export const ProyectoCreate = () => {
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-    <div className="flex flex-col m-6 items-center" onClick={closeMenuOnClick}>
-      <h2 className="text-2xl text-special-color">Crear Proyecto</h2>
-      <form className="flex flex-col gap-2 my-3" onSubmit={(e) => onSubmit(e)}>
+    <div
+      className="flex flex-col items-center w-full mb-8"
+      onClick={closeMenuOnClick}
+    >
+      <form className="flex flex-col gap-2 mx-3" onSubmit={(e) => onSubmit(e)}>
         {errors?.codigo && (
           <span style={{ color: "red" }}>{errors.codigo}</span>
         )}
@@ -170,8 +172,8 @@ export const ProyectoCreate = () => {
             </Button>
           </div>
         </div>
-        <div className="flex justify-around">
-          <button type="submit">Añadir</button>
+        <div className="flex justify-around mt-5">
+          <Button type="submit">Crear proyecto</Button>
         </div>
       </form>
     </div>

@@ -13,7 +13,6 @@ const config: Config = {
         "font-color-accent": "var(--font-colot-accent)",
         "font-color-disabled": "var(--font-color-disabled)",
         "special-color": "var(--special-color)",
-        "highlight-color": "var(--highlight-color)",
         "background-color": "var(--background-color)",
         "highlight-background-color": "var(--highlight-background-color)",
         "error-color": "var(--error-color)",

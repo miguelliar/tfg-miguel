@@ -4,8 +4,9 @@ import { ProyectoCreate } from "@/app/ui"
 
 export default async function Page() {
   return (
-    <main>
+    <div className="flex flex-col items-center gap-5 my-2">
+      <h1 className="text-4xl text-center">Crear proyecto</h1>
       <ProyectoCreate />
-    </main>
+    </div>
   )
 }

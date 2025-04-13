@@ -7,7 +7,6 @@
   --font-colot-accent: #334b35;
   --font-color-disabled: rgba(106, 156, 137, 0.922);
   --special-color: #AA5486;
-  --highlight-color: #CD5C08;
   --background-color: #fff9ee;
   --highlight-background-color: #FFF5E4;
   --error-color: #b91c1c;
@@ -24,6 +23,7 @@ body {
       rgb(var(--background-color))
     )
     rgb(var(--highlight-background-color));
+  height: 100vh;
 }
 
 a {

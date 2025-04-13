@@ -27,10 +27,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={cx("bg-background-color text-font-color", inter.className)}
+        className={cx(
+          "bg-background-color text-font-color flex flex-col",
+          inter.className
+        )}
       >
         <HeaderNavigation />
-        {children}
+        <main className="flex-grow">{children}</main>
       </body>
     </html>
   )
