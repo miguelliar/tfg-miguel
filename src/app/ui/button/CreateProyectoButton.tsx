@@ -1,10 +1,12 @@
 "use client"
 
 import { ArrowUpTrayIcon, PlusIcon } from "@heroicons/react/24/solid"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 export const CreateProyectoButton = () => {
   const [areOptionsOpened, setAreOptionsOpened] = useState(false)
+  const { push } = useRouter()
 
   return (
     <>
@@ -46,6 +48,8 @@ export const CreateProyectoButton = () => {
                 if (e.key === "Tab" && e.shiftKey) {
                   setAreOptionsOpened(!areOptionsOpened)
                 }
+                if (e.key === "Enter" || e.key === "Space")
+                  push("proyectos/crear/nuevo")
               }}
             >
               Individualmente
@@ -55,6 +59,8 @@ export const CreateProyectoButton = () => {
                 if (e.key === "Tab" && !e.shiftKey) {
                   setAreOptionsOpened(!areOptionsOpened)
                 }
+                if (e.key === "Enter" || e.key === "Space")
+                  push("proyectos/crear/subida")
               }}
               className="flex flex-row pl-2 p-1 text-font-color hover:text-font-color-accent focus:text-font-color-accent"
               href="proyectos/crear/subida"

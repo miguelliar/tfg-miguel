@@ -93,7 +93,7 @@ const ProyectoInfo = ({ proyecto }: { proyecto: ProyectoToUpload }) => {
                   >
                     <a
                       className="text-background-color bg-font-color flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-font-color outline-2"
-                      href={`investigadores?${emailDirection.toString()}`}
+                      href={`/investigadores?${emailDirection.toString()}`}
                       target="_blank"
                     >
                       Ver
