@@ -3,6 +3,7 @@ import cx from "classnames"
 export interface ButtonProps {
   children: React.ReactNode
   ariaLabel?: string
+  autoFocus?: boolean
   className?: string
   disabled?: boolean
   onClick?: () => void
@@ -30,6 +31,7 @@ const ButtonVariantDisabled = {
 export const Button = ({
   children,
   ariaLabel,
+  autoFocus,
   className,
   disabled = false,
   onClick,
@@ -47,6 +49,8 @@ export const Button = ({
       // eslint-disable-next-line react/button-has-type
       type={type}
       aria-label={ariaLabel}
+      // eslint-disable-next-line jsx-a11y/no-autofocus
+      autoFocus={autoFocus}
       title={ariaLabel}
       disabled={disabled}
     >
