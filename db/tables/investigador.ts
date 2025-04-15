@@ -36,7 +36,6 @@ const validateInputParameter = (investigador: InvestigadorType) => {
   if (!figura || !figura.trim()) return "Figura cannot be empty"
 }
 
-// TODO: validate there is no repeated email
 export const createInvestigador = async (investigador: InvestigadorType) => {
   const { email, nombre, apellidos, universidad, departamento, area, figura } =
     investigador

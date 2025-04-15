@@ -5,7 +5,7 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/solid"
 import cx from "classnames"
-import isEqual from "lodash/isEqual"
+import { isEqual } from "lodash"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
 
@@ -109,6 +109,7 @@ const ProyectoByInvestigadorSearcher = () => {
     if (params.has("proyectoSearchType"))
       params.set("proyectoSearchType", proyectoSearchType)
     else params.append("proyectoSearchType", proyectoSearchType)
+    params.sort()
     replace(`${pathname}?${params.toString()}`)
   }
 
@@ -156,22 +157,16 @@ export const MostrarProyectos = () => {
   const [searchedProyectos, setSearchedProyectos] = useState<
     ProyectoMinimumDataType[]
   >([])
-  const searchParams = useSearchParams()
-  const searchType = useMemo(
-    () =>
-      new URLSearchParams(searchParams ?? "").get("proyectoSearchType") ?? "",
-    [searchParams]
+
+  const params = useSearchParams()
+  const searchParams = useMemo(
+    () => new URLSearchParams(params ?? ""),
+    [params]
   )
 
-  const selectedProyecto = useMemo(() => {
-    const params = new URLSearchParams(searchParams ?? "")
-    return params.get("codigo")
-  }, [searchParams])
-
-  const selectedInvestigadores = useMemo(() => {
-    const params = new URLSearchParams(searchParams ?? "")
-    return params.getAll("selectedEmail")
-  }, [searchParams])
+  const searchType = searchParams.get("proyectoSearchType")
+  const selectedProyecto = searchParams.get("codigo")
+  const selectedInvestigadores = searchParams.getAll("selectedEmail")
 
   const previousSelectedInvesigadores = useRef<string[]>([])
   const previousSearchType = useRef<string>("")
@@ -231,19 +226,16 @@ export const MostrarProyectos = () => {
               <ArrowDownTrayIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
             </Button>
           </div>
-          {
-            // TODO: Add Modal for Product detail view
-            searchedProyectos && (
-              <div className="grid grid-cols-adaptable gap-4">
-                {searchedProyectos.map((proyecto) => (
-                  <ProyectoMiniCard
-                    key={`ProyectoCard-${proyecto.codigo}`}
-                    proyecto={proyecto}
-                  />
-                ))}
-              </div>
-            )
-          }
+          {searchedProyectos && (
+            <div className="grid grid-cols-adaptable gap-4">
+              {searchedProyectos.map((proyecto) => (
+                <ProyectoMiniCard
+                  key={`ProyectoCard-${proyecto.codigo}`}
+                  proyecto={proyecto}
+                />
+              ))}
+            </div>
+          )}
         </section>
       )}
     </section>

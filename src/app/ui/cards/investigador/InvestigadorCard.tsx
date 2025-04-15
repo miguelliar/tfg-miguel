@@ -4,7 +4,6 @@
 
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import type { KeyboardEvent } from "react"
 import { useEffect, useState } from "react"
 
 import type { ProyectoMinimumDataType } from "@/app/utils"
@@ -50,21 +49,11 @@ export const InvestigadorCard = ({
     )
   }, [investigador])
 
-  const editButtonOnKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-    if (event.key === "Tab" && event.shiftKey) {
-      closeModal()
-    }
-  }
-
   return (
     <CardModal
       option={
         <>
-          <EditButton
-            isEditMode={isEditMode}
-            setEditMode={setEditMode}
-            onKeyDown={editButtonOnKeyDown}
-          />
+          <EditButton isEditMode={isEditMode} setEditMode={setEditMode} />
           <DeleteButton
             deleteEvent={() => deleteInvestigador(investigador.email)}
             title="Borrar investigador"

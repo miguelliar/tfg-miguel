@@ -2,7 +2,6 @@
 
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import type { KeyboardEvent } from "react"
 import { useEffect, useState } from "react"
 
 import type { ParticipaType, ProyectoType } from "@/app/utils"
@@ -37,12 +36,6 @@ export const ProyectoCard = ({
     replace(`${pathname}?${params.toString()}`)
   }
 
-  const editButtonOnKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-    if (event.key === "Tab" && event.shiftKey) {
-      closeModal()
-    }
-  }
-
   useEffect(() => {
     fetchParticipaByCodigoProyecto(proyecto.codigo).then((participa) =>
       setParticipaciones(participa ?? [])
@@ -54,11 +47,7 @@ export const ProyectoCard = ({
       option={
         !unSync && (
           <>
-            <EditButton
-              isEditMode={isEditMode}
-              setEditMode={setEditMode}
-              onKeyDown={editButtonOnKeyDown}
-            />
+            <EditButton isEditMode={isEditMode} setEditMode={setEditMode} />
             <DeleteButton
               className=""
               deleteEvent={() => deleteProyecto(proyecto.codigo)}
