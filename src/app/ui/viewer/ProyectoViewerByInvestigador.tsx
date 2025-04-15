@@ -5,7 +5,7 @@ import { useState } from "react"
 
 import { SearchProyectoByInvestigadorContext } from "@/app/utils"
 
-import { MostrarProyectos } from "../MostrarProyectos"
+import { MostrarProyectos } from "./MostrarProyectos"
 
 export const ProyectoViewerByInvestigador = ({
   children,
