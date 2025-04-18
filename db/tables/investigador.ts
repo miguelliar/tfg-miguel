@@ -46,6 +46,7 @@ export const createInvestigador = async (investigador: InvestigadorType) => {
   }
 
   const existingInvestigador = await fetchInvestigadorByEmail(email)
+
   if (existingInvestigador) {
     throw new Error(investigadorConfig.error.add.Duplicated)
   }

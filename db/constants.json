@@ -1,7 +1,7 @@
 {
     "investigador": {
-        "Create": "INSERT INTO investigador (email, nombre, apellidos, universidad, departamento, area, figura) VALUES ($1, $2, $3, $4, $5, $6, $7)",
-        "Update": "UPDATE investigador SET nombre=$1, apellidos=$2, universidad=$3, departamento=$4, area=$5, figura=$6 WHERE email=$7",
+        "Create": "INSERT INTO investigador (email, nombre, apellidos, universidad, departamento, area, figura) VALUES ($1::text, $2::text, $3::text, $4::text, $5::text, $6::text, $7::text)",
+        "Update": "UPDATE investigador SET nombre=$1::text, apellidos=$2::text, universidad=$3::text, departamento=$4::text, area=$5::text, figura=$6::text WHERE email=$7::text",
         "Delete": "DELETE FROM investigador WHERE email = $1::text",
         "error": {
             "Executing": "Error executing query",
@@ -16,12 +16,12 @@
             }
         },
         "fetch": {
-            "AllMinimumData": "SELECT email, nombre, apellidos FROM investigador LIMIT $1 OFFSET $2",
-            "All": "SELECT * FROM investigador LIMIT $1 OFFSET $2",
-            "ByEmail": "SELECT * FROM investigador WHERE email=$1",
-            "ByNombreAutor": "SELECT * FROM investigador WHERE email IN (SELECT email_investigador FROM nombre_autor WHERE nombre_autor = $1)",
-            "ByLikeNombreAutor": "SELECT * FROM investigador WHERE email IN (SELECT email_investigador FROM nombre_autor WHERE nombre_autor ILIKE $1)",
-            "ByProyectoCode": "SELECT * FROM investigador WHERE email in (SELECT email_investigador FROM participa WHERE codigo_proyecto = $1)"
+            "AllMinimumData": "SELECT email, nombre, apellidos FROM investigador ORDER BY email DESC LIMIT $1::int OFFSET $2::int",
+            "All": "SELECT * FROM investigador ORDER BY email DESC LIMIT $1::int OFFSET $2::int",
+            "ByEmail": "SELECT * FROM investigador WHERE email=$1::text ORDER BY email DESC",
+            "ByNombreAutor": "SELECT * FROM investigador WHERE email IN (SELECT email_investigador FROM nombre_autor WHERE nombre_autor = $1::text) ORDER BY email DESC",
+            "ByLikeNombreAutor": "SELECT * FROM investigador WHERE email IN (SELECT email_investigador FROM nombre_autor WHERE nombre_autor ILIKE $1::text) ORDER BY email DESC",
+            "ByProyectoCode": "SELECT * FROM investigador WHERE email in (SELECT email_investigador FROM participa WHERE codigo_proyecto = $1::text) ORDER BY email DESC"
         },
         "pagination": {
             "INITIAL_PAGE": 1,
@@ -36,12 +36,12 @@
     },
     "participa": {
         "fetch": {
-            "ByEmailInvestigador": "SELECT * FROM participa WHERE email_investigador=$1",
-            "ByCodigo": "SELECT * FROM participa WHERE codigo_proyecto=$1::text",
-            "ByCodigoAndEmail": "SELECT * FROM participa WHERE codigo_proyecto=$1::text AND email_investigador=$2::text",
-            "NombreDeAutor": "SELECT DISTINCT nombre_autor FROM participa WHERE email_investigador=$1::text"
+            "ByEmailInvestigador": "SELECT * FROM participa WHERE email_investigador=$1::text ORDER BY codigo_proyecto",
+            "ByCodigo": "SELECT * FROM participa WHERE codigo_proyecto=$1::text ORDER BY email_investigador",
+            "ByCodigoAndEmail": "SELECT * FROM participa WHERE codigo_proyecto=$1::text AND email_investigador=$2::text ORDER BY nombre_autor",
+            "NombreDeAutor": "SELECT DISTINCT nombre_autor, COUNT(*) OVER(PARTITION BY nombre_autor) AS repetitions FROM participa WHERE email_investigador=$1::text ORDER BY repetitions DESC"
         },
-        "Create": "INSERT INTO participa (email_investigador, codigo_proyecto, nombre_autor) VALUES ($1, $2, $3)",
+        "Create": "INSERT INTO participa (email_investigador, codigo_proyecto, nombre_autor) VALUES ($1::text, $2::text, $3::text)",
         "delete": {
             "ByPK": "DELETE FROM participa WHERE codigo_proyecto=$1::text AND email_investigador=$2::text",
             "ByCodigo": "DELETE FROM participa WHERE codigo_proyecto = $1::text",
@@ -59,9 +59,9 @@
         }
     },
     "proyecto": {
-        "Create": "INSERT INTO proyecto (codigo, ip, coip, titulo, financiado, inicio, fin) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+        "Create": "INSERT INTO proyecto (codigo, ip, coip, titulo, financiado, inicio, fin) VALUES ($1::text, $2::text, $3::text, $4::text, $5::text, $6::date, $7::date)",
         "Delete": "DELETE FROM proyecto WHERE codigo = $1::text",
-        "Update": "UPDATE proyecto SET ip=$1, coip=$2, titulo=$3, financiado=$4, inicio=$5, fin=$6 WHERE codigo=$7",
+        "Update": "UPDATE proyecto SET ip=$1::text, coip=$2::text, titulo=$3::text, financiado=$4::text, inicio=$5::date, fin=$6::date WHERE codigo=$7::text",
         "error": {
             "Executing": "Error executing query",
             "MaxIndex": "Error obtaining the maximum index",
@@ -78,13 +78,13 @@
             }
         },
         "fetch": {
-            "AllMinimumData": "SELECT codigo, titulo FROM proyecto LIMIT $1 OFFSET $2",
-            "All": "SELECT * FROM proyecto LIMIT $1 OFFSET $2",
-            "AllByInvestigadores": "SELECT codigo, titulo FROM proyecto WHERE codigo IN (SELECT codigo_proyecto FROM participa WHERE email_investigador = ANY($1::text[]))",
-            "ByCodigo": "SELECT * FROM proyecto WHERE codigo=$1",
-            "ByCodigos": "SELECT * FROM proyecto where codigo = ANY($1::text[])",
-            "DistinctProyectosByInvestigadores": "SELECT proyecto.codigo, proyecto.titulo FROM proyecto WHERE proyecto.codigo IN (SELECT participa.codigo_proyecto FROM participa WHERE participa.email_investigador = ANY($1::text[]) GROUP BY participa.codigo_proyecto HAVING COUNT(DISTINCT participa.email_investigador) = 1)",
-            "JoinByInvestigadores": "SELECT proyecto.codigo, proyecto.titulo FROM proyecto JOIN participa ON proyecto.codigo = participa.codigo_proyecto WHERE participa.email_investigador = ANY($1::text[]) GROUP BY proyecto.codigo HAVING COUNT(DISTINCT participa.email_investigador) = ARRAY_LENGTH($1::text[], 1) "
+            "AllMinimumData": "SELECT codigo, titulo FROM proyecto ORDER BY codigo LIMIT $1::int OFFSET $2::int",
+            "All": "SELECT * FROM proyecto ORDER BY codigo LIMIT $1::int OFFSET $2::int",
+            "AllByInvestigadores": "SELECT codigo, titulo FROM proyecto WHERE codigo IN (SELECT codigo_proyecto FROM participa WHERE email_investigador = ANY($1::text[])) ORDER BY codigo",
+            "ByCodigo": "SELECT * FROM proyecto WHERE codigo=$1::text",
+            "ByCodigos": "SELECT * FROM proyecto where codigo = ANY($1::text[]) ORDER BY codigo",
+            "DistinctProyectosByInvestigadores": "SELECT proyecto.codigo, proyecto.titulo FROM proyecto WHERE proyecto.codigo IN (SELECT participa.codigo_proyecto FROM participa WHERE participa.email_investigador = ANY($1::text[]) GROUP BY participa.codigo_proyecto HAVING COUNT(DISTINCT participa.email_investigador) = 1) ORDER BY codigo",
+            "JoinByInvestigadores": "SELECT proyecto.codigo, proyecto.titulo FROM proyecto JOIN participa ON proyecto.codigo = participa.codigo_proyecto WHERE participa.email_investigador = ANY($1::text[]) GROUP BY proyecto.codigo HAVING COUNT(DISTINCT participa.email_investigador) = ARRAY_LENGTH($1::text[], 1) ORDER BY codigo"
         },
         "pagination": {
             "INITIAL_PAGE": 1,
