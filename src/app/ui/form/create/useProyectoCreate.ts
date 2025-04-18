@@ -80,10 +80,13 @@ export const useProyectoCreate = (): {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (validateParameters(proyecto, setErrors)) {
-      addProyecto(proyecto)
-      addedParticipantes
-        .map((participa) => new AddParticipaCommand(participa))
-        .forEach((command) => command.execute())
+      addProyecto(proyecto).then(() =>
+        // In order to wait to the proyecto for being created
+        addedParticipantes
+          .map((participa) => new AddParticipaCommand(participa))
+          .forEach((command) => command.execute())
+      )
+
       router.push("/proyectos")
     }
   }
