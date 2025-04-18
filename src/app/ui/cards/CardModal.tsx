@@ -37,7 +37,7 @@ export const CardModal = ({
     >
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
       <section
-        className="flex flex-col fixed overflow-auto top-0 left-0 sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 bg-background-color sm:rounded-lg px-3 pt-8 pb-6 w-full sm:w-[70%] lg:w-fit h-full sm:h-fit"
+        className="flex flex-col fixed overflow-auto top-0 left-0 sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 bg-background-color sm:rounded-lg px-3 pt-8 pb-6 w-full sm:w-[70%] lg:w-fit h-full sm:h-fit sm:max-h-screen"
         onClick={(e) => {
           e.stopPropagation()
         }}

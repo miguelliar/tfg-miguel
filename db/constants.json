@@ -16,12 +16,12 @@
             }
         },
         "fetch": {
-            "AllMinimumData": "SELECT email, nombre, apellidos FROM investigador ORDER BY email DESC LIMIT $1::int OFFSET $2::int",
-            "All": "SELECT * FROM investigador ORDER BY email DESC LIMIT $1::int OFFSET $2::int",
-            "ByEmail": "SELECT * FROM investigador WHERE email=$1::text ORDER BY email DESC",
-            "ByNombreAutor": "SELECT * FROM investigador WHERE email IN (SELECT email_investigador FROM nombre_autor WHERE nombre_autor = $1::text) ORDER BY email DESC",
-            "ByLikeNombreAutor": "SELECT * FROM investigador WHERE email IN (SELECT email_investigador FROM nombre_autor WHERE nombre_autor ILIKE $1::text) ORDER BY email DESC",
-            "ByProyectoCode": "SELECT * FROM investigador WHERE email in (SELECT email_investigador FROM participa WHERE codigo_proyecto = $1::text) ORDER BY email DESC"
+            "AllMinimumData": "SELECT email, nombre, apellidos FROM investigador ORDER BY email LIMIT $1::int OFFSET $2::int",
+            "All": "SELECT * FROM investigador ORDER BY email LIMIT $1::int OFFSET $2::int",
+            "ByEmail": "SELECT * FROM investigador WHERE email=$1::text ORDER BY email",
+            "ByNombreAutor": "SELECT * FROM investigador WHERE email IN (SELECT email_investigador FROM nombre_autor WHERE nombre_autor = $1::text) ORDER BY email",
+            "ByLikeNombreAutor": "SELECT * FROM investigador WHERE email IN (SELECT email_investigador FROM nombre_autor WHERE nombre_autor ILIKE $1::text) ORDER BY email",
+            "ByProyectoCode": "SELECT * FROM investigador WHERE email in (SELECT email_investigador FROM participa WHERE codigo_proyecto = $1::text) ORDER BY email"
         },
         "pagination": {
             "INITIAL_PAGE": 1,
@@ -39,7 +39,7 @@
             "ByEmailInvestigador": "SELECT * FROM participa WHERE email_investigador=$1::text ORDER BY codigo_proyecto",
             "ByCodigo": "SELECT * FROM participa WHERE codigo_proyecto=$1::text ORDER BY email_investigador",
             "ByCodigoAndEmail": "SELECT * FROM participa WHERE codigo_proyecto=$1::text AND email_investigador=$2::text ORDER BY nombre_autor",
-            "NombreDeAutor": "SELECT DISTINCT nombre_autor, COUNT(*) OVER(PARTITION BY nombre_autor) AS repetitions FROM participa WHERE email_investigador=$1::text ORDER BY repetitions DESC"
+            "NombreDeAutor": "SELECT DISTINCT nombre_autor, COUNT(*) OVER(PARTITION BY nombre_autor) AS repetitions FROM participa WHERE email_investigador=$1::text ORDER BY repetitions"
         },
         "Create": "INSERT INTO participa (email_investigador, codigo_proyecto, nombre_autor) VALUES ($1::text, $2::text, $3::text)",
         "delete": {
@@ -91,8 +91,8 @@
             "ITEMS_PER_PAGE": 12
         },
         "search": {
-            "SearchMinimumData": "SELECT codigo, titulo FROM proyecto WHERE titulo ILIKE $1::text OR codigo ILIKE $1::text OR ip ILIKE $1::text OR financiado ILIKE $1::text ORDER BY inicio DESC LIMIT $2 OFFSET $3",
-            "SearchByName": "SELECT * FROM proyecto WHERE titulo ILIKE $1::text OR codigo ILIKE $1::text OR ip ILIKE $1::text OR financiado ILIKE $1::text ORDER BY inicio DESC LIMIT $2 OFFSET $3",
+            "SearchMinimumData": "SELECT codigo, titulo FROM proyecto WHERE titulo ILIKE $1::text OR codigo ILIKE $1::text OR ip ILIKE $1::text OR financiado ILIKE $1::text ORDER BY inicio LIMIT $2 OFFSET $3",
+            "SearchByName": "SELECT * FROM proyecto WHERE titulo ILIKE $1::text OR codigo ILIKE $1::text OR ip ILIKE $1::text OR financiado ILIKE $1::text ORDER BY inicio LIMIT $2 OFFSET $3",
             "MaxNumberOfPages": "SELECT COUNT(*) as count FROM proyecto WHERE titulo ILIKE $1::text OR codigo ILIKE $1::text OR ip ILIKE $1::text OR financiado ILIKE $1::text "
         }
     },

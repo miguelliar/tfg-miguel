@@ -109,7 +109,7 @@ export const ProyectoCard = ({
           {participaciones.length > 0 && (
             <>
               <b className="mt-5">Participantes</b>
-              <div className="flex flex-col overflow-auto gap-2">
+              <div className="flex flex-col overflow-auto items-center gap-2">
                 {participaciones.map((participa) => {
                   const emailDirection = new URLSearchParams([
                     ["email", participa.email],
