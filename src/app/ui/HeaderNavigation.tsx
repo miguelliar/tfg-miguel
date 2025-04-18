@@ -12,7 +12,6 @@ import { Button } from "./button/Button"
 import { CardModal } from "./cards/CardModal"
 
 const pageLinks = [
-  { title: "Inicio", url: "/home" },
   { title: "Proyectos", url: "/proyectos" },
   { title: "Investigadores", url: "/investigadores" },
 ]
