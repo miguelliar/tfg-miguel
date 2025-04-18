@@ -95,7 +95,7 @@ export const useProyectoCreate = (): {
   const removeParticipa = (removedParticipa: ParticipaType) => {
     setAddedParticipantes(
       addedParticipantes.filter(
-        (participa) => participa.codigo !== removedParticipa.codigo
+        (participa) => participa.email !== removedParticipa.email
       )
     )
   }

@@ -129,7 +129,7 @@ export async function createParticipa(
     emailInvestigador
   )
 
-  if (!duplicatedParticipa) {
+  if (duplicatedParticipa) {
     throw new Error(participa.error.add.Duplicated)
   }
 

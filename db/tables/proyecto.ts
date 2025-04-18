@@ -230,7 +230,7 @@ export async function createProyectoItem(proyecto: ProyectoType) {
 
   const existingProyecto = await fetchProyectoByCode(codigo)
 
-  if (!existingProyecto) {
+  if (existingProyecto) {
     throw new Error(proyectoConfig.error.add.Duplicated)
   }
 
