@@ -12,19 +12,19 @@ export interface ButtonProps {
 }
 
 const ButtonVariant = {
-  fill: "p-2 text-background-color bg-font-color hover:bg-font-color-accent focus:bg-font-color-accent border border-font-color outline-2",
+  fill: "p-2 text-secondary bg-primary hover:bg-primary-strong focus:bg-primary-strong border border-primary outline-2",
   border:
-    "p-2 text-font-color bg-background-color hover:text-font-color-accent focus:text-font-color-accent border border-font-color outline-2",
+    "p-2 text-primary bg-secondary hover:text-primary-strong focus:text-primary-strong border border-primary outline-2",
   minimal:
-    "text-font-color border-none hover:text-font-color-accent focus:text-font-color-accent",
+    "text-primary border-none hover:text-primary-strong focus:text-primary-strong",
   custom: "",
 }
 
 const ButtonVariantDisabled = {
-  fill: "p-2 text-background-color bg-font-color-disabled border border-font-color outline-2 ",
+  fill: "p-2 text-secondary bg-primary-disabled border border-primary outline-2 ",
   border:
-    "p-2 text-font-color-disabled bg-background-color border border-font-color outline-2 ",
-  minimal: "text-font-color-disabled border-none",
+    "p-2 text-primary-disabled bg-secondary border border-primary outline-2 ",
+  minimal: "text-primary-disabled border-none",
   custom: "",
 }
 

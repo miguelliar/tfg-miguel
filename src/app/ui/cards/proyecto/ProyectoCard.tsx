@@ -56,7 +56,7 @@ export const ProyectoCard = ({
       }
       onClose={() => removeQueryParam("codigo")}
     >
-      <h2 className="text-special-color">Codigo: {proyecto.codigo}</h2>
+      <h2 className="text-accent-primary">Codigo: {proyecto.codigo}</h2>
       {isEditMode && !unSync ? (
         <EditProyectoForm
           proyecto={proyecto}
@@ -122,7 +122,7 @@ export const ProyectoCard = ({
                       content={participa.nombreAutor}
                     >
                       <a
-                        className="text-background-color bg-font-color flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-font-color outline-2"
+                        className="text-secondary bg-primary flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-primary outline-2"
                         href={`investigadores?${emailDirection.toString()}`}
                         target="_blank"
                       >

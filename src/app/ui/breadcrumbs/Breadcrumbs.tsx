@@ -15,7 +15,7 @@ export const Breadcrumbs = () => {
         return <Crumb key={crumb.url} crumb={crumb} level={index} />
       })}
       {crumbs.length > 2 && (
-        <li className="text-font-color font-bold">
+        <li className="text-primary font-bold">
           {crumbs[crumbs.length - 1]?.name}
         </li>
       )}

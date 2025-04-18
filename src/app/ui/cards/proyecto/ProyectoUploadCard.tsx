@@ -44,7 +44,7 @@ const ProyectoInfo = ({ proyecto }: { proyecto: ProyectoToUpload }) => {
   const { participantes } = proyecto
   return (
     <div className="flex flex-col text-center pt-3 px-7 pb-2">
-      <h2 className="text-special-color">{proyecto.codigo}</h2>
+      <h2 className="text-accent-primary">{proyecto.codigo}</h2>
       <div className="flex flex-col gap-2 ">
         <p>
           <b className="text-wrap">Investigador Principal: </b>
@@ -92,7 +92,7 @@ const ProyectoInfo = ({ proyecto }: { proyecto: ProyectoToUpload }) => {
                     content={participa.nombreAutor}
                   >
                     <a
-                      className="text-background-color bg-font-color flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-font-color outline-2"
+                      className="text-secondary bg-primary flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-primary outline-2"
                       href={`/investigadores?${emailDirection.toString()}`}
                       target="_blank"
                     >
@@ -125,7 +125,7 @@ export const ProyectoCardToUpload = ({
   }
 
   return (
-    <div className="flex flex-col relative justify-between border-2 border-font-color rounded-md min-h-28">
+    <div className="flex flex-col relative justify-between border-2 border-primary rounded-md min-h-28">
       {isEditMode ? (
         <EditProyectoForm
           proyecto={mapProyectoToUploadToProyectType(proyecto)}
@@ -153,7 +153,7 @@ export const ProyectoCardToUpload = ({
       )}
       <div
         onKeyDown={onKeyDown}
-        className="flex flex-row bg-highlight-background-color pl-2 border-t w-full border-t-gray-400 rounded-b-md"
+        className="flex flex-row bg-highlight-secondary pl-2 border-t w-full border-t-gray-400 rounded-b-md"
         onClick={() => setIsInfoMessagesCollapsed(!isInfoMessagesCollapsed)}
         role="button"
         tabIndex={0}
@@ -165,7 +165,7 @@ export const ProyectoCardToUpload = ({
               aria-label={`There are ${errorNumber} errors`}
             >
               {errorNumber}
-              <ExclamationCircleIcon className="mt-[2px] h-[20px] w-[20px] text-error-color bg-background-color rounded-full" />
+              <ExclamationCircleIcon className="mt-[2px] h-[20px] w-[20px] text-error-color bg-secondary rounded-full" />
             </p>
           )}
           {warningNumber > 0 && (
@@ -174,7 +174,7 @@ export const ProyectoCardToUpload = ({
               aria-label={`There are ${warningNumber} warnings`}
             >
               {warningNumber}
-              <ExclamationCircleIcon className="mt-[2px] h-[20px] w-[20px] text-warning-color bg-background-color rounded-full" />
+              <ExclamationCircleIcon className="mt-[2px] h-[20px] w-[20px] text-warning-color bg-secondary rounded-full" />
             </p>
           )}
           <h3>
@@ -189,7 +189,7 @@ export const ProyectoCardToUpload = ({
       </div>
       <ul
         className={cx(
-          "flex flex-col gap-4 p-4 bg-highlight-background-color rounded-b-md",
+          "flex flex-col gap-4 p-4 bg-highlight-secondary rounded-b-md",
           {
             hidden: isInfoMessagesCollapsed,
             block: !isInfoMessagesCollapsed,

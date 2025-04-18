@@ -63,7 +63,7 @@ export const InvestigadorCard = ({
       }
       onClose={closeModal}
     >
-      <h2 className="text-special-color">Email: {investigador.email}</h2>
+      <h2 className="text-accent-primary">Email: {investigador.email}</h2>
       {isEditMode ? (
         <EditInvestigadorForm
           investigador={investigador}
@@ -120,7 +120,7 @@ export const InvestigadorCard = ({
                       content={proyecto.titulo}
                     >
                       <a
-                        className="text-background-color bg-font-color flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-font-color outline-2"
+                        className="text-secondary bg-primary flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-primary outline-2"
                         href={`proyectos?${proyectoCode.toString()}`}
                         target="_blank"
                       >

@@ -208,7 +208,7 @@ export const EditProyectoForm = ({
                     onClick={() => removeParticipa(participa)}
                     ariaLabel={`Eliminar participación de ${participa.nombreAutor}`}
                   >
-                    <MinusCircleIcon className="h-[34px] w-[34px] text-error-color bg-background-color rounded-full" />
+                    <MinusCircleIcon className="h-[34px] w-[34px] text-error-color bg-secondary rounded-full" />
                   </Button>
                 </HorizontalCard>
               </div>
@@ -232,7 +232,7 @@ export const EditProyectoForm = ({
             className="rounded-3xl p-0"
             ariaLabel="Añadir participante al proyecto"
           >
-            <PlusCircleIcon className="h-[40px] w-[40px] text-font-color bg-background-color rounded-full" />
+            <PlusCircleIcon className="h-[40px] w-[40px] text-primary bg-secondary rounded-full" />
           </Button>
         </div>
       </div>

@@ -17,8 +17,8 @@ export const SearchProyectosByInvestigadorButton = () => {
     <Button
       onClick={switchActive}
       className={cx("max-w-fit", {
-        "text-special-color": isActive,
-        "border-special-color": isActive,
+        "text-accent-primary": isActive,
+        "border-accent-primary": isActive,
       })}
       ariaLabel="Iniciar búsqueda de proyectos por investigador"
     >

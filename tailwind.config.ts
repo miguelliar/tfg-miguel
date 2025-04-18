@@ -9,12 +9,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "font-color": "var(--font-color)",
-        "font-color-accent": "var(--font-colot-accent)",
-        "font-color-disabled": "var(--font-color-disabled)",
-        "special-color": "var(--special-color)",
-        "background-color": "var(--background-color)",
-        "highlight-background-color": "var(--highlight-background-color)",
+        "accent-primary": "var(--accent-primary)",
+        primary: "var(--primary)",
+        "primary-disabled": "var(--primary-disabled)",
+        "primary-strong": "var(--primary-strong)",
+        secondary: "var(--secondary)",
+        "secondary-soft": "var(--secondary-soft)",
         "error-color": "var(--error-color)",
         "error-color-accent": "var(--error-color-accent)",
         "warning-color": "var(--warning-color)",

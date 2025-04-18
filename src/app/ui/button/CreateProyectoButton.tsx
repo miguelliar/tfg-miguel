@@ -21,7 +21,7 @@ export const CreateProyectoButton = () => {
         />
       ) : null}
       <div
-        className="flex flex-row text-nowrap mb-2 relative max-h-fit rounded-md border p-2 border-font-color hover:border-font-color-accent focus:border-font-color-accent outline-2 text-font-color hover:text-font-color-accent focus:text-font-color-accent bg-background-color"
+        className="flex flex-row text-nowrap mb-2 relative max-h-fit rounded-md border p-2 border-primary hover:border-primary-strong focus:border-primary-strong outline-2 text-primary hover:text-primary-strong focus:text-primary-strong bg-secondary"
         tabIndex={0}
         role="button"
         onKeyDown={(event) => {
@@ -42,7 +42,7 @@ export const CreateProyectoButton = () => {
             }}
           >
             <a
-              className="pl-2 p-1 text-font-color hover:text-font-color-accent focus:text-font-color-accent"
+              className="pl-2 p-1 text-primary hover:text-primary-strong focus:text-primary-strong"
               href="proyectos/crear/nuevo"
               onKeyDown={(e) => {
                 if (e.key === "Tab" && e.shiftKey) {
@@ -62,7 +62,7 @@ export const CreateProyectoButton = () => {
                 if (e.key === "Enter" || e.key === "Space")
                   push("proyectos/crear/subida")
               }}
-              className="flex flex-row pl-2 p-1 text-font-color hover:text-font-color-accent focus:text-font-color-accent"
+              className="flex flex-row pl-2 p-1 text-primary hover:text-primary-strong focus:text-primary-strong"
               href="proyectos/crear/subida"
             >
               Por archivo

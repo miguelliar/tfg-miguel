@@ -63,7 +63,7 @@ export const ProyectoFileUploaderForm = () => {
           uploadedProyectos.length > 0 && (
             <>
               <h2 className="text-3xl">Proyectos procesados</h2>
-              <section className="border border-solid border-font-color bg-highlight-background-color p-4 rounded-lg">
+              <section className="border border-solid border-primary bg-secondary-soft p-4 rounded-lg">
                 <h3 className="text-xl text-error-color-accent mb-4">
                   Algunos proyectos tienen errores.
                 </h3>

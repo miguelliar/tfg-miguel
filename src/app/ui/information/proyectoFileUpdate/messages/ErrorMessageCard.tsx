@@ -12,9 +12,9 @@ export const ErrorMessageCard = ({
   onDismiss: () => void
 }) => {
   return (
-    <div className="flex flex-col justify-between border-2 rounded-md min-h-27 border-error-color bg-highlight-background-color">
-      <p className="flex flex-row w-full bg-error-color text-background-color p-2 rounded-t-sm">
-        <ExclamationCircleIcon className="mx-2 mt-[2px] h-[20px] w-[20px] text-error-color bg-highlight-background-color rounded-full" />
+    <div className="flex flex-col justify-between border-2 rounded-md min-h-27 border-error-color bg-secondary-soft">
+      <p className="flex flex-row w-full bg-error-color text-secondary p-2 rounded-t-sm">
+        <ExclamationCircleIcon className="mx-2 mt-[2px] h-[20px] w-[20px] text-error-color bg-secondary-soft rounded-full" />
         Error
       </p>
       <div className="flex flex-row justify-around items-center">

@@ -71,7 +71,7 @@ export const DeleteButton = ({
                   </Button>
                   <Button
                     variant="custom"
-                    className="p-2 bg-error-color text-background-color hover:bg-error-color-accent focus:bg-error-color-accent"
+                    className="p-2 bg-error-color text-secondary hover:bg-error-color-accent focus:bg-error-color-accent"
                     onClick={onDelete}
                   >
                     Borrar

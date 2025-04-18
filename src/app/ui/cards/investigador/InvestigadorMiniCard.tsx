@@ -36,10 +36,10 @@ export const InvestigadorMiniCard = ({
       <div
         className={cx(
           "flex flex-col justify-between border-2 rounded-md min-h-27",
-          { "border-font-color": !selected, "border-special-color": selected }
+          { "border-primary": !selected, "border-accent-primary": selected }
         )}
       >
-        <div className="flex flex-row flex-grow justify-center mt-1 text-special-color">
+        <div className="flex flex-row flex-grow justify-center mt-1 text-accent-primary">
           <h2 className="text-ellipsis overflow-hidden text-nowrap">
             {investigador.email}
           </h2>
@@ -52,8 +52,8 @@ export const InvestigadorMiniCard = ({
         <div className="flex flex-row my-1 w-full flex-grow justify-around">
           <Button
             className={cx({
-              "bg-font-color": !selected,
-              "bg-special-color": selected,
+              "bg-primary": !selected,
+              "bg-accent-primary": selected,
             })}
             onClick={() => appendQueryParam("email", investigador.email)}
             aria-label={`Ver detalles de ${investigador.email}`}
@@ -64,7 +64,7 @@ export const InvestigadorMiniCard = ({
           {isSelectable ? (
             <Button
               className={cx({
-                "bg-special-color": selected,
+                "bg-accent-primary": selected,
               })}
               aria-label={selectInvestigadorLabelText}
               onClick={selectInvestigadorOnClick}

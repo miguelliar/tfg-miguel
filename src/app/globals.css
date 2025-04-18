@@ -3,12 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --font-color: #587e5b;
-  --font-colot-accent: #334b35;
-  --font-color-disabled: rgba(106, 156, 137, 0.922);
-  --special-color: #AA5486;
-  --background-color: #fff9ee;
-  --highlight-background-color: #FFF5E4;
+  --accent-primary: #AA5486;
+  --primary: #587e5b;
+  --primary-disabled: rgba(106, 156, 137, 0.922);
+  --primary-strong: #334b35;
+  --secondary: #fff9ee;
+  --secondary-soft: #fff9ee;
+
   --error-color: #b91c1c;
   --error-color-accent: #7f1d1d;
   --warning-color: #ea580c;
@@ -16,23 +17,23 @@
 }
 
 body {
-  color: rgb(var(--font-color));
+  color: var(--primary);
   background: linear-gradient(
       to bottom,
       transparent,
-      rgb(var(--background-color))
+      rgb(var(--secondary))
     )
-    rgb(var(--highlight-background-color));
+    var(--secondary-soft);
   height: 100vh;
 }
 
 a {
-  color: rgb(var(--font-color));
-  background-color: rgb(var(--background-color));
+  color: var(--primary);
+  background-color: rgb(var(--secondary));
 }
 
 a:hover {
-  color: var(--font-colot-accent);
+  color: var(--primary-strong);
   transition: 150ms;
 }
 

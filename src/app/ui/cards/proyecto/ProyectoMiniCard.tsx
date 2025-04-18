@@ -13,9 +13,9 @@ export const ProyectoMiniCard = ({ proyecto }: MiniCardProps) => {
   const { setQueryParam } = useQueryParam()
 
   return (
-    <div className="flex flex-col justify-between border-2 border-font-color rounded-md min-h-28">
+    <div className="flex flex-col justify-between border-2 border-primary rounded-md min-h-28">
       <div className="flex flex-col mt-1 text-center">
-        <h2 className="text-special-color overflow-hidden text-ellipsis">
+        <h2 className="text-accent-primary overflow-hidden text-ellipsis">
           {proyecto.codigo}
         </h2>
         <ShowMoreText
@@ -36,7 +36,7 @@ export const ProyectoMiniCard = ({ proyecto }: MiniCardProps) => {
       </div>
       <button
         type="button"
-        className="bg-font-color text-background-color hover:bg-font-color-accent focus:bg-font-color-accent transition-all"
+        className="bg-primary text-secondary hover:bg-primary-strong focus:bg-primary-strong transition-all"
         onClick={() => setQueryParam("codigo", proyecto.codigo)}
       >
         Ver detalles

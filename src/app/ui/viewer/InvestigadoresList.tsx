@@ -19,7 +19,7 @@ export const InvestigadoresList = ({
       <section>
         <ul
           className={cx(
-            "flex flex-col gap-2 px-3 py-2 my-2 outline-2 border-font-color rounded-md list-disc  min-w-72 max-w-96",
+            "flex flex-col gap-2 px-3 py-2 my-2 outline-2 border-primary rounded-md list-disc  min-w-72 max-w-96",
             { border: selectedInvestigadores.length }
           )}
         >
@@ -32,7 +32,7 @@ export const InvestigadoresList = ({
               >
                 Quitar
               </Button>
-              <b className="text-special-color overflow-hidden text-ellipsis">
+              <b className="text-accent-primary overflow-hidden text-ellipsis">
                 {investigador}
               </b>
             </li>

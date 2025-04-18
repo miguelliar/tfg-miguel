@@ -30,7 +30,7 @@ export const Menu = ({
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <section
       className={cx(
-        "flex flex-col h-fit w-fit absolute overflow-auto bg-background-color px-3 py-6 border rounded-lg border-font-color",
+        "flex flex-col h-fit w-fit absolute overflow-auto bg-secondary px-3 py-6 border rounded-lg border-primary",
         MENU_POSITION[position]
       )}
       onClick={(e) => {

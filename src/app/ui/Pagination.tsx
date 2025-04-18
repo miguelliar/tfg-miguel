@@ -76,9 +76,8 @@ function PaginationNumber({
     {
       "rounded-l-md": position === "first" || position === "single",
       "rounded-r-md": position === "last" || position === "single",
-      "bg-font-color-accent border-font-color-accent text-background-color":
-        isActive,
-      "hover:text-font-color-accent hover:border-font-color-accent hover:z-10":
+      "bg-bg-accent border-font-accent text-secondary": isActive,
+      "hover:text-primary-strong hover:border-primary-strong hover:z-10":
         !isActive && position !== "middle",
     }
   )
@@ -106,9 +105,8 @@ function PaginationArrow({
   const className = cx(
     "flex h-10 w-10 items-center justify-center rounded-md border transition-all",
     {
-      "pointer-events-none text-font-color-disabled": isDisabled,
-      "hover:text-font-color-accent hover:border-font-color-accent":
-        !isDisabled,
+      "pointer-events-none text-primary-disabled": isDisabled,
+      "hover:text-primary-strong hover:border-primary-strong": !isDisabled,
       "mr-2 md:mr-4": direction === "left",
       "ml-2 md:ml-4": direction === "right",
     }

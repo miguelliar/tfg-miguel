@@ -24,11 +24,12 @@ const PageLinks = ({ url, onOpen }: { url: string; onOpen?: () => void }) => {
           key={`HeaderLink-${link.title}`}
           onClick={onOpen}
           className={cx(
-            "text-2xl sm:text-base hover:text-background-color hover:bg-special-color h-full my-1 rounded px-2 items-center",
+            "text-2xl text-secondary sm:text-base hover:text-secondary hover:bg-accent-primary h-full my-1 rounded px-2 items-center",
             {
-              "text-background-color content sm:bg-special-color flex":
-                url.startsWith(link.url),
-              "bg-special-color": onOpen && url.startsWith(link.url),
+              "content sm:bg-accent-primary flex": url.startsWith(
+                link.url
+              ),
+              "bg-accent-primary": onOpen && url.startsWith(link.url),
               "hidden sm:flex": !onOpen && !url.startsWith(link.url),
             }
           )}
@@ -47,11 +48,11 @@ export function HeaderNavigation(): JSX.Element {
 
   return (
     <>
-      <header className="flex flex-row bg-font-color text-background-color">
+      <header className="flex flex-row bg-primary text-secondary">
         <section className="flex justify-center w-full h-12 sm:h-14 ">
           <Link className="absolute top-0 left-0" href="/">
             <LogoMini
-              className="text-background-color w-12 sm:w-14 hover:scale-110 transition"
+              className="text-secondary w-12 sm:w-14 hover:scale-110 transition"
               alt="GPI logo"
             />
           </Link>
@@ -63,7 +64,7 @@ export function HeaderNavigation(): JSX.Element {
               setIsMobileNavMenu(!isMobileNavMenu)
             }}
           >
-            <Bars3Icon className="text-background-color w-12 h-12" />
+            <Bars3Icon className="text-secondary w-12 h-12" />
           </Button>
         </section>
       </header>
