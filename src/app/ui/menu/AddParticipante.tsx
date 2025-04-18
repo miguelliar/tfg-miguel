@@ -107,7 +107,7 @@ export const AddParticipanteCard = ({
                 <CheckIcon className="h-[20px] w-[20px]" />
               </Button>
             </HorizontalCard>
-            <div className="flex flex-col mt-3">
+            <div className="flex flex-col my-3">
               <fieldset className="flex flex-col">
                 <legend>Seleccionar nombre de autor</legend>
                 {nombresAutorForSelected.length > 0 &&
@@ -157,6 +157,7 @@ export const AddParticipanteCard = ({
               )}
               <Button
                 type="button"
+                className="mt-3"
                 disabled={!nombreDeAutor}
                 onClick={() => {
                   onAdd({

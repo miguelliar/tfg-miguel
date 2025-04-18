@@ -1,6 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
+import type { FormEvent } from "react"
 import { useState } from "react"
 
 import type {
@@ -52,7 +53,8 @@ export const useInvestigadorCreate = (): {
     }))
   }
 
-  const onSubmit = () => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     if (validateParameters(investigador, setErrors)) {
       addInvestigador(investigador)
       router.push("/investigador")
