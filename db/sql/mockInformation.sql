@@ -16,15 +16,6 @@ values
 ('noeliarico@londuni.uk', 'Noelia', 'Rodriguez Perez', 'London University', 'Biology', 'Biology', 'AYD'),
 ('andreal@uninav.es', 'Andrea', 'Llera Misiego', 'Universidad de Navarra', 'Historia', 'Historia', 'TU');
 
-INSERT INTO nombre_autor (email_investigador, nombre_autor)
-values
-('carmenr@uniovi.es', 'Carmen R. M.'),
-('miguell@unileon.es', 'Miguel L. A.'),
-('eliasl@unisev.es', 'Elias L.'),
-('pablola@unival.es', 'Pablo L. A.'),
-('noeliarico@londuni.uk', 'RICO PACHON, NOELIA'),
-('andreal@uninav.es', 'Andrea L.');
-
 
 INSERT INTO participa (codigo_proyecto, email_investigador, nombre_autor)
 values
