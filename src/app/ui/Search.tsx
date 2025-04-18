@@ -1,13 +1,14 @@
 "use client"
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import type {
   ChangeEventHandler,
   KeyboardEvent,
   KeyboardEventHandler,
 } from "react"
 import { useDebouncedCallback } from "use-debounce"
+
+import { useQueryParam } from "../utils/hooks/useQueryParam"
 
 export const SearchInput = ({
   required,
@@ -43,19 +44,14 @@ export const SearchInput = ({
 }
 
 export const Search = ({ queryParam = "query" }: { queryParam?: string }) => {
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
-  const { replace } = useRouter()
+  const { setQueryParam, getQueryParam, removeQueryParam } = useQueryParam()
 
   const handleSearch = useDebouncedCallback((term: string) => {
-    const params = new URLSearchParams("")
     if (term) {
-      params.set(queryParam, term)
+      setQueryParam(queryParam, term)
     } else {
-      params.delete(queryParam)
+      removeQueryParam(queryParam)
     }
-
-    replace(`${pathname}?${params.toString()}`)
   }, 300)
 
   return (
@@ -70,7 +66,7 @@ export const Search = ({ queryParam = "query" }: { queryParam?: string }) => {
             onChange={(e) => {
               handleSearch(e.target.value)
             }}
-            defaultValue={searchParams?.get(queryParam)?.toString()}
+            defaultValue={getQueryParam(queryParam)?.toString()}
           />
         </label>
       }

@@ -3,10 +3,10 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
 import type { ProyectoMinimumDataType } from "@/app/utils"
+import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
 import {
   deleteInvestigador,
   fetchAllProyectosByInvestigadores,
@@ -30,14 +30,10 @@ export const InvestigadorCard = ({
     ProyectoMinimumDataType[]
   >([])
   const [nombresAutor, setNombresAutor] = useState<string[]>([])
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const { replace } = useRouter()
+  const { removeQueryParam } = useQueryParam()
 
   const closeModal = () => {
-    const params = new URLSearchParams(searchParams ?? "")
-    params.delete("email")
-    replace(`${pathname}?${params.toString()}`)
+    removeQueryParam("email")
   }
 
   useEffect(() => {

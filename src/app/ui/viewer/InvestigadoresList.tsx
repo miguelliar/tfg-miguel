@@ -1,7 +1,8 @@
 "use client"
 
 import cx from "classnames"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+
+import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
 
 import { Button } from "../button/Button"
 
@@ -10,21 +11,7 @@ export const InvestigadoresList = ({
 }: {
   selectedInvestigadores: string[]
 }) => {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const { replace } = useRouter()
-
-  const removeInvestigador = (email: string) => {
-    const params = new URLSearchParams(searchParams ?? "")
-    params.delete("selectedEmail", email)
-    replace(`${pathname}?${params.toString()}`)
-  }
-
-  const removeAll = () => {
-    const params = new URLSearchParams(searchParams ?? "")
-    params.delete("selectedEmail")
-    replace(`${pathname}?${params.toString()}`)
-  }
+  const { removeQueryParam } = useQueryParam()
 
   return (
     <div className="flex flex-col mt-4 basis-1/2 flex-grow">
@@ -41,7 +28,7 @@ export const InvestigadoresList = ({
               <Button
                 variant="fill"
                 className="py-0"
-                onClick={() => removeInvestigador(investigador)}
+                onClick={() => removeQueryParam("selectedEmail", investigador)}
               >
                 Quitar
               </Button>
@@ -52,7 +39,10 @@ export const InvestigadoresList = ({
           ))}
         </ul>
         {selectedInvestigadores.length ? (
-          <Button variant="fill" onClick={removeAll}>
+          <Button
+            variant="fill"
+            onClick={() => removeQueryParam("selectedEmail")}
+          >
             Quitar todos
           </Button>
         ) : null}

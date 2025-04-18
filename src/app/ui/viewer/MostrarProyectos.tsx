@@ -2,9 +2,9 @@
 
 import { ArrowDownTrayIcon } from "@heroicons/react/24/solid"
 import { isEqual } from "lodash"
-import { useSearchParams } from "next/navigation"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
+import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
 import { fetchProyectoByCode } from "@/db"
 
 import type { ProyectoMinimumDataType, ProyectoType } from "../../utils"
@@ -25,15 +25,11 @@ export const MostrarProyectos = () => {
     ProyectoMinimumDataType[]
   >([])
 
-  const params = useSearchParams()
-  const searchParams = useMemo(
-    () => new URLSearchParams(params ?? ""),
-    [params]
-  )
+  const { getQueryParam, getAllQueryParams } = useQueryParam()
 
-  const searchType = searchParams.get("proyectoSearchType")
-  const selectedProyecto = searchParams.get("codigo")
-  const selectedInvestigadores = searchParams.getAll("selectedEmail")
+  const searchType = getQueryParam("proyectoSearchType")
+  const selectedProyecto = getQueryParam("codigo")
+  const selectedInvestigadores = getAllQueryParams("selectedEmail")
 
   const previousSelectedInvesigadores = useRef<string[]>([])
   const previousSearchType = useRef<string>("")

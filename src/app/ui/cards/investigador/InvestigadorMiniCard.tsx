@@ -1,11 +1,11 @@
 "use client"
 
 import cx from "classnames"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useContext, useMemo } from "react"
 
 import type { InvestigadorMinimumDataType } from "@/app/utils"
 import { SearchProyectoByInvestigadorContext } from "@/app/utils"
+import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
 
 import { Button } from "../../button/Button"
 
@@ -14,30 +14,19 @@ export const InvestigadorMiniCard = ({
 }: {
   investigador: InvestigadorMinimumDataType
 }) => {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const { replace } = useRouter()
+  const { appendQueryParam, hasQueryParam, removeQueryParam } = useQueryParam()
 
   const { isSearchProyectosByInvestigadorActive: isSelectable } = useContext(
     SearchProyectoByInvestigadorContext
   )
   const selected = useMemo(
-    () =>
-      isSelectable && searchParams?.has("selectedEmail", investigador.email),
-    [investigador, isSelectable, searchParams]
+    () => isSelectable && hasQueryParam("selectedEmail", investigador.email),
+    [hasQueryParam, investigador.email, isSelectable]
   )
 
-  const createPageURL = (email: string) => {
-    const params = new URLSearchParams(searchParams ?? "")
-    params.set("email", email)
-    return `${pathname}?${params.toString()}`
-  }
-
   const selectInvestigadorOnClick = () => {
-    const params = new URLSearchParams(searchParams ?? "")
-    if (selected) params.delete("selectedEmail", investigador.email)
-    else params.append("selectedEmail", investigador.email)
-    replace(`${pathname}?${params.toString()}`)
+    if (selected) removeQueryParam("selectedEmail", investigador.email)
+    else appendQueryParam("selectedEmail", investigador.email)
   }
 
   const selectInvestigadorLabelText = `${selected ? "Deseleccionar" : "Seleccionar"} investigador ${investigador.email}`
@@ -66,7 +55,7 @@ export const InvestigadorMiniCard = ({
               "bg-font-color": !selected,
               "bg-special-color": selected,
             })}
-            onClick={() => replace(createPageURL(investigador.email))}
+            onClick={() => appendQueryParam("email", investigador.email)}
             aria-label={`Ver detalles de ${investigador.email}`}
             variant="fill"
           >

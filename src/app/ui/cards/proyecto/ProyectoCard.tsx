@@ -1,11 +1,11 @@
 "use client"
 
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
 import type { ParticipaType, ProyectoType } from "@/app/utils"
 import { getStringDate } from "@/app/utils"
+import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
 import {
   deleteProyecto,
   fetchParticipaByCodigoProyecto,
@@ -26,15 +26,7 @@ export const ProyectoCard = ({
 }) => {
   const [isEditMode, setEditMode] = useState(false)
   const [participaciones, setParticipaciones] = useState<ParticipaType[]>([])
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const { replace } = useRouter()
-
-  const closeModal = () => {
-    const params = new URLSearchParams(searchParams ?? "")
-    params.delete("codigo")
-    replace(`${pathname}?${params.toString()}`)
-  }
+  const { removeQueryParam } = useQueryParam()
 
   useEffect(() => {
     fetchParticipaByCodigoProyecto(proyecto.codigo).then((participa) =>
@@ -62,7 +54,7 @@ export const ProyectoCard = ({
           </>
         )
       }
-      onClose={closeModal}
+      onClose={() => removeQueryParam("codigo")}
     >
       <h2 className="text-special-color">Codigo: {proyecto.codigo}</h2>
       {isEditMode && !unSync ? (

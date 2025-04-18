@@ -1,24 +1,16 @@
 "use client"
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import ShowMoreText from "react-show-more-text"
 
 import type { ProyectoMinimumDataType } from "@/app/utils"
+import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
 
 interface MiniCardProps {
   proyecto: ProyectoMinimumDataType
 }
 
 export const ProyectoMiniCard = ({ proyecto }: MiniCardProps) => {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const { replace } = useRouter()
-
-  const createPageURL = (codigo: string) => {
-    const params = new URLSearchParams(searchParams ?? "")
-    params.set("codigo", codigo)
-    return `${pathname}?${params.toString()}`
-  }
+  const { setQueryParam } = useQueryParam()
 
   return (
     <div className="flex flex-col justify-between border-2 border-font-color rounded-md min-h-28">
@@ -45,9 +37,7 @@ export const ProyectoMiniCard = ({ proyecto }: MiniCardProps) => {
       <button
         type="button"
         className="bg-font-color text-background-color hover:bg-font-color-accent focus:bg-font-color-accent transition-all"
-        onClick={() => {
-          replace(createPageURL(proyecto.codigo))
-        }}
+        onClick={() => setQueryParam("codigo", proyecto.codigo)}
       >
         Ver detalles
       </button>
