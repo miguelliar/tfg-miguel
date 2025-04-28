@@ -64,7 +64,7 @@ const errorValidation = async (
 
   if (!areDatesValid) {
     errors.push({
-      message: !isOnlyStartDate
+      message: isOnlyStartDate
         ? MESSAGES.ERROR.SIN_FECHA_INICIO
         : MESSAGES.ERROR.INTERVALO_FECHA,
       read: false,
