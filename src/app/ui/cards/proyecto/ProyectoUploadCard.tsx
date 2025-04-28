@@ -120,12 +120,23 @@ export const ProyectoCardToUpload = ({
   const errorNumber = proyecto.messages.errors?.length ?? 0
   const warningNumber = proyecto.messages.warnings?.length ?? 0
 
+  const activeErrors =
+    errorNumber && proyecto.messages.errors?.some((error) => !error.read)
+
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") setIsInfoMessagesCollapsed(!isInfoMessagesCollapsed)
   }
 
   return (
-    <div className="flex flex-col relative justify-between border-2 border-primary rounded-md min-h-28">
+    <div
+      className={cx(
+        "flex flex-col relative justify-between border-2 rounded-md min-h-28",
+        {
+          "border-primary": !activeErrors,
+          "border-error shadow-lg shadow-error": activeErrors,
+        }
+      )}
+    >
       {isEditMode ? (
         <EditProyectoForm
           proyecto={mapProyectoToUploadToProyectType(proyecto)}
@@ -165,7 +176,7 @@ export const ProyectoCardToUpload = ({
               aria-label={`There are ${errorNumber} errors`}
             >
               {errorNumber}
-              <ExclamationCircleIcon className="mt-[2px] h-[20px] w-[20px] text-error-color bg-secondary rounded-full" />
+              <ExclamationCircleIcon className="mt-[2px] h-[20px] w-[20px] text-error bg-secondary rounded-full" />
             </p>
           )}
           {warningNumber > 0 && (
@@ -174,7 +185,7 @@ export const ProyectoCardToUpload = ({
               aria-label={`There are ${warningNumber} warnings`}
             >
               {warningNumber}
-              <ExclamationCircleIcon className="mt-[2px] h-[20px] w-[20px] text-warning-color bg-secondary rounded-full" />
+              <ExclamationCircleIcon className="mt-[2px] h-[20px] w-[20px] text-warning bg-secondary rounded-full" />
             </p>
           )}
           <h3>

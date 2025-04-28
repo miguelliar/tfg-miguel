@@ -1,6 +1,5 @@
 "use client"
 
-import type { FormEvent } from "react"
 import { useCallback, useEffect, useReducer } from "react"
 
 import type {
@@ -32,7 +31,7 @@ type ProyectoFileUploadFields = {
     updatedProyecto: ProyectoToUpload,
     errorMessage: ErrorMessage["message"]
   ) => void
-  onSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>
+  onSubmit: () => void
   submittedStatus: ProyectoFileState["submittedStatus"]
   errorMessage?: string
   uploadedProyectos?: ProyectoToUpload[]
@@ -67,10 +66,8 @@ export const useProyectoFileUpload = (): ProyectoFileUploadFields => {
     [dispatch]
   )
 
-  const onSubmit = useCallback(
-    async (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-
+  const onSubmit = useCallback(() => {
+    ;(async () => {
       try {
         await addAllProyectos(
           mapProyectosToUploadToProyectsType(state.uploadedProyectos)
@@ -79,9 +76,8 @@ export const useProyectoFileUpload = (): ProyectoFileUploadFields => {
       } catch (e) {
         dispatch({ type: ProyectoFileActions.SUBMIT_ERROR })
       }
-    },
-    [state, dispatch]
-  )
+    })()
+  }, [state, dispatch])
 
   const onChange = useCallback(
     (selectedFile: any) => {
