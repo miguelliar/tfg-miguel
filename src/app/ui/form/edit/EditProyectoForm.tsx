@@ -110,7 +110,7 @@ export const EditProyectoForm = ({
           required
           // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={!unSync}
-          ref={startingInput}
+          ref={!unSync ? startingInput : undefined}
           placeholder="Investigador Principal"
           defaultValue={editedProyecto.ip}
           onChange={handleChange}
@@ -208,7 +208,7 @@ export const EditProyectoForm = ({
                     onClick={() => removeParticipa(participa)}
                     ariaLabel={`Eliminar participación de ${participa.nombreAutor}`}
                   >
-                    <MinusCircleIcon className="h-[34px] w-[34px] text-error-color bg-secondary rounded-full" />
+                    <MinusCircleIcon className="h-[34px] w-[34px] text-error hover:text-error-accent bg-secondary rounded-full" />
                   </Button>
                 </HorizontalCard>
               </div>

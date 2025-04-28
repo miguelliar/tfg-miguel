@@ -146,7 +146,7 @@ export const ProyectoCreate = () => {
                     className="rounded-3xl p-0"
                     onClick={() => removeParticipa(participa)}
                   >
-                    <MinusCircleIcon className="h-[34px] w-[34px] text-error-color bg-secondary rounded-full" />
+                    <MinusCircleIcon className="h-[34px] w-[34px] text-error hover:text-error-accent bg-secondary rounded-full" />
                   </Button>
                 </HorizontalCard>
               </div>

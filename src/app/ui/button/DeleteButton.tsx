@@ -56,9 +56,7 @@ export const DeleteButton = ({
           <>
             {!isLoading && isSuccessfulDelete === null && (
               <div>
-                <h2 className="text-xl text-error-color-accent">
-                  {warningMessage}
-                </h2>
+                <h2 className="text-xl text-error-accent">{warningMessage}</h2>
                 <p className="mt-2">
                   ¿Deseas continuar? Esta acción <b>no es reversible.</b>
                 </p>
@@ -71,7 +69,7 @@ export const DeleteButton = ({
                   </Button>
                   <Button
                     variant="custom"
-                    className="p-2 bg-error-color text-secondary hover:bg-error-color-accent focus:bg-error-color-accent"
+                    className="p-2 bg-error text-secondary hover:bg-error-accent focus:bg-error-accent"
                     onClick={onDelete}
                   >
                     Borrar

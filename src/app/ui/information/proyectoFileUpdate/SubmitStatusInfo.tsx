@@ -25,14 +25,14 @@ export const SubmitStatusInfo = ({
         <div className="flex flex-row items-center text-lg">
           {submittedStatus === "success" ? (
             <>
-              <CheckBadgeIcon className="mx-2 mt-[2px] h-10 w-10 text-success-color bg-secondary rounded-full" />
+              <CheckBadgeIcon className="mx-2 mt-[2px] h-10 w-10 text-success bg-secondary rounded-full" />
               <p>
                 <b>Éxito</b>: {messages.onSuccess}
               </p>
             </>
           ) : (
             <>
-              <XCircleIcon className="mx-2 mt-[2px] h-10 w-10 text-error-color-accent bg-secondary rounded-full" />
+              <XCircleIcon className="mx-2 mt-[2px] h-10 w-10 text-error-accent bg-secondary rounded-full" />
               <p>
                 <b>Error</b>: {messages.onFailure}
               </p>

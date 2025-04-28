@@ -8,12 +8,13 @@
   --primary-disabled: rgba(106, 156, 137, 0.922);
   --primary-strong: #334b35;
   --secondary: #fff9ee;
-  --secondary-soft: #fff9ee;
+  --secondary-soft: #ffffff;
 
-  --error-color: #b91c1c;
-  --error-color-accent: #7f1d1d;
-  --warning-color: #ea580c;
-  --success-color: #166534;
+  --error: #b91c1c;
+  --error-accent: #7f1d1d;
+  --warning: #ea580c;
+  --success: #166534;
+  --success-accent: #0e3f21;
 }
 
 body {
@@ -41,4 +42,10 @@ a:hover {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+@keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
 }
