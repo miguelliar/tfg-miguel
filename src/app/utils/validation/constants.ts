@@ -12,6 +12,8 @@ export const ERROR_MESSAGES = {
         "El co-investigador principal no ser el mismo que el investigador principal",
       FIN_ANTES_INICIO:
         "La fecha de finalización no puede ser anterior a la de inicio",
+      DUPLICATED_CODIGO:
+        "El código empleado ya está siendo utilizado en otro proyecto. Comprueba que tu proyecto no haya sido añadido.",
     },
   },
   INVESTIGADOR: {

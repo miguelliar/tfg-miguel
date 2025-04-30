@@ -16,15 +16,15 @@ import {
   getProyectoErrors,
 } from "@/app/utils"
 
-const validateParameters = (
+const validateParameters = async (
   proyecto: ProyectoType,
   setErrors: (errors: any) => void
 ) => {
-  const errors = getProyectoErrors(proyecto)
-
+  const errors = await getProyectoErrors(proyecto)
   setErrors(errors)
 
   return (
+    !errors.codigo &&
     !errors.ip &&
     !errors.coip &&
     !errors.titulo &&
@@ -79,16 +79,17 @@ export const useProyectoCreate = (): {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (validateParameters(proyecto, setErrors)) {
-      addProyecto(proyecto).then(() =>
-        // In order to wait to the proyecto for being created
-        addedParticipantes
-          .map((participa) => new AddParticipaCommand(participa))
-          .forEach((command) => command.execute())
-      )
-
-      router.push("/proyectos")
-    }
+    validateParameters(proyecto, setErrors).then((isValid) => {
+      if (isValid) {
+        addProyecto(proyecto).then(() => {
+          // In order to wait to the proyecto for being created
+          addedParticipantes
+            .map((participa) => new AddParticipaCommand(participa))
+            .forEach((command) => command.execute())
+          router.push("/proyectos")
+        })
+      }
+    })
   }
 
   const addParticipa = (addedParticipa: ParticipaType) => {

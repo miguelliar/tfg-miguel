@@ -1,3 +1,5 @@
+import { fetchProyectoByCode } from "@/db"
+
 import type { ProyectoType } from "../types"
 import { ERROR_MESSAGES } from "./constants"
 
@@ -13,6 +15,11 @@ export type ProyectoValidationErrors = {
 
 const message = ERROR_MESSAGES.PROYECTO
 
+const duplicatedCodigo = async (codigo: string) => {
+  const existingProyecto = await fetchProyectoByCode(codigo)
+  return existingProyecto ? message.INVALID_DATA.DUPLICATED_CODIGO : ""
+}
+
 const checkFieldEmpty = (field: string, message: string) => {
   return !field || field.trim().length === 0 ? message : ""
 }
@@ -27,10 +34,12 @@ const checkIntervalDates = (inicio: Date, fin?: Date) => {
     : ""
 }
 
-export const getProyectoErrors = (
+export const getProyectoErrors = async (
   proyecto: ProyectoType
-): ProyectoValidationErrors => ({
-  codigo: checkFieldEmpty(proyecto.codigo, message.EMPTY.CODIGO),
+): Promise<ProyectoValidationErrors> => ({
+  codigo:
+    checkFieldEmpty(proyecto.codigo, message.EMPTY.CODIGO) ||
+    (await duplicatedCodigo(proyecto.codigo)),
   ip: checkFieldEmpty(proyecto.ip, message.EMPTY.IP),
   coip: checkDuplicatedIP(proyecto.ip, proyecto.coip),
   titulo: checkFieldEmpty(proyecto.titulo, message.EMPTY.TITULO),
