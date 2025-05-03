@@ -1,9 +1,9 @@
 "use client"
 
 import type { KeyboardEvent } from "react"
-import { useContext, useRef } from "react"
+import { useRef } from "react"
 
-import { CloseRefContext, type InvestigadorType } from "@/app/utils"
+import { type InvestigadorType } from "@/app/utils"
 
 import { useEditInvestigadorForm } from "./useEditInvestigadorForm"
 
@@ -19,7 +19,6 @@ export const EditInvestigadorForm = ({
   const [editedInvestigador, errors, handleChange, onSubmit] =
     useEditInvestigadorForm(investigador, finishEditMode)
 
-  const closeBtnRef = useContext(CloseRefContext)
   const startingInput = useRef<HTMLInputElement>(null)
   const cancelButton = useRef<HTMLButtonElement>(null)
 
@@ -30,7 +29,7 @@ export const EditInvestigadorForm = ({
     }
     if (e.key === "Enter") {
       e.preventDefault()
-      closeBtnRef?.current?.focus()
+      finishEditMode()
     }
   }
 

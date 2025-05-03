@@ -2,10 +2,10 @@
 
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/solid"
 import type { KeyboardEvent } from "react"
-import { useContext, useRef, useState } from "react"
+import { useRef, useState } from "react"
 
 import type { ParticipaType, ProyectoType } from "@/app/utils"
-import { CloseRefContext, parseDateToString } from "@/app/utils"
+import { parseDateToString } from "@/app/utils"
 
 import { Button } from "../../button/Button"
 import { HorizontalCard } from "../../cards/HorizontalCard"
@@ -44,7 +44,6 @@ export const EditProyectoForm = ({
     unSync
   )
   // TODO: tech debt, get all logic inside hook
-  const closeBtnRef = useContext(CloseRefContext)
   const startingInput = useRef<HTMLInputElement>(null)
   const cancelButton = useRef<HTMLButtonElement>(null)
 
@@ -55,7 +54,7 @@ export const EditProyectoForm = ({
     }
     if (e.key === "Enter") {
       e.preventDefault()
-      closeBtnRef?.current?.focus()
+      finishEditMode()
     }
   }
 

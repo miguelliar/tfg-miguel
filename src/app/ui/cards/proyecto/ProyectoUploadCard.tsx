@@ -140,7 +140,7 @@ export const ProyectoCardToUpload = ({
       {isEditMode ? (
         <EditProyectoForm
           proyecto={mapProyectoToUploadToProyectType(proyecto)}
-          finishEditMode={() => {}}
+          finishEditMode={() => setEditMode(!isEditMode)}
           participaciones={proyecto.participantes}
           unSync
           onUpdate={(

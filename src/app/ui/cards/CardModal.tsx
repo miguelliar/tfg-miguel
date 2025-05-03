@@ -4,8 +4,6 @@ import { XMarkIcon } from "@heroicons/react/24/solid"
 import type { KeyboardEvent } from "react"
 import { useRef } from "react"
 
-import { CloseRefContext } from "@/app/utils"
-
 export const CardModal = ({
   children,
   option,
@@ -43,9 +41,7 @@ export const CardModal = ({
         }}
       >
         <div className="flex flex-col justify-around md:mx-8 items-center">
-          <CloseRefContext.Provider value={closeBtnRef}>
-            {children}
-          </CloseRefContext.Provider>
+          {children}
         </div>
         <div className="fixed top-2 right-2 flex flex-row">
           {option || null}
