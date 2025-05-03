@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center">
+    <img src="./src/app/assets/logo-README.svg" alt="Logo" width="200px" height="200px" />
+</p>
 
-## Getting Started
+<p align='center'>
+  Español | <a href='./README.eng.md'>English</a>
+</p>
 
-First, run the development server:
+## Intro
+Bienvenido a mi trabajo Fin de Grado, Gestor de Proyectos de Investigación o **GPI**, una herramienta creada para facilitar la obtención y visualización de proyectos.
+
+
+## Requisitos previos
+
+Para poder ejecutar este proyecto en local debe cumplirse una serie de requisitos antes de ser ejecutado.
+
+### Base de datos
+
+Se debe acceder a una base de datos PostgreSQL en la que se hayan creado las tablas según [este script](./db/sql/tables.sql). 
+
+Si creas una base de datos desde cero, también puedes usar el [siguiente script](./db/sql/mockInformation.sql) para tener unos datos de prueba.
+
+Puedes crear una base de datos local o conectarte a una en remoto.
+
+#### Conexión a la base de datos
+Para que puedas conectarte a la base de datos es necesario crear un archivo `.env` en la carpeta donde tengas este proyecto. En este archivo debes incluir el siguiente contenido con los datos correspondientes a tu caso específico:
+```
+DB_HOST="localhost"
+DB_PORT="5432"
+DB_USER="miguell"
+DB_PASSWORD=""
+DB_NAME="tfg"
+
+AUTH_SECRET=
+AUTH_URL=http://localhost:3000/api/auth
+``` 
+
+### En tu equipo
+
+Para poder iniciar el proyecto es necesario tener en tu equipo instalado previamente node al menos en su versión 22.14.0 y npm en su versión 11.3.0.
+
+Puedes comprobar tu versión con el siguiente comando en consola:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+node -v
+# v22.14.0
+npm -v
+# v11.3.0
+```
+#### FAQ
+- **¿Qué pasa si no tengo node instalado?** Puedes consultar la [página oficial](https://nodejs.org/en/download) e instalarlo localmente.
+- **¿Qué pasa si tengo node instalado pero no en la versión adecuada?** Puedes actualizar a la última versión de usando el siguiente script:
+```bash
+# For node
+nvm install 22.14.0
+nvm use 22.14.0
+
+# For npm
+npm install -g npm@latest
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Como iniciar este proyecto
+Una vez cumplidos los requisitos previos, para iniciar el proyecto debes ejecutar los siguientes comandos en tu terminal:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm i
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+npm run dev
+```
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Una vez iniciado el proyecto, navega a [http://localhost:3000](http://localhost:3000) para poder ver los resultados.
