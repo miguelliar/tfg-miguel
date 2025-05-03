@@ -16,7 +16,7 @@ export const HorizontalCard = ({
 }: HorizontalCardProps) => {
   return (
     <div className="flex flex-row items-center justify-between max-w-[400px] w-full border rounded-md border-primary gap-3 px-2">
-      <h4 className="text-accent-primary text-base">{id}</h4>
+      <p className="text-accent-primary text-base">{id}</p>
       <ShowMoreText
         lines={1}
         more={

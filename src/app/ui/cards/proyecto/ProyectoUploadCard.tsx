@@ -130,7 +130,7 @@ export const ProyectoCardToUpload = ({
   return (
     <div
       className={cx(
-        "flex flex-col relative justify-between border-2 rounded-md min-h-28",
+        "flex flex-col relative justify-between border-2 rounded-md min-h-28 transition-shadow",
         {
           "border-primary": !activeErrors,
           "border-error shadow-lg shadow-error": activeErrors,

@@ -30,6 +30,11 @@ export const InvestigadorMiniCard = ({
   }
 
   const selectInvestigadorLabelText = `${selected ? "Deseleccionar" : "Seleccionar"} investigador ${investigador.email}`
+  const buttonStyle = cx("p-2 text-secondary", {
+    "bg-primary hover:bg-primary-strong focus:bg-primary-strong": !selected,
+    "bg-accent-primary hover:bg-accent-primary-strong focus:bg-accent-primary-strong":
+      selected,
+  })
 
   return (
     <div className={cx("max-h-28")}>
@@ -51,24 +56,19 @@ export const InvestigadorMiniCard = ({
         </div>
         <div className="flex flex-row my-1 w-full flex-grow justify-around">
           <Button
-            className={cx({
-              "bg-primary": !selected,
-              "bg-accent-primary": selected,
-            })}
+            className={buttonStyle}
             onClick={() => appendQueryParam("email", investigador.email)}
             aria-label={`Ver detalles de ${investigador.email}`}
-            variant="fill"
+            variant="custom"
           >
             Ver detalles
           </Button>
           {isSelectable ? (
             <Button
-              className={cx({
-                "bg-accent-primary": selected,
-              })}
+              className={buttonStyle}
               aria-label={selectInvestigadorLabelText}
               onClick={selectInvestigadorOnClick}
-              variant="fill"
+              variant="custom"
             >
               {selected ? "Deseleccionar" : "Seleccionar"}
             </Button>

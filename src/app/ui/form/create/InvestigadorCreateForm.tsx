@@ -58,9 +58,7 @@ export const InvestigadorCreateForm = () => {
           <span style={{ color: "red" }}>{errors.universidad}</span>
         )}
         <label htmlFor="universidad" className="flex flex-col">
-          <h3 className="align-middle">
-            <b>Universidad: </b>
-          </h3>
+          <b>Universidad: </b>
           <input
             className="w-full"
             id="universidad"
@@ -74,9 +72,7 @@ export const InvestigadorCreateForm = () => {
           <span style={{ color: "red" }}>{errors.departamento}</span>
         )}
         <label htmlFor="departamento" className="flex flex-col">
-          <h3 className="align-middle">
-            <b>Departamento: </b>
-          </h3>
+          <b>Departamento: </b>
           <input
             className="w-full"
             id="departamento"
@@ -88,9 +84,7 @@ export const InvestigadorCreateForm = () => {
         </label>
         {errors?.area && <span style={{ color: "red" }}>{errors.area}</span>}
         <label htmlFor="area" className="flex flex-col">
-          <h3 className="align-middle">
-            <b>Área: </b>
-          </h3>
+          <b>Área: </b>
           <input
             className="w-full"
             id="area"
@@ -104,9 +98,7 @@ export const InvestigadorCreateForm = () => {
           <span style={{ color: "red" }}>{errors.figura}</span>
         )}
         <label htmlFor="figura" className="flex flex-col">
-          <h3 className="align-middle">
-            <b>Figura: </b>
-          </h3>
+          <b>Figura: </b>
           <input
             className="w-full"
             id="figura"

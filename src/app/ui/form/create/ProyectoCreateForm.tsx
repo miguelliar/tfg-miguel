@@ -77,9 +77,7 @@ export const ProyectoCreate = () => {
           <span style={{ color: "red" }}>{errors.titulo}</span>
         )}
         <label className="flex flex-col w-full" htmlFor="titulo">
-          <h3 className="align-middle">
-            <b>Descripcion: </b>
-          </h3>
+          <b>Descripcion: </b>
           <textarea
             id="titulo"
             name="titulo"
@@ -145,6 +143,7 @@ export const ProyectoCreate = () => {
                     variant="minimal"
                     className="rounded-3xl p-0"
                     onClick={() => removeParticipa(participa)}
+                    ariaLabel={`Eliminar participación de ${participa.nombreAutor}`}
                   >
                     <MinusCircleIcon className="h-[34px] w-[34px] text-error hover:text-error-accent bg-secondary rounded-full" />
                   </Button>
@@ -167,6 +166,7 @@ export const ProyectoCreate = () => {
               }}
               variant="minimal"
               className="rounded-3xl p-0"
+              ariaLabel="Añadir participante"
             >
               <PlusCircleIcon className="h-[40px] w-[40px] text-primary bg-secondary rounded-full" />
             </Button>

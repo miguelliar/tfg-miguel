@@ -232,20 +232,20 @@ export const EditProyectoForm = ({
             className="rounded-3xl p-0"
             ariaLabel="Añadir participante al proyecto"
           >
-            <PlusCircleIcon className="h-[40px] w-[40px] text-primary bg-secondary rounded-full" />
+            <PlusCircleIcon className="h-[40px] w-[40px] text-primary bg-secondary rounded-full hover:text-primary-strong" />
           </Button>
         </div>
       </div>
       <div className="flex justify-around">
-        <button type="submit">Editar</button>
-        <button
+        <Button type="submit">Editar</Button>
+        <Button
           type="button"
           onClick={finishEditMode}
           onKeyDown={cancelarButtonOnKeyPress}
           ref={cancelButton}
         >
           Cancelar
-        </button>
+        </Button>
       </div>
     </form>
   )

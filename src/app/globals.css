@@ -4,15 +4,16 @@
 
 :root {
   --accent-primary: #AA5486;
-  --primary: #587e5b;
-  --primary-disabled: rgba(106, 156, 137, 0.922);
+  --accent-primary-strong: #7d3f64;
+  --primary: #547854;
+  --primary-disabled: #6a6a6a;
   --primary-strong: #334b35;
   --secondary: #fff9ee;
   --secondary-soft: #ffffff;
 
   --error: #b91c1c;
   --error-accent: #7f1d1d;
-  --warning: #ea580c;
+  --warning: #CB4E0B;
   --success: #166534;
   --success-accent: #0e3f21;
 }

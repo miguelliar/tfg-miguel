@@ -1,5 +1,4 @@
 import { ExclamationCircleIcon } from "@heroicons/react/24/solid"
-import cx from "classnames"
 
 import { Button } from "@/app/ui/button/Button"
 import type { ErrorMessage } from "@/app/utils"
@@ -23,9 +22,6 @@ export const ErrorMessageCard = ({
           disabled={errorMessage.read}
           ariaLabel="Descartar proyecto"
           variant="fill"
-          className={cx("rounded-3xl", {
-            "bg-gray-500": errorMessage.read,
-          })}
           onClick={onDismiss}
         >
           Ignorar

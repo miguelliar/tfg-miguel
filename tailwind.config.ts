@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         "accent-primary": "var(--accent-primary)",
+        "accent-primary-strong": "var(--accent-primary-strong)",
         primary: "var(--primary)",
         "primary-disabled": "var(--primary-disabled)",
         "primary-strong": "var(--primary-strong)",
