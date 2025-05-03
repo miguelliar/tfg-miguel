@@ -154,9 +154,8 @@ export const ProyectoCardToUpload = ({
                   participaciones: participa,
                 }),
                 proyecto?.codigo ?? ""
-              )
+              ).then(() => setEditMode(!isEditMode))
             }
-            setEditMode(!isEditMode)
           }}
         />
       ) : (

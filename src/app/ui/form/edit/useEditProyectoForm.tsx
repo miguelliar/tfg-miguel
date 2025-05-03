@@ -117,13 +117,17 @@ export const useEditProyectoForm = (
     if (hasProyectoChanged || hasParticipacionesChanged) {
       validateParameters(editedProyecto, setErrors)
         .then((isValid) => {
-          if (isValid) {
+          if (unSync) {
             onUpdate(editedProyecto, editedParticipaciones)
-          }
-          if (hasParticipacionesChanged && !unSync) {
-            participaChanges.forEach(async (participaChange) =>
-              participaChange.execute()
-            )
+          } else {
+            if (isValid) {
+              onUpdate(editedProyecto, editedParticipaciones)
+            }
+            if (hasParticipacionesChanged && !unSync) {
+              participaChanges.forEach(async (participaChange) =>
+                participaChange.execute()
+              )
+            }
           }
         })
         .finally(() => {

@@ -135,15 +135,16 @@ export const useProyectoFileUpload = (): ProyectoFileUploadFields => {
     previousCodigo: string
   ) => {
     // validate changes and update warning/error messages
-    const validatedProyecto = await validateProyectoToAdd(updatedProyecto)
-    dispatch({
-      type: ProyectoFileActions.UPDATE_PROYECTO,
-      payload: state.uploadedProyectos.map((proyecto) => {
-        if (proyecto.codigo === previousCodigo) {
-          return validatedProyecto
-        }
-        return proyecto
-      }),
+    validateProyectoToAdd(updatedProyecto).then((validatedProyecto) => {
+      dispatch({
+        type: ProyectoFileActions.UPDATE_PROYECTO,
+        payload: state.uploadedProyectos.map((proyecto) => {
+          if (proyecto.codigo === previousCodigo) {
+            return validatedProyecto
+          }
+          return proyecto
+        }),
+      })
     })
   }
 
