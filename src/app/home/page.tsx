@@ -1,8 +1,6 @@
-import { redirect } from "next/navigation";
+import { redirect } from "next/navigation"
 
 export default function Home() {
-  redirect('/proyectos');
-  return (
-    <div />
-  )
+  redirect("/proyectos")
+  return <div />
 }

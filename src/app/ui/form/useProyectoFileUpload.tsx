@@ -1,6 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useReducer } from "react"
+import { validateProyectoToAdd } from "utils"
 
 import type {
   ErrorMessage,
@@ -15,8 +16,6 @@ import {
   ProyectoFileActions,
   proyectoFileUpdateReducer,
 } from "@/app/utils"
-
-import { validateProyectoToAdd } from "../../../../pages/utils/proyectoValidator"
 
 type ProyectoFileUploadFields = {
   isLoading: boolean

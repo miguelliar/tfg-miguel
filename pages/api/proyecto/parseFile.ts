@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-
-import { processProyectoLines } from "../../utils/proyectoFileReader"
+import { processProyectoLines } from "utils"
 
 export const config = {
   api: {
