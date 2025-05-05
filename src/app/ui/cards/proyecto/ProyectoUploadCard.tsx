@@ -92,7 +92,7 @@ const ProyectoInfo = ({ proyecto }: { proyecto: ProyectoToUpload }) => {
                     content={participa.nombreAutor}
                   >
                     <a
-                      className="text-secondary bg-primary flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-primary outline-2"
+                      className="text-secondary bg-primary flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-primary outline-2 hover:text-secondary-soft hover:bg-primary-strong"
                       href={`/investigadores?${emailDirection.toString()}`}
                       target="_blank"
                     >
