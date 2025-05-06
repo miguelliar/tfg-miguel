@@ -46,15 +46,19 @@ const ProyectoInfo = ({ proyecto }: { proyecto: ProyectoToUpload }) => {
     <div className="flex flex-col text-center pt-3 px-7 pb-2">
       <h2 className="text-accent-primary">{proyecto.codigo}</h2>
       <div className="flex flex-col gap-2 ">
-        <p>
-          <b className="text-wrap">Investigador Principal: </b>
-          <span className="text-nowrap">{proyecto.ip}</span>
-        </p>
+        <div>
+          <h3 className="text-wrap">
+            <b>Investigador Principal: </b>
+          </h3>
+          <p className="text-nowrap">{proyecto.ip}</p>
+        </div>
         {proyecto.coip && (
-          <p className="mt-1">
-            <b>Co Investigador Principal: </b>
-            {proyecto.coip}
-          </p>
+          <div className="mt-1">
+            <h3>
+              <b>Co Investigador Principal:</b>
+            </h3>
+            <p>{proyecto.coip}</p>
+          </div>
         )}
         <div className="w-full">
           <h3 className="align-middle">
@@ -68,17 +72,23 @@ const ProyectoInfo = ({ proyecto }: { proyecto: ProyectoToUpload }) => {
         </div>
         <div className="flex flex-row justify-around">
           <div>
-            <b>Inicio:</b>
+            <h3>
+              <b>Inicio:</b>
+            </h3>
             <p suppressHydrationWarning>{proyecto.inicio}</p>
           </div>
           <div>
-            <b>Fin:</b>
+            <h3>
+              <b>Fin:</b>
+            </h3>
             <p suppressHydrationWarning>{proyecto.fin ?? "Sin fin"}</p>
           </div>
         </div>
         {participantes.length > 0 && (
           <>
-            <b className="mt-5">Participantes</b>
+            <h3>
+              <b className="mt-5">Participantes</b>
+            </h3>
             <div className="flex flex-col overflow-auto gap-2">
               {participantes.map((participa) => {
                 const emailDirection = new URLSearchParams([
@@ -128,7 +138,8 @@ export const ProyectoCardToUpload = ({
   }
 
   return (
-    <div
+    <article
+      aria-label={`Proyecto de código ${proyecto.codigo}`}
       className={cx(
         "flex flex-col relative justify-between border-2 rounded-md min-h-28 transition-shadow",
         {
@@ -227,6 +238,6 @@ export const ProyectoCardToUpload = ({
         isEditMode={isEditMode}
         setEditMode={setEditMode}
       />
-    </div>
+    </article>
   )
 }

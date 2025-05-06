@@ -72,15 +72,20 @@ export const ProyectoCard = ({
         />
       ) : (
         <div className="flex flex-col gap-2 my-3">
-          <p>
-            <b className="text-wrap">Investigador Principal: </b>
-            <span className="text-nowrap">{proyecto.ip}</span>
-          </p>
+          <div>
+            <h3>
+              <b className="text-wrap">Investigador Principal: </b>
+            </h3>
+            <p className="text-nowrap">{proyecto.ip}</p>
+          </div>
+
           {proyecto.coip && (
-            <p className="mt-1">
-              <b>Co Investigador Principal: </b>
-              {proyecto.coip}
-            </p>
+            <div className="mt-1">
+              <h3>
+                <b>Co Investigador Principal: </b>
+              </h3>
+              <p>{proyecto.coip}</p>
+            </div>
           )}
           <div className="w-full">
             <h3 className="align-middle">
@@ -94,21 +99,27 @@ export const ProyectoCard = ({
           </div>
           <div className="flex flex-row justify-around">
             <div>
-              <b>Inicio:</b>
+              <h3>
+                <b>Inicio:</b>
+              </h3>
               <p suppressHydrationWarning>
                 {getStringDate(proyecto.inicio, "Sin inicio")}
               </p>
             </div>
             <div>
-              <b>Fin:</b>
+              <h3>
+                <b>Fin:</b>
+              </h3>
               <p suppressHydrationWarning>
                 {getStringDate(proyecto.fin, "Sin fin")}
               </p>
             </div>
           </div>
           {participaciones.length > 0 && (
-            <>
-              <b className="mt-5">Participantes</b>
+            <div>
+              <h3>
+                <b className="mt-5">Participantes</b>
+              </h3>
               <div className="flex flex-col overflow-auto items-center gap-2">
                 {participaciones.map((participa) => {
                   const emailDirection = new URLSearchParams([
@@ -133,7 +144,7 @@ export const ProyectoCard = ({
                   )
                 })}
               </div>
-            </>
+            </div>
           )}
         </div>
       )}

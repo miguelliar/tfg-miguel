@@ -26,6 +26,7 @@ export const InvestigadoresList = ({
           {selectedInvestigadores.map((investigador) => (
             <li key={investigador} className="flex flex-row gap-4">
               <Button
+                ariaLabel={`Quitar al investigador ${investigador}`}
                 variant="fill"
                 className="py-0"
                 onClick={() => removeQueryParam("selectedEmail", investigador)}

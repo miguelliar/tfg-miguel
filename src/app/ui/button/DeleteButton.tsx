@@ -55,7 +55,7 @@ export const DeleteButton = ({
         <CardModal onClose={() => setIsWarningOpen(!isWarningOpen)}>
           <>
             {!isLoading && isSuccessfulDelete === null && (
-              <div>
+              <article>
                 <h2 className="text-xl text-error-accent">{warningMessage}</h2>
                 <p className="mt-2">
                   ¿Deseas continuar? Esta acción <b>no es reversible.</b>
@@ -75,7 +75,7 @@ export const DeleteButton = ({
                     Borrar
                   </Button>
                 </div>
-              </div>
+              </article>
             )}
             {isLoading && !isSuccessfulDelete && (
               <div>

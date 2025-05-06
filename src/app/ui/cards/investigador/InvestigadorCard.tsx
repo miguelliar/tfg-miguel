@@ -88,15 +88,21 @@ export const InvestigadorCard = ({
             <p>{investigador.universidad}</p>
           </div>
           <div>
-            <b>Departamento:</b>
+            <h3>
+              <b>Departamento:</b>
+            </h3>
             <p>{investigador.departamento}</p>
           </div>
           <div>
-            <b>Area:</b>
+            <h3>
+              <b>Area:</b>
+            </h3>
             <p>{investigador.area}</p>
           </div>
           <div>
-            <b>Figura:</b>
+            <h3>
+              <b>Figura:</b>
+            </h3>
             <p>{investigador.figura}</p>
           </div>
           {proyectosParticipa.length > 0 && (

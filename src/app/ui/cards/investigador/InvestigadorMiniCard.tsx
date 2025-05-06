@@ -37,7 +37,7 @@ export const InvestigadorMiniCard = ({
   })
 
   return (
-    <div className={cx("max-h-28")}>
+    <section className={cx("max-h-28")}>
       <div
         className={cx(
           "flex flex-col justify-between border-2 rounded-md min-h-27",
@@ -75,6 +75,6 @@ export const InvestigadorMiniCard = ({
           ) : null}
         </div>
       </div>
-    </div>
+    </section>
   )
 }
