@@ -13,6 +13,7 @@ export const ProyectoFileUploaderForm = () => {
     uploadedProyectos,
     submittedStatus,
     errorMessage,
+    errorPresent,
     onSubmit,
     onChange,
     onChangeProyecto,
@@ -27,8 +28,11 @@ export const ProyectoFileUploaderForm = () => {
           submittedStatus={submittedStatus}
           onCloseSubmitMessage={onCloseSubmitMessage}
           messages={{
-            onSuccess: "Se han subido los archivos",
-            onFailure: "No se han subido los archivos",
+            onSuccess: !errorPresent
+              ? "Se han subido los proyectos correctamente"
+              : "Se han subido los proyectos sin errores correctamente",
+            onFailure:
+              "No se han subido los proyectos. Ha habido un error en la subida",
           }}
         />
       ) : null}

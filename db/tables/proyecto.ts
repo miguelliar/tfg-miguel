@@ -248,7 +248,7 @@ export async function createProyectoItem(proyecto: ProyectoType) {
     await pool.query(config.transaction.Commit)
     await pool.query(config.transaction.End)
   } catch (error) {
-    console.error(proyectoConfig.error.add.Standard, error)
+    throw new Error("Ha habido un error añadiendo el proyecto")
   }
 }
 

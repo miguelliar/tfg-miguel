@@ -55,9 +55,11 @@ export const DeleteButton = ({
         <CardModal onClose={() => setIsWarningOpen(!isWarningOpen)}>
           <>
             {!isLoading && isSuccessfulDelete === null && (
-              <article>
-                <h2 className="text-xl text-error-accent">{warningMessage}</h2>
-                <p className="mt-2">
+              <article className="flex flex-col items-center">
+                <h2 className="text-xl text-error-accent text-center">
+                  {warningMessage}
+                </h2>
+                <p className="mt-2 text-center">
                   ¿Deseas continuar? Esta acción <b>no es reversible.</b>
                 </p>
                 <div className="mt-4 flex flex-row gap-4">

@@ -34,6 +34,7 @@ type ProyectoFileUploadFields = {
   submittedStatus: ProyectoFileState["submittedStatus"]
   errorMessage?: string
   uploadedProyectos?: ProyectoToUpload[]
+  errorPresent: boolean
 }
 
 /**
@@ -153,6 +154,9 @@ export const useProyectoFileUpload = (): ProyectoFileUploadFields => {
     uploadedProyectos: state.uploadedProyectos,
     errorMessage: state.apiError,
     submittedStatus: state.submittedStatus,
+    errorPresent: state.uploadedProyectos?.some(
+      (proyecto) => (proyecto.messages.errors?.length ?? 0) > 0
+    ),
     onSubmit,
     onChange,
     onChangeProyecto,
