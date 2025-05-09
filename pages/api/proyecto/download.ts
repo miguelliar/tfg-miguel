@@ -13,6 +13,23 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         })
       }
 
+      const dateToCSVFormat = (date: Date) => {
+        const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()
+        const month =
+          date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth()
+
+        return `${day}/${month}/${date.getFullYear()}`
+      }
+
+      const mappedProyectos = proyectosJson.map((proyecto) => ({
+        Código: proyecto.codigo,
+        "Investigador principal": `${proyecto.coip ? '"' : ""}${proyecto.ip}${proyecto.coip ? `;${proyecto.coip}"` : ""}`,
+        Título: proyecto.titulo,
+        "Ent. Financiadora": proyecto.financiado,
+        "F. Inicio": dateToCSVFormat(new Date(proyecto.inicio)),
+        "F. Fin": proyecto.fin ? dateToCSVFormat(new Date(proyecto.fin)) : null,
+      }))
+
       const options = {
         delimiter: ";",
         formatters: {
@@ -21,7 +38,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       const parser = new AsyncParser(options)
-      const csv = await parser.parse(proyectosJson).promise()
+      const csv = await parser.parse(mappedProyectos).promise()
 
       res.setHeader("Content-Type", "text/csv")
       res.setHeader("Content-Disposition", "attachment; filename=data.csv")
