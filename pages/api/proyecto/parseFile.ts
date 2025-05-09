@@ -24,8 +24,13 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const buffer = Buffer.concat(content)
 
-      const decoder = new TextDecoder("windows-1252")
-      const fileContent = decoder.decode(buffer)
+      const winDecoder = new TextDecoder("windows-1252")
+      let fileContent = winDecoder.decode(buffer)
+      if (fileContent.startsWith("CÃ³digo")) {
+        const utfDecoder = new TextDecoder("utf-8")
+
+        fileContent = utfDecoder.decode(buffer)
+      }
 
       const lines = fileContent.split("\n")
 

@@ -29,6 +29,7 @@ const parseLine = (lines: string[]) => {
       const fields = trimmedLine.split(
         MATCH_SEMICOLOMNS_OUTSIDE_DOUBLE_QUOTES_REGEXP
       )
+
       const [ip, coip] = fields[1].split(";")
       fields.splice(1, 1, ip, coip ?? null)
       relevantLines.push(fields)
@@ -46,8 +47,16 @@ const mapLines = (
   for (const row of rows) {
     const proyecto: any = {}
     headers.forEach((header, index) => {
-      if (row[index] && row[index].startsWith('"')) {
+      if (
+        row[index] &&
+        row[index].startsWith('"') &&
+        row[index].endsWith('"')
+      ) {
         proyecto[header] = row[index].slice(1, -1)
+      } else if (row[index] && row[index].startsWith('"')) {
+        proyecto[header] = row[index].slice(1)
+      } else if (row[index] && row[index].endsWith('"')) {
+        proyecto[header] = row[index].slice(0, -1)
       } else {
         proyecto[header] = row[index]
       }
