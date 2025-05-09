@@ -113,13 +113,13 @@ const setParticipationAutomatic = async (proyecto: ProyectoToUpload) => {
     })
   }
   if (coip) {
-    const coip = await fetchInvestigadorByNombreAutor(ip)
+    const coipEmail = await fetchInvestigadorByNombreAutor(coip)
 
-    if (coip && coip.length === 1) {
+    if (coipEmail && coipEmail.length === 1) {
       participaciones.push({
         codigo: proyecto.codigo,
-        email: coip[0].email,
-        nombreAutor: ip,
+        email: coipEmail[0].email,
+        nombreAutor: coip,
       })
     }
   }
