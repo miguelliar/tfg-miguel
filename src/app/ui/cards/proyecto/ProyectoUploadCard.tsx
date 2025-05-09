@@ -43,7 +43,7 @@ interface ProyectoCardToUploadProps {
 const ProyectoInfo = ({ proyecto }: { proyecto: ProyectoToUpload }) => {
   const { participantes } = proyecto
   return (
-    <div className="flex flex-col text-center pt-3 px-7 pb-2">
+    <div className="flex flex-col text-center pt-3 px-[14px] sm:px-7 pb-2">
       <h2 className="text-accent-primary">{proyecto.codigo}</h2>
       <div className="flex flex-col gap-2 ">
         <div>

@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "../button/Button"
+import { CardsSkeleton } from "../cards/CardSkeleton"
 // eslint-disable-next-line import/no-cycle
 import { ProyectoCardToUpload } from "../cards/proyecto/ProyectoUploadCard"
 import { SubmitStatusInfo } from "../information"
@@ -36,7 +37,7 @@ export const ProyectoFileUploaderForm = () => {
           }}
         />
       ) : null}
-      <div className="m-7 flex flex-col p-4 gap-8 items-center">
+      <div className="sm:m-7 flex flex-col sm:p-4 gap-8 items-center">
         <label
           className="flex flex-col gap-3 md:gap-4 w-full items-center"
           htmlFor="proyectoFile"
@@ -71,7 +72,7 @@ export const ProyectoFileUploaderForm = () => {
               </>
             )}
           {errorMessage && <p className="text-error-accent">{errorMessage}</p>}
-          <section className="grid grid-cols-adaptable_big gap-4 w-full">
+          <section className="grid grid-cols-adaptable-big-mobile sm:grid-cols-adaptable-big gap-4 w-full">
             {!isLoading && uploadedProyectos && uploadedProyectos.length > 0 ? (
               <>
                 {uploadedProyectos.map((proyecto) => (
@@ -85,7 +86,7 @@ export const ProyectoFileUploaderForm = () => {
               </>
             ) : null}
           </section>
-          {isLoading ? "Loading" : null}
+          {isLoading ? <CardsSkeleton /> : null}
         </div>
         <Button
           onClick={onSubmit}

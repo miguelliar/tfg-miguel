@@ -29,7 +29,11 @@ const config: Config = {
       },
       gridTemplateColumns: {
         adaptable: "repeat( auto-fit, minmax(15rem, 1fr))",
-        adaptable_big: "repeat( auto-fit, minmax(24rem, 1fr))",
+        "adaptable-big": "repeat( auto-fit, minmax(24rem, 1fr))",
+        "adaptable-big-mobile": "repeat( auto-fit, minmax(15rem, 43rem))",
+      },
+      transitionProperty: {
+        height: "height",
       },
     },
   },

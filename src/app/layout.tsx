@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cx(
-          "bg-secondary text-font-color flex flex-col",
+          "bg-secondary text-font-color flex flex-col w-full",
           inter.className
         )}
       >
