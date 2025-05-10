@@ -40,7 +40,7 @@ export default async function Page(props: {
 
   return (
     <>
-      <div className="flex flex-row m-5 justify-center sm:justify-start">
+      <div className="flex flex-row m-5 gap-3 justify-center sm:justify-start">
         <UsersIcon className="w-9" />
         <h1 className="text-4xl">Investigadores</h1>
       </div>

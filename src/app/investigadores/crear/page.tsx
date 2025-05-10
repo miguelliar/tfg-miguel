@@ -7,7 +7,7 @@ import { InvestigadorCreateForm } from "@/app/ui"
 export default async function Page() {
   return (
     <div className="flex flex-col items-center gap-5 my-2">
-      <div className="flex flex-col sm:flex-row items-center">
+      <div className="flex flex-col sm:flex-row items-center gap-3">
         <UserPlusIcon className="w-9" />
         <h1 className="text-4xl text-center">Crear investigador</h1>
       </div>

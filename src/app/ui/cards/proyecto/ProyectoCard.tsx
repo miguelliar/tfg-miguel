@@ -117,7 +117,7 @@ export const ProyectoCard = ({
           </div>
           {participaciones.length > 0 && (
             <div>
-              <div className="flex flex-row  mt-5">
+              <div className="flex flex-row mt-5 gap-2">
                 <UsersIcon className="w-4" />
                 <h3>
                   <b>Participantes</b>

@@ -193,7 +193,7 @@ export const EditProyectoForm = ({
         </label>
       </div>
       <div className="flex flex-col justify-start items-center">
-        <div className="flex flex-row mt-5">
+        <div className="flex flex-row mt-5 gap-2">
           <UsersIcon className="w-4" />
           <b>Participantes</b>
         </div>

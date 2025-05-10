@@ -1,7 +1,7 @@
 "use client"
 
 import {
-  DocumentArrowDownIcon,
+  ArrowDownTrayIcon,
   DocumentMagnifyingGlassIcon,
 } from "@heroicons/react/24/solid"
 import { isEqual } from "lodash"
@@ -67,7 +67,7 @@ export const MostrarProyectos = () => {
 
   return (
     <section className="my-8">
-      <div className="flex flex-row">
+      <div className="flex flex-row gap-2">
         <DocumentMagnifyingGlassIcon className="w-6" />
         <h2 className="text-2xl">
           <b>Busqueda de proyectos</b>
@@ -92,7 +92,7 @@ export const MostrarProyectos = () => {
               }
             >
               Descargar proyectos en CSV
-              <DocumentArrowDownIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
+              <ArrowDownTrayIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
             </Button>
           </div>
           {searchedProyectos && (

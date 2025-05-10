@@ -48,7 +48,7 @@ const PageLinks = ({ url, onOpen }: { url: string; onOpen?: () => void }) => {
           )}
           href={link.url}
         >
-          <div className="flex flex-row justify-center">
+          <div className="flex flex-row justify-center gap-2">
             {link.icon}
             {link.title}
           </div>
