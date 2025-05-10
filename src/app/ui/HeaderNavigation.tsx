@@ -1,6 +1,10 @@
 "use client"
 
-import { Bars3Icon } from "@heroicons/react/24/solid"
+import {
+  Bars3Icon,
+  DocumentMagnifyingGlassIcon,
+  UsersIcon,
+} from "@heroicons/react/24/solid"
 import cx from "classnames"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -12,8 +16,16 @@ import { Button } from "./button/Button"
 import { CardModal } from "./cards/CardModal"
 
 const pageLinks = [
-  { title: "Proyectos", url: "/proyectos" },
-  { title: "Investigadores", url: "/investigadores" },
+  {
+    title: "Proyectos",
+    url: "/proyectos",
+    icon: <DocumentMagnifyingGlassIcon className="w-6" />,
+  },
+  {
+    title: "Investigadores",
+    url: "/investigadores",
+    icon: <UsersIcon className="w-6" />,
+  },
 ]
 
 const PageLinks = ({ url, onOpen }: { url: string; onOpen?: () => void }) => {
@@ -24,17 +36,22 @@ const PageLinks = ({ url, onOpen }: { url: string; onOpen?: () => void }) => {
           key={`HeaderLink-${link.title}`}
           onClick={onOpen}
           className={cx(
-            "text-2xl text-primary sm:text-base sm:text-secondary hover:text-secondary hover:bg-accent-primary h-full my-1 rounded px-2 items-center w-full sm:w-fit text-center overflow-auto text-ellipsis sm:flex",
+            "text-2xl text-primary sm:text-base sm:text-secondary hover:text-secondary hover:bg-accent-primary h-full my-1 rounded px-2 pt-1 items-center w-full sm:w-fit text-center overflow-auto text-ellipsis sm:flex",
             {
               "sm:bg-accent-primary": url.startsWith(link.url),
               "bg-accent-primary text-secondary":
                 onOpen && url.startsWith(link.url),
               hidden: !onOpen && !url.startsWith(link.url),
+              "text-secondary hover:text-secondary hover:bg-primary sm:hover:bg-accent-primary":
+                !onOpen && url.startsWith(link.url),
             }
           )}
           href={link.url}
         >
-          {link.title}
+          <div className="flex flex-row justify-center">
+            {link.icon}
+            {link.title}
+          </div>
         </Link>
       ))}
     </div>

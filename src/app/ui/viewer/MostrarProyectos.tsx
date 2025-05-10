@@ -1,6 +1,9 @@
 "use client"
 
-import { ArrowDownTrayIcon } from "@heroicons/react/24/solid"
+import {
+  DocumentArrowDownIcon,
+  DocumentMagnifyingGlassIcon,
+} from "@heroicons/react/24/solid"
 import { isEqual } from "lodash"
 import { useEffect, useRef, useState } from "react"
 
@@ -64,9 +67,12 @@ export const MostrarProyectos = () => {
 
   return (
     <section className="my-8">
-      <h2 className="text-2xl">
-        <b>Busqueda de proyectos</b>
-      </h2>
+      <div className="flex flex-row">
+        <DocumentMagnifyingGlassIcon className="w-6" />
+        <h2 className="text-2xl">
+          <b>Busqueda de proyectos</b>
+        </h2>
+      </div>
       {proyectoSearched && <ProyectoCard proyecto={proyectoSearched} />}
       <div className="flex flex-col md:flex-row gap-16 justify-start">
         <InvestigadoresList selectedInvestigadores={selectedInvestigadores} />
@@ -86,7 +92,7 @@ export const MostrarProyectos = () => {
               }
             >
               Descargar proyectos en CSV
-              <ArrowDownTrayIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
+              <DocumentArrowDownIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
             </Button>
           </div>
           {searchedProyectos && (

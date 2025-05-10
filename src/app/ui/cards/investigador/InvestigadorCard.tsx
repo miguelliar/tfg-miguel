@@ -2,7 +2,10 @@
 
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid"
+import {
+  ArrowTopRightOnSquareIcon,
+  DocumentMagnifyingGlassIcon,
+} from "@heroicons/react/24/solid"
 import { useEffect, useState } from "react"
 
 import type { ProyectoMinimumDataType } from "@/app/utils"
@@ -107,13 +110,20 @@ export const InvestigadorCard = ({
           </div>
           {proyectosParticipa.length > 0 && (
             <>
-              <b className="mt-5">Nombres de autor</b>
+              <h3 className="mt-5">
+                <b>Nombres de autor</b>
+              </h3>
               <ul>
                 {nombresAutor.map((nombre) => (
                   <li key={nombre}>{nombre}</li>
                 ))}
               </ul>
-              <b className="mt-5">Participante en</b>
+              <div className="flex flex-row mt-5">
+                <DocumentMagnifyingGlassIcon className="w-4" />
+                <h3>
+                  <b>Participante en</b>
+                </h3>
+              </div>
               <div className="flex flex-col overflow-auto gap-2">
                 {proyectosParticipa.map((proyecto) => {
                   const proyectoCode = new URLSearchParams([

@@ -1,6 +1,10 @@
 "use client"
 
-import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/solid"
+import {
+  MinusCircleIcon,
+  PlusCircleIcon,
+  UsersIcon,
+} from "@heroicons/react/24/solid"
 import type { KeyboardEvent } from "react"
 import { useRef, useState } from "react"
 
@@ -189,7 +193,10 @@ export const EditProyectoForm = ({
         </label>
       </div>
       <div className="flex flex-col justify-start items-center">
-        <b className="mt-5">Participantes</b>
+        <div className="flex flex-row mt-5">
+          <UsersIcon className="w-4" />
+          <b>Participantes</b>
+        </div>
         {editedParticipaciones.length > 0 && (
           <div className="flex flex-col gap-2 overflow-auto mt-2">
             {editedParticipaciones.map((participa) => (

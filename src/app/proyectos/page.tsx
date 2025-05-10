@@ -1,3 +1,5 @@
+import { DocumentMagnifyingGlassIcon } from "@heroicons/react/24/solid"
+
 import {
   CreateProyectoButton,
   Pagination,
@@ -30,7 +32,10 @@ export default async function Page(props: {
 
   return (
     <>
-      <h1 className="text-4xl m-5">Proyectos</h1>
+      <div className="flex flex-row m-5 justify-center">
+        <DocumentMagnifyingGlassIcon className="w-9" />
+        <h1 className="text-4xl">Proyectos</h1>
+      </div>
       <section className="m-4 p-1 flex flex-col justify-items-center">
         {currentProyecto && <ProyectoCard proyecto={currentProyecto} />}
         <div className="flex flex-col md:flex-row justify-between">

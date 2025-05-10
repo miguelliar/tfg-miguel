@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid"
+import { ArrowTopRightOnSquareIcon, UsersIcon } from "@heroicons/react/24/solid"
 import { useEffect, useState } from "react"
 
 import type { ParticipaType, ProyectoType } from "@/app/utils"
@@ -117,9 +117,12 @@ export const ProyectoCard = ({
           </div>
           {participaciones.length > 0 && (
             <div>
-              <h3>
-                <b className="mt-5">Participantes</b>
-              </h3>
+              <div className="flex flex-row  mt-5">
+                <UsersIcon className="w-4" />
+                <h3>
+                  <b>Participantes</b>
+                </h3>
+              </div>
               <div className="flex flex-col overflow-auto items-center gap-2">
                 {participaciones.map((participa) => {
                   const emailDirection = new URLSearchParams([

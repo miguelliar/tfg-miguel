@@ -1,4 +1,4 @@
-import { PlusIcon } from "@heroicons/react/24/solid"
+import { PlusIcon, UsersIcon } from "@heroicons/react/24/solid"
 import Link from "next/link"
 
 import {
@@ -40,7 +40,10 @@ export default async function Page(props: {
 
   return (
     <>
-      <h1 className="text-4xl m-5">Investigadores</h1>
+      <div className="flex flex-row m-5 justify-center sm:justify-start">
+        <UsersIcon className="w-9" />
+        <h1 className="text-4xl">Investigadores</h1>
+      </div>
       <section className="m-4 p-1 flex flex-col">
         {currentInvestigador && (
           <InvestigadorCard investigador={currentInvestigador} />
