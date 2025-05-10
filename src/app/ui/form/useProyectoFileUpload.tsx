@@ -1,5 +1,6 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import { useCallback, useEffect, useReducer } from "react"
 import { validateProyectoToAdd } from "utils"
 
@@ -47,6 +48,8 @@ export const useProyectoFileUpload = (): ProyectoFileUploadFields => {
     defaultProyectoFileState
   )
 
+  const router = useRouter()
+
   // when uplodaded proyectos change its state and there are no error messages unread, set submit enabled
   useEffect(() => {
     if (
@@ -61,10 +64,10 @@ export const useProyectoFileUpload = (): ProyectoFileUploadFields => {
     }
   }, [state.uploadedProyectos])
 
-  const onCloseSubmitMessage = useCallback(
-    () => dispatch({ type: ProyectoFileActions.CLOSE_SUBMIT_MESSAGE }),
-    [dispatch]
-  )
+  const onCloseSubmitMessage = useCallback(() => {
+    dispatch({ type: ProyectoFileActions.CLOSE_SUBMIT_MESSAGE })
+    router.push("/proyectos")
+  }, [router, dispatch])
 
   const onSubmit = useCallback(() => {
     ;(async () => {

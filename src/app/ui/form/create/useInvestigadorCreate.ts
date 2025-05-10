@@ -57,7 +57,7 @@ export const useInvestigadorCreate = (): {
     e.preventDefault()
     if (validateParameters(investigador, setErrors)) {
       addInvestigador(investigador)
-      router.push("/investigador")
+      router.push("/investigadores")
     }
   }
 
