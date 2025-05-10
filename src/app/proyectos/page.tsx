@@ -32,7 +32,7 @@ export default async function Page(props: {
 
   return (
     <>
-      <div className="flex flex-row m-5 justify-center">
+      <div className="flex flex-row m-5 justify-center sm:justify-start">
         <DocumentMagnifyingGlassIcon className="w-9" />
         <h1 className="text-4xl">Proyectos</h1>
       </div>
