@@ -2,7 +2,7 @@
 
 import { createContext } from "react"
 
-import type { InvestigadorType } from "@/db"
+import type { InvestigadorType } from "@/investigadores"
 
 export type SelectInvestigador = (props: {
   investigadorSelected: InvestigadorType

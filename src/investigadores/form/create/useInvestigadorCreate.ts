@@ -4,15 +4,13 @@ import { useRouter } from "next/navigation"
 import type { FormEvent } from "react"
 import { useState } from "react"
 
-import type {
-  InvestigadorType,
-  InvestigadorValidationErrors,
-} from "@/app/utils"
+import type { InvestigadorType } from "@/investigadores/types"
+import type { InvestigadorValidationErrors } from "@/investigadores/utils"
 import {
   addInvestigador,
   getInvestigadorErrors,
   validateInvestigadorErrors,
-} from "@/app/utils"
+} from "@/investigadores/utils"
 
 const validateParameters = (
   investigador: InvestigadorType,

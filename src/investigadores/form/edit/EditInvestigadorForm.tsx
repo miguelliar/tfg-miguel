@@ -3,7 +3,7 @@
 import type { KeyboardEvent } from "react"
 import { useRef } from "react"
 
-import { type InvestigadorType } from "@/app/utils"
+import type { InvestigadorType } from "@/investigadores/types"
 
 import { useEditInvestigadorForm } from "./useEditInvestigadorForm"
 

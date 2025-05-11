@@ -3,11 +3,11 @@
 import cx from "classnames"
 import { useContext, useMemo } from "react"
 
-import type { InvestigadorMinimumDataType } from "@/app/utils"
 import { SearchProyectoByInvestigadorContext } from "@/app/utils"
 import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
 
-import { Button } from "../../button/Button"
+import { Button } from "../../app/ui/button/Button"
+import type { InvestigadorMinimumDataType } from "../types"
 
 export const InvestigadorMiniCard = ({
   investigador,

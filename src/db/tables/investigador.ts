@@ -4,7 +4,7 @@
 
 import { unstable_noStore as noStore } from "next/cache"
 
-import type { InvestigadorMinimumDataType } from "@/app/utils"
+import type { InvestigadorMinimumDataType } from "@/investigadores"
 
 import config from "../constants.json"
 import { getPool } from "../pool"

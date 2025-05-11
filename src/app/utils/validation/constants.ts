@@ -16,15 +16,4 @@ export const ERROR_MESSAGES = {
         "El código empleado ya está siendo utilizado en otro proyecto. Comprueba que tu proyecto no haya sido añadido.",
     },
   },
-  INVESTIGADOR: {
-    EMPTY: {
-      EMAIL: "El email del investigador no puede estar vacío",
-      NOMBRE: "El nombre del investigador no puede estar vacío",
-      APELLIDOS: "Los apellidos del investigador no pueden estar vacíos",
-      UNIVERSIDAD: "La universidad no puede estar vacía",
-      DEPARTAMENTO: "El departamento no puede estar vacío",
-      AREA: "El area no puede estar vacía",
-      FIGURA: "La figura no puede estar vacía",
-    },
-  },
 }

@@ -1,6 +1,4 @@
-import type { InvestigadorType } from "@/db"
-
-import { ERROR_MESSAGES } from "./constants"
+import type { InvestigadorType } from "../types"
 
 export type InvestigadorValidationErrors = {
   email: string
@@ -12,7 +10,17 @@ export type InvestigadorValidationErrors = {
   figura: string
 }
 
-const message = ERROR_MESSAGES.INVESTIGADOR
+const message = {
+  EMPTY: {
+    EMAIL: "El email del investigador no puede estar vacío",
+    NOMBRE: "El nombre del investigador no puede estar vacío",
+    APELLIDOS: "Los apellidos del investigador no pueden estar vacíos",
+    UNIVERSIDAD: "La universidad no puede estar vacía",
+    DEPARTAMENTO: "El departamento no puede estar vacío",
+    AREA: "El area no puede estar vacía",
+    FIGURA: "La figura no puede estar vacía",
+  },
+}
 
 const checkFieldEmpty = (field: string, message: string) => {
   return !field || field.trim().length === 0 ? message : ""

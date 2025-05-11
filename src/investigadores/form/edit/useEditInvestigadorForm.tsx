@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 
-import type { InvestigadorType } from "@/app/utils"
 import { updateInvestigador } from "@/db"
+import type { InvestigadorType } from "@/investigadores/types"
 
 const validateParameters = (
   investigador: InvestigadorType,

@@ -9,11 +9,11 @@ import { useEffect, useRef, useState } from "react"
 
 import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
 import { fetchProyectoByCode } from "@/db"
+import { ProyectoCard, ProyectoMiniCard } from "@/proyectos"
 
 import type { ProyectoMinimumDataType, ProyectoType } from "../../utils"
 import { downloadProyectosCSV } from "../../utils"
 import { Button } from "../button/Button"
-import { ProyectoCard, ProyectoMiniCard } from "../cards"
 import { InvestigadoresList } from "./InvestigadoresList"
 import {
   FETCH_PROYECTO_OPTION,

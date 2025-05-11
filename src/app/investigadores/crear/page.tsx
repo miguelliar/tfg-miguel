@@ -2,7 +2,7 @@
 
 import { UserPlusIcon } from "@heroicons/react/24/solid"
 
-import { InvestigadorCreateForm } from "@/app/ui"
+import { InvestigadorCreateForm } from "@/investigadores"
 
 export default async function Page() {
   return (

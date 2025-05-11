@@ -1,6 +1,5 @@
 export * from "./context"
 export * from "./formatDate"
-export * from "./investigador"
 export * from "./participa"
 export * from "./proyectos"
 export * from "./reducer"

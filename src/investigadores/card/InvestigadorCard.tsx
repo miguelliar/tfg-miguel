@@ -14,14 +14,14 @@ import {
   deleteInvestigador,
   fetchAllProyectosByInvestigadores,
   fetchNombresDeAutor,
-  type InvestigadorType,
 } from "@/db"
 
-import { DeleteButton } from "../../button"
-import { EditButton } from "../../button/EditButton"
-import { EditInvestigadorForm } from "../../form/edit/EditInvestigadorForm"
-import { CardModal } from "../CardModal"
-import { HorizontalCard } from "../HorizontalCard"
+import { DeleteButton } from "../../app/ui/button"
+import { EditButton } from "../../app/ui/button/EditButton"
+import { CardModal } from "../../app/ui/cards/CardModal"
+import { HorizontalCard } from "../../app/ui/cards/HorizontalCard"
+import { EditInvestigadorForm } from "../form"
+import type { InvestigadorType } from "../types"
 
 export const InvestigadorCard = ({
   investigador,
