@@ -1,7 +1,6 @@
 export * from "./breadcrumbs"
 export * from "./button"
 export * from "./cards"
-export * from "./containers"
 export * from "./form"
 export * from "./Pagination"
 export * from "./Search"
