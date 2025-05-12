@@ -12,9 +12,8 @@ import { parseDateToString } from "@/app/utils"
 import type { ParticipaType } from "@/participa"
 import { AddParticipanteCard } from "@/participa"
 import type { ProyectoType } from "@/proyectos/types"
+import { Button, HorizontalCard } from "@/ui"
 
-import { Button } from "../../../app/ui/button/Button"
-import { HorizontalCard } from "../../../app/ui/cards/HorizontalCard"
 import { useEditProyectoForm } from "./useEditProyectoForm"
 
 export type EditProyectoFormProps = {

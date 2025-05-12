@@ -1,7 +1,7 @@
 import { ExclamationCircleIcon } from "@heroicons/react/24/solid"
 
-import { Button } from "@/app/ui/button/Button"
 import type { ErrorMessage } from "@/proyectos"
+import { Button } from "@/ui/button"
 
 export const ErrorMessageCard = ({
   errorMessage,

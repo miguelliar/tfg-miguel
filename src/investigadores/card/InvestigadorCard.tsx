@@ -15,11 +15,8 @@ import {
   fetchNombresDeAutor,
 } from "@/db"
 import type { ProyectoMinimumDataType } from "@/proyectos"
+import { CardModal, DeleteButton, EditButton, HorizontalCard } from "@/ui"
 
-import { DeleteButton } from "../../app/ui/button"
-import { EditButton } from "../../app/ui/button/EditButton"
-import { CardModal } from "../../app/ui/cards/CardModal"
-import { HorizontalCard } from "../../app/ui/cards/HorizontalCard"
 import { EditInvestigadorForm } from "../form"
 import type { InvestigadorType } from "../types"
 

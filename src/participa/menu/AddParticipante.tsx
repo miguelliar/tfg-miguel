@@ -4,8 +4,7 @@ import {
   PlusIcon,
 } from "@heroicons/react/24/solid"
 
-import { HorizontalCard, Menu, SearchInput } from "@/app/ui"
-import { Button } from "@/app/ui/button/Button"
+import { Button, HorizontalCard, Menu, SearchInput } from "@/ui"
 
 import type { ParticipaType } from "../type"
 import { useAddParticipante } from "./useAddParticipante"

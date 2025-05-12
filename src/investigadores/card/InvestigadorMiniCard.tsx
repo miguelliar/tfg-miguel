@@ -5,8 +5,8 @@ import { useContext, useMemo } from "react"
 
 import { SearchProyectoByInvestigadorContext } from "@/app/utils"
 import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
+import { Button } from "@/ui"
 
-import { Button } from "../../app/ui/button/Button"
 import type { InvestigadorMinimumDataType } from "../types"
 
 export const InvestigadorMiniCard = ({

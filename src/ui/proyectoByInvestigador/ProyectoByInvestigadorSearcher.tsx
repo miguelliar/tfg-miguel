@@ -10,7 +10,7 @@ import {
 } from "@/db"
 import type { ProyectoMinimumDataType } from "@/proyectos"
 
-import { Button } from "../button/Button"
+import { Button } from "../button"
 
 export const FETCH_PROYECTO_OPTION: {
   [name: string]: {

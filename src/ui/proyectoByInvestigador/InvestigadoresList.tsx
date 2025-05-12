@@ -4,7 +4,7 @@ import cx from "classnames"
 
 import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
 
-import { Button } from "../button/Button"
+import { Button } from "../button"
 
 export const InvestigadoresList = ({
   selectedInvestigadores,

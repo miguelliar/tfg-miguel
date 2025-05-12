@@ -10,10 +10,10 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 
-import LogoMini from "../assets/logo-mini.svg"
+import LogoMini from "../../app/assets/logo-mini.svg"
+import { Button } from "../button"
+import { CardModal } from "../cards"
 import { Breadcrumbs } from "./breadcrumbs/Breadcrumbs"
-import { Button } from "./button/Button"
-import { CardModal } from "./cards/CardModal"
 
 const pageLinks = [
   {

@@ -1,9 +1,8 @@
 import { CheckBadgeIcon, XCircleIcon } from "@heroicons/react/24/solid"
 
 import type { ProyectoFileState } from "@/app/utils"
-
-import { Button } from "../../button/Button"
-import { CardModal } from "../../cards/CardModal"
+import { Button } from "@/ui/button"
+import { CardModal } from "@/ui/cards"
 
 type SubmitStatusInfoProps = {
   submittedStatus: ProyectoFileState["submittedStatus"]

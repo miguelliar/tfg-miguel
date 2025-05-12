@@ -16,7 +16,7 @@ import {
   ProyectoMiniCard,
 } from "@/proyectos"
 
-import { Button } from "../button/Button"
+import { Button } from "../button"
 import { InvestigadoresList } from "./InvestigadoresList"
 import {
   FETCH_PROYECTO_OPTION,

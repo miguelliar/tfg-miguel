@@ -11,12 +11,13 @@ import type { KeyboardEvent } from "react"
 import { useState } from "react"
 
 import type { ParticipaType } from "@/participa"
+import {
+  EditButton,
+  ErrorMessageCard,
+  HorizontalCard,
+  WarningMessageCard,
+} from "@/ui"
 
-import { EditButton } from "../../app/ui/button"
-import { HorizontalCard } from "../../app/ui/cards/HorizontalCard"
-// eslint-disable-next-line import/no-cycle
-import { ErrorMessageCard } from "../../app/ui/information/proyectoFileUpdate/messages/ErrorMessageCard"
-import { WarningMessageCard } from "../../app/ui/information/proyectoFileUpdate/messages/WarningMessageCard"
 import { EditProyectoForm } from "../form"
 import type { ProyectoType } from "../types"
 import type { ErrorMessage } from "../utils/infoMessage"

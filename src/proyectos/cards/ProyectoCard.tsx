@@ -11,11 +11,9 @@ import {
   updateProyectoItem,
 } from "@/db"
 import type { ParticipaType } from "@/participa"
+import { CardModal, DeleteButton, EditButton, HorizontalCard } from "@/ui"
 
-import { DeleteButton, EditButton } from "../../app/ui/button"
-import { CardModal } from "../../app/ui/cards/CardModal"
-import { HorizontalCard } from "../../app/ui/cards/HorizontalCard"
-import { EditProyectoForm } from "../form/edit"
+import { EditProyectoForm } from "../form"
 import type { ProyectoType } from "../types"
 
 export const ProyectoCard = ({

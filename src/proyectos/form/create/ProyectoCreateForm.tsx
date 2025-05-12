@@ -7,9 +7,8 @@ import { useState } from "react"
 
 import { parseDateToString } from "@/app/utils"
 import { AddParticipanteCard } from "@/participa"
+import { Button, HorizontalCard } from "@/ui"
 
-import { Button } from "../../../app/ui/button/Button"
-import { HorizontalCard } from "../../../app/ui/cards/HorizontalCard"
 import { useProyectoCreate } from "./useProyectoCreate"
 
 export const ProyectoCreate = () => {

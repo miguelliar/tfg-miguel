@@ -1,6 +1,7 @@
 "use client"
 
-import { Button } from "../../../app/ui/button/Button"
+import { Button } from "@/ui"
+
 import { useInvestigadorCreate } from "./useInvestigadorCreate"
 
 export const InvestigadorCreateForm = () => {

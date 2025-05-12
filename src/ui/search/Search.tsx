@@ -8,7 +8,7 @@ import type {
 } from "react"
 import { useDebouncedCallback } from "use-debounce"
 
-import { useQueryParam } from "../utils/hooks/useQueryParam"
+import { useQueryParam } from "../../app/utils/hooks/useQueryParam"
 
 export const SearchInput = ({
   required,
