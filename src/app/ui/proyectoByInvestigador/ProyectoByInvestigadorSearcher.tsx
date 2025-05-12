@@ -3,12 +3,12 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
-import type { ProyectoMinimumDataType } from "@/app/utils"
 import {
   fetchAllProyectosByInvestigadores,
   fetchDistinctProyectosByInvestigadores,
   fetchJoinProyectosByInvestigadores,
 } from "@/db"
+import type { ProyectoMinimumDataType } from "@/proyectos"
 
 import { Button } from "../button/Button"
 

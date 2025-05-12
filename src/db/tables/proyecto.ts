@@ -4,7 +4,7 @@
 
 import { unstable_noStore as noStore } from "next/cache"
 
-import type { ProyectoMinimumDataType, ProyectoType } from "@/app/utils"
+import type { ProyectoMinimumDataType, ProyectoType } from "@/proyectos"
 
 import config from "../constants.json"
 import { getPool } from "../pool"

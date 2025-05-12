@@ -1,5 +1,7 @@
-import { getStringDate } from "../formatDate"
-import type { ParticipaType, ProyectoType } from "../types"
+import type { ParticipaType } from "@/app/utils"
+import { getStringDate } from "@/app/utils"
+
+import type { ProyectoType } from "../types"
 import type { ProyectoMessage } from "./infoMessage"
 
 export type ProyectoToUpload = Omit<ProyectoType, "inicio" | "fin"> & {

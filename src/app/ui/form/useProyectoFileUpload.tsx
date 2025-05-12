@@ -4,19 +4,18 @@ import { useRouter } from "next/navigation"
 import { useCallback, useEffect, useReducer } from "react"
 import { validateProyectoToAdd } from "utils"
 
-import type {
-  ErrorMessage,
-  ProyectoFileState,
-  ProyectoToUpload,
-} from "@/app/utils"
+import type { ProyectoFileState } from "@/app/utils"
 import {
-  addAllProyectos,
   defaultProyectoFileState,
-  fetchParsedProyectos,
-  mapProyectosToUploadToProyectsType,
   ProyectoFileActions,
   proyectoFileUpdateReducer,
 } from "@/app/utils"
+import type { ErrorMessage, ProyectoToUpload } from "@/proyectos"
+import {
+  addAllProyectos,
+  fetchParsedProyectos,
+  mapProyectosToUploadToProyectsType,
+} from "@/proyectos"
 
 type ProyectoFileUploadFields = {
   isLoading: boolean
@@ -53,7 +52,7 @@ export const useProyectoFileUpload = (): ProyectoFileUploadFields => {
   // when uplodaded proyectos change its state and there are no error messages unread, set submit enabled
   useEffect(() => {
     if (
-      !state.uploadedProyectos.some((proyecto) =>
+      !state.uploadedProyectos.some((proyecto: ProyectoToUpload) =>
         proyecto.messages.errors?.some((message) => !message.read)
       ) &&
       state.uploadedProyectos.length > 0

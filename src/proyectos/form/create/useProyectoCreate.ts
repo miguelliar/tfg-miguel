@@ -5,16 +5,11 @@ import type { FormEvent } from "react"
 import { useState } from "react"
 import { useDebouncedCallback } from "use-debounce"
 
-import type {
-  ParticipaType,
-  ProyectoType,
-  ProyectoValidationErrors,
-} from "@/app/utils"
-import {
-  AddParticipaCommand,
-  addProyecto,
-  getProyectoErrors,
-} from "@/app/utils"
+import type { ParticipaType } from "@/app/utils"
+import { AddParticipaCommand } from "@/app/utils"
+import type { ProyectoType } from "@/proyectos/types"
+import type { ProyectoValidationErrors } from "@/proyectos/utils"
+import { addProyecto, getProyectoErrors } from "@/proyectos/utils"
 
 const validateParameters = async (
   proyecto: ProyectoType,

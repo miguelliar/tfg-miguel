@@ -2,7 +2,7 @@
 
 import { DocumentPlusIcon } from "@heroicons/react/24/solid"
 
-import { ProyectoCreate } from "@/app/ui"
+import { ProyectoCreate } from "@/proyectos"
 
 export default async function Page() {
   return (

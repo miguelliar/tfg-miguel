@@ -3,7 +3,7 @@
 import { ArrowTopRightOnSquareIcon, UsersIcon } from "@heroicons/react/24/solid"
 import { useEffect, useState } from "react"
 
-import type { ParticipaType, ProyectoType } from "@/app/utils"
+import type { ParticipaType } from "@/app/utils"
 import { getStringDate } from "@/app/utils"
 import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
 import {
@@ -12,10 +12,11 @@ import {
   updateProyectoItem,
 } from "@/db"
 
-import { DeleteButton, EditButton } from "../../button"
-import { EditProyectoForm } from "../../form/edit"
-import { CardModal } from "../CardModal"
-import { HorizontalCard } from "../HorizontalCard"
+import { DeleteButton, EditButton } from "../../app/ui/button"
+import { CardModal } from "../../app/ui/cards/CardModal"
+import { HorizontalCard } from "../../app/ui/cards/HorizontalCard"
+import { EditProyectoForm } from "../form/edit"
+import type { ProyectoType } from "../types"
 
 export const ProyectoCard = ({
   proyecto,

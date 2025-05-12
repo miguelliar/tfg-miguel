@@ -1,4 +1,4 @@
-import type { ProyectoToUpload } from "@/app/utils"
+import type { ProyectoToUpload } from "@/proyectos"
 
 import { validateProyectosToAdd } from "./proyectoValidator"
 

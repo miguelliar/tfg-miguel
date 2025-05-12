@@ -1,15 +1,13 @@
 import { DocumentMagnifyingGlassIcon } from "@heroicons/react/24/solid"
 
+import { Pagination, Search } from "@/app/ui"
+import { fetchProyectoByCode, fetchProyectoTotalPages } from "@/db"
 import {
   CreateProyectoButton,
-  Pagination,
+  fetchProyectosMinimumData,
   ProyectoCard,
   ProyectoMiniCard,
-  Search,
-} from "@/app/ui"
-import { fetchProyectoByCode, fetchProyectoTotalPages } from "@/db"
-
-import { fetchProyectosMinimumData } from "../utils"
+} from "@/proyectos"
 
 export default async function Page(props: {
   searchParams?: Promise<{

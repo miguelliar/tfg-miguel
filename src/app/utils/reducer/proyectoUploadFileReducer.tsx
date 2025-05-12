@@ -1,4 +1,4 @@
-import type { ProyectoToUpload } from "../proyectos"
+import type { ProyectoToUpload } from "@/proyectos"
 
 // ------ State ------
 export type ProyectoFileState = {

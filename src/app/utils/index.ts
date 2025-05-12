@@ -1,7 +1,5 @@
 export * from "./context"
 export * from "./formatDate"
 export * from "./participa"
-export * from "./proyectos"
 export * from "./reducer"
 export * from "./types"
-export * from "./validation"

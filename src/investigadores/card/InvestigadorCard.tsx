@@ -8,13 +8,13 @@ import {
 } from "@heroicons/react/24/solid"
 import { useEffect, useState } from "react"
 
-import type { ProyectoMinimumDataType } from "@/app/utils"
 import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
 import {
   deleteInvestigador,
   fetchAllProyectosByInvestigadores,
   fetchNombresDeAutor,
 } from "@/db"
+import type { ProyectoMinimumDataType } from "@/proyectos"
 
 import { DeleteButton } from "../../app/ui/button"
 import { EditButton } from "../../app/ui/button/EditButton"

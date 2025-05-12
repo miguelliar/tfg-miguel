@@ -1,14 +1,14 @@
 "use server"
 
+import type { ParticipaType } from "@/app/utils"
+import { fetchInvestigadorByNombreAutor, fetchProyectoByCode } from "@/db"
 import type {
   ErrorMessage,
-  ParticipaType,
   ProyectoMessage,
   ProyectoToUpload,
   WarningMessage,
-} from "@/app/utils"
-import { MESSAGES } from "@/app/utils"
-import { fetchInvestigadorByNombreAutor, fetchProyectoByCode } from "@/db"
+} from "@/proyectos"
+import { MESSAGES } from "@/proyectos"
 
 export const validateProyectosToAdd = async (
   proyectos: ProyectoToUpload[]

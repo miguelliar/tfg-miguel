@@ -2,8 +2,9 @@
 
 import ShowMoreText from "react-show-more-text"
 
-import type { ProyectoMinimumDataType } from "@/app/utils"
 import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
+
+import type { ProyectoMinimumDataType } from "../types"
 
 interface MiniCardProps {
   proyecto: ProyectoMinimumDataType
