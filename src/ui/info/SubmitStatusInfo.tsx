@@ -1,8 +1,10 @@
 import { CheckBadgeIcon, XCircleIcon } from "@heroicons/react/24/solid"
 
-import { Button } from "@/ui/button"
-import { CardModal } from "@/ui/cards"
 import type { ProyectoFileState } from "@/utils"
+
+import { Button } from "../button/Button"
+// This is a deep import to avoid a dependency cycles
+import { CardModal } from "../cards/CardModal"
 
 type SubmitStatusInfoProps = {
   submittedStatus: ProyectoFileState["submittedStatus"]

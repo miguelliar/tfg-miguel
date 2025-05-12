@@ -1,8 +1,8 @@
-import type { NextApiRequest } from "next"
+import type { NextRequest } from "next/server"
 
 import { fetchProyectoByQuery, fetchProyectoData } from "@/db"
 
-export async function GET(request: NextApiRequest) {
+export async function GET(request: NextRequest) {
   try {
     const params = new URLSearchParams(request.url?.split("?")[1] ?? "")
     const query = params.get("query")
@@ -25,7 +25,6 @@ export async function GET(request: NextApiRequest) {
     }
 
     if (!query) {
-      console.log(query)
       const results = await fetchProyectoData(
         parseInt(page, 10),
         parseInt(offset, 10)

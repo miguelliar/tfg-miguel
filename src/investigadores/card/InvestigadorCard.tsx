@@ -8,7 +8,6 @@ import {
 } from "@heroicons/react/24/solid"
 import { useEffect, useState } from "react"
 
-import { useQueryParam } from "@/utils/hooks/useQueryParam"
 import {
   deleteInvestigador,
   fetchAllProyectosByInvestigadores,
@@ -16,6 +15,7 @@ import {
 } from "@/db"
 import type { ProyectoMinimumDataType } from "@/proyectos"
 import { CardModal, DeleteButton, EditButton, HorizontalCard } from "@/ui"
+import { useQueryParam } from "@/utils/hooks/useQueryParam"
 
 import { EditInvestigadorForm } from "../form"
 import type { InvestigadorType } from "../types"

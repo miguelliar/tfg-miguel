@@ -2,12 +2,6 @@ import type { NextRequest } from "next/server"
 
 import { processProyectoLines } from "@/proyectos"
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-}
-
 export async function POST(request: NextRequest) {
   try {
     const buffer = await request.arrayBuffer()

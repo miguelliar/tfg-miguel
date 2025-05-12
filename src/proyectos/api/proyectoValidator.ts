@@ -2,13 +2,14 @@
 
 import { fetchInvestigadorByNombreAutor, fetchProyectoByCode } from "@/db"
 import type { ParticipaType } from "@/participa"
+
 import type {
   ErrorMessage,
   ProyectoMessage,
   ProyectoToUpload,
   WarningMessage,
-} from "@/proyectos"
-import { MESSAGES } from "@/proyectos"
+} from "../utils"
+import { MESSAGES } from "../utils"
 
 export const validateProyectosToAdd = async (
   proyectos: ProyectoToUpload[]

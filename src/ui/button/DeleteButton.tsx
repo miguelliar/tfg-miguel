@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation"
 import { useState } from "react"
 
 import { CardModal } from "../cards/CardModal"
-import { SubmitStatusInfo } from "../information"
+import { SubmitStatusInfo } from "../info/SubmitStatusInfo"
 import { Button } from "./Button"
 
 export const DeleteButton = ({

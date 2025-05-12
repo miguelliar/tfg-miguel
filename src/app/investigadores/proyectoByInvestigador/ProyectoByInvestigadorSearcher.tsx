@@ -9,8 +9,7 @@ import {
   fetchJoinProyectosByInvestigadores,
 } from "@/db"
 import type { ProyectoMinimumDataType } from "@/proyectos"
-
-import { Button } from "../button"
+import { Button } from "@/ui"
 
 export const FETCH_PROYECTO_OPTION: {
   [name: string]: {

@@ -4,9 +4,8 @@ import { DocumentMagnifyingGlassIcon } from "@heroicons/react/24/solid"
 import cx from "classnames"
 import { useContext } from "react"
 
+import { Button } from "@/ui"
 import { SearchProyectoByInvestigadorContext } from "@/utils"
-
-import { Button } from "./Button"
 
 export const SearchProyectosByInvestigadorButton = () => {
   const {

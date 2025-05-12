@@ -8,12 +8,10 @@ import {
   fetchInvestigadorTotalPages,
 } from "@/db"
 import { InvestigadorCard, InvestigadorMiniCard } from "@/investigadores"
-import {
-  Pagination,
-  ProyectoViewerByInvestigador,
-  Search,
-  SearchProyectosByInvestigadorButton,
-} from "@/ui"
+import { Pagination, Search } from "@/ui"
+
+import { ProyectoViewerByInvestigador } from "./proyectoByInvestigador/ProyectoViewerByInvestigador"
+import { SearchProyectosByInvestigadorButton } from "./proyectoByInvestigador/SearchProyectosByInvestigadorButton"
 
 export default async function Page(props: {
   searchParams?: Promise<{

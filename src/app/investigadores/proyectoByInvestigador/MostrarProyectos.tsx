@@ -7,7 +7,6 @@ import {
 import { isEqual } from "lodash"
 import { useEffect, useRef, useState } from "react"
 
-import { useQueryParam } from "@/utils/hooks/useQueryParam"
 import { fetchProyectoByCode } from "@/db"
 import type { ProyectoMinimumDataType, ProyectoType } from "@/proyectos"
 import {
@@ -15,8 +14,9 @@ import {
   ProyectoCard,
   ProyectoMiniCard,
 } from "@/proyectos"
+import { Button } from "@/ui"
+import { useQueryParam } from "@/utils/hooks/useQueryParam"
 
-import { Button } from "../button"
 import { InvestigadoresList } from "./InvestigadoresList"
 import {
   FETCH_PROYECTO_OPTION,

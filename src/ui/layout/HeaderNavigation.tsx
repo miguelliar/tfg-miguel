@@ -11,7 +11,7 @@ import { usePathname } from "next/navigation"
 import { useState } from "react"
 
 import LogoMini from "../../app/assets/logo-mini.svg"
-import { Button } from "../button"
+import { Button } from "../button/Button"
 import { CardModal } from "../cards"
 import { Breadcrumbs } from "./breadcrumbs/Breadcrumbs"
 

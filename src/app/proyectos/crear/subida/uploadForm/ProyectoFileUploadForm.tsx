@@ -1,10 +1,8 @@
 "use client"
 
-import { ProyectoCardToUpload } from "@/proyectos"
+import { Button, CardsSkeleton, SubmitStatusInfo } from "@/ui"
 
-import { Button } from "../button/Button"
-import { CardsSkeleton } from "../cards/CardSkeleton"
-import { SubmitStatusInfo } from "../information"
+import { ProyectoCardToUpload } from "./ProyectoUploadCard"
 import { useProyectoFileUpload } from "./useProyectoFileUpload"
 
 export const ProyectoFileUploaderForm = () => {

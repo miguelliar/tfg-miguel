@@ -11,21 +11,16 @@ import type { KeyboardEvent } from "react"
 import { useState } from "react"
 
 import type { ParticipaType } from "@/participa"
+import type { ErrorMessage, ProyectoToUpload, ProyectoType } from "@/proyectos"
 import {
-  EditButton,
-  ErrorMessageCard,
-  HorizontalCard,
-  WarningMessageCard,
-} from "@/ui"
-
-import { EditProyectoForm } from "../form"
-import type { ProyectoType } from "../types"
-import type { ErrorMessage } from "../utils/infoMessage"
-import type { ProyectoToUpload } from "../utils/map"
-import {
+  EditProyectoForm,
   mapProyectoToUploadToProyectType,
   mapProyectoTypeToProyectoToUpload,
-} from "../utils/map"
+} from "@/proyectos"
+import { EditButton, HorizontalCard } from "@/ui"
+
+import { ErrorMessageCard } from "./messages/ErrorMessageCard"
+import { WarningMessageCard } from "./messages/WarningMessageCard"
 
 interface ProyectoCardToUploadProps {
   proyecto: ProyectoToUpload
