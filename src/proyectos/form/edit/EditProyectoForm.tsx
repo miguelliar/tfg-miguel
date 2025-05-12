@@ -8,11 +8,11 @@ import {
 import type { KeyboardEvent } from "react"
 import { useRef, useState } from "react"
 
-import { parseDateToString } from "@/app/utils"
 import type { ParticipaType } from "@/participa"
 import { AddParticipanteCard } from "@/participa"
 import type { ProyectoType } from "@/proyectos/types"
 import { Button, HorizontalCard } from "@/ui"
+import { parseDateToString } from "@/utils"
 
 import { useEditProyectoForm } from "./useEditProyectoForm"
 

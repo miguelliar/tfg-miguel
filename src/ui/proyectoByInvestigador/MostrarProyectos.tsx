@@ -7,7 +7,7 @@ import {
 import { isEqual } from "lodash"
 import { useEffect, useRef, useState } from "react"
 
-import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
+import { useQueryParam } from "@/utils/hooks/useQueryParam"
 import { fetchProyectoByCode } from "@/db"
 import type { ProyectoMinimumDataType, ProyectoType } from "@/proyectos"
 import {

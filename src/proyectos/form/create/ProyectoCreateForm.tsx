@@ -5,9 +5,9 @@
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/solid"
 import { useState } from "react"
 
-import { parseDateToString } from "@/app/utils"
 import { AddParticipanteCard } from "@/participa"
 import { Button, HorizontalCard } from "@/ui"
+import { parseDateToString } from "@/utils"
 
 import { useProyectoCreate } from "./useProyectoCreate"
 

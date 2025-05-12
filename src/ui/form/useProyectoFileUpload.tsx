@@ -4,18 +4,18 @@ import { useRouter } from "next/navigation"
 import { useCallback, useEffect, useReducer } from "react"
 import { validateProyectoToAdd } from "utils"
 
-import type { ProyectoFileState } from "@/app/utils"
-import {
-  defaultProyectoFileState,
-  ProyectoFileActions,
-  proyectoFileUpdateReducer,
-} from "@/app/utils"
 import type { ErrorMessage, ProyectoToUpload } from "@/proyectos"
 import {
   addAllProyectos,
   fetchParsedProyectos,
   mapProyectosToUploadToProyectsType,
 } from "@/proyectos"
+import type { ProyectoFileState } from "@/utils"
+import {
+  defaultProyectoFileState,
+  ProyectoFileActions,
+  proyectoFileUpdateReducer,
+} from "@/utils"
 
 type ProyectoFileUploadFields = {
   isLoading: boolean

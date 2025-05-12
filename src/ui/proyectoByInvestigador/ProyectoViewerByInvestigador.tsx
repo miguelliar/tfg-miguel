@@ -3,7 +3,7 @@
 import { useSearchParams } from "next/navigation"
 import { useState } from "react"
 
-import { SearchProyectoByInvestigadorContext } from "@/app/utils"
+import { SearchProyectoByInvestigadorContext } from "@/utils"
 
 import { MostrarProyectos } from "./MostrarProyectos"
 

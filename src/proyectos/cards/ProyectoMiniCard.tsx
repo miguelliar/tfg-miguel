@@ -2,7 +2,7 @@
 
 import ShowMoreText from "react-show-more-text"
 
-import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
+import { useQueryParam } from "@/utils/hooks/useQueryParam"
 
 import type { ProyectoMinimumDataType } from "../types"
 

@@ -3,9 +3,8 @@
 import cx from "classnames"
 import { useContext, useMemo } from "react"
 
-import { SearchProyectoByInvestigadorContext } from "@/app/utils"
-import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
 import { Button } from "@/ui"
+import { SearchProyectoByInvestigadorContext, useQueryParam } from "@/utils"
 
 import type { InvestigadorMinimumDataType } from "../types"
 

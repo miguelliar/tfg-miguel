@@ -2,7 +2,7 @@
 
 import cx from "classnames"
 
-import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
+import { useQueryParam } from "@/utils/hooks/useQueryParam"
 
 import { Button } from "../button"
 

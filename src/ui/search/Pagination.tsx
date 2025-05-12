@@ -5,7 +5,7 @@ import cx from "classnames"
 import Link from "next/link"
 import { usePathname, useSearchParams } from "next/navigation"
 
-import { generatePagination } from "../../app/utils/pagination"
+import { generatePagination } from "../../utils/pagination"
 
 export function Pagination({ totalPages }: { totalPages: number }) {
   const pathname = usePathname()

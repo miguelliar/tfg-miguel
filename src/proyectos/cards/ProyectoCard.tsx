@@ -3,8 +3,6 @@
 import { ArrowTopRightOnSquareIcon, UsersIcon } from "@heroicons/react/24/solid"
 import { useEffect, useState } from "react"
 
-import { getStringDate } from "@/app/utils"
-import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
 import {
   deleteProyecto,
   fetchParticipaByCodigoProyecto,
@@ -12,6 +10,8 @@ import {
 } from "@/db"
 import type { ParticipaType } from "@/participa"
 import { CardModal, DeleteButton, EditButton, HorizontalCard } from "@/ui"
+import { getStringDate } from "@/utils"
+import { useQueryParam } from "@/utils/hooks/useQueryParam"
 
 import { EditProyectoForm } from "../form"
 import type { ProyectoType } from "../types"

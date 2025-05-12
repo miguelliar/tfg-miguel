@@ -8,7 +8,7 @@ import {
 } from "@heroicons/react/24/solid"
 import { useEffect, useState } from "react"
 
-import { useQueryParam } from "@/app/utils/hooks/useQueryParam"
+import { useQueryParam } from "@/utils/hooks/useQueryParam"
 import {
   deleteInvestigador,
   fetchAllProyectosByInvestigadores,
