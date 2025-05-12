@@ -4,8 +4,8 @@ import cx from "classnames"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 
-import { Footer } from "./ui/Footer"
-import { HeaderNavigation } from "./ui/HeaderNavigation"
+import { Footer } from "../ui/layout/Footer"
+import { HeaderNavigation } from "../ui/layout/HeaderNavigation"
 
 const inter = Inter({ subsets: ["latin"] })
 

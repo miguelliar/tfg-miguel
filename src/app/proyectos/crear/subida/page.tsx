@@ -1,6 +1,6 @@
 import { DocumentArrowUpIcon } from "@heroicons/react/24/solid"
 
-import { ProyectoFileUploaderForm } from "@/app/ui"
+import { ProyectoFileUploaderForm } from "./uploadForm/ProyectoFileUploadForm"
 
 export default async function Page() {
   return (
