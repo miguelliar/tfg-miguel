@@ -2,13 +2,13 @@
 
 import { useRouter } from "next/navigation"
 import { useCallback, useEffect, useReducer } from "react"
-import { validateProyectoToAdd } from "utils"
 
 import type { ErrorMessage, ProyectoToUpload } from "@/proyectos"
 import {
   addAllProyectos,
   fetchParsedProyectos,
   mapProyectosToUploadToProyectsType,
+  validateProyectoToAdd,
 } from "@/proyectos"
 import type { ProyectoFileState } from "@/utils"
 import {
