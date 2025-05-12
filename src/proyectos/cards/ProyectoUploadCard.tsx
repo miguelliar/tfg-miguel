@@ -10,7 +10,7 @@ import cx from "classnames"
 import type { KeyboardEvent } from "react"
 import { useState } from "react"
 
-import type { ParticipaType } from "@/app/utils"
+import type { ParticipaType } from "@/participa"
 
 import { EditButton } from "../../app/ui/button"
 import { HorizontalCard } from "../../app/ui/cards/HorizontalCard"

@@ -6,10 +6,10 @@ import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/solid"
 import { useState } from "react"
 
 import { parseDateToString } from "@/app/utils"
+import { AddParticipanteCard } from "@/participa"
 
 import { Button } from "../../../app/ui/button/Button"
 import { HorizontalCard } from "../../../app/ui/cards/HorizontalCard"
-import { AddParticipanteCard } from "../../../app/ui/menu/AddParticipante"
 import { useProyectoCreate } from "./useProyectoCreate"
 
 export const ProyectoCreate = () => {

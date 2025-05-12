@@ -3,9 +3,13 @@
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
-import type { ParticipaCommand, ParticipaType } from "@/app/utils"
-import { AddParticipaCommand, DeleteParticipaCommand } from "@/app/utils"
 import { fetchProyectoByCode } from "@/db"
+import {
+  AddParticipaCommand,
+  DeleteParticipaCommand,
+  type ParticipaCommand,
+  type ParticipaType,
+} from "@/participa"
 import type { ProyectoType } from "@/proyectos/types"
 
 const validateParameters = async (

@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react"
 import { useDebouncedCallback } from "use-debounce"
 
-import type { ParticipaType } from "@/app/utils"
 import {
   fetchInvestigadoresByQuery,
   fetchInvestigadoresNotParticipatingInProject,
   fetchNombresDeAutor,
 } from "@/db"
 import type { InvestigadorMinimumDataType } from "@/investigadores"
+
+import type { ParticipaType } from "../type"
 
 export const useAddParticipante = ({
   codigo,

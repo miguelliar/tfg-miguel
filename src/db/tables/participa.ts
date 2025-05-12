@@ -2,7 +2,7 @@
 
 import { unstable_noStore as noStore } from "next/cache"
 
-import type { ParticipaType } from "@/app/utils"
+import type { ParticipaType } from "@/participa"
 
 import config from "../constants.json"
 import { getPool } from "../pool"

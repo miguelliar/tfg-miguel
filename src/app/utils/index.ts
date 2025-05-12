@@ -1,5 +1,3 @@
 export * from "./context"
 export * from "./formatDate"
-export * from "./participa"
 export * from "./reducer"
-export * from "./types"

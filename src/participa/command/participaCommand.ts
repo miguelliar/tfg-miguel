@@ -1,4 +1,4 @@
-import type { ParticipaType } from "../types"
+import type { ParticipaType } from "../type"
 
 export class ParticipaCommand {
   participa: ParticipaType

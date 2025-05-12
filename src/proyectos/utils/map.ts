@@ -1,5 +1,5 @@
-import type { ParticipaType } from "@/app/utils"
 import { getStringDate } from "@/app/utils"
+import type { ParticipaType } from "@/participa"
 
 import type { ProyectoType } from "../types"
 import type { ProyectoMessage } from "./infoMessage"

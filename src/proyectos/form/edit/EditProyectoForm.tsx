@@ -8,13 +8,13 @@ import {
 import type { KeyboardEvent } from "react"
 import { useRef, useState } from "react"
 
-import type { ParticipaType } from "@/app/utils"
 import { parseDateToString } from "@/app/utils"
+import type { ParticipaType } from "@/participa"
+import { AddParticipanteCard } from "@/participa"
 import type { ProyectoType } from "@/proyectos/types"
 
 import { Button } from "../../../app/ui/button/Button"
 import { HorizontalCard } from "../../../app/ui/cards/HorizontalCard"
-import { AddParticipanteCard } from "../../../app/ui/menu/AddParticipante"
 import { useEditProyectoForm } from "./useEditProyectoForm"
 
 export type EditProyectoFormProps = {

@@ -1,7 +1,7 @@
 "use server"
 
-import type { ParticipaType } from "@/app/utils"
 import { fetchInvestigadorByNombreAutor, fetchProyectoByCode } from "@/db"
+import type { ParticipaType } from "@/participa"
 import type {
   ErrorMessage,
   ProyectoMessage,

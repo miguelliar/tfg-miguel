@@ -1,7 +1,7 @@
 "use client"
 
-// eslint-disable-next-line import/no-cycle
-import { ProyectoCardToUpload } from "../../../proyectos/cards/ProyectoUploadCard"
+import { ProyectoCardToUpload } from "@/proyectos"
+
 import { Button } from "../button/Button"
 import { CardsSkeleton } from "../cards/CardSkeleton"
 import { SubmitStatusInfo } from "../information"
