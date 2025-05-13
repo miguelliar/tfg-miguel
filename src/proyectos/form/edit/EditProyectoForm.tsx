@@ -138,7 +138,7 @@ export const EditProyectoForm = ({
           <b>Descripcion: </b>
         </h3>
         <textarea
-          className=""
+          className="min-h-28 max-h-72"
           id="titulo"
           name="titulo"
           placeholder="Titulo"
