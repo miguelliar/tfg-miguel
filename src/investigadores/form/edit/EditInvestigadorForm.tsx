@@ -57,6 +57,7 @@ export const EditInvestigadorForm = ({
           defaultValue={editedInvestigador.nombre}
           onChange={handleChange}
           onKeyDown={startingInputOnKeyPress}
+          className="w-full"
         />
       </label>
       {errors.apellidos && (
@@ -72,6 +73,7 @@ export const EditInvestigadorForm = ({
           placeholder="Apellidos del investigador"
           defaultValue={editedInvestigador.apellidos}
           onChange={handleChange}
+          className="w-full"
         />
       </label>
       {errors.universidad && (
@@ -86,8 +88,9 @@ export const EditInvestigadorForm = ({
           name="universidad"
           type="text"
           placeholder="Universidad del investigador"
-          defaultValue={editedInvestigador.departamento}
+          defaultValue={editedInvestigador.universidad}
           onChange={handleChange}
+          className="w-full"
         />
       </label>
       {errors.departamento && (
@@ -104,6 +107,7 @@ export const EditInvestigadorForm = ({
           placeholder="Departamento de la universidad"
           defaultValue={editedInvestigador.departamento}
           onChange={handleChange}
+          className="w-full"
         />
       </label>
       {errors.area && <span style={{ color: "red" }}>{errors.area}</span>}
@@ -118,6 +122,7 @@ export const EditInvestigadorForm = ({
           placeholder="Area del departamento"
           defaultValue={editedInvestigador.area}
           onChange={handleChange}
+          className="w-full"
         />
       </label>
       {errors.figura && <span style={{ color: "red" }}>{errors.figura}</span>}
@@ -132,6 +137,7 @@ export const EditInvestigadorForm = ({
           placeholder="Figura universitaria"
           defaultValue={editedInvestigador.figura}
           onChange={handleChange}
+          className="w-full"
         />
       </label>
       <div className="flex justify-around">

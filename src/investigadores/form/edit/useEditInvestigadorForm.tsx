@@ -1,5 +1,6 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 import { updateInvestigador } from "@/db"
@@ -57,10 +58,12 @@ export const useEditInvestigadorForm = (
   InvestigadorType,
   typeof inputErrors,
   (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
-  (e: any) => void,
+  (e: any) => Promise<void>,
 ] => {
   const [editedInvestigador, setEditedInvestigador] = useState(investigador)
   const [errors, setErrors] = useState(inputErrors)
+
+  const { refresh } = useRouter()
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -72,12 +75,13 @@ export const useEditInvestigadorForm = (
     }))
   }
 
-  const onSubmit = (e: any) => {
+  const onSubmit = async (e: any) => {
     e.preventDefault()
     if (JSON.stringify(investigador) !== JSON.stringify(editedInvestigador)) {
       if (validateParameters(editedInvestigador, setErrors)) {
-        updateInvestigador(editedInvestigador)
+        await updateInvestigador(editedInvestigador)
         finishEditMode()
+        refresh()
       }
     }
   }
