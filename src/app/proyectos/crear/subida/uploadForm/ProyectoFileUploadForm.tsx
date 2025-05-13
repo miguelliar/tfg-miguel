@@ -40,7 +40,7 @@ export const ProyectoFileUploaderForm = () => {
           className="flex flex-col gap-3 md:gap-4 w-full items-center"
           htmlFor="proyectoFile"
         >
-          <span>Elige un archivo .csv con los proyectos a subir</span>
+          <span>Elige un archivo .csv o .xlsx con los proyectos a subir</span>
           <input
             type="file"
             id="proyectoFile"
