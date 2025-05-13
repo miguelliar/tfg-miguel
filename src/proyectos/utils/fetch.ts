@@ -25,9 +25,12 @@ export const fetchParsedProyectos = async (
   selectedFile: any
 ): Promise<ProyectoToUpload[] | undefined> => {
   try {
+    const body = new FormData()
+    body.set("proyectoFile", selectedFile)
+
     const response = await fetch("/api/proyecto/parseFile", {
       method: "POST",
-      body: selectedFile,
+      body,
     })
     return await response.json()
   } catch (error) {
