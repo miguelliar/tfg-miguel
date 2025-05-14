@@ -16,13 +16,7 @@ import { useQueryParam } from "@/utils/hooks/useQueryParam"
 import { EditProyectoForm } from "../form"
 import type { ProyectoType } from "../types"
 
-export const ProyectoCard = ({
-  proyecto,
-  unSync,
-}: {
-  proyecto: ProyectoType
-  unSync?: boolean
-}) => {
+export const ProyectoCard = ({ proyecto }: { proyecto: ProyectoType }) => {
   const [isEditMode, setEditMode] = useState(false)
   const [participaciones, setParticipaciones] = useState<ParticipaType[]>([])
   const { removeQueryParam } = useQueryParam()
@@ -36,27 +30,25 @@ export const ProyectoCard = ({
   return (
     <CardModal
       option={
-        !unSync && (
-          <>
-            <EditButton isEditMode={isEditMode} setEditMode={setEditMode} />
-            <DeleteButton
-              className=""
-              deleteEvent={() => deleteProyecto(proyecto.codigo)}
-              title="Borrar proyecto"
-              warningMessage={`El proyecto ${proyecto.codigo} así como las participaciones del mismo serán eliminados`}
-              submitMessages={{
-                onSuccess: "Se ha borrado el proyecto y sus participantes",
-                onFailure:
-                  "Ha habido un problema al borrar el proyecto y sus participantes",
-              }}
-            />
-          </>
-        )
+        <>
+          <EditButton isEditMode={isEditMode} setEditMode={setEditMode} />
+          <DeleteButton
+            className=""
+            deleteEvent={() => deleteProyecto(proyecto.codigo)}
+            title="Borrar proyecto"
+            warningMessage={`El proyecto ${proyecto.codigo} así como las participaciones del mismo serán eliminados`}
+            submitMessages={{
+              onSuccess: "Se ha borrado el proyecto y sus participantes",
+              onFailure:
+                "Ha habido un problema al borrar el proyecto y sus participantes",
+            }}
+          />
+        </>
       }
       onClose={() => removeQueryParam("codigo")}
     >
       <h2 className="text-accent-primary">Codigo: {proyecto.codigo}</h2>
-      {isEditMode && !unSync ? (
+      {isEditMode ? (
         <EditProyectoForm
           proyecto={proyecto}
           finishEditMode={() => {
