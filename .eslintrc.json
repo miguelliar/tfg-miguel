@@ -98,6 +98,25 @@
           }
         ]
       }
+    },
+    {
+      "files": ["**/*.test.tsx", "**/*.spec.tsx"],
+      "plugins": [
+        "@typescript-eslint",
+        "unused-imports",
+        "simple-import-sort" 
+      ],
+      "extends": [
+        "airbnb-base",
+        "next/core-web-vitals",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        "react/button-has-type": "off",
+        "import/no-extraneous-dependencies": "off",
+        "import/extensions": "off",
+        "no-undef": "off"
+      }
     }
   ]
 }
