@@ -29,7 +29,7 @@ export const SubmitStatusInfo = ({
               <div className="flex flex-row items-center">
                 <CheckBadgeIcon className="mx-2 mt-[2px] h-[40px] w-[40px] text-success bg-secondary rounded-full" />
                 <p>
-                  <b>Éxito</b>
+                  <strong>Éxito</strong>
                 </p>
               </div>
               <p className="text-center">{messages.onSuccess}</p>
@@ -39,7 +39,7 @@ export const SubmitStatusInfo = ({
               <div className="flex flex-row items-center">
                 <XCircleIcon className="mx-2 mt-[2px] h-[40px] w-[40px] text-error-accent bg-secondary rounded-full" />
                 <p>
-                  <b>Error</b>
+                  <strong>Error</strong>
                 </p>
               </div>
               <p className="text-center">{messages.onFailure}</p>

@@ -42,38 +42,38 @@ const ProyectoInfo = ({ proyecto }: { proyecto: ProyectoToUpload }) => {
       <div className="flex flex-col gap-2 ">
         <div>
           <h3 className="text-wrap">
-            <b>Investigador Principal: </b>
+            <strong>Investigador Principal: </strong>
           </h3>
           <p className="text-nowrap">{proyecto.ip}</p>
         </div>
         {proyecto.coip && (
           <div className="mt-1">
             <h3>
-              <b>Co Investigador Principal:</b>
+              <strong>Co Investigador Principal:</strong>
             </h3>
             <p>{proyecto.coip}</p>
           </div>
         )}
         <div className="w-full">
           <h3 className="align-middle">
-            <b>Descripcion</b>
+            <strong>Descripcion</strong>
           </h3>
           <p>{proyecto.titulo}</p>
         </div>
         <div>
-          <b>Financiado:</b>
+          <strong>Financiado:</strong>
           <p>{proyecto.financiado}</p>
         </div>
         <div className="flex flex-row justify-around">
           <div>
             <h3>
-              <b>Inicio:</b>
+              <strong>Inicio:</strong>
             </h3>
             <p suppressHydrationWarning>{proyecto.inicio}</p>
           </div>
           <div>
             <h3>
-              <b>Fin:</b>
+              <strong>Fin:</strong>
             </h3>
             <p suppressHydrationWarning>{proyecto.fin ?? "Sin fin"}</p>
           </div>
@@ -81,7 +81,7 @@ const ProyectoInfo = ({ proyecto }: { proyecto: ProyectoToUpload }) => {
         {participantes.length > 0 && (
           <>
             <h3>
-              <b className="mt-5">Participantes</b>
+              <strong className="mt-5">Participantes</strong>
             </h3>
             <div className="flex flex-col overflow-auto gap-2">
               {participantes.map((participa) => {

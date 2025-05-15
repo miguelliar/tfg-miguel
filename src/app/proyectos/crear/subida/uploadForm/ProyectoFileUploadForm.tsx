@@ -64,7 +64,7 @@ export const ProyectoFileUploaderForm = () => {
                       corrige los problemas o ignora los errores.
                     </span>
                     <br />
-                    <b>Aquellos que sean ignorados no se añadirán.</b>
+                    <strong>Aquellos que sean ignorados no se añadirán.</strong>
                   </p>
                 </section>
               </>

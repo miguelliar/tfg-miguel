@@ -7,7 +7,7 @@ export const Footer = () => {
         className="text-secondary hover:text-secondary-soft hover:underline"
         href="/about"
       >
-        Sobre <b>Gestor de Proyectos de Investigación</b>
+        Sobre <strong>Gestor de Proyectos de Investigación</strong>
       </Link>
       <p>Por Miguel Ligero Arbesú, 2024-2025</p>
     </footer>

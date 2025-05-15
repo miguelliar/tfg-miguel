@@ -65,7 +65,7 @@ export const ProyectoCard = ({ proyecto }: { proyecto: ProyectoType }) => {
         <div className="flex flex-col gap-2 my-3">
           <div>
             <h3>
-              <b className="text-wrap">Investigador Principal: </b>
+              <strong className="text-wrap">Investigador Principal: </strong>
             </h3>
             <p className="text-nowrap">{proyecto.ip}</p>
           </div>
@@ -73,25 +73,25 @@ export const ProyectoCard = ({ proyecto }: { proyecto: ProyectoType }) => {
           {proyecto.coip && (
             <div className="mt-1">
               <h3>
-                <b>Co Investigador Principal: </b>
+                <strong>Co Investigador Principal: </strong>
               </h3>
               <p>{proyecto.coip}</p>
             </div>
           )}
           <div className="w-full">
             <h3 className="align-middle">
-              <b>Descripcion</b>
+              <strong>Descripcion</strong>
             </h3>
             <p>{proyecto.titulo}</p>
           </div>
           <div>
-            <b>Financiado:</b>
+            <strong>Financiado:</strong>
             <p>{proyecto.financiado}</p>
           </div>
           <div className="flex flex-row justify-around">
             <div>
               <h3>
-                <b>Inicio:</b>
+                <strong>Inicio:</strong>
               </h3>
               <p suppressHydrationWarning>
                 {getStringDate(proyecto.inicio, "Sin inicio")}
@@ -99,7 +99,7 @@ export const ProyectoCard = ({ proyecto }: { proyecto: ProyectoType }) => {
             </div>
             <div>
               <h3>
-                <b>Fin:</b>
+                <strong>Fin:</strong>
               </h3>
               <p suppressHydrationWarning>
                 {getStringDate(proyecto.fin, "Sin fin")}
@@ -111,7 +111,7 @@ export const ProyectoCard = ({ proyecto }: { proyecto: ProyectoType }) => {
               <div className="flex flex-row mt-5 gap-2">
                 <UsersIcon className="w-4" />
                 <h3>
-                  <b>Participantes</b>
+                  <strong>Participantes</strong>
                 </h3>
               </div>
               <div className="flex flex-col overflow-auto items-center gap-2">

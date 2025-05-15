@@ -32,9 +32,9 @@ export const InvestigadoresList = ({
               >
                 Quitar
               </Button>
-              <b className="text-accent-primary overflow-hidden text-ellipsis">
+              <strong className="text-accent-primary overflow-hidden text-ellipsis">
                 {investigador}
-              </b>
+              </strong>
             </li>
           ))}
         </ul>

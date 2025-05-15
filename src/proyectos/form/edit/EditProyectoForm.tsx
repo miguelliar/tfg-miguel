@@ -86,7 +86,7 @@ export const EditProyectoForm = ({
             <span style={{ color: "red" }}>{errors.codigo}</span>
           )}
           <label className="flex flex-col w-full" htmlFor="codigo">
-            <b>Codigo Proyecto: </b>
+            <strong>Codigo Proyecto: </strong>
             <input
               id="codigo"
               name="codigo"
@@ -105,7 +105,7 @@ export const EditProyectoForm = ({
       )}
       {errors.ip && <span style={{ color: "red" }}>{errors.ip}</span>}
       <label className="flex flex-col w-full" htmlFor="ip">
-        <b>Investigador Principal: </b>
+        <strong>Investigador Principal: </strong>
         <input
           id="ip"
           name="ip"
@@ -122,7 +122,7 @@ export const EditProyectoForm = ({
       </label>
       {errors.coip && <span style={{ color: "red" }}>{errors.coip}</span>}
       <label className="flex flex-col w-full" htmlFor="coip">
-        <b>Co Investigador Principal: </b>
+        <strong>Co Investigador Principal: </strong>
         <input
           id="coip"
           name="coip"
@@ -135,7 +135,7 @@ export const EditProyectoForm = ({
       {errors.titulo && <span style={{ color: "red" }}>{errors.titulo}</span>}
       <label className="flex flex-col w-full" htmlFor="titulo">
         <h3 className="align-middle">
-          <b>Descripcion: </b>
+          <strong>Descripcion: </strong>
         </h3>
         <textarea
           className="min-h-28 max-h-72"
@@ -150,7 +150,7 @@ export const EditProyectoForm = ({
         <span style={{ color: "red" }}>{errors.financiado}</span>
       )}
       <label className="flex flex-col w-full" htmlFor="financiado">
-        <b>Financiado:</b>
+        <strong>Financiado:</strong>
         <textarea
           id="financiado"
           name="financiado"
@@ -167,7 +167,7 @@ export const EditProyectoForm = ({
       )}
       <div className="flex flex-row justify-around">
         <label htmlFor="inicio">
-          <b>Inicio:</b>
+          <strong>Inicio:</strong>
           <input
             id="inicio"
             name="inicio"
@@ -179,7 +179,7 @@ export const EditProyectoForm = ({
           />
         </label>
         <label htmlFor="fin">
-          <b>Fin:</b>
+          <strong>Fin:</strong>
           <input
             id="fin"
             name="fin"
@@ -195,7 +195,7 @@ export const EditProyectoForm = ({
       <div className="flex flex-col justify-start items-center">
         <div className="flex flex-row mt-5 gap-2">
           <UsersIcon className="w-4" />
-          <b>Participantes</b>
+          <strong>Participantes</strong>
         </div>
         {editedParticipaciones.length > 0 && (
           <div className="flex flex-col gap-2 overflow-auto mt-2">

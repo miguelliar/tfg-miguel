@@ -60,7 +60,8 @@ export const DeleteButton = ({
                   {warningMessage}
                 </h2>
                 <p className="mt-2 text-center">
-                  ¿Deseas continuar? Esta acción <b>no es reversible.</b>
+                  ¿Deseas continuar? Esta acción{" "}
+                  <strong>no es reversible.</strong>
                 </p>
                 <div className="mt-4 flex flex-row gap-4">
                   <Button
