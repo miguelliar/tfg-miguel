@@ -127,7 +127,9 @@ export const ProyectoCreate = () => {
           </label>
         </div>
         <div className="flex flex-col justify-start items-center">
-          <strong className="mt-5">Participantes</strong>
+          <h2>
+            <strong className="mt-5">Participantes</strong>
+          </h2>
           <div className="flex flex-col gap-2 overflow-auto mt-2">
             {addedParticipantes.map((participa) => (
               <div
