@@ -73,42 +73,42 @@ export const InvestigadorCard = ({
         <div className="flex flex-col gap-2 my-3">
           <div className="w-full">
             <h3 className="align-middle">
-              <b>Nombre:</b>
+              <strong>Nombre:</strong>
             </h3>
             <p>{investigador.nombre}</p>
           </div>
           <div className="w-full">
             <h3 className="align-middle">
-              <b>Apellidos:</b>
+              <strong>Apellidos:</strong>
             </h3>
             <p>{investigador.apellidos}</p>
           </div>
           <div>
-            <b>Universidad:</b>
+            <strong>Universidad:</strong>
             <p>{investigador.universidad}</p>
           </div>
           <div>
             <h3>
-              <b>Departamento:</b>
+              <strong>Departamento:</strong>
             </h3>
             <p>{investigador.departamento}</p>
           </div>
           <div>
             <h3>
-              <b>Area:</b>
+              <strong>Area:</strong>
             </h3>
             <p>{investigador.area}</p>
           </div>
           <div>
             <h3>
-              <b>Figura:</b>
+              <strong>Figura:</strong>
             </h3>
             <p>{investigador.figura}</p>
           </div>
           {proyectosParticipa.length > 0 && (
             <>
               <h3 className="mt-5">
-                <b>Nombres de autor</b>
+                <strong>Nombres de autor</strong>
               </h3>
               <ul>
                 {nombresAutor.map((nombre) => (
@@ -118,7 +118,7 @@ export const InvestigadorCard = ({
               <div className="flex flex-row mt-5">
                 <DocumentMagnifyingGlassIcon className="w-4" />
                 <h3>
-                  <b>Participante en</b>
+                  <strong>Participante en</strong>
                 </h3>
               </div>
               <div className="flex flex-col overflow-auto gap-2">

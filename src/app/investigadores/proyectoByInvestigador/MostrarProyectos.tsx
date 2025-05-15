@@ -73,7 +73,7 @@ export const MostrarProyectos = () => {
       <div className="flex flex-row gap-2">
         <DocumentMagnifyingGlassIcon className="w-6" />
         <h2 className="text-2xl">
-          <b>Busqueda de proyectos</b>
+          <strong>Busqueda de proyectos</strong>
         </h2>
       </div>
       {proyectoSearched && <ProyectoCard proyecto={proyectoSearched} />}

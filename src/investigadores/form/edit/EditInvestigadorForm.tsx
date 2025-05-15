@@ -44,7 +44,7 @@ export const EditInvestigadorForm = ({
     <form className="flex flex-col gap-2 my-3" onSubmit={(e) => onSubmit(e)}>
       {errors.nombre && <span style={{ color: "red" }}>{errors.nombre}</span>}
       <label htmlFor="nombre">
-        <b>Nombre: </b>
+        <strong>Nombre: </strong>
         <input
           id="nombre"
           name="nombre"
@@ -64,7 +64,7 @@ export const EditInvestigadorForm = ({
         <span style={{ color: "red" }}>{errors.apellidos}</span>
       )}
       <label htmlFor="apellidos">
-        <b>Apellidos: </b>
+        <strong>Apellidos: </strong>
         <input
           id="apellidos"
           name="apellidos"
@@ -81,7 +81,7 @@ export const EditInvestigadorForm = ({
       )}
       <label className="w-full" htmlFor="universidad">
         <h3 className="align-middle">
-          <b>Universidad: </b>
+          <strong>Universidad: </strong>
         </h3>
         <input
           id="universidad"
@@ -98,7 +98,7 @@ export const EditInvestigadorForm = ({
       )}
       <label className="w-full" htmlFor="departamento">
         <h3 className="align-middle">
-          <b>Departamento: </b>
+          <strong>Departamento: </strong>
         </h3>
         <input
           id="departamento"
@@ -113,7 +113,7 @@ export const EditInvestigadorForm = ({
       {errors.area && <span style={{ color: "red" }}>{errors.area}</span>}
       <label className="w-full" htmlFor="area">
         <h3 className="align-middle">
-          <b>Área: </b>
+          <strong>Área: </strong>
         </h3>
         <input
           id="area"
@@ -128,7 +128,7 @@ export const EditInvestigadorForm = ({
       {errors.figura && <span style={{ color: "red" }}>{errors.figura}</span>}
       <label className="w-full" htmlFor="figura">
         <h3 className="align-middle">
-          <b>Figura: </b>
+          <strong>Figura: </strong>
         </h3>
         <input
           id="figura"

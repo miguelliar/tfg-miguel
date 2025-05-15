@@ -15,7 +15,7 @@ export const InvestigadorCreateForm = () => {
       >
         {errors?.email && <span style={{ color: "red" }}>{errors.email}</span>}
         <label htmlFor="email" className="flex flex-col">
-          <b>Email: </b>
+          <strong>Email: </strong>
           <input
             id="email"
             name="email"
@@ -31,7 +31,7 @@ export const InvestigadorCreateForm = () => {
           <span style={{ color: "red" }}>{errors.nombre}</span>
         )}
         <label htmlFor="nombre" className="flex flex-col">
-          <b>Nombre: </b>
+          <strong>Nombre: </strong>
           <input
             id="nombre"
             name="nombre"
@@ -45,7 +45,7 @@ export const InvestigadorCreateForm = () => {
           <span style={{ color: "red" }}>{errors.apellidos}</span>
         )}
         <label htmlFor="apellidos" className="flex flex-col">
-          <b>Apellidos: </b>
+          <strong>Apellidos: </strong>
           <input
             id="apellidos"
             name="apellidos"
@@ -59,7 +59,7 @@ export const InvestigadorCreateForm = () => {
           <span style={{ color: "red" }}>{errors.universidad}</span>
         )}
         <label htmlFor="universidad" className="flex flex-col">
-          <b>Universidad: </b>
+          <strong>Universidad: </strong>
           <input
             className="w-full"
             id="universidad"
@@ -73,7 +73,7 @@ export const InvestigadorCreateForm = () => {
           <span style={{ color: "red" }}>{errors.departamento}</span>
         )}
         <label htmlFor="departamento" className="flex flex-col">
-          <b>Departamento: </b>
+          <strong>Departamento: </strong>
           <input
             className="w-full"
             id="departamento"
@@ -85,7 +85,7 @@ export const InvestigadorCreateForm = () => {
         </label>
         {errors?.area && <span style={{ color: "red" }}>{errors.area}</span>}
         <label htmlFor="area" className="flex flex-col">
-          <b>Área: </b>
+          <strong>Área: </strong>
           <input
             className="w-full"
             id="area"
@@ -99,7 +99,7 @@ export const InvestigadorCreateForm = () => {
           <span style={{ color: "red" }}>{errors.figura}</span>
         )}
         <label htmlFor="figura" className="flex flex-col">
-          <b>Figura: </b>
+          <strong>Figura: </strong>
           <input
             className="w-full"
             id="figura"

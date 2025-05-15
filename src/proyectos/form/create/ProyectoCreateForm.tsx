@@ -39,7 +39,7 @@ export const ProyectoCreate = () => {
           <span style={{ color: "red" }}>{errors.codigo}</span>
         )}
         <label className="flex flex-col w-full" htmlFor="codigo">
-          <b>Codigo: </b>
+          <strong>Codigo: </strong>
           <input
             id="codigo"
             name="codigo"
@@ -51,7 +51,7 @@ export const ProyectoCreate = () => {
         </label>
         {errors?.ip && <span style={{ color: "red" }}>{errors.ip}</span>}
         <label className="flex flex-col w-full" htmlFor="ip">
-          <b>Investigador Principal: </b>
+          <strong>Investigador Principal: </strong>
           <input
             id="ip"
             name="ip"
@@ -63,7 +63,7 @@ export const ProyectoCreate = () => {
         </label>
         {errors?.coip && <span style={{ color: "red" }}>{errors.coip}</span>}
         <label className="flex flex-col w-full" htmlFor="coip">
-          <b>Co Investigador Principal: </b>
+          <strong>Co Investigador Principal: </strong>
           <input
             id="coip"
             name="coip"
@@ -76,7 +76,7 @@ export const ProyectoCreate = () => {
           <span style={{ color: "red" }}>{errors.titulo}</span>
         )}
         <label className="flex flex-col w-full" htmlFor="titulo">
-          <b>Descripcion: </b>
+          <strong>Descripcion: </strong>
           <textarea
             id="titulo"
             name="titulo"
@@ -88,7 +88,7 @@ export const ProyectoCreate = () => {
           <span style={{ color: "red" }}>{errors.financiado}</span>
         )}
         <label className="flex flex-col w-full" htmlFor="financiado">
-          <b>Financiado:</b>
+          <strong>Financiado:</strong>
           <textarea
             id="financiado"
             name="financiado"
@@ -104,7 +104,7 @@ export const ProyectoCreate = () => {
         )}
         <div className="flex flex-row justify-around">
           <label htmlFor="inicio">
-            <b>Inicio:</b>
+            <strong>Inicio:</strong>
             <input
               id="inicio"
               name="inicio"
@@ -116,7 +116,7 @@ export const ProyectoCreate = () => {
             />
           </label>
           <label htmlFor="fin">
-            <b>Fin:</b>
+            <strong>Fin:</strong>
             <input
               id="fin"
               name="fin"
@@ -127,7 +127,7 @@ export const ProyectoCreate = () => {
           </label>
         </div>
         <div className="flex flex-col justify-start items-center">
-          <b className="mt-5">Participantes</b>
+          <strong className="mt-5">Participantes</strong>
           <div className="flex flex-col gap-2 overflow-auto mt-2">
             {addedParticipantes.map((participa) => (
               <div
