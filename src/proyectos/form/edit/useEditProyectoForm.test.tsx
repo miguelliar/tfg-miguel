@@ -97,8 +97,8 @@ describe("useEditProyectoForm", () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
-    mockAddCommandInstances.length = 0
-    mockDeleteCommandInstances.length = 0
+    mockAddCommandInstances.splice(0, mockAddCommandInstances.length)
+    mockDeleteCommandInstances.splice(0, mockDeleteCommandInstances.length)
 
     mockFinishEditMode = jest.fn()
     mockOnUpdate = jest.fn()
