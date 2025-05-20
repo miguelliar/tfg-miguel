@@ -12,6 +12,7 @@ import {
 } from "@/participa"
 import type { ProyectoType } from "@/proyectos/types"
 
+// TODO: Extract funtion
 const validateParameters = async (
   proyecto: ProyectoType,
   setErrors: (errors: any) => void
@@ -118,7 +119,7 @@ export const useEditProyectoForm = (
     const hasProyectoChanged =
       JSON.stringify(proyecto) !== JSON.stringify(editedProyecto)
     const hasParticipacionesChanged =
-      JSON.stringify(participaciones) !== JSON.stringify(participaChanges)
+      JSON.stringify(participaciones) !== JSON.stringify(editedParticipaciones)
     if (hasProyectoChanged || hasParticipacionesChanged) {
       validateParameters(editedProyecto, setErrors)
         .then((isValid) => {
