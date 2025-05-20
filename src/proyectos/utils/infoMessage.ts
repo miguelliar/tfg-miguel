@@ -8,6 +8,7 @@ export const MESSAGES = {
     SIN_FECHA_INICIO: "El proyecto debe tener fecha de inicio",
     INTERVALO_FECHA:
       "La fecha de finalización tiene que ser posterior a la de inicio",
+    FORMATO_FECHA: "El formato de la fecha debe ser el siguiente: dd/mm/yyyy",
   },
   FILE: "Ha habido un error con el archivo. Por favor, pruebe de nuevo",
 } as const
