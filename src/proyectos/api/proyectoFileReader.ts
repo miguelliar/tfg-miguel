@@ -30,9 +30,11 @@ const parseLine = (lines: string[]) => {
         MATCH_SEMICOLOMNS_OUTSIDE_DOUBLE_QUOTES_REGEXP
       )
 
-      const [ip, coip] = fields[1].split(";")
-      fields.splice(1, 1, ip, coip ?? null)
-      relevantLines.push(fields)
+      if (fields.length >= 5) {
+        const [ip, coip] = fields[1].split(";")
+        fields.splice(1, 1, ip, coip ?? null)
+        relevantLines.push(fields)
+      }
     }
   }
   return relevantLines
