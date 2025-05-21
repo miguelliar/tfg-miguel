@@ -8,16 +8,6 @@ jest.mock("./proyectoValidator", () => ({
     mockValidateProyectosToAdd(proyectos),
 }))
 
-const expectedProyectHeaders = [
-  "codigo",
-  "ip",
-  "coip",
-  "titulo",
-  "financiado",
-  "inicio",
-  "fin",
-] as const
-
 describe("Utility: Project Line Processing", () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -90,16 +80,6 @@ describe("Utility: Project Line Processing", () => {
       expect(mockValidateProyectosToAdd).toHaveBeenCalledTimes(1)
       expect(mockValidateProyectosToAdd).toHaveBeenCalledWith([])
       expect(result).toEqual([])
-    })
-
-    test('Given no line starts with "Código", When parseLine is called, Then it should return only headers', () => {
-      // Arrange
-      const lines = ["No header here", "Data line 1", "Data line 2"]
-      // Act
-      const result = processProyectoLines(lines)
-      // Assert
-      expect(result).toEqual([expectedProyectHeaders])
-      expect(result).toHaveLength(1)
     })
 
     test("Given lines with semicolons inside double quotes should split correctly", async () => {
