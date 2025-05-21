@@ -80,7 +80,7 @@ export type EditProyectoFormHookReturn = {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void
   onSubmit: (e: any) => void
-  addParticipa: (participa: ParticipaType) => void
+  addParticipa: (participa: Omit<ParticipaType, "codigo">) => void
   removeParticipa: (participa: ParticipaType) => void
 }
 
@@ -143,12 +143,18 @@ export const useEditProyectoForm = (
     }
   }
 
-  const addParticipa = (participa: ParticipaType) => {
-    setEditedParticipaciones([...editedParticipaciones, participa])
+  const addParticipa = (participa: Omit<ParticipaType, "codigo">) => {
+    setEditedParticipaciones([
+      ...editedParticipaciones,
+      { ...participa, codigo: editedProyecto.codigo },
+    ])
     if (!unSync)
       setParticipaChanges([
         ...participaChanges,
-        new AddParticipaCommand(participa),
+        new AddParticipaCommand({
+          ...participa,
+          codigo: editedProyecto.codigo,
+        }),
       ])
   }
 

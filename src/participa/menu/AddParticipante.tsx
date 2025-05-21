@@ -11,7 +11,7 @@ import { useAddParticipante } from "./useAddParticipante"
 
 interface AddParticipanteCardProps {
   codigo: string
-  onAdd: (participa: ParticipaType) => void
+  onAdd: (participa: Omit<ParticipaType, "codigo">) => void
   onClose: () => void
   participaAdded?: ParticipaType[]
 }
@@ -158,7 +158,6 @@ export const AddParticipanteCard = ({
                 disabled={!nombreDeAutor}
                 onClick={() => {
                   onAdd({
-                    codigo,
                     email: investigadorSelected?.email,
                     nombreAutor: nombreDeAutor,
                   })

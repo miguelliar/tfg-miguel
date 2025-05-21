@@ -10,8 +10,8 @@ type SubmitStatusInfoProps = {
   submittedStatus: ProyectoFileState["submittedStatus"]
   onCloseSubmitMessage: () => void
   messages: {
-    onSuccess: string
-    onFailure: string
+    onSuccess?: string
+    onFailure?: string
   }
 }
 
@@ -32,7 +32,7 @@ export const SubmitStatusInfo = ({
                   <strong>Éxito</strong>
                 </p>
               </div>
-              <p className="text-center">{messages.onSuccess}</p>
+              <p className="text-center">{messages.onSuccess ?? null}</p>
             </>
           ) : (
             <>
@@ -42,7 +42,7 @@ export const SubmitStatusInfo = ({
                   <strong>Error</strong>
                 </p>
               </div>
-              <p className="text-center">{messages.onFailure}</p>
+              <p className="text-center">{messages.onFailure ?? null}</p>
             </>
           )}
         </div>
