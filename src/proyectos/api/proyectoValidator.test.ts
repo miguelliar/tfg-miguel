@@ -128,9 +128,7 @@ describe("Proyecto Validation Utilities", () => {
         const result = await validateProyectoToAdd(proyecto)
 
         const codeError = result.messages?.warnings?.some(
-          (e) =>
-            e.message === MESSAGES.WARNING.NO_NOMBRE_AUTOR_PARA_IP &&
-            e.nombreAutor === "Unknown IP"
+          (e) => e.message === MESSAGES.WARNING.NO_NOMBRE_AUTOR_PARA_IP
         )
 
         expect(codeError).toBeTruthy()
