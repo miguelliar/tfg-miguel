@@ -1,6 +1,11 @@
 import { useMemo } from "react"
 
-export const useBreadcrumbs = (pathname: string) => {
+export type URLCrumb = {
+  name: string
+  url: string
+}
+
+export const useBreadcrumbs = (pathname: string): URLCrumb[] => {
   const breadcrumbs = useMemo(() => {
     if (pathname === "/home" || pathname === "/" || pathname === "")
       return [{ name: "Inicio", url: "/" }]
