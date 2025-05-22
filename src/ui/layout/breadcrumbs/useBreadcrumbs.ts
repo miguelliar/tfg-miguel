@@ -2,8 +2,13 @@ import { useMemo } from "react"
 
 export const useBreadcrumbs = (pathname: string) => {
   const breadcrumbs = useMemo(() => {
-    if (pathname === "/home") return [{ name: "Inicio", url: pathname }]
-    const breadcrumbs = pathname.split("/").map((crumb, index, crumbs) => {
+    if (pathname === "/home" || pathname === "/" || pathname === "")
+      return [{ name: "Inicio", url: "/" }]
+    const rawBreadcrumbs = pathname.split("/")
+    if (!rawBreadcrumbs[rawBreadcrumbs.length - 1]) {
+      rawBreadcrumbs.pop()
+    }
+    const breadcrumbs = rawBreadcrumbs.map((crumb, index, crumbs) => {
       const previousPath =
         crumbs
           .slice(0, index)
