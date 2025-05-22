@@ -1,7 +1,7 @@
 import cx from "classnames"
 import Link from "next/link"
 
-type CrumbProps = {
+export type CrumbProps = {
   crumb: {
     name: string
     url: string
