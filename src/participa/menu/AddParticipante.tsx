@@ -130,11 +130,6 @@ export const AddParticipanteCard = ({
                       </label>
                     )
                   })}
-                {nombresAutorForSelected.length === 0 && (
-                  <p>
-                    No se han encontrado nombres de autor para este investigador
-                  </p>
-                )}
                 <label className="my-2" htmlFor="nombre_autor">
                   <input
                     onClick={() => {
