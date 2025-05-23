@@ -15,6 +15,7 @@ import type { ProyectoType } from "@/proyectos/types"
 // TODO: Extract funtion
 const validateParameters = async (
   proyecto: ProyectoType,
+  unSync: boolean,
   setErrors: (errors: any) => void
 ) => {
   const newErrors = {
@@ -29,10 +30,11 @@ const validateParameters = async (
 
   const codigoAlreadyUsed = (await fetchProyectoByCode(proyecto.codigo))?.codigo
 
-  if (codigoAlreadyUsed) {
+  if (codigoAlreadyUsed && unSync) {
     newErrors.codigo = `El codigo ${codigoAlreadyUsed} ya está siendo usado como código en otro proyecto`
   }
-  if (!proyecto.ip)
+
+  if (!proyecto.ip.trim())
     newErrors.ip = "El investigador principal no puede estar vacío"
   if (proyecto.coip && proyecto.coip === proyecto.ip)
     newErrors.coip =
@@ -121,25 +123,28 @@ export const useEditProyectoForm = (
     const hasParticipacionesChanged =
       JSON.stringify(participaciones) !== JSON.stringify(editedParticipaciones)
     if (hasProyectoChanged || hasParticipacionesChanged) {
-      validateParameters(editedProyecto, setErrors)
-        .then((isValid) => {
+      validateParameters(editedProyecto, !!unSync, setErrors).then(
+        (isValid) => {
           if (unSync) {
             onUpdate(editedProyecto, editedParticipaciones)
-          } else {
-            if (isValid) {
+
+            finishEditMode()
+            refresh()
+          } else if (!unSync && isValid) {
+            if (hasProyectoChanged)
               onUpdate(editedProyecto, editedParticipaciones)
-            }
+
             if (hasParticipacionesChanged && !unSync) {
               participaChanges.forEach(async (participaChange) =>
                 participaChange.execute()
               )
             }
+
+            finishEditMode()
+            refresh()
           }
-        })
-        .finally(() => {
-          finishEditMode()
-          refresh()
-        })
+        }
+      )
     }
   }
 

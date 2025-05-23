@@ -183,25 +183,6 @@ describe("useEditProyectoForm", () => {
       expect(mockRouterRefresh).not.toHaveBeenCalled()
     })
 
-    test("should set codigo error if fetchProyectoByCode returns a project", async () => {
-      const { result } = renderTestHook()
-      act(() => {
-        result.current.handleChange({
-          target: { name: "codigo", value: "EXISTING" },
-        } as any)
-      })
-      mockFetchProyectoByCode.mockResolvedValueOnce({
-        codigo: "EXISTING",
-      } as any)
-
-      await act(async () => {
-        result.current.onSubmit(mockSubmitEvent)
-      })
-      expect(result.current.errors.codigo).toBe(
-        "El codigo EXISTING ya está siendo usado como código en otro proyecto"
-      )
-    })
-
     test("should set fechaFin error if fin is before inicio", async () => {
       const { result } = renderTestHook()
       act(() => {
@@ -220,6 +201,27 @@ describe("useEditProyectoForm", () => {
       })
       expect(result.current.errors.fechaFin).toBe(
         "La fecha de finalización no puede ser anterior a la de inicio"
+      )
+    })
+
+    test("should warn ip and co-ip are the same if they are input the same", async () => {
+      const { result } = renderTestHook()
+      act(() => {
+        result.current.handleChange({
+          target: { name: "ip", value: "Investigador" },
+        } as any)
+      })
+      act(() => {
+        result.current.handleChange({
+          target: { name: "coip", value: "Investigador" },
+        } as any)
+      })
+
+      await act(async () => {
+        result.current.onSubmit(mockSubmitEvent)
+      })
+      expect(result.current.errors.coip).toBe(
+        "El co-investigador principal no ser el mismo que el investigador principal"
       )
     })
   })
@@ -262,7 +264,7 @@ describe("useEditProyectoForm", () => {
     describe("When onSubmit is called", () => {
       const mockSubmitEvent = { preventDefault: jest.fn() } as any
 
-      test("project changed and validation fails, should set errors, call finishEditMode and refresh, but not onUpdate or commands", async () => {
+      test("project changed and validation fails, should set errors and not call finishEditMode and refresh", async () => {
         const { result } = renderTestHook()
         act(() => {
           result.current.handleChange({
@@ -277,16 +279,13 @@ describe("useEditProyectoForm", () => {
 
         expect(mockSubmitEvent.preventDefault).toHaveBeenCalledTimes(1)
         expect(mockFetchProyectoByCode).toHaveBeenCalledTimes(1)
+
         expect(result.current.errors.ip).toBe(
           "El investigador principal no puede estar vacío"
         )
 
-        expect(mockOnUpdate).not.toHaveBeenCalled()
-        expect(mockAddCommandExecute).not.toHaveBeenCalled()
-        expect(mockDeleteCommandExecute).not.toHaveBeenCalled()
-
-        expect(mockFinishEditMode).toHaveBeenCalledTimes(1)
-        expect(mockRouterRefresh).toHaveBeenCalledTimes(1)
+        expect(mockFinishEditMode).not.toHaveBeenCalledTimes(1)
+        expect(mockRouterRefresh).not.toHaveBeenCalledTimes(1)
       })
 
       test("project changed, validation passes and participaciones unchanged, should call onUpdate, finishEditMode, and refresh", async () => {
@@ -313,7 +312,7 @@ describe("useEditProyectoForm", () => {
         expect(mockRouterRefresh).toHaveBeenCalledTimes(1)
       })
 
-      test("project unchanged, validation passes and participaciones changed, should call onUpdate, execute commands, finishEditMode, and refresh", async () => {
+      test("project unchanged, validation passes and participaciones changed, should call commands, finishEditMode, and refresh but not onUpdate", async () => {
         const { result } = renderTestHook(mockProyecto, [], false)
         act(() => {
           result.current.addParticipa(mockParticipante2)
@@ -325,9 +324,7 @@ describe("useEditProyectoForm", () => {
           result.current.onSubmit(mockSubmitEvent)
         })
 
-        expect(mockOnUpdate).toHaveBeenCalledWith(mockProyecto, [
-          mockParticipante2,
-        ])
+        expect(mockOnUpdate).not.toHaveBeenCalled()
         expect(mockAddCommandInstances).toHaveLength(1)
         expect(mockAddCommandExecute).toHaveBeenCalledTimes(1)
         expect(mockFinishEditMode).toHaveBeenCalledTimes(1)
@@ -398,6 +395,25 @@ describe("useEditProyectoForm", () => {
         expect(mockDeleteCommandExecute).not.toHaveBeenCalled()
         expect(mockFinishEditMode).toHaveBeenCalledTimes(1)
         expect(mockRouterRefresh).toHaveBeenCalledTimes(1)
+      })
+
+      test("should set codigo error if fetchProyectoByCode returns a project", async () => {
+        const { result } = renderTestHook(mockProyecto, [], true)
+        act(() => {
+          result.current.handleChange({
+            target: { name: "codigo", value: "EXISTING" },
+          } as any)
+        })
+        mockFetchProyectoByCode.mockResolvedValueOnce({
+          codigo: "EXISTING",
+        } as any)
+
+        await act(async () => {
+          result.current.onSubmit(mockSubmitEvent)
+        })
+        expect(result.current.errors.codigo).toBe(
+          "El codigo EXISTING ya está siendo usado como código en otro proyecto"
+        )
       })
     })
   })
