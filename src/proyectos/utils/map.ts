@@ -11,6 +11,7 @@ export type ProyectoToUpload = Omit<ProyectoType, "inicio" | "fin"> & {
   messages: ProyectoMessage
 }
 
+// TODO: Refactor and extract to formatDate utils
 export const parseDate = (date: string, separator: string = "/"): Date => {
   if (separator === "/") {
     const [d, m, y] = date.split(separator)
@@ -33,11 +34,11 @@ export const mapProyectoTypeToProyectoToUpload = ({
     ...proyecto,
     inicio:
       typeof proyecto.inicio === "string"
-        ? getStringDate(new Date(proyecto.inicio))
+        ? getStringDate(new Date(proyecto.inicio)) // This is required as the map is being used in a form where the date is obtained as a string
         : getStringDate(proyecto.inicio),
     fin:
       typeof proyecto.fin === "string"
-        ? getStringDate(new Date(proyecto.fin))
+        ? getStringDate(new Date(proyecto.fin)) // This is required as the map is being used in a form where the date is obtained as a string
         : getStringDate(proyecto.fin),
     participantes: participaciones ?? [],
     messages: {
@@ -57,6 +58,7 @@ export const mapProyectoToUploadToProyectType = (
   }
 }
 
+// TODO: Remove this function
 export const mapProyectosToUploadToProyectsType = (
   projectToUpload: ProyectoToUpload[]
 ): ProyectoType[] => {
