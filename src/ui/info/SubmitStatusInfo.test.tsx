@@ -1,5 +1,3 @@
-import "@testing-library/jest-dom"
-
 import { act, fireEvent, render, screen } from "@testing-library/react"
 
 import type { ProyectoFileState } from "@/utils"
