@@ -32,7 +32,9 @@ export const SubmitStatusInfo = ({
                   <strong>Éxito</strong>
                 </p>
               </div>
-              <p className="text-center">{messages.onSuccess ?? null}</p>
+              {messages.onSuccess && (
+                <p className="text-center">{messages.onSuccess}</p>
+              )}
             </>
           ) : (
             <>
@@ -42,7 +44,9 @@ export const SubmitStatusInfo = ({
                   <strong>Error</strong>
                 </p>
               </div>
-              <p className="text-center">{messages.onFailure ?? null}</p>
+              {messages.onFailure && (
+                <p className="text-center">{messages.onFailure}</p>
+              )}
             </>
           )}
         </div>
