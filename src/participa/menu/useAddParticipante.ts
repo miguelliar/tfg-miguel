@@ -14,6 +14,7 @@ import type { ParticipaType } from "../type"
 
 export type UseAddParticipanteReturn = {
   handleSearch: DebouncedState<(term: string) => void>
+  handleNombreAutorInput: DebouncedState<(term: string) => void>
   investigadoresSearched: InvestigadorMinimumDataType[]
   investigadorSelected: InvestigadorMinimumDataType | null
   isOtherSelected: boolean
@@ -91,6 +92,11 @@ export const useAddParticipante = ({
     500
   )
 
+  const handleNombreAutorInput = useDebouncedCallback(
+    (name: string) => setNombreDeAutor(name),
+    500
+  )
+
   // searches for nombresDeAutor for investigador selected
   useEffect(() => {
     if (investigadorSelected)
@@ -102,6 +108,7 @@ export const useAddParticipante = ({
 
   return {
     handleSearch,
+    handleNombreAutorInput,
     investigadoresSearched,
     investigadorSelected,
     isOtherSelected,

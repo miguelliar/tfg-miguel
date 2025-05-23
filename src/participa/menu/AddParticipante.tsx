@@ -24,6 +24,7 @@ export const AddParticipanteCard = ({
 }: AddParticipanteCardProps) => {
   const {
     handleSearch,
+    handleNombreAutorInput,
     investigadoresSearched,
     investigadorSelected,
     isOtherSelected,
@@ -154,7 +155,7 @@ export const AddParticipanteCard = ({
                   id="nombre_autor"
                   name="nombre_autor"
                   placeholder="Nombre de autor..."
-                  onChange={(e) => setNombreDeAutor(e.target.value.trim())}
+                  onChange={(e) => handleNombreAutorInput(e.target.value)}
                 />
               )}
               <Button
