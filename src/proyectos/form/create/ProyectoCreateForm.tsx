@@ -132,8 +132,10 @@ export const ProyectoCreate = () => {
           </label>
         </div>
         <div className="flex flex-col justify-start items-center">
-          {/* TODO: refactor this together with edit form */}
+          <h2>
+            {/* TODO: refactor this together with edit form */}
           <strong className="mt-5">Participantes</strong>
+          </h2>
           <div className="flex flex-col gap-2 overflow-auto mt-2">
             {addedParticipantes.map((participa) => (
               <div
