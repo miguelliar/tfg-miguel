@@ -34,6 +34,7 @@ export const fetchParsedProyectos = async (
     })
     return await response.json()
   } catch (error) {
+    // TODO: Improve error handling and give more descriptive error
     console.error(error)
   }
 }
@@ -65,6 +66,7 @@ export const downloadProyectosCSV = async (codigos: string[]) => {
       console.error("Failed to download CSV")
     }
   } catch (error) {
+    // TODO: improve error handling
     console.error(error)
   }
 }
