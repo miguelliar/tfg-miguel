@@ -1,11 +1,17 @@
 "use client"
 
-import { Button } from "@/ui"
+import { useRouter } from "next/navigation"
+
+import { Button, SubmitStatusInfo } from "@/ui"
 
 import { useInvestigadorCreate } from "./useInvestigadorCreate"
 
 export const InvestigadorCreateForm = () => {
   const { errors, onSubmit, handleChange } = useInvestigadorCreate()
+
+  const router = useRouter()
+
+  const isUnexpectedError = typeof errors === "string"
 
   return (
     <div className="flex flex-col mb-8">
@@ -13,7 +19,9 @@ export const InvestigadorCreateForm = () => {
         className="flex flex-col gap-2 my-3 w-64"
         onSubmit={(e) => onSubmit(e)}
       >
-        {errors?.email && <span style={{ color: "red" }}>{errors.email}</span>}
+        {!isUnexpectedError && errors?.email && (
+          <span style={{ color: "red" }}>{errors.email}</span>
+        )}
         <label htmlFor="email" className="flex flex-col">
           <strong>Email: </strong>
           <input
@@ -27,7 +35,7 @@ export const InvestigadorCreateForm = () => {
             onChange={handleChange}
           />
         </label>
-        {errors?.nombre && (
+        {!isUnexpectedError && errors?.nombre && (
           <span style={{ color: "red" }}>{errors.nombre}</span>
         )}
         <label htmlFor="nombre" className="flex flex-col">
@@ -41,7 +49,7 @@ export const InvestigadorCreateForm = () => {
             onChange={handleChange}
           />
         </label>
-        {errors?.apellidos && (
+        {!isUnexpectedError && errors?.apellidos && (
           <span style={{ color: "red" }}>{errors.apellidos}</span>
         )}
         <label htmlFor="apellidos" className="flex flex-col">
@@ -55,7 +63,7 @@ export const InvestigadorCreateForm = () => {
             onChange={handleChange}
           />
         </label>
-        {errors?.universidad && (
+        {!isUnexpectedError && errors?.universidad && (
           <span style={{ color: "red" }}>{errors.universidad}</span>
         )}
         <label htmlFor="universidad" className="flex flex-col">
@@ -69,7 +77,7 @@ export const InvestigadorCreateForm = () => {
             onChange={handleChange}
           />
         </label>
-        {errors?.departamento && (
+        {!isUnexpectedError && errors?.departamento && (
           <span style={{ color: "red" }}>{errors.departamento}</span>
         )}
         <label htmlFor="departamento" className="flex flex-col">
@@ -83,7 +91,9 @@ export const InvestigadorCreateForm = () => {
             onChange={handleChange}
           />
         </label>
-        {errors?.area && <span style={{ color: "red" }}>{errors.area}</span>}
+        {!isUnexpectedError && errors?.area && (
+          <span style={{ color: "red" }}>{errors.area}</span>
+        )}
         <label htmlFor="area" className="flex flex-col">
           <strong>Área: </strong>
           <input
@@ -95,7 +105,7 @@ export const InvestigadorCreateForm = () => {
             onChange={handleChange}
           />
         </label>
-        {errors?.figura && (
+        {!isUnexpectedError && errors?.figura && (
           <span style={{ color: "red" }}>{errors.figura}</span>
         )}
         <label htmlFor="figura" className="flex flex-col">
@@ -113,6 +123,16 @@ export const InvestigadorCreateForm = () => {
           <Button type="submit">Crear investigador</Button>
         </div>
       </form>
+      {isUnexpectedError && errors && (
+        <SubmitStatusInfo
+          submittedStatus="error"
+          onCloseSubmitMessage={() => router.refresh()}
+          messages={{
+            onFailure:
+              "Ha habido un error inesperado al añadir el investigador. Por favor, inténtalo de nuevo",
+          }}
+        />
+      )}
     </div>
   )
 }
