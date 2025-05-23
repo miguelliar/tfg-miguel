@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react"
 
-import { useBreadcrumbs } from "./useBreadcrumbs" // Adjust path as needed
+import { useBreadcrumbs } from "./useBreadcrumbs"
 
 describe("useBreadcrumbs Hook", () => {
   describe("Given different pathnames", () => {

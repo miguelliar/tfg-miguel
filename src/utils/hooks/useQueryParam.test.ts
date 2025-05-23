@@ -1,6 +1,6 @@
 import { act, renderHook } from "@testing-library/react"
 
-import { useQueryParam } from "./useQueryParam" // Adjust path as needed
+import { useQueryParam } from "./useQueryParam"
 
 const mockRouterReplace = jest.fn()
 const mockUsePathname = jest.fn()

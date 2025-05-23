@@ -3,7 +3,7 @@ import "@testing-library/jest-dom"
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react"
 import React from "react"
 
-import { DeleteButton } from "./DeleteButton" // Adjust path as needed
+import { DeleteButton } from "./DeleteButton"
 
 // --- Mocking Next.js navigation ---
 const mockReplace = jest.fn()

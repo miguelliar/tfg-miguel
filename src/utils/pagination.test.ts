@@ -1,4 +1,4 @@
-import { generatePagination } from "./pagination" // Adjust path as needed
+import { generatePagination } from "./pagination"
 
 describe("generatePagination Utility", () => {
   describe("When totalPages is 7 or less", () => {
