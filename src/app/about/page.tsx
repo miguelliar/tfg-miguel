@@ -35,7 +35,7 @@ export default function About() {
               <Link href="/proyectos/crear/subida">
                 <i>en grupo</i>
               </Link>{" "}
-              a través de un archivo CSV con formato oficial
+              a través de un archivo CSV o XLSX con formato oficial
             </li>
             <li>
               Buscar{" "}
