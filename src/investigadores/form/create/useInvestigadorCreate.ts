@@ -24,7 +24,7 @@ const validateParameters = (
 }
 
 export const useInvestigadorCreate = (): {
-  errors: InvestigadorValidationErrors | null | undefined
+  errors: InvestigadorValidationErrors | string
   onSubmit: (e: any) => void
   handleChange: (e: any) => void
 } => {
@@ -37,7 +37,9 @@ export const useInvestigadorCreate = (): {
     area: "",
     figura: "",
   })
-  const [errors, setErrors] = useState()
+  const [errors, setErrors] = useState<InvestigadorValidationErrors | string>(
+    ""
+  )
 
   const router = useRouter()
 
@@ -47,7 +49,7 @@ export const useInvestigadorCreate = (): {
     const { name, value } = e.target
     setInvestigador((prevData) => ({
       ...prevData,
-      [name]: typeof value === "string" ? value.trim() : value,
+      [name]: value.trim(),
     }))
   }
 
@@ -55,7 +57,12 @@ export const useInvestigadorCreate = (): {
     e.preventDefault()
     if (validateParameters(investigador, setErrors)) {
       addInvestigador(investigador)
-      router.push("/investigadores")
+        .then(() => router.push("/investigadores"))
+        .catch(() =>
+          setErrors(
+            "Ha habido un problema añadiendo el proyecto. Por favor, inténtalo de nuevo"
+          )
+        )
     }
   }
 

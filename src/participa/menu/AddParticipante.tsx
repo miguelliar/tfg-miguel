@@ -11,7 +11,7 @@ import { useAddParticipante } from "./useAddParticipante"
 
 interface AddParticipanteCardProps {
   codigo: string
-  onAdd: (participa: ParticipaType) => void
+  onAdd: (participa: Omit<ParticipaType, "codigo">) => void
   onClose: () => void
   participaAdded?: ParticipaType[]
 }
@@ -24,6 +24,7 @@ export const AddParticipanteCard = ({
 }: AddParticipanteCardProps) => {
   const {
     handleSearch,
+    handleNombreAutorInput,
     investigadoresSearched,
     investigadorSelected,
     isOtherSelected,
@@ -149,7 +150,7 @@ export const AddParticipanteCard = ({
                   id="nombre_autor"
                   name="nombre_autor"
                   placeholder="Nombre de autor..."
-                  onChange={(e) => setNombreDeAutor(e.target.value.trim())}
+                  onChange={(e) => handleNombreAutorInput(e.target.value)}
                 />
               )}
               <Button
@@ -158,7 +159,6 @@ export const AddParticipanteCard = ({
                 disabled={!nombreDeAutor}
                 onClick={() => {
                   onAdd({
-                    codigo,
                     email: investigadorSelected?.email,
                     nombreAutor: nombreDeAutor,
                   })

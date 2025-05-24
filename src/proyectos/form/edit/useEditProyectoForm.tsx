@@ -12,8 +12,10 @@ import {
 } from "@/participa"
 import type { ProyectoType } from "@/proyectos/types"
 
+// TODO: Extract funtion
 const validateParameters = async (
   proyecto: ProyectoType,
+  unSync: boolean,
   setErrors: (errors: any) => void
 ) => {
   const newErrors = {
@@ -28,10 +30,11 @@ const validateParameters = async (
 
   const codigoAlreadyUsed = (await fetchProyectoByCode(proyecto.codigo))?.codigo
 
-  if (codigoAlreadyUsed) {
+  if (codigoAlreadyUsed && unSync) {
     newErrors.codigo = `El codigo ${codigoAlreadyUsed} ya está siendo usado como código en otro proyecto`
   }
-  if (!proyecto.ip)
+
+  if (!proyecto.ip.trim())
     newErrors.ip = "El investigador principal no puede estar vacío"
   if (proyecto.coip && proyecto.coip === proyecto.ip)
     newErrors.coip =
@@ -79,7 +82,7 @@ export type EditProyectoFormHookReturn = {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void
   onSubmit: (e: any) => void
-  addParticipa: (participa: ParticipaType) => void
+  addParticipa: (participa: Omit<ParticipaType, "codigo">) => void
   removeParticipa: (participa: ParticipaType) => void
 }
 
@@ -118,36 +121,45 @@ export const useEditProyectoForm = (
     const hasProyectoChanged =
       JSON.stringify(proyecto) !== JSON.stringify(editedProyecto)
     const hasParticipacionesChanged =
-      JSON.stringify(participaciones) !== JSON.stringify(participaChanges)
+      JSON.stringify(participaciones) !== JSON.stringify(editedParticipaciones)
     if (hasProyectoChanged || hasParticipacionesChanged) {
-      validateParameters(editedProyecto, setErrors)
-        .then((isValid) => {
+      validateParameters(editedProyecto, !!unSync, setErrors).then(
+        (isValid) => {
           if (unSync) {
             onUpdate(editedProyecto, editedParticipaciones)
-          } else {
-            if (isValid) {
+
+            finishEditMode()
+            refresh()
+          } else if (!unSync && isValid) {
+            if (hasProyectoChanged)
               onUpdate(editedProyecto, editedParticipaciones)
-            }
+
             if (hasParticipacionesChanged && !unSync) {
               participaChanges.forEach(async (participaChange) =>
                 participaChange.execute()
               )
             }
+
+            finishEditMode()
+            refresh()
           }
-        })
-        .finally(() => {
-          finishEditMode()
-          refresh()
-        })
+        }
+      )
     }
   }
 
-  const addParticipa = (participa: ParticipaType) => {
-    setEditedParticipaciones([...editedParticipaciones, participa])
+  const addParticipa = (participa: Omit<ParticipaType, "codigo">) => {
+    setEditedParticipaciones([
+      ...editedParticipaciones,
+      { ...participa, codigo: editedProyecto.codigo },
+    ])
     if (!unSync)
       setParticipaChanges([
         ...participaChanges,
-        new AddParticipaCommand(participa),
+        new AddParticipaCommand({
+          ...participa,
+          codigo: editedProyecto.codigo,
+        }),
       ])
   }
 

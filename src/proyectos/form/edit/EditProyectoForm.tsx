@@ -193,6 +193,7 @@ export const EditProyectoForm = ({
         </label>
       </div>
       <div className="flex flex-col justify-start items-center">
+        {/* TODO: refactor this together with create form */}
         <div className="flex flex-row mt-5 gap-2">
           <UsersIcon className="w-4" />
           <strong>Participantes</strong>

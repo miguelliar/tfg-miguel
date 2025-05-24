@@ -1,13 +1,13 @@
 import type { InvestigadorType } from "../types"
 
 export type InvestigadorValidationErrors = {
-  email: string
-  nombre: string
-  apellidos: string
-  universidad: string
-  departamento: string
-  area: string
-  figura: string
+  email?: string
+  nombre?: string
+  apellidos?: string
+  universidad?: string
+  departamento?: string
+  area?: string
+  figura?: string
 }
 
 const message = {

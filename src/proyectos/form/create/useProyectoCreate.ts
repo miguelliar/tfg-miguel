@@ -10,6 +10,17 @@ import type { ProyectoType } from "@/proyectos/types"
 import type { ProyectoValidationErrors } from "@/proyectos/utils"
 import { addProyecto, getProyectoErrors } from "@/proyectos/utils"
 
+export type UseProyectoCreateReturn = {
+  codigo: string
+  addedParticipantes: ParticipaType[]
+  errors: ProyectoValidationErrors | null | undefined
+  handleChange: (e: any) => void
+  onSubmit: (e: any) => void
+  addParticipa: (participa: Omit<ParticipaType, "codigo">) => void
+  removeParticipa: (participa: ParticipaType) => void
+}
+
+// TODO: Refactor this method --> may be a better approach
 const validateParameters = async (
   proyecto: ProyectoType,
   setErrors: (errors: any) => void
@@ -28,15 +39,7 @@ const validateParameters = async (
   )
 }
 
-export const useProyectoCreate = (): {
-  codigo: string
-  addedParticipantes: ParticipaType[]
-  errors: ProyectoValidationErrors | null | undefined
-  handleChange: (e: any) => void
-  onSubmit: (e: any) => void
-  addParticipa: (participa: ParticipaType) => void
-  removeParticipa: (participa: ParticipaType) => void
-} => {
+export const useProyectoCreate = (): UseProyectoCreateReturn => {
   const [addedParticipantes, setAddedParticipantes] = useState<ParticipaType[]>(
     []
   )
@@ -48,7 +51,7 @@ export const useProyectoCreate = (): {
     financiado: "",
     inicio: new Date(),
   })
-  const [errors, setErrors] = useState<ProyectoValidationErrors | null>()
+  const [errors, setErrors] = useState<ProyectoValidationErrors | null>(null)
   const router = useRouter()
 
   const handleChange = useDebouncedCallback(
@@ -75,19 +78,29 @@ export const useProyectoCreate = (): {
     e.preventDefault()
     validateParameters(proyecto, setErrors).then((isValid) => {
       if (isValid) {
-        addProyecto(proyecto).then(() => {
-          // In order to wait to the proyecto for being created
-          addedParticipantes
-            .map((participa) => new AddParticipaCommand(participa))
-            .forEach((command) => command.execute())
-          router.push("/proyectos")
-        })
+        addProyecto(proyecto)
+          .then(() => {
+            // In order to wait to the proyecto for being created
+            addedParticipantes
+              .map((participa) => new AddParticipaCommand(participa))
+              .forEach((command) => command.execute())
+            router.push("/proyectos")
+          })
+          .catch(() =>
+            setErrors({
+              unexpectedError:
+                "Ha habido un problema añadiendo el proyecto. Por favor, inténtalo de nuevo",
+            })
+          )
       }
     })
   }
 
-  const addParticipa = (addedParticipa: ParticipaType) => {
-    setAddedParticipantes([...addedParticipantes, addedParticipa])
+  const addParticipa = (addedParticipa: Omit<ParticipaType, "codigo">) => {
+    setAddedParticipantes([
+      ...addedParticipantes,
+      { ...addedParticipa, codigo: proyecto.codigo },
+    ])
   }
 
   const removeParticipa = (removedParticipa: ParticipaType) => {

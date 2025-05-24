@@ -3,10 +3,10 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/solid"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { AddParticipanteCard } from "@/participa"
-import { Button, HorizontalCard } from "@/ui"
+import { Button, HorizontalCard, SubmitStatusInfo } from "@/ui"
 import { parseDateToString } from "@/utils"
 
 import { useProyectoCreate } from "./useProyectoCreate"
@@ -23,10 +23,15 @@ export const ProyectoCreate = () => {
   } = useProyectoCreate()
 
   const [isAddingParticipante, setIsAddingParticipante] = useState(false)
+  const [isUnexpectedError, setUnexpectedError] = useState(false)
 
   const closeMenuOnClick = () => {
     if (isAddingParticipante) setIsAddingParticipante(false)
   }
+
+  useEffect(() => {
+    if (errors?.unexpectedError) setUnexpectedError(true)
+  }, [errors?.unexpectedError])
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events
@@ -128,7 +133,8 @@ export const ProyectoCreate = () => {
         </div>
         <div className="flex flex-col justify-start items-center">
           <h2>
-            <strong className="mt-5">Participantes</strong>
+            {/* TODO: refactor this together with edit form */}
+          <strong className="mt-5">Participantes</strong>
           </h2>
           <div className="flex flex-col gap-2 overflow-auto mt-2">
             {addedParticipantes.map((participa) => (
@@ -177,6 +183,16 @@ export const ProyectoCreate = () => {
           <Button type="submit">Crear proyecto</Button>
         </div>
       </form>
+      {errors?.unexpectedError && isUnexpectedError && (
+        <SubmitStatusInfo
+          submittedStatus="error"
+          onCloseSubmitMessage={() => setUnexpectedError(false)}
+          messages={{
+            onFailure:
+              "Ha habido un error inesperado al subir los proyectos. Por favor, inténtalo de nuevo",
+          }}
+        />
+      )}
     </div>
   )
 }

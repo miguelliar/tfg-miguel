@@ -48,28 +48,33 @@ const errorValidation = async (
   const isCodigoUsed = !(await fetchProyectoByCode(codigo))
 
   const isOnlyStartDate = inicio && !fin
-  const [dI, mI, yI] = inicio.split("/")
-  const [dF, mF, yF] = (fin ?? "").split("/")
 
-  const inicioDate = new Date(`${mI}-${dI}-${yI}`)
-  const finDate = new Date(`${mF}-${dF}-${yF}`)
+  try {
+    const [dI, mI, yI] = inicio.split("/")
+    const [dF, mF, yF] = (fin ?? "").split("/")
 
-  const isStartDateBeforeEndDate =
-    inicio && fin && inicioDate.getTime() < finDate.getTime()
+    const inicioDate = new Date(`${mI}-${dI}-${yI}`)
+    const finDate = new Date(`${mF}-${dF}-${yF}`)
 
-  const areDatesValid = isOnlyStartDate || isStartDateBeforeEndDate
+    const isStartDateBeforeEndDate =
+      inicio && fin && inicioDate.getTime() < finDate.getTime()
+
+    const areDatesValid = isOnlyStartDate || isStartDateBeforeEndDate
+
+    if (!areDatesValid) {
+      errors.push({
+        message: isOnlyStartDate
+          ? MESSAGES.ERROR.SIN_FECHA_INICIO
+          : MESSAGES.ERROR.INTERVALO_FECHA,
+        read: false,
+      })
+    }
+  } catch (e) {
+    errors.push({ message: MESSAGES.ERROR.FORMATO_FECHA, read: false })
+  }
 
   if (!isCodigoUsed) {
     errors.push({ message: MESSAGES.ERROR.CODIGO_DUPLICADO, read: false })
-  }
-
-  if (!areDatesValid) {
-    errors.push({
-      message: isOnlyStartDate
-        ? MESSAGES.ERROR.SIN_FECHA_INICIO
-        : MESSAGES.ERROR.INTERVALO_FECHA,
-      read: false,
-    })
   }
 
   return errors

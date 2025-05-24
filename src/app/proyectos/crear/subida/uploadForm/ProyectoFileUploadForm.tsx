@@ -69,7 +69,16 @@ export const ProyectoFileUploaderForm = () => {
                 </section>
               </>
             )}
-          {errorMessage && <p className="text-error-accent">{errorMessage}</p>}
+          {errorMessage && (
+            <div>
+              <p className="text-error-accent">{errorMessage}</p>
+              <p>El archivo debe tener las columnas:</p>
+              <p>
+                Código;Investigador principal;Título;Ent. Financiadora;F.
+                Inicio;F. Fin
+              </p>
+            </div>
+          )}
           <section className="grid grid-cols-adaptable-big-mobile sm:grid-cols-adaptable-big gap-4 w-full">
             {!isLoading && uploadedProyectos && uploadedProyectos.length > 0 ? (
               <>

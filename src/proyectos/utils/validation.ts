@@ -3,13 +3,14 @@ import { fetchProyectoByCode } from "@/db"
 import type { ProyectoType } from "../types"
 
 export type ProyectoValidationErrors = {
-  codigo: string
-  ip: string
-  coip: string
-  titulo: string
-  financiado: string
-  fechaInicio: string
-  fechaFin: string
+  codigo?: string
+  ip?: string
+  coip?: string
+  titulo?: string
+  financiado?: string
+  fechaInicio?: string
+  fechaFin?: string
+  unexpectedError?: string
 }
 
 const message = {

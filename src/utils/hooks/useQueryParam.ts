@@ -33,12 +33,30 @@ export const useQueryParam = () => {
 
   const hasQueryParam = (key: string, value?: string) => {
     const params = new URLSearchParams(searchParams ?? "")
-    return params.has(key, value)
+    // return params.has(key, value) --> has a bug, therefore it cannot be used
+    if (value !== undefined) {
+      const allValuesForKey = params.getAll(key)
+      return allValuesForKey.includes(value)
+    }
+    return params.has(key)
   }
 
   const removeQueryParam = (key: string, value?: string) => {
     const params = new URLSearchParams(searchParams ?? "")
-    params.delete(key, value)
+    // params.delete(key, value) has a bug and removes all values for that key
+    if (value) {
+      const allValuesForKey = params.getAll(key)
+      const filtersAfterRemoveQuery = allValuesForKey.filter(
+        (paramValue) => paramValue !== value
+      )
+      params.delete(key)
+      filtersAfterRemoveQuery.forEach((paramValue) =>
+        params.append(key, paramValue)
+      )
+      params.sort()
+    } else {
+      params.delete(key)
+    }
     router.replace(`${pathname}?${params.toString()}`)
   }
 
