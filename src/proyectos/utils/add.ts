@@ -13,9 +13,7 @@ const errorValidation = async (proyecto: ProyectoType): Promise<string[]> => {
   const isOnlyStartDate = inicio && !fin
 
   const isStartDateBeforeEndDate =
-    inicio 
-    && fin 
-    && new Date(inicio).getTime() < new Date(fin).getTime()
+    inicio && fin && new Date(inicio).getTime() < new Date(fin).getTime()
 
   const areDatesValid = isOnlyStartDate || isStartDateBeforeEndDate
 
@@ -36,7 +34,6 @@ const errorValidation = async (proyecto: ProyectoType): Promise<string[]> => {
 
 export const addProyecto = async (proyecto: ProyectoType) => {
   const errorMessage = await errorValidation(proyecto)
-  console.log(errorMessage)
   if (errorMessage.length === 0) {
     createProyectoItem(proyecto)
   }
