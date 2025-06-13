@@ -19,8 +19,8 @@
             "AllMinimumData": "SELECT email, nombre, apellidos FROM investigador ORDER BY email LIMIT $1::int OFFSET $2::int",
             "All": "SELECT * FROM investigador ORDER BY email LIMIT $1::int OFFSET $2::int",
             "ByEmail": "SELECT * FROM investigador WHERE email=$1::text ORDER BY email",
-            "ByNombreAutor": "SELECT * FROM investigador WHERE email IN (SELECT email_investigador FROM nombre_autor WHERE nombre_autor = $1::text) ORDER BY email",
-            "ByLikeNombreAutor": "SELECT * FROM investigador WHERE email IN (SELECT email_investigador FROM nombre_autor WHERE nombre_autor ILIKE $1::text) ORDER BY email",
+            "ByNombreAutor": "SELECT * FROM investigador WHERE email IN (SELECT email_investigador FROM participa WHERE nombre_autor = $1::text) ORDER BY email",
+            "ByLikeNombreAutor": "SELECT * FROM investigador WHERE email IN (SELECT email_investigador FROM participa WHERE nombre_autor ILIKE $1::text) ORDER BY email",
             "ByProyectoCode": "SELECT * FROM investigador WHERE email in (SELECT email_investigador FROM participa WHERE codigo_proyecto = $1::text) ORDER BY email"
         },
         "pagination": {

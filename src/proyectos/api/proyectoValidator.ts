@@ -109,7 +109,7 @@ const setParticipationAutomatic = async (proyecto: ProyectoToUpload) => {
   const { ip, coip } = proyecto
 
   const participaciones: ParticipaType[] = []
-  const ipEmail = await fetchInvestigadorByNombreAutor(ip)
+  const ipEmail = await fetchInvestigadorByNombreAutor(ip.trim())
 
   if (ipEmail && ipEmail.length === 1) {
     participaciones.push({
@@ -119,8 +119,7 @@ const setParticipationAutomatic = async (proyecto: ProyectoToUpload) => {
     })
   }
   if (coip) {
-    const coipEmail = await fetchInvestigadorByNombreAutor(coip)
-
+    const coipEmail = await fetchInvestigadorByNombreAutor(coip.trim())
     if (coipEmail && coipEmail.length === 1) {
       participaciones.push({
         codigo: proyecto.codigo,
