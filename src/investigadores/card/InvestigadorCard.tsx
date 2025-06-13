@@ -133,7 +133,7 @@ export const InvestigadorCard = ({
                       content={proyecto.titulo}
                     >
                       <a
-                        className="text-secondary bg-primary flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-primary outline-2"
+                        className="text-secondary bg-primary flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-primary outline-2 hover:bg-primary-strong hover:text-secondary"
                         href={`proyectos?${proyectoCode.toString()}`}
                         target="_blank"
                       >
