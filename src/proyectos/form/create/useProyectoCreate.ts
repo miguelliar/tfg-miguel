@@ -79,12 +79,13 @@ export const useProyectoCreate = (): UseProyectoCreateReturn => {
     validateParameters(proyecto, setErrors).then((isValid) => {
       if (isValid) {
         addProyecto(proyecto)
-          .then(() => {
-            // In order to wait to the proyecto for being created
-            addedParticipantes
-              .map((participa) => new AddParticipaCommand(participa))
-              .forEach((command) => command.execute())
-            router.push("/proyectos")
+          .then(async () => {
+            for (const participa of addedParticipantes) {
+              // eslint-disable-next-line no-await-in-loop
+              await new AddParticipaCommand(participa).execute()
+            }
+            // TODO: Please, debug this loop as it's being problematic waiting for the last element and remove this timeout
+            setTimeout(() => router.push("/proyectos"), 1000)
           })
           .catch(() =>
             setErrors({
