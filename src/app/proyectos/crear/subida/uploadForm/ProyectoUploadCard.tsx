@@ -156,7 +156,10 @@ export const ProyectoCardToUpload = ({
               onChangeProyecto(
                 mapProyectoTypeToProyectoToUpload({
                   proyecto: proyectoToUpdate,
-                  participaciones: participa,
+                  participaciones: participa?.map((participa) => ({
+                    ...participa,
+                    codigo: proyectoToUpdate.codigo,
+                  })),
                 }),
                 proyecto?.codigo ?? ""
               ).then(() => setEditMode(!isEditMode))

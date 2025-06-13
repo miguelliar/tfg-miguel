@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation"
 import { useCallback, useEffect, useReducer } from "react"
 
+import { AddParticipaCommand } from "@/participa"
 import type { ErrorMessage, ProyectoToUpload } from "@/proyectos"
 import {
   addAllProyectos,
@@ -74,7 +75,19 @@ export const useProyectoFileUpload = (): ProyectoFileUploadFields => {
         await addAllProyectos(
           mapProyectosToUploadToProyectsType(state.uploadedProyectos)
         )
-        dispatch({ type: ProyectoFileActions.SUBMIT_SUCCESS })
+        setTimeout(async () => {
+          for (const proyecto of state.uploadedProyectos) {
+            for (const participacion of proyecto.participantes) {
+              // eslint-disable-next-line no-await-in-loop
+              await new AddParticipaCommand(participacion).execute()
+            }
+          }
+        }, 1000)
+
+        setTimeout(
+          () => dispatch({ type: ProyectoFileActions.SUBMIT_SUCCESS }),
+          2000
+        )
       } catch (e) {
         dispatch({ type: ProyectoFileActions.SUBMIT_ERROR })
       }
