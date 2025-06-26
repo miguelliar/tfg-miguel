@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
-import { updateInvestigador } from "@/db"
+import { updateInvestigador } from "@/investigadores/db"
 import type { InvestigadorType } from "@/investigadores/types"
 
 const validateParameters = (

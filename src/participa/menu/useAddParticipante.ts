@@ -3,13 +3,13 @@ import { useEffect, useState } from "react"
 import type { DebouncedState } from "use-debounce"
 import { useDebouncedCallback } from "use-debounce"
 
+import { type InvestigadorMinimumDataType } from "@/investigadores"
+
 import {
   fetchInvestigadoresByQuery,
   fetchInvestigadoresNotParticipatingInProject,
-  fetchNombresDeAutor,
-} from "@/db"
-import type { InvestigadorMinimumDataType } from "@/investigadores"
-
+} from "../../investigadores/db/investigador"
+import { fetchNombresDeAutor } from "../db"
 import type { ParticipaType } from "../type"
 
 export type UseAddParticipanteReturn = {

@@ -1,7 +1,6 @@
 "use server"
 
-import { createProyectoItem, fetchProyectoByCode } from "@/db"
-
+import { createProyectoItem, fetchProyectoByCode } from "../db"
 import type { ProyectoType } from "../types"
 import { MESSAGES } from "./infoMessage"
 

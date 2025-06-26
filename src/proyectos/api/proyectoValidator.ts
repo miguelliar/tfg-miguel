@@ -1,8 +1,9 @@
 "use server"
 
-import { fetchInvestigadorByNombreAutor, fetchProyectoByCode } from "@/db"
 import type { ParticipaType } from "@/participa"
 
+import { fetchInvestigadorByNombreAutor } from "../../investigadores/db/investigador"
+import { fetchProyectoByCode } from "../db"
 import type {
   ErrorMessage,
   ProyectoMessage,

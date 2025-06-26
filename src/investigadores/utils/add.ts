@@ -1,7 +1,6 @@
 "use server"
 
-import { createInvestigador } from "@/db"
-
+import { createInvestigador } from "../db"
 import type { InvestigadorType } from "../types"
 import { getInvestigadorErrors, validateInvestigadorErrors } from "./validation"
 

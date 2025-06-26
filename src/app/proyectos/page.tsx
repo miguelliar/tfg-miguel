@@ -1,9 +1,10 @@
 import { DocumentMagnifyingGlassIcon } from "@heroicons/react/24/solid"
 
-import { fetchProyectoByCode, fetchProyectoTotalPages } from "@/db"
 import {
   CreateProyectoButton,
+  fetchProyectoByCode,
   fetchProyectosMinimumData,
+  fetchProyectoTotalPages,
   ProyectoCard,
   ProyectoMiniCard,
 } from "@/proyectos"

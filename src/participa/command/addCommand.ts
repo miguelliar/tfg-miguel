@@ -1,9 +1,6 @@
-import {
-  createParticipa,
-  fetchInvestigadorByEmail,
-  fetchProyectoByCode,
-} from "@/db"
-
+import { fetchInvestigadorByEmail } from "../../investigadores/db/investigador"
+import { fetchProyectoByCode } from "../../proyectos/db/proyecto"
+import { createParticipa } from "../db"
 import { ParticipaCommand } from "./participaCommand"
 
 export class AddParticipaCommand extends ParticipaCommand {

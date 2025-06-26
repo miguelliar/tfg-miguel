@@ -7,10 +7,10 @@ import {
 import { isEqual } from "lodash"
 import { useEffect, useRef, useState } from "react"
 
-import { fetchProyectoByCode } from "@/db"
 import type { ProyectoMinimumDataType, ProyectoType } from "@/proyectos"
 import {
   downloadProyectosCSV,
+  fetchProyectoByCode,
   ProyectoCard,
   ProyectoMiniCard,
 } from "@/proyectos"

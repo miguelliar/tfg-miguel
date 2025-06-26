@@ -1,5 +1,4 @@
-import { fetchProyectoByCode } from "@/db"
-
+import { fetchProyectoByCode } from "../db"
 import type { ProyectoType } from "../types"
 
 export type ProyectoValidationErrors = {

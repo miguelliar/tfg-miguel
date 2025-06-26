@@ -3,13 +3,13 @@
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
-import { fetchProyectoByCode } from "@/db"
 import {
   AddParticipaCommand,
   DeleteParticipaCommand,
   type ParticipaCommand,
   type ParticipaType,
 } from "@/participa"
+import { fetchProyectoByCode } from "@/proyectos/db"
 import type { ProyectoType } from "@/proyectos/types"
 
 // TODO: Extract funtion

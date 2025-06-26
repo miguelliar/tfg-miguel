@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
+
 import {
   fetchCodeAndTitleProyectoByQuery,
   fetchCodeAndTitleProyectoData,
   fetchProyectosByCodigos,
-} from "@/db"
-
+} from "../db"
 import type { ProyectoToUpload } from "./map"
 
 export const fetchProyectosMinimumData = async (

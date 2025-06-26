@@ -16,7 +16,7 @@ jest.mock("next/navigation", () => ({
 }))
 
 const mockFetchProyectoByCode = jest.fn()
-jest.mock("@/db", () => ({
+jest.mock("../db", () => ({
   fetchProyectoByCode: (codigo: string) => mockFetchProyectoByCode(codigo),
 }))
 

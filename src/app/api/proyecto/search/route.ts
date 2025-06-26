@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server"
 
-import { fetchProyectoByQuery, fetchProyectoData } from "@/db"
+import { fetchProyectoByQuery, fetchProyectoData } from "@/proyectos"
 
 export async function GET(request: NextRequest) {
   try {

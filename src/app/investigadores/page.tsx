@@ -6,8 +6,9 @@ import {
   fetchInvestigadorData,
   fetchInvestigadoresByQuery,
   fetchInvestigadorTotalPages,
-} from "@/db"
-import { InvestigadorCard, InvestigadorMiniCard } from "@/investigadores"
+  InvestigadorCard,
+  InvestigadorMiniCard,
+} from "@/investigadores"
 import { Pagination, Search } from "@/ui"
 
 import { ProyectoViewerByInvestigador } from "./proyectoByInvestigador/ProyectoViewerByInvestigador"

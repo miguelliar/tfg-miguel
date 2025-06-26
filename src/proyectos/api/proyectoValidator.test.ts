@@ -9,10 +9,13 @@ import {
 const mockFetchProyectoByCode = jest.fn()
 const mockFetchInvestigadorByNombreAutor = jest.fn()
 
-jest.mock("@/db", () => ({
-  fetchProyectoByCode: (codigo: string) => mockFetchProyectoByCode(codigo),
+jest.mock("../../investigadores/db/investigador", () => ({
   fetchInvestigadorByNombreAutor: (nombreAutor: string) =>
     mockFetchInvestigadorByNombreAutor(nombreAutor),
+}))
+
+jest.mock("../db", () => ({
+  fetchProyectoByCode: (codigo: string) => mockFetchProyectoByCode(codigo),
 }))
 
 const createProyectoBase = (

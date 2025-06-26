@@ -4,6 +4,7 @@ import { createContext } from "react"
 
 import type { InvestigadorType } from "@/investigadores"
 
+// TODO: Move this to Investigador folder
 export type SelectInvestigador = (props: {
   investigadorSelected: InvestigadorType
 }) => void

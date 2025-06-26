@@ -10,10 +10,13 @@ const mockDeleteProyecto = jest.fn()
 const mockFetchParticipaByCodigoProyecto = jest.fn()
 const mockUpdateProyectoItem = jest.fn()
 
-jest.mock("@/db", () => ({
-  deleteProyecto: () => mockDeleteProyecto(),
+jest.mock("../../participa/db/participa", () => ({
   fetchParticipaByCodigoProyecto: (codigo: string) =>
     mockFetchParticipaByCodigoProyecto(codigo),
+}))
+
+jest.mock("../db", () => ({
+  deleteProyecto: () => mockDeleteProyecto(),
   updateProyectoItem: (proyecto: ProyectoType) =>
     mockUpdateProyectoItem(proyecto),
 }))

@@ -1,10 +1,7 @@
-import {
-  deleteParticipa,
-  fetchInvestigadorByEmail,
-  fetchParticipa,
-  fetchProyectoByCode,
-} from "@/db"
-
+// To prevent circular dependencies this deep import is being used
+import { fetchInvestigadorByEmail } from "../../investigadores/db/investigador"
+import { fetchProyectoByCode } from "../../proyectos/db/proyecto"
+import { deleteParticipa, fetchParticipa } from "../db"
 import { ParticipaCommand } from "./participaCommand"
 
 export class DeleteParticipaCommand extends ParticipaCommand {

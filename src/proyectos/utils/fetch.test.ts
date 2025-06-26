@@ -10,7 +10,7 @@ const mockFetchCodeAndTitleProyectoByQuery = jest.fn()
 const mockFetchCodeAndTitleProyectoData = jest.fn()
 const mockFetchProyectosByCodigos = jest.fn()
 
-jest.mock("@/db", () => ({
+jest.mock("../db", () => ({
   fetchCodeAndTitleProyectoByQuery: (...args: any[]) =>
     mockFetchCodeAndTitleProyectoByQuery(...args),
   fetchCodeAndTitleProyectoData: (...args: any[]) =>

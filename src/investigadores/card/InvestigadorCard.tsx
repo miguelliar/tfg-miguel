@@ -8,15 +8,15 @@ import {
 } from "@heroicons/react/24/solid"
 import { useEffect, useState } from "react"
 
+import { fetchNombresDeAutor } from "@/participa"
 import {
-  deleteInvestigador,
   fetchAllProyectosByInvestigadores,
-  fetchNombresDeAutor,
-} from "@/db"
-import type { ProyectoMinimumDataType } from "@/proyectos"
+  type ProyectoMinimumDataType,
+} from "@/proyectos"
 import { CardModal, DeleteButton, EditButton, HorizontalCard } from "@/ui"
 import { useQueryParam } from "@/utils/hooks/useQueryParam"
 
+import { deleteInvestigador } from "../db"
 import { EditInvestigadorForm } from "../form"
 import type { InvestigadorType } from "../types"
 

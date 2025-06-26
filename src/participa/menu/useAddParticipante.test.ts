@@ -17,7 +17,8 @@ const mockFetchInvestigadoresByQuery = jest.fn()
 const mockFetchInvestigadoresNotParticipatingInProject = jest.fn()
 const mockFetchNombresDeAutor = jest.fn()
 
-jest.mock("@/db", () => ({
+jest.mock("@/investigadores", () => ({
+  ...jest.requireActual("@/investigadores"),
   fetchInvestigadoresByQuery: (...args: any[]) =>
     mockFetchInvestigadoresByQuery(...args),
   fetchInvestigadoresNotParticipatingInProject: (...args: any[]) =>
