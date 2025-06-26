@@ -1,0 +1,7 @@
+{
+    "transaction": {
+        "Start": "BEGIN",
+        "Commit": "COMMIT;",
+        "End": "End;"
+    }
+}
