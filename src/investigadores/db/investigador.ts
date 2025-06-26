@@ -2,12 +2,14 @@
 
 "use server"
 
-import { unstable_noStore as noStore } from "next/cache"
+import { revalidatePath, unstable_noStore as noStore } from "next/cache"
+import { redirect } from "next/navigation"
+import { z } from "zod"
 
 import type { InvestigadorMinimumDataType } from "@/investigadores"
 
-import config from "../constants.json"
-import { getPool } from "../pool"
+import config from "../../db/constants.json"
+import { getPool } from "../../db/pool"
 
 const investigadorConfig = config.investigador
 const pool = getPool()
@@ -20,6 +22,40 @@ export type InvestigadorType = {
   departamento: string
   area: string
   figura: string
+}
+
+const InvestigadorFormSchema = z.object({
+  email: z.string(),
+  nombre: z.string(),
+  apellidos: z.string(),
+  universidad: z.string(),
+  departamento: z.string(),
+  area: z.string(),
+  figura: z.string(),
+})
+
+export async function createInvestigadorWithForm(formData: FormData) {
+  const { email, nombre, apellidos, universidad, departamento, area, figura } =
+    InvestigadorFormSchema.parse({
+      email: formData.get("email"),
+      nombre: formData.get("nombre"),
+      apellidos: formData.get("apellidos"),
+      universidad: formData.get("universidad"),
+      departamento: formData.get("departamento"),
+      area: formData.get("area"),
+      figura: formData.get("figura"),
+    })
+
+  try {
+    await pool.query(
+      "INSERT INTO investigador (email, nombre, apellidos, universidad, departamento, area, figura) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      [email, nombre, apellidos, universidad, departamento, area, figura]
+    )
+  } catch (error) {
+    console.error("Error inserting proyecto", error)
+  }
+  revalidatePath("/investigadores", "page")
+  redirect("/investigadores")
 }
 
 const validateInputParameter = (investigador: InvestigadorType) => {

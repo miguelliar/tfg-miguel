@@ -20,16 +20,6 @@ const ProyectoFormSchema = z.object({
   fin: z.optional(z.string()),
 })
 
-const InvestigadorFormSchema = z.object({
-  email: z.string(),
-  nombre: z.string(),
-  apellidos: z.string(),
-  universidad: z.string(),
-  departamento: z.string(),
-  area: z.string(),
-  figura: z.string(),
-})
-
 export async function createProyecto(formData: FormData) {
   const { codigo, ip, coip, titulo, financiado, inicio, fin } =
     ProyectoFormSchema.parse({
@@ -52,30 +42,6 @@ export async function createProyecto(formData: FormData) {
   }
   revalidatePath("/proyectos")
   redirect("/proyectos")
-}
-
-export async function createInvestigadorWithForm(formData: FormData) {
-  const { email, nombre, apellidos, universidad, departamento, area, figura } =
-    InvestigadorFormSchema.parse({
-      email: formData.get("email"),
-      nombre: formData.get("nombre"),
-      apellidos: formData.get("apellidos"),
-      universidad: formData.get("universidad"),
-      departamento: formData.get("departamento"),
-      area: formData.get("area"),
-      figura: formData.get("figura"),
-    })
-
-  try {
-    await pool.query(
-      "INSERT INTO investigador (email, nombre, apellidos, universidad, departamento, area, figura) VALUES ($1, $2, $3, $4, $5, $6, $7)",
-      [email, nombre, apellidos, universidad, departamento, area, figura]
-    )
-  } catch (error) {
-    console.error("Error inserting proyecto", error)
-  }
-  revalidatePath("/investigadores", "page")
-  redirect("/investigadores")
 }
 
 export async function createParticipaWithForm(
