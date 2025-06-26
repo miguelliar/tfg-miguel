@@ -43,18 +43,3 @@ export async function createProyecto(formData: FormData) {
   revalidatePath("/proyectos")
   redirect("/proyectos")
 }
-
-export async function createParticipaWithForm(
-  idProyecto: number,
-  idInvestigador: number
-) {
-  try {
-    await pool.query(
-      "INSERT INTO participa (id_investigador, id_proyecto) VALUES ($1, $2)",
-      [idInvestigador, idProyecto]
-    )
-  } catch (error) {
-    console.error("Error inserting participa", error)
-  }
-  revalidatePath("/proyectos", "page")
-}

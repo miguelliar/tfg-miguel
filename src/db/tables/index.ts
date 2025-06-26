@@ -1,3 +1,3 @@
 export * from "../../investigadores/db/investigador"
-export * from "./participa"
+export * from "../../participa/db/participa"
 export * from "./proyecto"

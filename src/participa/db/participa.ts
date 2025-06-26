@@ -4,10 +4,10 @@ import { unstable_noStore as noStore } from "next/cache"
 
 import type { ParticipaType } from "@/participa"
 
+import config from "../../db/constants.json"
+import { getPool } from "../../db/pool"
 import { fetchInvestigadorByEmail } from "../../investigadores/db/investigador"
-import config from "../constants.json"
-import { getPool } from "../pool"
-import { fetchProyectoByCode } from "./proyecto"
+import { fetchProyectoByCode } from "../../proyectos/db/proyecto"
 
 const { participa } = config
 const pool = getPool()
