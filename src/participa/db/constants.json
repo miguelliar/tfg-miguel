@@ -1,0 +1,24 @@
+{
+        "fetch": {
+            "ByEmailInvestigador": "SELECT * FROM participa WHERE email_investigador=$1::text ORDER BY codigo_proyecto",
+            "ByCodigo": "SELECT * FROM participa WHERE codigo_proyecto=$1::text ORDER BY email_investigador",
+            "ByCodigoAndEmail": "SELECT * FROM participa WHERE codigo_proyecto=$1::text AND email_investigador=$2::text ORDER BY nombre_autor",
+            "NombreDeAutor": "SELECT DISTINCT nombre_autor, COUNT(*) OVER(PARTITION BY nombre_autor) AS repetitions FROM participa WHERE email_investigador=$1::text ORDER BY repetitions"
+        },
+        "Create": "INSERT INTO participa (email_investigador, codigo_proyecto, nombre_autor) VALUES ($1::text, $2::text, $3::text)",
+        "delete": {
+            "ByPK": "DELETE FROM participa WHERE codigo_proyecto=$1::text AND email_investigador=$2::text",
+            "ByCodigo": "DELETE FROM participa WHERE codigo_proyecto = $1::text",
+            "ByEmail": "DELETE FROM participa WHERE email_investigador = $1::text"
+        },
+        "error": {
+            "add": {
+                "Duplicated": "There is already a participation for that proyecto with that investigador",
+                "Investigador": "There doesn't exist any investigador with that email",
+                "Proyecto": "There doesn't exist any proyecto with that code",
+                "Standard": "Error inserting participa"
+            },
+            "Delete": "Error deleting entry from DB",
+            "Fetch": "Error fetching the information"
+        }
+    }

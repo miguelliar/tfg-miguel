@@ -2,14 +2,13 @@
 
 import { unstable_noStore as noStore } from "next/cache"
 
-import type { ParticipaType } from "@/participa"
+import { DB_CONSTANTS, getPool } from "@/utils"
 
-import config from "../../db/constants.json"
-import { getPool } from "../../db/pool"
 import { fetchInvestigadorByEmail } from "../../investigadores/db/investigador"
 import { fetchProyectoByCode } from "../../proyectos/db/proyecto"
+import type { ParticipaType } from "../type"
+import participa from "./constants.json"
 
-const { participa } = config
 const pool = getPool()
 
 type ParticipaDBType = {
@@ -97,10 +96,10 @@ export async function fetchParticipa(codigo: string, email: string) {
 export async function deleteParticipa(codigo: string, email: string) {
   noStore()
   try {
-    await pool.query(config.transaction.Start)
+    await pool.query(DB_CONSTANTS.Start)
     await pool.query(participa.delete.ByPK, [codigo, email])
-    await pool.query(config.transaction.Commit)
-    await pool.query(config.transaction.End)
+    await pool.query(DB_CONSTANTS.Commit)
+    await pool.query(DB_CONSTANTS.End)
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(participa.error.Delete, error)
@@ -134,14 +133,14 @@ export async function createParticipa(
   }
 
   try {
-    await pool.query(config.transaction.Start)
+    await pool.query(DB_CONSTANTS.Start)
     await pool.query(participa.Create, [
       emailInvestigador,
       codigoProyecto,
       nombreAutor,
     ])
-    await pool.query(config.transaction.Commit)
-    await pool.query(config.transaction.End)
+    await pool.query(DB_CONSTANTS.Commit)
+    await pool.query(DB_CONSTANTS.End)
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(participa.error.add.Standard, error)
