@@ -6,23 +6,14 @@ import { revalidatePath, unstable_noStore as noStore } from "next/cache"
 import { redirect } from "next/navigation"
 import { z } from "zod"
 
-import type { InvestigadorMinimumDataType } from "@/investigadores"
+import { DB_CONSTANTS, getPool } from "@/utils"
 
-import config from "../../db/constants.json"
-import { getPool } from "../../db/pool"
+import participaConfig from "../../participa/db/constants.json"
+import type { InvestigadorMinimumDataType, InvestigadorType } from "../types"
+import config from "./constants.json"
 
-const investigadorConfig = config.investigador
+const investigadorConfig = config
 const pool = getPool()
-
-export type InvestigadorType = {
-  email: string
-  nombre: string
-  apellidos: string
-  universidad: string
-  departamento: string
-  area: string
-  figura: string
-}
 
 const InvestigadorFormSchema = z.object({
   email: z.string(),
@@ -88,7 +79,7 @@ export const createInvestigador = async (investigador: InvestigadorType) => {
   }
 
   try {
-    await pool.query(config.transaction.Start)
+    await pool.query(DB_CONSTANTS.Start)
     await pool.query(investigadorConfig.Create, [
       email,
       nombre,
@@ -98,8 +89,8 @@ export const createInvestigador = async (investigador: InvestigadorType) => {
       area,
       figura,
     ])
-    await pool.query(config.transaction.Commit)
-    await pool.query(config.transaction.End)
+    await pool.query(DB_CONSTANTS.Commit)
+    await pool.query(DB_CONSTANTS.End)
   } catch (error) {
     console.error(investigadorConfig.error.add.Standard, error)
   }
@@ -115,7 +106,7 @@ export const updateInvestigador = async (investigador: InvestigadorType) => {
   }
 
   try {
-    await pool.query(config.transaction.Start)
+    await pool.query(DB_CONSTANTS.Start)
     await pool.query(investigadorConfig.Update, [
       nombre,
       apellidos,
@@ -125,8 +116,8 @@ export const updateInvestigador = async (investigador: InvestigadorType) => {
       figura,
       email,
     ])
-    await pool.query(config.transaction.Commit)
-    await pool.query(config.transaction.End)
+    await pool.query(DB_CONSTANTS.Commit)
+    await pool.query(DB_CONSTANTS.End)
   } catch (error) {
     console.error(investigadorConfig.error.Update, error)
   }
@@ -288,17 +279,17 @@ export async function deleteInvestigador(email: string) {
     if (!proyecto) {
       throw new Error(investigadorConfig.error.delete.email)
     }
-    await pool.query(config.transaction.Start)
+    await pool.query(DB_CONSTANTS.Start)
     const deleteParticipaStatus = await pool.query(
-      config.participa.delete.ByEmail,
+      participaConfig.delete.ByEmail,
       [email]
     )
     const deleteInvestigadorStatus = await pool.query(
       investigadorConfig.Delete,
       [email]
     )
-    await pool.query(config.transaction.Commit)
-    await pool.query(config.transaction.End)
+    await pool.query(DB_CONSTANTS.Commit)
+    await pool.query(DB_CONSTANTS.End)
 
     const columnsAffected =
       (deleteParticipaStatus.rowCount ?? 0) +
