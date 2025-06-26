@@ -1,0 +1,38 @@
+{
+        "Create": "INSERT INTO proyecto (codigo, ip, coip, titulo, financiado, inicio, fin) VALUES ($1::text, $2::text, $3::text, $4::text, $5::text, $6::date, $7::date)",
+        "Delete": "DELETE FROM proyecto WHERE codigo = $1::text",
+        "Update": "UPDATE proyecto SET ip=$1::text, coip=$2::text, titulo=$3::text, financiado=$4::text, inicio=$5::date, fin=$6::date WHERE codigo=$7::text",
+        "error": {
+            "Executing": "Error executing query",
+            "MaxIndex": "Error obtaining the maximum index",
+            "add": {
+                "Duplicated": "Error: There is a proyecto with that codigo already existing",
+                "Standard": "Error inserting proyecto"
+            },
+            "delete": {
+                "code": "There is no proyecto to delete with that code"
+            },
+            "update": {
+                "Inexisting": "There doesn't exist any error with that codigo that can be updated",
+                "Standard": "Error updating the proyecto"
+            }
+        },
+        "fetch": {
+            "AllMinimumData": "SELECT codigo, titulo FROM proyecto ORDER BY codigo LIMIT $1::int OFFSET $2::int",
+            "All": "SELECT * FROM proyecto ORDER BY codigo LIMIT $1::int OFFSET $2::int",
+            "AllByInvestigadores": "SELECT codigo, titulo FROM proyecto WHERE codigo IN (SELECT codigo_proyecto FROM participa WHERE email_investigador = ANY($1::text[])) ORDER BY codigo",
+            "ByCodigo": "SELECT * FROM proyecto WHERE codigo=$1::text",
+            "ByCodigos": "SELECT * FROM proyecto where codigo = ANY($1::text[]) ORDER BY codigo",
+            "DistinctProyectosByInvestigadores": "SELECT proyecto.codigo, proyecto.titulo FROM proyecto WHERE proyecto.codigo IN (SELECT participa.codigo_proyecto FROM participa WHERE participa.email_investigador = ANY($1::text[]) GROUP BY participa.codigo_proyecto HAVING COUNT(DISTINCT participa.email_investigador) = 1) ORDER BY codigo",
+            "JoinByInvestigadores": "SELECT proyecto.codigo, proyecto.titulo FROM proyecto JOIN participa ON proyecto.codigo = participa.codigo_proyecto WHERE participa.email_investigador = ANY($1::text[]) GROUP BY proyecto.codigo HAVING COUNT(DISTINCT participa.email_investigador) = ARRAY_LENGTH($1::text[], 1) ORDER BY codigo"
+        },
+        "pagination": {
+            "INITIAL_PAGE": 1,
+            "ITEMS_PER_PAGE": 12
+        },
+        "search": {
+            "SearchMinimumData": "SELECT codigo, titulo FROM proyecto WHERE titulo ILIKE $1::text OR codigo ILIKE $1::text OR ip ILIKE $1::text OR financiado ILIKE $1::text ORDER BY inicio LIMIT $2 OFFSET $3",
+            "SearchByName": "SELECT * FROM proyecto WHERE titulo ILIKE $1::text OR codigo ILIKE $1::text OR ip ILIKE $1::text OR financiado ILIKE $1::text ORDER BY inicio LIMIT $2 OFFSET $3",
+            "MaxNumberOfPages": "SELECT COUNT(*) as count FROM proyecto WHERE titulo ILIKE $1::text OR codigo ILIKE $1::text OR ip ILIKE $1::text OR financiado ILIKE $1::text "
+        }
+    }

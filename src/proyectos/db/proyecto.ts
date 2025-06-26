@@ -7,11 +7,11 @@ import { redirect } from "next/navigation"
 import { z } from "zod"
 
 import type { ProyectoMinimumDataType, ProyectoType } from "@/proyectos"
+import { DB_CONSTANTS, getPool } from "@/utils"
 
-import config from "../../db/constants.json"
-import { getPool } from "../../db/pool"
+import participaQuery from "../../participa/db/constants.json"
+import proyectoConfig from "./constants.json"
 
-const proyectoConfig = config.proyecto
 const pool = getPool()
 
 const ProyectoFormSchema = z.object({
@@ -271,7 +271,7 @@ export async function createProyectoItem(proyecto: ProyectoType) {
   }
 
   try {
-    await pool.query(config.transaction.Start)
+    await pool.query(DB_CONSTANTS.Start)
     await pool.query(proyectoConfig.Create, [
       codigo,
       ip,
@@ -281,8 +281,8 @@ export async function createProyectoItem(proyecto: ProyectoType) {
       inicio,
       fin || null,
     ])
-    await pool.query(config.transaction.Commit)
-    await pool.query(config.transaction.End)
+    await pool.query(DB_CONSTANTS.Commit)
+    await pool.query(DB_CONSTANTS.End)
   } catch (error) {
     throw new Error("Ha habido un error añadiendo el proyecto")
   }
@@ -302,7 +302,7 @@ export async function updateProyectoItem(proyecto: ProyectoType) {
   }
 
   try {
-    await pool.query(config.transaction.Start)
+    await pool.query(DB_CONSTANTS.Start)
     await pool.query(proyectoConfig.Update, [
       ip,
       coip,
@@ -312,8 +312,8 @@ export async function updateProyectoItem(proyecto: ProyectoType) {
       fin || null,
       codigo,
     ])
-    await pool.query(config.transaction.Commit)
-    await pool.query(config.transaction.End)
+    await pool.query(DB_CONSTANTS.Commit)
+    await pool.query(DB_CONSTANTS.End)
   } catch (error) {
     console.error(proyectoConfig.error.update.Standard, error)
   }
@@ -325,16 +325,16 @@ export async function deleteProyecto(codigo: string) {
     if (!proyecto) {
       throw new Error(proyectoConfig.error.delete.code)
     }
-    await pool.query(config.transaction.Start)
+    await pool.query(DB_CONSTANTS.Start)
     const deleteParticipaStatus = await pool.query(
-      config.participa.delete.ByCodigo,
+      participaQuery.delete.ByCodigo,
       [codigo]
     )
     const deleteProyectoStatus = await pool.query(proyectoConfig.Delete, [
       codigo,
     ])
-    await pool.query(config.transaction.Commit)
-    await pool.query(config.transaction.End)
+    await pool.query(DB_CONSTANTS.Commit)
+    await pool.query(DB_CONSTANTS.End)
 
     const columnsAffected =
       (deleteParticipaStatus.rowCount ?? 0) +
