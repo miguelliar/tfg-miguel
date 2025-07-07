@@ -14,7 +14,7 @@ export class AddParticipaCommand extends ParticipaCommand {
     )
 
     if (proyectoExist && investigadorExist) {
-      createParticipa(
+      await createParticipa(
         this.participa.email,
         this.participa.codigo,
         this.participa.nombreAutor

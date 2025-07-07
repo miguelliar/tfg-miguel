@@ -84,8 +84,7 @@ export const useProyectoCreate = (): UseProyectoCreateReturn => {
               // eslint-disable-next-line no-await-in-loop
               await new AddParticipaCommand(participa).execute()
             }
-            // TODO: Please, debug this loop as it's being problematic waiting for the last element and remove this timeout
-            setTimeout(() => router.push("/proyectos"), 1000)
+            router.push("/proyectos")
           })
           .catch(() =>
             setErrors({
