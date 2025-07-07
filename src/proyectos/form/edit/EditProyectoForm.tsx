@@ -36,6 +36,8 @@ export const EditProyectoForm = ({
     editedProyecto,
     editedParticipaciones,
     errors,
+    hasParticipacionesChanged,
+    hasProyectoChanged,
     handleChange,
     onSubmit,
     addParticipa,
@@ -244,15 +246,23 @@ export const EditProyectoForm = ({
         </div>
       </div>
       <div className="flex justify-around">
-        <Button type="submit">Editar</Button>
-        <Button
-          type="button"
-          onClick={finishEditMode}
-          onKeyDown={cancelarButtonOnKeyPress}
-          ref={cancelButton}
-        >
-          Cancelar
-        </Button>
+        {unSync ? (
+          (hasParticipacionesChanged || hasProyectoChanged) && (
+            <Button type="submit">Guardar cambios</Button>
+          )
+        ) : (
+          <>
+            <Button type="submit">Editar</Button>
+            <Button
+              type="button"
+              onClick={finishEditMode}
+              onKeyDown={cancelarButtonOnKeyPress}
+              ref={cancelButton}
+            >
+              Cancelar
+            </Button>
+          </>
+        )}
       </div>
     </form>
   )

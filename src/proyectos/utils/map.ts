@@ -51,8 +51,10 @@ export const mapProyectoTypeToProyectoToUpload = ({
 export const mapProyectoToUploadToProyectType = (
   proyecto: ProyectoToUpload
 ): ProyectoType => {
+  // eslint-disable-next-line unused-imports/no-unused-vars
+  const { participantes, ...proyectoProps } = proyecto
   return {
-    ...proyecto,
+    ...proyectoProps,
     inicio: parseDate(proyecto.inicio),
     fin: proyecto.fin ? parseDate(proyecto.fin) : undefined, // TODO: Improve this line
   }

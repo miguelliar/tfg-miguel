@@ -1,7 +1,6 @@
 "use client"
 
 import {
-  ArrowTopRightOnSquareIcon,
   ChevronDownIcon,
   ChevronUpIcon,
   ExclamationCircleIcon,
@@ -17,7 +16,6 @@ import {
   mapProyectoToUploadToProyectType,
   mapProyectoTypeToProyectoToUpload,
 } from "@/proyectos"
-import { EditButton, HorizontalCard } from "@/ui"
 
 import { ErrorMessageCard } from "./messages/ErrorMessageCard"
 import { WarningMessageCard } from "./messages/WarningMessageCard"
@@ -34,92 +32,11 @@ interface ProyectoCardToUploadProps {
   ) => void
 }
 
-const ProyectoInfo = ({ proyecto }: { proyecto: ProyectoToUpload }) => {
-  const { participantes } = proyecto
-  return (
-    <div className="flex flex-col text-center pt-3 px-[14px] sm:px-7 pb-2">
-      <h2 className="text-accent-primary">{proyecto.codigo}</h2>
-      <div className="flex flex-col gap-2 ">
-        <div>
-          <h3 className="text-wrap">
-            <strong>Investigador Principal: </strong>
-          </h3>
-          <p className="text-nowrap">{proyecto.ip}</p>
-        </div>
-        {proyecto.coip && (
-          <div className="mt-1">
-            <h3>
-              <strong>Co Investigador Principal:</strong>
-            </h3>
-            <p>{proyecto.coip}</p>
-          </div>
-        )}
-        <div className="w-full">
-          <h3 className="align-middle">
-            <strong>Descripcion</strong>
-          </h3>
-          <p>{proyecto.titulo}</p>
-        </div>
-        <div>
-          <strong>Financiado:</strong>
-          <p>{proyecto.financiado}</p>
-        </div>
-        <div className="flex flex-row justify-around">
-          <div>
-            <h3>
-              <strong>Inicio:</strong>
-            </h3>
-            <p suppressHydrationWarning>{proyecto.inicio}</p>
-          </div>
-          <div>
-            <h3>
-              <strong>Fin:</strong>
-            </h3>
-            <p suppressHydrationWarning>{proyecto.fin ?? "Sin fin"}</p>
-          </div>
-        </div>
-        {participantes.length > 0 && (
-          <>
-            <h3>
-              <strong className="mt-5">Participantes</strong>
-            </h3>
-            <div className="flex flex-col overflow-auto gap-2">
-              {participantes.map((participa) => {
-                const emailDirection = new URLSearchParams([
-                  ["email", participa.email],
-                ])
-
-                return (
-                  <HorizontalCard
-                    key={participa.email}
-                    id={participa.email}
-                    content={participa.nombreAutor}
-                  >
-                    <a
-                      className="text-secondary bg-primary flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-primary outline-2 hover:text-secondary-soft hover:bg-primary-strong"
-                      href={`/investigadores?${emailDirection.toString()}`}
-                      target="_blank"
-                    >
-                      Ver
-                      <ArrowTopRightOnSquareIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
-                    </a>
-                  </HorizontalCard>
-                )
-              })}
-            </div>
-          </>
-        )}
-      </div>
-    </div>
-  )
-}
-
 export const ProyectoCardToUpload = ({
   proyecto,
   onChangeProyecto,
   onSolveConflict,
 }: ProyectoCardToUploadProps) => {
-  const [isEditMode, setEditMode] = useState(false)
   const [isInfoMessagesCollapsed, setIsInfoMessagesCollapsed] = useState(true)
   const errorNumber = proyecto.messages.errors?.length ?? 0
   const warningNumber = proyecto.messages.warnings?.length ?? 0
@@ -142,33 +59,30 @@ export const ProyectoCardToUpload = ({
         }
       )}
     >
-      {isEditMode ? (
-        <EditProyectoForm
-          proyecto={mapProyectoToUploadToProyectType(proyecto)}
-          finishEditMode={() => setEditMode(!isEditMode)}
-          participaciones={proyecto.participantes}
-          unSync
-          onUpdate={(
-            proyectoToUpdate?: ProyectoType,
-            participa?: ParticipaType[]
-          ): void => {
-            if (proyectoToUpdate) {
-              onChangeProyecto(
-                mapProyectoTypeToProyectoToUpload({
-                  proyecto: proyectoToUpdate,
-                  participaciones: participa?.map((participa) => ({
-                    ...participa,
-                    codigo: proyectoToUpdate.codigo,
-                  })),
-                }),
-                proyecto?.codigo ?? ""
-              ).then(() => setEditMode(!isEditMode))
-            }
-          }}
-        />
-      ) : (
-        <ProyectoInfo proyecto={proyecto} />
-      )}
+      <EditProyectoForm
+        proyecto={mapProyectoToUploadToProyectType(proyecto)}
+        finishEditMode={() => {}}
+        participaciones={proyecto.participantes}
+        unSync
+        onUpdate={(
+          proyectoToUpdate?: ProyectoType,
+          participa?: ParticipaType[]
+        ): void => {
+          if (proyectoToUpdate) {
+            onChangeProyecto(
+              mapProyectoTypeToProyectoToUpload({
+                proyecto: proyectoToUpdate,
+                participaciones: participa?.map((participa) => ({
+                  ...participa,
+                  codigo: proyectoToUpdate.codigo,
+                })),
+              }),
+              proyecto?.codigo ?? ""
+            )
+          }
+        }}
+      />
+
       <div
         onKeyDown={onKeyDown}
         className="flex flex-row bg-highlight-secondary pl-2 border-t w-full border-t-gray-400 rounded-b-md"
@@ -230,11 +144,6 @@ export const ProyectoCardToUpload = ({
           </li>
         ))}
       </ul>
-      <EditButton
-        className="absolute top-1 right-1"
-        isEditMode={isEditMode}
-        setEditMode={setEditMode}
-      />
     </article>
   )
 }
