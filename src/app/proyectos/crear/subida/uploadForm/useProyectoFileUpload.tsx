@@ -75,19 +75,13 @@ export const useProyectoFileUpload = (): ProyectoFileUploadFields => {
         await addAllProyectos(
           mapProyectosToUploadToProyectsType(state.uploadedProyectos)
         )
-        setTimeout(async () => {
-          for (const proyecto of state.uploadedProyectos) {
-            for (const participacion of proyecto.participantes) {
-              // eslint-disable-next-line no-await-in-loop
-              await new AddParticipaCommand(participacion).execute()
-            }
+        for (const proyecto of state.uploadedProyectos) {
+          for (const participacion of proyecto.participantes) {
+            // eslint-disable-next-line no-await-in-loop
+            await new AddParticipaCommand(participacion).execute()
           }
-        }, 1000)
-
-        setTimeout(
-          () => dispatch({ type: ProyectoFileActions.SUBMIT_SUCCESS }),
-          2000
-        )
+        }
+        dispatch({ type: ProyectoFileActions.SUBMIT_SUCCESS })
       } catch (e) {
         dispatch({ type: ProyectoFileActions.SUBMIT_ERROR })
       }
