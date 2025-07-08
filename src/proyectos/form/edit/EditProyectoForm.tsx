@@ -252,14 +252,18 @@ export const EditProyectoForm = ({
           )
         ) : (
           <>
-            <Button type="submit">Editar</Button>
+            <Button variant="fill" type="submit">
+              Guardar cambios
+            </Button>
             <Button
               type="button"
+              variant="custom"
+              className="p-2 text-secondary bg-error hover:bg-error-accent"
               onClick={finishEditMode}
               onKeyDown={cancelarButtonOnKeyPress}
               ref={cancelButton}
             >
-              Cancelar
+              Cancelar cambios
             </Button>
           </>
         )}

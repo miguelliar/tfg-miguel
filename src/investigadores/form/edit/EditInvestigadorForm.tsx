@@ -4,6 +4,7 @@ import type { KeyboardEvent } from "react"
 import { useRef } from "react"
 
 import type { InvestigadorType } from "@/investigadores/types"
+import { Button } from "@/ui"
 
 import { useEditInvestigadorForm } from "./useEditInvestigadorForm"
 
@@ -140,16 +141,20 @@ export const EditInvestigadorForm = ({
           className="w-full"
         />
       </label>
-      <div className="flex justify-around">
-        <button type="submit">Editar</button>
-        <button
+      <div className="flex justify-around w-full gap-4">
+        <Button variant="fill" type="submit">
+          Guardar cambios
+        </Button>
+        <Button
           type="button"
+          variant="custom"
+          className="p-2 text-secondary bg-error hover:bg-error-accent"
           onClick={finishEditMode}
           onKeyDown={cancelarButtonOnKeyPress}
           ref={cancelButton}
         >
-          Cancelar
-        </button>
+          Cancelar cambios
+        </Button>
       </div>
     </form>
   )
