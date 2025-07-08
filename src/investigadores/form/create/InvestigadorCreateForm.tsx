@@ -25,9 +25,6 @@ export const InvestigadorCreateForm = () => {
         className="flex flex-col gap-2 my-3 w-64"
         onSubmit={(e) => onSubmit(e)}
       >
-        {!isUnexpectedError && errors?.email && (
-          <span style={{ color: "red" }}>{errors.email}</span>
-        )}
         <label htmlFor="email" className="flex flex-col">
           <strong>Email: </strong>
           <input
@@ -41,8 +38,8 @@ export const InvestigadorCreateForm = () => {
             onChange={handleChange}
           />
         </label>
-        {!isUnexpectedError && errors?.nombre && (
-          <span style={{ color: "red" }}>{errors.nombre}</span>
+        {!isUnexpectedError && errors?.email && (
+          <span style={{ color: "red" }}>{errors.email}</span>
         )}
         <label htmlFor="nombre" className="flex flex-col">
           <strong>Nombre: </strong>
@@ -55,8 +52,8 @@ export const InvestigadorCreateForm = () => {
             onChange={handleChange}
           />
         </label>
-        {!isUnexpectedError && errors?.apellidos && (
-          <span style={{ color: "red" }}>{errors.apellidos}</span>
+        {!isUnexpectedError && errors?.nombre && (
+          <span style={{ color: "red" }}>{errors.nombre}</span>
         )}
         <label htmlFor="apellidos" className="flex flex-col">
           <strong>Apellidos: </strong>
@@ -69,8 +66,8 @@ export const InvestigadorCreateForm = () => {
             onChange={handleChange}
           />
         </label>
-        {!isUnexpectedError && errors?.universidad && (
-          <span style={{ color: "red" }}>{errors.universidad}</span>
+        {!isUnexpectedError && errors?.apellidos && (
+          <span style={{ color: "red" }}>{errors.apellidos}</span>
         )}
         <label htmlFor="universidad" className="flex flex-col">
           <strong>Universidad: </strong>
@@ -83,8 +80,8 @@ export const InvestigadorCreateForm = () => {
             onChange={handleChange}
           />
         </label>
-        {!isUnexpectedError && errors?.departamento && (
-          <span style={{ color: "red" }}>{errors.departamento}</span>
+        {!isUnexpectedError && errors?.universidad && (
+          <span style={{ color: "red" }}>{errors.universidad}</span>
         )}
         <label htmlFor="departamento" className="flex flex-col">
           <strong>Departamento: </strong>
@@ -97,8 +94,8 @@ export const InvestigadorCreateForm = () => {
             onChange={handleChange}
           />
         </label>
-        {!isUnexpectedError && errors?.area && (
-          <span style={{ color: "red" }}>{errors.area}</span>
+        {!isUnexpectedError && errors?.departamento && (
+          <span style={{ color: "red" }}>{errors.departamento}</span>
         )}
         <label htmlFor="area" className="flex flex-col">
           <strong>Área: </strong>
@@ -111,8 +108,8 @@ export const InvestigadorCreateForm = () => {
             onChange={handleChange}
           />
         </label>
-        {!isUnexpectedError && errors?.figura && (
-          <span style={{ color: "red" }}>{errors.figura}</span>
+        {!isUnexpectedError && errors?.area && (
+          <span style={{ color: "red" }}>{errors.area}</span>
         )}
         <label htmlFor="figura" className="flex flex-col">
           <strong>Figura: </strong>
@@ -125,6 +122,9 @@ export const InvestigadorCreateForm = () => {
             onChange={handleChange}
           />
         </label>
+        {!isUnexpectedError && errors?.figura && (
+          <span style={{ color: "red" }}>{errors.figura}</span>
+        )}
         <div className="flex justify-around mt-5">
           <Button type="submit">Crear investigador</Button>
         </div>

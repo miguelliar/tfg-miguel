@@ -94,7 +94,7 @@ export const ProyectoCard = ({ proyecto }: { proyecto: ProyectoType }) => {
             )}
             <div className="w-full">
               <h3 className="align-middle">
-                <strong>Descripcion</strong>
+                <strong>Título</strong>
               </h3>
               <p>{proyecto.titulo}</p>
             </div>
