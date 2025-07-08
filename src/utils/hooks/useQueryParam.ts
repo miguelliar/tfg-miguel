@@ -21,6 +21,13 @@ export const useQueryParam = () => {
     router.replace(`${pathname}?${params.toString()}`)
   }
 
+  const pushQueryParam = (key: string, value: string | number) => {
+    const params = new URLSearchParams(searchParams ?? "")
+    params.set(key, value.toString())
+    params.sort()
+    router.push(`${pathname}?${params.toString()}`)
+  }
+
   const getAllQueryParams = (key: string) => {
     const params = new URLSearchParams(searchParams ?? "")
     return params.getAll(key)
@@ -65,6 +72,7 @@ export const useQueryParam = () => {
     getAllQueryParams,
     getQueryParam,
     hasQueryParam,
+    pushQueryParam,
     removeQueryParam,
     setQueryParam,
   }

@@ -3,6 +3,7 @@ import { act, renderHook } from "@testing-library/react"
 import { useQueryParam } from "./useQueryParam"
 
 const mockRouterReplace = jest.fn()
+const mockRouterPush = jest.fn()
 const mockUsePathname = jest.fn()
 const mockUseSearchParams = jest.fn()
 
@@ -13,6 +14,7 @@ jest.mock("next/navigation", () => ({
   useSearchParams: () => mockUseSearchParams(),
   useRouter: () => ({
     replace: mockRouterReplace,
+    push: mockRouterPush,
   }),
 }))
 
@@ -113,6 +115,46 @@ describe("Given the useQueryParam hook", () => {
       expect(mockRouterReplace).toHaveBeenCalledWith(
         `${initialPathname}?page=5`
       )
+    })
+  })
+
+  describe("When pushQueryParam is called", () => {
+    test("Then it should set a new parameter and call router.push with sorted params", () => {
+      setInitialSearchParams("c=3&a=1")
+      const { result } = renderHook(() => useQueryParam())
+
+      act(() => {
+        result.current.pushQueryParam("b", "2")
+      })
+
+      expect(mockRouterPush).toHaveBeenCalledTimes(1)
+      expect(mockRouterPush).toHaveBeenCalledWith(
+        `${initialPathname}?a=1&b=2&c=3`
+      )
+    })
+
+    test("Then it should replace an existing parameter and call router.push with sorted params", () => {
+      setInitialSearchParams("a=1&b=old&c=3")
+      const { result } = renderHook(() => useQueryParam())
+
+      act(() => {
+        result.current.pushQueryParam("b", "new")
+      })
+
+      expect(mockRouterPush).toHaveBeenCalledTimes(1)
+      expect(mockRouterPush).toHaveBeenCalledWith(
+        `${initialPathname}?a=1&b=new&c=3`
+      )
+    })
+
+    test("Then it should handle number values correctly", () => {
+      const { result } = renderHook(() => useQueryParam())
+
+      act(() => {
+        result.current.pushQueryParam("page", 5)
+      })
+
+      expect(mockRouterPush).toHaveBeenCalledWith(`${initialPathname}?page=5`)
     })
   })
 
