@@ -11,11 +11,13 @@ import type { ProyectoValidationErrors } from "@/proyectos/utils"
 import { addProyecto, getProyectoErrors } from "@/proyectos/utils"
 
 export type UseProyectoCreateReturn = {
+  hasSuccessfullyAdded: boolean
   codigo: string
   addedParticipantes: ParticipaType[]
   errors: ProyectoValidationErrors | null | undefined
   handleChange: (e: any) => void
   onSubmit: (e: any) => void
+  onSuccessAccept: () => void
   addParticipa: (participa: Omit<ParticipaType, "codigo">) => void
   removeParticipa: (participa: ParticipaType) => void
 }
@@ -52,6 +54,7 @@ export const useProyectoCreate = (): UseProyectoCreateReturn => {
     inicio: new Date(),
   })
   const [errors, setErrors] = useState<ProyectoValidationErrors | null>(null)
+  const [hasSuccessfullyAdded, setHasSuccessfullyAdded] = useState(false)
   const router = useRouter()
 
   const handleChange = useDebouncedCallback(
@@ -84,8 +87,7 @@ export const useProyectoCreate = (): UseProyectoCreateReturn => {
               // eslint-disable-next-line no-await-in-loop
               await new AddParticipaCommand(participa).execute()
             }
-            // TODO: Please, debug this loop as it's being problematic waiting for the last element and remove this timeout
-            setTimeout(() => router.push("/proyectos"), 1000)
+            setHasSuccessfullyAdded(true)
           })
           .catch(() =>
             setErrors({
@@ -112,12 +114,16 @@ export const useProyectoCreate = (): UseProyectoCreateReturn => {
     )
   }
 
+  const onSuccessAccept = () => router.push("/proyectos")
+
   return {
     codigo: proyecto.codigo,
+    hasSuccessfullyAdded,
     addedParticipantes,
     errors,
     handleChange,
     onSubmit,
+    onSuccessAccept,
     addParticipa,
     removeParticipa,
   }

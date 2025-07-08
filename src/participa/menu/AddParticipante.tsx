@@ -1,8 +1,5 @@
-import {
-  CheckIcon,
-  MagnifyingGlassIcon,
-  PlusIcon,
-} from "@heroicons/react/24/solid"
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid"
+import cx from "classnames"
 
 import { Button, HorizontalCard, Menu, SearchInput } from "@/ui"
 
@@ -37,16 +34,22 @@ export const AddParticipanteCard = ({
   } = useAddParticipante({ codigo, participaAdded })
 
   return (
-    <Menu onClose={onClose}>
+    <Menu
+      onClose={onClose}
+      className={cx("bottom-full", {
+        "right-[-100px]": investigadoresSearched.length > 0,
+        "right-[-58px]": investigadoresSearched.length === 0,
+      })}
+    >
       <div className="w-full">
         <h3>Buscar investigador</h3>
         <div className="relative flex justify-center m-1">
           {
             // eslint-disable-next-line jsx-a11y/label-has-associated-control
             <label htmlFor="search" className="min-w-64">
-              <p className="sr-only">Search</p>
+              <p className="sr-only">Búsqueda</p>
               <SearchInput
-                placeholder="Buscar..."
+                placeholder="Nombre, email..."
                 onChange={(e) => {
                   handleSearch(e.target.value)
                 }}
@@ -69,12 +72,12 @@ export const AddParticipanteCard = ({
                     content={`${investigador.nombre} ${investigador.apellidos}`}
                   >
                     <Button
-                      ariaLabel={`Añadir a ${investigador.nombre} ${investigador.apellidos} como participante`}
+                      ariaLabel={`Seleccionar a ${investigador.nombre} ${investigador.apellidos}`}
                       variant="fill"
                       className="rounded-3xl p-0"
                       onClick={() => setInvestigadorSelected(investigador)}
                     >
-                      <PlusIcon className="h-[20px] w-[20px]" />
+                      <p>Seleccionar</p>
                     </Button>
                   </HorizontalCard>
                 </div>
@@ -94,7 +97,7 @@ export const AddParticipanteCard = ({
               content={`${investigadorSelected.nombre} ${investigadorSelected.apellidos}`}
             >
               <Button
-                ariaLabel="Deseleccionar participante"
+                ariaLabel="Deseleccionar como participante"
                 variant="fill"
                 className="rounded-3xl p-0"
                 onClick={() => {
@@ -102,14 +105,14 @@ export const AddParticipanteCard = ({
                   setNombreDeAutor("")
                 }}
               >
-                <CheckIcon className="h-[20px] w-[20px]" />
+                <p>Deseleccionar</p>
               </Button>
             </HorizontalCard>
             <div className="flex flex-col my-3">
               <fieldset className="flex flex-col">
-                <legend>Seleccionar nombre de autor</legend>
+                <legend>Seleccionar nombre de autor:</legend>
                 {nombresAutorForSelected.length > 0 &&
-                  nombresAutorForSelected.map((nombreAutor) => {
+                  nombresAutorForSelected.map((nombreAutor, index) => {
                     return (
                       <label
                         key={`nombre-autor-option-${nombreAutor}`}
@@ -125,8 +128,9 @@ export const AddParticipanteCard = ({
                           value={nombreAutor}
                           type="radio"
                           required
+                          defaultChecked={index === 0}
                         />
-                        {nombresAutorForSelected}
+                        <span className="ml-2">{nombresAutorForSelected}</span>
                       </label>
                     )
                   })}
@@ -140,8 +144,9 @@ export const AddParticipanteCard = ({
                     name="nombre_autor"
                     value={nombreDeAutor}
                     type="radio"
+                    defaultChecked={nombresAutorForSelected.length === 0}
                   />
-                  Otro
+                  <span className="ml-2">Introducir manualmente</span>
                 </label>
               </fieldset>
               {isOtherSelected && (
@@ -155,8 +160,9 @@ export const AddParticipanteCard = ({
               )}
               <Button
                 type="button"
-                className="mt-3"
+                className="mt-3 flex justify-center"
                 disabled={!nombreDeAutor}
+                variant="fill"
                 onClick={() => {
                   onAdd({
                     email: investigadorSelected?.email,
@@ -165,7 +171,7 @@ export const AddParticipanteCard = ({
                   onClose()
                 }}
               >
-                Seleccionar
+                Añadir participante
               </Button>
             </div>
           </div>

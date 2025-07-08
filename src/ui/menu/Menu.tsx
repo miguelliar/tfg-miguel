@@ -3,20 +3,13 @@
 import cx from "classnames"
 import type { KeyboardEvent } from "react"
 
-type MenuPosition = keyof typeof MENU_POSITION
-
-const MENU_POSITION = {
-  top: "bottom-[80%] right-[-375%]",
-  bottom: "",
-}
-
 export const Menu = ({
   children,
-  position = "top",
+  className,
   onClose,
 }: {
   children: React.ReactNode
-  position?: MenuPosition
+  className?: string
   onClose: () => void
 }) => {
   const wrapperOnKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -31,7 +24,7 @@ export const Menu = ({
     <section
       className={cx(
         "flex flex-col h-fit w-fit absolute overflow-auto bg-secondary px-3 py-6 border rounded-lg border-primary",
-        MENU_POSITION[position]
+        className
       )}
       onClick={(e) => {
         e.stopPropagation()

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 import { useCallback, useEffect, useReducer } from "react"
 
 import { AddParticipaCommand } from "@/participa"
-import type { ErrorMessage, ProyectoToUpload } from "@/proyectos"
+import type { ProyectoToUpload } from "@/proyectos"
 import {
   addAllProyectos,
   fetchParsedProyectos,
@@ -27,10 +27,7 @@ type ProyectoFileUploadFields = {
     previousCodigo: string
   ) => Promise<void>
   onCloseSubmitMessage: () => void
-  onSolveConflict: (
-    updatedProyecto: ProyectoToUpload,
-    errorMessage: ErrorMessage["message"]
-  ) => void
+  onSolveConflict: (updatedProyecto: ProyectoToUpload) => void
   onSubmit: () => void
   submittedStatus: ProyectoFileState["submittedStatus"]
   errorMessage?: string
@@ -75,19 +72,13 @@ export const useProyectoFileUpload = (): ProyectoFileUploadFields => {
         await addAllProyectos(
           mapProyectosToUploadToProyectsType(state.uploadedProyectos)
         )
-        setTimeout(async () => {
-          for (const proyecto of state.uploadedProyectos) {
-            for (const participacion of proyecto.participantes) {
-              // eslint-disable-next-line no-await-in-loop
-              await new AddParticipaCommand(participacion).execute()
-            }
+        for (const proyecto of state.uploadedProyectos) {
+          for (const participacion of proyecto.participantes) {
+            // eslint-disable-next-line no-await-in-loop
+            await new AddParticipaCommand(participacion).execute()
           }
-        }, 1000)
-
-        setTimeout(
-          () => dispatch({ type: ProyectoFileActions.SUBMIT_SUCCESS }),
-          2000
-        )
+        }
+        dispatch({ type: ProyectoFileActions.SUBMIT_SUCCESS })
       } catch (e) {
         dispatch({ type: ProyectoFileActions.SUBMIT_ERROR })
       }
@@ -112,29 +103,10 @@ export const useProyectoFileUpload = (): ProyectoFileUploadFields => {
     [dispatch]
   )
 
-  const onSolveConflict = (
-    updatedProyecto: ProyectoToUpload,
-    errorMessage: ErrorMessage["message"]
-  ) => {
-    // updates state with read error message
-    const updatedProyectos = state.uploadedProyectos.map<ProyectoToUpload>(
-      (proyecto: ProyectoToUpload) => {
-        if (proyecto.codigo !== updatedProyecto.codigo) {
-          return proyecto
-        }
-        return {
-          ...proyecto,
-          messages: {
-            ...proyecto.messages,
-            errors: [
-              ...(proyecto.messages.errors?.filter(
-                (error) => error.message !== errorMessage
-              ) ?? []),
-              { message: errorMessage, read: true },
-            ],
-          },
-        }
-      }
+  const onSolveConflict = (removed: ProyectoToUpload) => {
+    // removes the proyecto
+    const updatedProyectos = state.uploadedProyectos.filter(
+      (proyecto) => proyecto.codigo !== removed.codigo
     )
 
     // dispatches new state with solved error message

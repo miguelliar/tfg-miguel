@@ -13,11 +13,13 @@ import { useProyectoCreate } from "./useProyectoCreate"
 
 export const ProyectoCreate = () => {
   const {
+    hasSuccessfullyAdded,
     codigo,
     addedParticipantes,
     errors,
     handleChange,
     onSubmit,
+    onSuccessAccept,
     addParticipa,
     removeParticipa,
   } = useProyectoCreate()
@@ -40,9 +42,6 @@ export const ProyectoCreate = () => {
       onClick={closeMenuOnClick}
     >
       <form className="flex flex-col gap-2 mx-3" onSubmit={(e) => onSubmit(e)}>
-        {errors?.codigo && (
-          <span style={{ color: "red" }}>{errors.codigo}</span>
-        )}
         <label className="flex flex-col w-full" htmlFor="codigo">
           <strong>Codigo: </strong>
           <input
@@ -54,7 +53,9 @@ export const ProyectoCreate = () => {
             onChange={handleChange}
           />
         </label>
-        {errors?.ip && <span style={{ color: "red" }}>{errors.ip}</span>}
+        {errors?.codigo && (
+          <span style={{ color: "red" }}>{errors.codigo}</span>
+        )}
         <label className="flex flex-col w-full" htmlFor="ip">
           <strong>Investigador Principal: </strong>
           <input
@@ -66,7 +67,7 @@ export const ProyectoCreate = () => {
             onChange={handleChange}
           />
         </label>
-        {errors?.coip && <span style={{ color: "red" }}>{errors.coip}</span>}
+        {errors?.ip && <span style={{ color: "red" }}>{errors.ip}</span>}
         <label className="flex flex-col w-full" htmlFor="coip">
           <strong>Co Investigador Principal: </strong>
           <input
@@ -77,20 +78,18 @@ export const ProyectoCreate = () => {
             onChange={handleChange}
           />
         </label>
-        {errors?.titulo && (
-          <span style={{ color: "red" }}>{errors.titulo}</span>
-        )}
+        {errors?.coip && <span style={{ color: "red" }}>{errors.coip}</span>}
         <label className="flex flex-col w-full" htmlFor="titulo">
-          <strong>Descripcion: </strong>
+          <strong>Título: </strong>
           <textarea
             id="titulo"
             name="titulo"
-            placeholder="Titulo"
+            placeholder="Título"
             onChange={handleChange}
           />
         </label>
-        {errors?.financiado && (
-          <span style={{ color: "red" }}>{errors.financiado}</span>
+        {errors?.titulo && (
+          <span style={{ color: "red" }}>{errors.titulo}</span>
         )}
         <label className="flex flex-col w-full" htmlFor="financiado">
           <strong>Financiado:</strong>
@@ -101,11 +100,8 @@ export const ProyectoCreate = () => {
             onChange={handleChange}
           />
         </label>
-        {errors?.fechaInicio && (
-          <span style={{ color: "red" }}>{errors.fechaInicio}</span>
-        )}
-        {errors?.fechaFin && (
-          <span style={{ color: "red" }}>{errors.fechaFin}</span>
+        {errors?.financiado && (
+          <span style={{ color: "red" }}>{errors.financiado}</span>
         )}
         <div className="flex flex-row justify-around">
           <label htmlFor="inicio">
@@ -131,6 +127,12 @@ export const ProyectoCreate = () => {
             />
           </label>
         </div>
+        {errors?.fechaInicio && (
+          <span style={{ color: "red" }}>{errors.fechaInicio}</span>
+        )}
+        {errors?.fechaFin && (
+          <span style={{ color: "red" }}>{errors.fechaFin}</span>
+        )}
         <div className="flex flex-col justify-start items-center">
           <h2>
             {/* TODO: refactor this together with edit form */}
@@ -183,11 +185,16 @@ export const ProyectoCreate = () => {
           <Button type="submit">Crear proyecto</Button>
         </div>
       </form>
-      {errors?.unexpectedError && isUnexpectedError && (
+      {((errors?.unexpectedError && isUnexpectedError) ||
+        hasSuccessfullyAdded) && (
         <SubmitStatusInfo
-          submittedStatus="error"
-          onCloseSubmitMessage={() => setUnexpectedError(false)}
+          submittedStatus={hasSuccessfullyAdded ? "success" : "error"}
+          onCloseSubmitMessage={() => {
+            if (hasSuccessfullyAdded) onSuccessAccept()
+            else setUnexpectedError(false)
+          }}
           messages={{
+            onSuccess: "Se ha añadido el proyecto satisfactoriamente",
             onFailure:
               "Ha habido un error inesperado al subir los proyectos. Por favor, inténtalo de nuevo",
           }}

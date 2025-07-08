@@ -11,7 +11,7 @@ interface MiniCardProps {
 }
 
 export const ProyectoMiniCard = ({ proyecto }: MiniCardProps) => {
-  const { setQueryParam } = useQueryParam()
+  const { pushQueryParam } = useQueryParam()
 
   return (
     <article className="flex flex-col justify-between border-2 border-primary rounded-md min-h-28">
@@ -38,7 +38,7 @@ export const ProyectoMiniCard = ({ proyecto }: MiniCardProps) => {
       <button
         type="button"
         className="bg-primary text-secondary hover:bg-primary-strong focus:bg-primary-strong transition-all"
-        onClick={() => setQueryParam("codigo", proyecto.codigo)}
+        onClick={() => pushQueryParam("codigo", proyecto.codigo)}
       >
         Ver detalles
       </button>

@@ -13,7 +13,8 @@ export const InvestigadorMiniCard = ({
 }: {
   investigador: InvestigadorMinimumDataType
 }) => {
-  const { appendQueryParam, hasQueryParam, removeQueryParam } = useQueryParam()
+  const { appendQueryParam, pushQueryParam, hasQueryParam, removeQueryParam } =
+    useQueryParam()
 
   const { isSearchProyectosByInvestigadorActive: isSelectable } = useContext(
     SearchProyectoByInvestigadorContext
@@ -56,7 +57,7 @@ export const InvestigadorMiniCard = ({
         <div className="flex flex-row my-1 w-full flex-grow justify-around">
           <Button
             className={buttonStyle}
-            onClick={() => appendQueryParam("email", investigador.email)}
+            onClick={() => pushQueryParam("email", investigador.email)}
             aria-label={`Ver detalles de ${investigador.email}`}
             variant="custom"
           >

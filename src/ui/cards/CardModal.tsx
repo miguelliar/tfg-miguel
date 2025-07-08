@@ -29,7 +29,7 @@ export const CardModal = ({
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
-      className="max-w-screen-2xl max-h-screen h-full w-full fixed top-0 left-0 bg-slate-600/50 z-10"
+      className="max-w-screen max-h-screen h-full w-full fixed top-0 left-0 bg-slate-600/50 z-10"
       onClick={onClose}
       onKeyDown={wrapperOnKeyDown}
     >

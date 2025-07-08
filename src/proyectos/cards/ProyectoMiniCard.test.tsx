@@ -6,10 +6,10 @@ import { ProyectoMiniCard } from "./ProyectoMiniCard"
 
 // --- Mocks ---
 
-const mockSetQueryParam = jest.fn()
+const mockPushQueryParam = jest.fn()
 jest.mock("@/utils/hooks/useQueryParam", () => ({
   useQueryParam: jest.fn(() => ({
-    setQueryParam: mockSetQueryParam,
+    pushQueryParam: mockPushQueryParam,
   })),
 }))
 
@@ -103,12 +103,12 @@ describe("ProyectoMiniCard", () => {
       ).toBeInTheDocument()
     })
 
-    test('setQueryParam function should be called with "codigo" when the "Ver detalles" button is clicked', () => {
+    test('pushQueryParam function should be called with "codigo" when the "Ver detalles" button is clicked', () => {
       const detailsButton = screen.getByRole("button", { name: "Ver detalles" })
       fireEvent.click(detailsButton)
 
-      expect(mockSetQueryParam).toHaveBeenCalledTimes(1)
-      expect(mockSetQueryParam).toHaveBeenCalledWith(
+      expect(mockPushQueryParam).toHaveBeenCalledTimes(1)
+      expect(mockPushQueryParam).toHaveBeenCalledWith(
         "codigo",
         mockProyectoData.codigo
       )

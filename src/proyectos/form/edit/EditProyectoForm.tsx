@@ -1,10 +1,6 @@
 "use client"
 
-import {
-  MinusCircleIcon,
-  PlusCircleIcon,
-  UsersIcon,
-} from "@heroicons/react/24/solid"
+import { MinusCircleIcon, PlusIcon, UsersIcon } from "@heroicons/react/24/solid"
 import type { KeyboardEvent } from "react"
 import { useRef, useState } from "react"
 
@@ -36,6 +32,8 @@ export const EditProyectoForm = ({
     editedProyecto,
     editedParticipaciones,
     errors,
+    hasParticipacionesChanged,
+    hasProyectoChanged,
     handleChange,
     onSubmit,
     addParticipa,
@@ -82,9 +80,6 @@ export const EditProyectoForm = ({
     >
       {unSync && (
         <>
-          {errors.codigo && (
-            <span style={{ color: "red" }}>{errors.codigo}</span>
-          )}
           <label className="flex flex-col w-full" htmlFor="codigo">
             <strong>Codigo Proyecto: </strong>
             <input
@@ -101,9 +96,11 @@ export const EditProyectoForm = ({
               onKeyDown={startingInputOnKeyPress}
             />
           </label>
+          {errors.codigo && (
+            <span style={{ color: "red" }}>{errors.codigo}</span>
+          )}
         </>
       )}
-      {errors.ip && <span style={{ color: "red" }}>{errors.ip}</span>}
       <label className="flex flex-col w-full" htmlFor="ip">
         <strong>Investigador Principal: </strong>
         <input
@@ -120,7 +117,7 @@ export const EditProyectoForm = ({
           onKeyDown={startingInputOnKeyPress}
         />
       </label>
-      {errors.coip && <span style={{ color: "red" }}>{errors.coip}</span>}
+      {errors.ip && <span style={{ color: "red" }}>{errors.ip}</span>}
       <label className="flex flex-col w-full" htmlFor="coip">
         <strong>Co Investigador Principal: </strong>
         <input
@@ -132,23 +129,21 @@ export const EditProyectoForm = ({
           onChange={handleChange}
         />
       </label>
-      {errors.titulo && <span style={{ color: "red" }}>{errors.titulo}</span>}
+      {errors.coip && <span style={{ color: "red" }}>{errors.coip}</span>}
       <label className="flex flex-col w-full" htmlFor="titulo">
         <h3 className="align-middle">
-          <strong>Descripcion: </strong>
+          <strong>Título: </strong>
         </h3>
         <textarea
           className="min-h-28 max-h-72"
           id="titulo"
           name="titulo"
-          placeholder="Titulo"
+          placeholder="Título"
           defaultValue={editedProyecto.titulo}
           onChange={handleChange}
         />
       </label>
-      {errors.financiado && (
-        <span style={{ color: "red" }}>{errors.financiado}</span>
-      )}
+      {errors.titulo && <span style={{ color: "red" }}>{errors.titulo}</span>}
       <label className="flex flex-col w-full" htmlFor="financiado">
         <strong>Financiado:</strong>
         <textarea
@@ -159,11 +154,8 @@ export const EditProyectoForm = ({
           onChange={handleChange}
         />
       </label>
-      {errors.fechaInicio && (
-        <span style={{ color: "red" }}>{errors.fechaInicio}</span>
-      )}
-      {errors.fechaFin && (
-        <span style={{ color: "red" }}>{errors.fechaFin}</span>
+      {errors.financiado && (
+        <span style={{ color: "red" }}>{errors.financiado}</span>
       )}
       <div className="flex flex-row justify-around">
         <label htmlFor="inicio">
@@ -192,6 +184,12 @@ export const EditProyectoForm = ({
           />
         </label>
       </div>
+      {errors.fechaInicio && (
+        <span style={{ color: "red" }}>{errors.fechaInicio}</span>
+      )}
+      {errors.fechaFin && (
+        <span style={{ color: "red" }}>{errors.fechaFin}</span>
+      )}
       <div className="flex flex-col justify-start items-center">
         {/* TODO: refactor this together with create form */}
         <div className="flex flex-row mt-5 gap-2">
@@ -235,24 +233,37 @@ export const EditProyectoForm = ({
             onClick={() => {
               setIsAddingParticipante(true)
             }}
-            variant="minimal"
-            className="rounded-3xl p-0"
+            variant="fill"
+            className="rounded-3xl p-0 mt-4"
             ariaLabel="Añadir participante al proyecto"
           >
-            <PlusCircleIcon className="h-[40px] w-[40px] text-primary bg-secondary rounded-full hover:text-primary-strong" />
+            <PlusIcon className="h-6" />
+            Añadir participante
           </Button>
         </div>
       </div>
       <div className="flex justify-around">
-        <Button type="submit">Editar</Button>
-        <Button
-          type="button"
-          onClick={finishEditMode}
-          onKeyDown={cancelarButtonOnKeyPress}
-          ref={cancelButton}
-        >
-          Cancelar
-        </Button>
+        {unSync ? (
+          (hasParticipacionesChanged || hasProyectoChanged) && (
+            <Button type="submit">Guardar cambios</Button>
+          )
+        ) : (
+          <>
+            <Button variant="fill" type="submit">
+              Guardar cambios
+            </Button>
+            <Button
+              type="button"
+              variant="custom"
+              className="p-2 text-secondary bg-error hover:bg-error-accent"
+              onClick={finishEditMode}
+              onKeyDown={cancelarButtonOnKeyPress}
+              ref={cancelButton}
+            >
+              Cancelar cambios
+            </Button>
+          </>
+        )}
       </div>
     </form>
   )

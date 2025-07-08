@@ -211,8 +211,11 @@ describe("ProyectoCard", () => {
         mockProyecto.codigo
       )
     })
-    expect(queryByText("Participantes")).not.toBeInTheDocument()
+    expect(queryByText("Participantes")).toBeInTheDocument()
     expect(queryByTestId(/horizontal-card-/)).not.toBeInTheDocument()
+    expect(
+      queryByText("El proyecto no tiene participaciones registradas")
+    ).toBeInTheDocument()
   })
 
   it("calls removeQueryParam when CardModal onClose is triggered", async () => {

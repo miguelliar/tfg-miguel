@@ -24,8 +24,10 @@ const validateParameters = (
 }
 
 export const useInvestigadorCreate = (): {
+  hasSuccessfullyAdded: boolean
   errors: InvestigadorValidationErrors | string
   onSubmit: (e: any) => void
+  onSuccessAccept: () => void
   handleChange: (e: any) => void
 } => {
   const [investigador, setInvestigador] = useState({
@@ -40,6 +42,7 @@ export const useInvestigadorCreate = (): {
   const [errors, setErrors] = useState<InvestigadorValidationErrors | string>(
     ""
   )
+  const [hasSuccessfullyAdded, setHasSuccessfullyAdded] = useState(false)
 
   const router = useRouter()
 
@@ -57,7 +60,7 @@ export const useInvestigadorCreate = (): {
     e.preventDefault()
     if (validateParameters(investigador, setErrors)) {
       addInvestigador(investigador)
-        .then(() => router.push("/investigadores"))
+        .then(() => setHasSuccessfullyAdded(true))
         .catch(() =>
           setErrors(
             "Ha habido un problema añadiendo el proyecto. Por favor, inténtalo de nuevo"
@@ -66,5 +69,16 @@ export const useInvestigadorCreate = (): {
     }
   }
 
-  return { errors, onSubmit, handleChange }
+  const onSuccessAccept = () => {
+    router.push("/investigadores")
+    router.refresh()
+  }
+
+  return {
+    hasSuccessfullyAdded,
+    errors,
+    onSubmit,
+    onSuccessAccept,
+    handleChange,
+  }
 }

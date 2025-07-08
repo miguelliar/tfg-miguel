@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 
 import { fetchProyectoByCode } from "@/db"
 import {
@@ -81,6 +81,8 @@ export type EditProyectoFormHookReturn = {
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void
+  hasParticipacionesChanged: boolean
+  hasProyectoChanged: boolean
   onSubmit: (e: any) => void
   addParticipa: (participa: Omit<ParticipaType, "codigo">) => void
   removeParticipa: (participa: ParticipaType) => void
@@ -116,12 +118,18 @@ export const useEditProyectoForm = (
     }))
   }
 
+  const hasProyectoChanged = useMemo(
+    () => JSON.stringify(proyecto) !== JSON.stringify(editedProyecto),
+    [editedProyecto, proyecto]
+  )
+  const hasParticipacionesChanged = useMemo(
+    () =>
+      JSON.stringify(participaciones) !== JSON.stringify(editedParticipaciones),
+    [editedParticipaciones, participaciones]
+  )
+
   const onSubmit = (e: any) => {
     e.preventDefault()
-    const hasProyectoChanged =
-      JSON.stringify(proyecto) !== JSON.stringify(editedProyecto)
-    const hasParticipacionesChanged =
-      JSON.stringify(participaciones) !== JSON.stringify(editedParticipaciones)
     if (hasProyectoChanged || hasParticipacionesChanged) {
       validateParameters(editedProyecto, !!unSync, setErrors).then(
         (isValid) => {
@@ -180,6 +188,8 @@ export const useEditProyectoForm = (
     editedProyecto,
     errors,
     editedParticipaciones,
+    hasParticipacionesChanged,
+    hasProyectoChanged,
     handleChange,
     onSubmit,
     addParticipa,
