@@ -24,7 +24,7 @@ export const ErrorMessageCard = ({
           variant="fill"
           onClick={onDismiss}
         >
-          Eliminar
+          Eliminar Proyecto
         </Button>
       </div>
     </div>
