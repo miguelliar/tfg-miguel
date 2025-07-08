@@ -27,7 +27,7 @@ export const InvestigadorCreateForm = () => {
           <input
             id="email"
             name="email"
-            type="text"
+            type="email"
             required
             // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus
