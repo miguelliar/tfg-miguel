@@ -115,46 +115,53 @@ export const InvestigadorCard = ({
               </h3>
               <p>{investigador.figura}</p>
             </div>
-            {proyectosParticipa.length > 0 && (
-              <>
-                <h3 className="mt-5">
-                  <strong>Nombres de autor</strong>
-                </h3>
-                <ul>
-                  {nombresAutor.map((nombre) => (
-                    <li key={nombre}>{nombre}</li>
-                  ))}
-                </ul>
-                <div className="flex flex-row mt-5">
-                  <DocumentMagnifyingGlassIcon className="w-4" />
-                  <h3>
-                    <strong>Participante en</strong>
-                  </h3>
-                </div>
-                <div className="flex flex-col overflow-auto gap-2">
-                  {proyectosParticipa.map((proyecto) => {
-                    const proyectoCode = new URLSearchParams([
-                      ["codigo", proyecto.codigo],
-                    ])
-                    return (
-                      <HorizontalCard
-                        key={proyecto.codigo}
-                        id={proyecto.codigo}
-                        content={proyecto.titulo}
+            <h3 className="mt-5">
+              <strong>Nombres de autor</strong>
+            </h3>
+            {proyectosParticipa.length > 0 ? (
+              <ul>
+                {nombresAutor.map((nombre) => (
+                  <li key={nombre}>{nombre}</li>
+                ))}
+              </ul>
+            ) : (
+              <p>El investigador no tiene un nombre de autor definido</p>
+            )}
+            <div className="flex flex-row mt-5">
+              <DocumentMagnifyingGlassIcon className="w-4" />
+              <h3>
+                <strong>Participante en</strong>
+              </h3>
+            </div>
+            {proyectosParticipa.length > 0 ? (
+              <div className="flex flex-col overflow-auto gap-2">
+                {proyectosParticipa.map((proyecto) => {
+                  const proyectoCode = new URLSearchParams([
+                    ["codigo", proyecto.codigo],
+                  ])
+                  return (
+                    <HorizontalCard
+                      key={proyecto.codigo}
+                      id={proyecto.codigo}
+                      content={proyecto.titulo}
+                    >
+                      <a
+                        className="text-secondary bg-primary flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-primary outline-2 hover:bg-primary-strong hover:text-secondary"
+                        href={`proyectos?${proyectoCode.toString()}`}
+                        target="_blank"
                       >
-                        <a
-                          className="text-secondary bg-primary flex flex-row text-nowrap max-h-fit rounded-md border p-2 border-primary outline-2 hover:bg-primary-strong hover:text-secondary"
-                          href={`proyectos?${proyectoCode.toString()}`}
-                          target="_blank"
-                        >
-                          Ver
-                          <ArrowTopRightOnSquareIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
-                        </a>
-                      </HorizontalCard>
-                    )
-                  })}
-                </div>
-              </>
+                        Ver
+                        <ArrowTopRightOnSquareIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
+                      </a>
+                    </HorizontalCard>
+                  )
+                })}
+              </div>
+            ) : (
+              <p>
+                No se han encontrado participaciones del investigador en ningún
+                proyecto
+              </p>
             )}
           </div>
         )}

@@ -69,7 +69,10 @@ export const useInvestigadorCreate = (): {
     }
   }
 
-  const onSuccessAccept = () => router.push("/investigadores")
+  const onSuccessAccept = () => {
+    router.push("/investigadores")
+    router.refresh()
+  }
 
   return {
     hasSuccessfullyAdded,
