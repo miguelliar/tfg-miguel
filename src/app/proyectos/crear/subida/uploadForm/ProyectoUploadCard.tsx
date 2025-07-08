@@ -1,16 +1,10 @@
 "use client"
 
-import {
-  ChevronDownIcon,
-  ChevronUpIcon,
-  ExclamationCircleIcon,
-} from "@heroicons/react/24/solid"
+import { ExclamationCircleIcon } from "@heroicons/react/24/solid"
 import cx from "classnames"
-import type { KeyboardEvent } from "react"
-import { useState } from "react"
 
 import type { ParticipaType } from "@/participa"
-import type { ErrorMessage, ProyectoToUpload, ProyectoType } from "@/proyectos"
+import type { ProyectoToUpload, ProyectoType } from "@/proyectos"
 import {
   EditProyectoForm,
   mapProyectoToUploadToProyectType,
@@ -26,10 +20,7 @@ interface ProyectoCardToUploadProps {
     updatedProyecto: ProyectoToUpload,
     previousCodigo: string
   ) => Promise<void>
-  onSolveConflict: (
-    updatedProyecto: ProyectoToUpload,
-    errorMessage: ErrorMessage["message"]
-  ) => void
+  onSolveConflict: (updatedProyecto: ProyectoToUpload) => void
 }
 
 export const ProyectoCardToUpload = ({
@@ -37,16 +28,11 @@ export const ProyectoCardToUpload = ({
   onChangeProyecto,
   onSolveConflict,
 }: ProyectoCardToUploadProps) => {
-  const [isInfoMessagesCollapsed, setIsInfoMessagesCollapsed] = useState(true)
   const errorNumber = proyecto.messages.errors?.length ?? 0
   const warningNumber = proyecto.messages.warnings?.length ?? 0
 
   const activeErrors =
     errorNumber && proyecto.messages.errors?.some((error) => !error.read)
-
-  const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "Enter") setIsInfoMessagesCollapsed(!isInfoMessagesCollapsed)
-  }
 
   return (
     <article
@@ -83,13 +69,7 @@ export const ProyectoCardToUpload = ({
         }}
       />
 
-      <div
-        onKeyDown={onKeyDown}
-        className="flex flex-row bg-highlight-secondary pl-2 border-t w-full border-t-gray-400 rounded-b-md"
-        onClick={() => setIsInfoMessagesCollapsed(!isInfoMessagesCollapsed)}
-        role="button"
-        tabIndex={0}
-      >
+      <div className="flex flex-row bg-highlight-secondary pl-2 border-t w-full border-t-gray-400 rounded-b-md">
         <div className="flex flex-grow w-full justify-center">
           {errorNumber > 0 && (
             <p
@@ -113,27 +93,14 @@ export const ProyectoCardToUpload = ({
             {`${errorNumber > 0 ? "Errores" : ""}${errorNumber && warningNumber ? " y " : ""}${warningNumber ? "Avisos" : ""}`}
           </h3>
         </div>
-        {isInfoMessagesCollapsed ? (
-          <ChevronDownIcon className="mx-2 mt-[2px] h-[20px] w-[20px]" />
-        ) : (
-          <ChevronUpIcon className="mx-2 mt-[2px] h-[20px] w-[20px]" />
-        )}
       </div>
-      <ul
-        className={cx(
-          "flex flex-col gap-4 p-4 bg-highlight-secondary rounded-b-md",
-          {
-            hidden: isInfoMessagesCollapsed,
-            block: !isInfoMessagesCollapsed,
-          }
-        )}
-      >
+      <ul className="flex flex-col gap-4 p-4 bg-highlight-secondary rounded-b-md">
         {proyecto.messages.errors?.map((message) => (
           <li key={`${proyecto.codigo}-${message.message}`}>
             <ErrorMessageCard
               errorMessage={message}
               onDismiss={() => {
-                onSolveConflict(proyecto, message.message)
+                onSolveConflict(proyecto)
               }}
             />
           </li>
