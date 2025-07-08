@@ -1,10 +1,6 @@
 "use client"
 
-import {
-  MinusCircleIcon,
-  PlusCircleIcon,
-  UsersIcon,
-} from "@heroicons/react/24/solid"
+import { MinusCircleIcon, PlusIcon, UsersIcon } from "@heroicons/react/24/solid"
 import type { KeyboardEvent } from "react"
 import { useRef, useState } from "react"
 
@@ -237,11 +233,12 @@ export const EditProyectoForm = ({
             onClick={() => {
               setIsAddingParticipante(true)
             }}
-            variant="minimal"
-            className="rounded-3xl p-0"
+            variant="fill"
+            className="rounded-3xl p-0 mt-4"
             ariaLabel="Añadir participante al proyecto"
           >
-            <PlusCircleIcon className="h-[40px] w-[40px] text-primary bg-secondary rounded-full hover:text-primary-strong" />
+            <PlusIcon className="h-6" />
+            Añadir participante
           </Button>
         </div>
       </div>

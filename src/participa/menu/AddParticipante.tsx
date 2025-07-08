@@ -1,4 +1,5 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid"
+import cx from "classnames"
 
 import { Button, HorizontalCard, Menu, SearchInput } from "@/ui"
 
@@ -33,7 +34,13 @@ export const AddParticipanteCard = ({
   } = useAddParticipante({ codigo, participaAdded })
 
   return (
-    <Menu onClose={onClose}>
+    <Menu
+      onClose={onClose}
+      className={cx("bottom-full", {
+        "right-[-100px]": investigadoresSearched.length > 0,
+        "right-[-58px]": investigadoresSearched.length === 0,
+      })}
+    >
       <div className="w-full">
         <h3>Buscar investigador</h3>
         <div className="relative flex justify-center m-1">

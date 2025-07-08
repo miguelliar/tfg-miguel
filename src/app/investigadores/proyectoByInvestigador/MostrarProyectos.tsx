@@ -86,7 +86,9 @@ export const MostrarProyectos = () => {
           <div className="flex flex-col md:flex-row justify-between mb-6 gap-3">
             <h2 className="text-2xl flex flex-col sm:flex-row">
               Proyectos Encontrados{" "}
-              <span className="text-lg">- {searchedProyectos.length} proyectos encontrados</span>
+              <span className="text-lg">
+                - {searchedProyectos.length} proyectos encontrados
+              </span>
             </h2>
             <Button
               className="w-fit"
