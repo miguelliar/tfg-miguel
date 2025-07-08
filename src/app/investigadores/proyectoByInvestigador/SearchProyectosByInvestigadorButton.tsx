@@ -24,7 +24,7 @@ export const SearchProyectosByInvestigadorButton = () => {
       ariaLabel={`${isActive ? "Iniciar" : "Finalizar"} búsqueda de proyectos por investigador`}
       variant="custom"
     >
-      {isActive ? "Finalizar Búsqueda" : "Iniciar Búsqueda"}
+      {isActive ? "Finalizar Búsqueda" : "Buscar Proyectos"}
       <DocumentMagnifyingGlassIcon className="ml-2 mt-[2px] h-[20px] w-[20px]" />
     </Button>
   )
