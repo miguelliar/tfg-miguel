@@ -7,7 +7,13 @@ import { Button, SubmitStatusInfo } from "@/ui"
 import { useInvestigadorCreate } from "./useInvestigadorCreate"
 
 export const InvestigadorCreateForm = () => {
-  const { errors, onSubmit, handleChange } = useInvestigadorCreate()
+  const {
+    hasSuccessfullyAdded,
+    errors,
+    onSubmit,
+    onSuccessAccept,
+    handleChange,
+  } = useInvestigadorCreate()
 
   const router = useRouter()
 
@@ -123,11 +129,15 @@ export const InvestigadorCreateForm = () => {
           <Button type="submit">Crear investigador</Button>
         </div>
       </form>
-      {isUnexpectedError && errors && (
+      {((isUnexpectedError && errors) || hasSuccessfullyAdded) && (
         <SubmitStatusInfo
-          submittedStatus="error"
-          onCloseSubmitMessage={() => router.refresh()}
+          submittedStatus={hasSuccessfullyAdded ? "success" : "error"}
+          onCloseSubmitMessage={() => {
+            if (hasSuccessfullyAdded) onSuccessAccept()
+            else router.refresh()
+          }}
           messages={{
+            onSuccess: "Se ha añadido el investigador satisfactoriamente",
             onFailure:
               "Ha habido un error inesperado al añadir el investigador. Por favor, inténtalo de nuevo",
           }}

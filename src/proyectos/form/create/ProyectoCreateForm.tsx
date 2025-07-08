@@ -13,11 +13,13 @@ import { useProyectoCreate } from "./useProyectoCreate"
 
 export const ProyectoCreate = () => {
   const {
+    hasSuccessfullyAdded,
     codigo,
     addedParticipantes,
     errors,
     handleChange,
     onSubmit,
+    onSuccessAccept,
     addParticipa,
     removeParticipa,
   } = useProyectoCreate()
@@ -183,11 +185,16 @@ export const ProyectoCreate = () => {
           <Button type="submit">Crear proyecto</Button>
         </div>
       </form>
-      {errors?.unexpectedError && isUnexpectedError && (
+      {((errors?.unexpectedError && isUnexpectedError) ||
+        hasSuccessfullyAdded) && (
         <SubmitStatusInfo
-          submittedStatus="error"
-          onCloseSubmitMessage={() => setUnexpectedError(false)}
+          submittedStatus={hasSuccessfullyAdded ? "success" : "error"}
+          onCloseSubmitMessage={() => {
+            if (hasSuccessfullyAdded) onSuccessAccept()
+            else setUnexpectedError(false)
+          }}
           messages={{
+            onSuccess: "Se ha añadido el proyecto satisfactoriamente",
             onFailure:
               "Ha habido un error inesperado al subir los proyectos. Por favor, inténtalo de nuevo",
           }}
