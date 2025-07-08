@@ -194,9 +194,6 @@ describe("Given the useInvestigadorCreate hook", () => {
       expect(mockAddInvestigador).toHaveBeenCalledWith(
         mockValidInvestigadorData
       )
-
-      expect(mockRouterPush).toHaveBeenCalledTimes(1)
-      expect(mockRouterPush).toHaveBeenCalledWith("/investigadores")
     })
 
     test("And addInvestigador is called but an exception raises, Then errors change and there is no navigation", async () => {

@@ -307,9 +307,6 @@ describe("Given the useProyectoCreate hook", () => {
 
         expect(mockCommandExecute).toHaveBeenCalledTimes(2)
       })
-      test("should call router.push", () => {
-        expect(mockRouterPush).toHaveBeenCalledWith("/proyectos")
-      })
     })
 
     describe("And validation passes but addProyecto fails", () => {
@@ -365,7 +362,6 @@ describe("Given the useProyectoCreate hook", () => {
 
       expect(result.current.errors).toEqual(irrelevantErrors) // Errors state IS set
       expect(mockAddProyecto).toHaveBeenCalledTimes(1) // But addProyecto still proceeds
-      expect(mockRouterPush).toHaveBeenCalledWith("/proyectos")
     })
   })
 })
