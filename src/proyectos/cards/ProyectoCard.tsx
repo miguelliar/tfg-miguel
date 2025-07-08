@@ -120,14 +120,14 @@ export const ProyectoCard = ({ proyecto }: { proyecto: ProyectoType }) => {
                 </p>
               </div>
             </div>
-            {participaciones.length > 0 && (
-              <div>
-                <div className="flex flex-row mt-5 gap-2">
-                  <UsersIcon className="w-4" />
-                  <h3>
-                    <strong>Participantes</strong>
-                  </h3>
-                </div>
+            <div>
+              <div className="flex flex-row mt-5 gap-2">
+                <UsersIcon className="w-4" />
+                <h3>
+                  <strong>Participantes</strong>
+                </h3>
+              </div>
+              {participaciones.length > 0 ? (
                 <div className="flex flex-col overflow-auto items-center gap-2">
                   {participaciones.map((participa) => {
                     const emailDirection = new URLSearchParams([
@@ -152,8 +152,10 @@ export const ProyectoCard = ({ proyecto }: { proyecto: ProyectoType }) => {
                     )
                   })}
                 </div>
-              </div>
-            )}
+              ) : (
+                <p>El proyecto no tiene participaciones registradas</p>
+              )}
+            </div>
           </div>
         )}
       </CardModal>
