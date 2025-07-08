@@ -101,7 +101,12 @@ export const useAddParticipante = ({
   useEffect(() => {
     if (investigadorSelected)
       fetchNombresDeAutor(investigadorSelected.email)
-        .then((nombresAutor) => setNombresAutorForSelected(nombresAutor))
+        .then((nombresAutor) => {
+          setNombresAutorForSelected(nombresAutor)
+          if (nombresAutor.length > 0) {
+            setNombreDeAutor(nombresAutor[0])
+          }
+        })
         .catch(() => setNombresAutorForSelected([] as string[]))
     else setNombresAutorForSelected([])
   }, [investigadorSelected, setNombresAutorForSelected])
